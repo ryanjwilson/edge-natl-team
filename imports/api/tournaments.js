@@ -20,8 +20,9 @@ Meteor.methods({
     }
 
     return Tournaments.insert({
-      eventName: '',
-      eventDate: '',
+      name: '',
+      location: '',
+      date: '',
       weighins: '',
       alternateWeighins: '',
       division: '',
@@ -59,11 +60,15 @@ Meteor.methods({
         type: String,
         min: 1
       },
-      eventName: {
+      name: {
         type: String,
         optional: true
       },
-      eventDate: {
+      location: {
+        type: String,
+        optional: true
+      },
+      date: {
         type: String,
         optional: true
       },
