@@ -2,6 +2,7 @@ import React from 'react';
 import { Accounts } from 'meteor/accounts-base';
 
 import PrivateHeader from './PrivateHeader';
+import TournamentList from './TournamentList';
 
 /*****************************************************************************/
 
@@ -16,7 +17,7 @@ class Dashboard extends React.Component {
         <PrivateHeader title="Dashboard"/>
 
         <div className="page-content">
-          Dashboard content here.
+          <TournamentList/>
         </div>
       </div>
     );
