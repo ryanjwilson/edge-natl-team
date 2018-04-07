@@ -20,6 +20,7 @@ const routes = (
     <Route path="contact" component={Contact}/>
     <Route path="/admin" component={Login} onEnter={onEnterLogin}/>
     <Route path="/dashboard" component={Dashboard} onEnter={onEnterDashboard}/>
+    <Route path="/dashboard/:tournamentId" component={Dashboard} onEnter={onEnterDashboard}/>
     <Route path="*" component={NotFound}/>
   </Router>
 );
