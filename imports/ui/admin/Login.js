@@ -24,13 +24,9 @@ class Login extends React.Component {
 
     this.props.loginWithPassword({ username }, password, (err) => {
       if (err) {
-        this.setState({
-          error: 'Invalid username and/or password.'
-        });
+        this.setState({ error: 'Invalid username and/or password.' });
       } else {
-        this.setState({
-          error: ''
-        });
+        this.setState({ error: '' });
       }
     });
   }

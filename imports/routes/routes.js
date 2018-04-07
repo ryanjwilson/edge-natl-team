@@ -1,6 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import React from 'react';
 import { browserHistory, Route, Router } from 'react-router';
+import { Session } from 'meteor/session';
 
 import Contact from '../ui/Contact';
 import Dashboard from '../ui/admin/Dashboard';
@@ -11,19 +12,6 @@ import Rules from '../ui/Rules';
 import Schedule from '../ui/Schedule';
 
 /*****************************************************************************/
-
-const routes = (
-  <Router history={browserHistory}>
-    <Route path="/" component={Schedule}/>
-    <Route path="/rules" component={Rules}/>
-    <Route path="/faq" component={FAQs}/>
-    <Route path="contact" component={Contact}/>
-    <Route path="/admin" component={Login} onEnter={onEnterLogin}/>
-    <Route path="/dashboard" component={Dashboard} onEnter={onEnterDashboard}/>
-    <Route path="/dashboard/:tournamentId" component={Dashboard} onEnter={onEnterDashboard}/>
-    <Route path="*" component={NotFound}/>
-  </Router>
-);
 
 const onAuthenticationChange = (isAuthenticated) => {
   const pathname = browserHistory.getCurrentLocation().pathname;
@@ -36,12 +24,12 @@ const onAuthenticationChange = (isAuthenticated) => {
   //    the user is currently logged in
   //    the user is trying to access the login page
 
-  if (pathname === '/dashboard' && !isAuthenticated) {
+  if (pathname.includes('/dashboard') && !isAuthenticated) {
     browserHistory.replace('/admin');
-  } else if (pathname === '/admin' && isAuthenticated) {
+  } else if (pathname.includes('/admin') && isAuthenticated) {
     browserHistory.replace('/dashboard');
   }
-}
+};
 
 const onEnterLogin = () => {
   if (Meteor.userId()) {
@@ -54,6 +42,28 @@ const onEnterDashboard = () => {
     browserHistory.replace('/admin');
   }
 };
+
+const onEnterTournament = (nextState) => {
+  console.log('enter tournament page');
+  if (!Meteor.userId()) {
+    browserHistory.replace('/admin');
+  } else {
+    Session.set('selectedTournamentId', nextState.params.tournamentId);
+  }
+};
+
+const routes = (
+  <Router history={browserHistory}>
+    <Route path="/" component={Schedule}/>
+    <Route path="/rules" component={Rules}/>
+    <Route path="/faq" component={FAQs}/>
+    <Route path="contact" component={Contact}/>
+    <Route path="/admin" component={Login} onEnter={onEnterLogin}/>
+    <Route path="/dashboard" component={Dashboard} onEnter={onEnterDashboard}/>
+    <Route path="/dashboard/:tournamentId" component={Dashboard} onEnter={onEnterTournament}/>
+    <Route path="*" component={NotFound}/>
+  </Router>
+);
 
 /*****************************************************************************/
 

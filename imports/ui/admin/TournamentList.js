@@ -2,6 +2,7 @@ import React from 'react';
 import { Meteor } from 'meteor/meteor';
 import { PropTypes } from 'prop-types';
 import { createContainer } from 'meteor/react-meteor-data';
+import { Session } from 'meteor/session';
 
 import EmptyItem from './EmptyItem';
 import Tournament from './Tournament';
@@ -36,9 +37,16 @@ TournamentList.propTypes = {
 export { TournamentList };
 
 export default createContainer(() => {
+  const selectedTournamentId = Session.get('selectedTournamentId');
+
   Meteor.subscribe('tournaments');
 
   return {
-    tournaments: Tournaments.find().fetch()
+    tournaments: Tournaments.find().fetch().map((tournament) => {
+      return {
+        ...tournament,
+        selected: tournament._id === selectedTournamentId
+      };
+    })
   };
 }, TournamentList);

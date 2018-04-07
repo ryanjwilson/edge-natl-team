@@ -2,6 +2,7 @@ import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
 import { Accounts } from 'meteor/accounts-base';
 
+import '../imports/startup/simple-schema-config.js';
 import '../imports/api/tournaments';
 
 ////////////////// SERVER APPLICATION EXECUTION STARTS HERE //////////////////

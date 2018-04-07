@@ -9,7 +9,7 @@ const Tournament = (props) => {
   return (
     <div onClick={() => props.Session.set('selectedTournamentId', props.tournament._id)}>
       <h5>{props.tournament.name || 'Untitled Tournament'}</h5>
-      <p>{props.tournament.date || 'Date'} &middot; {props.tournament.location || 'Location'} &middot; {props.tournament.division || 'Division'}</p>
+      <p>{props.tournament.selected ? 'selected - ' : undefined}{props.tournament.date || 'Date'} &middot; {props.tournament.location || 'Location'} &middot; {props.tournament.division || 'Division'}</p>
     </div>
   );
 };
