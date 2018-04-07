@@ -24,7 +24,7 @@ class TournamentEditor extends React.Component {
       allowance: '',
       year: '',
       season: '',
-      publish: false
+      readyToPublish: false
     };
 
     this.onNameChange = this.onNameChange.bind(this);
@@ -38,7 +38,7 @@ class TournamentEditor extends React.Component {
     this.onYearChange = this.onYearChange.bind(this);
     this.onSeasonChange = this.onSeasonChange.bind(this);
     this.onDelete = this.onDelete.bind(this);
-    this.onTogglePublish = this.onTogglePublish.bind(this);
+    this.onToggleStatus = this.onToggleStatus.bind(this);
   }
 
   onNameChange(e) {
@@ -101,10 +101,10 @@ class TournamentEditor extends React.Component {
     this.props.call('tournaments.update', this.props.tournament._id, { season });
   }
 
-  onTogglePublish() {
-    const publish = !this.props.tournament.publish;
-    this.setState({ publish });
-    this.props.call('tournaments.update', this.props.tournament._id, { publish });
+  onToggleStatus() {
+    const readyToPublish = !this.props.tournament.readyToPublish;
+    this.setState({ readyToPublish });
+    this.props.call('tournaments.update', this.props.tournament._id, { readyToPublish });
   }
 
   onDelete() {
@@ -147,7 +147,7 @@ class TournamentEditor extends React.Component {
           <input value={this.state.allowance} placeholder="Allowance" onChange={this.onAllowanceChange}/>
           <input value={this.state.year} placeholder="Year" onChange={this.onYearChange}/>
           <input value={this.state.season} placeholder="Season" onChange={this.onSeasonChange}/>
-          <button onClick={this.onTogglePublish}>{this.state.publish ? 'Unpublish' : 'Publish'}</button>
+          <button onClick={this.onToggleStatus}>{this.state.readyToPublish ? 'Unstage' : 'Stage'}</button>
           <button onClick={this.onDelete}>Delete</button>
         </div>
       );

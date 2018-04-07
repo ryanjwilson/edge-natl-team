@@ -30,7 +30,7 @@ Meteor.methods({
       allowance: 0,
       year: '',
       season: '',
-      publish: false,
+      readyToPublish: false,
       userId: this.userId,
       updatedAt: moment().valueOf()
     })
@@ -101,7 +101,7 @@ Meteor.methods({
         type: String,
         optional: true
       },
-      publish: {
+      readyToPublish: {
         type: Boolean,
         optional: true
       }
