@@ -30,6 +30,7 @@ Meteor.methods({
       allowance: 0,
       year: '',
       season: '',
+      publish: false,
       userId: this.userId,
       updatedAt: moment().valueOf()
     })
@@ -98,6 +99,10 @@ Meteor.methods({
       },
       season: {
         type: String,
+        optional: true
+      },
+      publish: {
+        type: Boolean,
         optional: true
       }
     }).validate({ _id, ...updates });
