@@ -44,7 +44,6 @@ const onEnterDashboard = () => {
 };
 
 const onEnterTournament = (nextState) => {
-  console.log('enter tournament page');
   if (!Meteor.userId()) {
     browserHistory.replace('/admin');
   } else {
