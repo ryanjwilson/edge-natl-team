@@ -3,6 +3,7 @@ import { Meteor } from 'meteor/meteor';
 import { PropTypes } from 'prop-types';
 import { createContainer } from 'meteor/react-meteor-data';
 
+import EmptyItem from './EmptyItem';
 import Tournament from './Tournament';
 import TournamentListHeader from './TournamentListHeader';
 
@@ -14,6 +15,8 @@ const TournamentList = (props) => {
   return (
     <div>
       <TournamentListHeader/>
+
+      {props.tournaments.length === 0 ? <EmptyItem label="Tournament"/> : undefined}
 
       {props.tournaments.map((tournament) => {
         return <Tournament key={tournament._id} tournament={tournament}/>;
