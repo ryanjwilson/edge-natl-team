@@ -3,6 +3,7 @@ import { createContainer } from 'meteor/react-meteor-data';
 import { Session } from 'meteor/session';
 import { PropTypes } from 'prop-types';
 import { Meteor } from 'meteor/meteor';
+import { browserHistory } from 'react-router';
 
 import { Tournaments } from '../../api/tournaments';
 
@@ -11,6 +12,20 @@ import { Tournaments } from '../../api/tournaments';
 class TournamentEditor extends React.Component {
   constructor(props) {
     super(props);
+
+    this.state = {
+      name: '',
+      location: '',
+      date: '',
+      weighins: '',
+      alternateWeighins: '',
+      division: '',
+      weightClasses: '',
+      allowance: '',
+      year: '',
+      season: '',
+      publish: false
+    };
 
     this.onNameChange = this.onNameChange.bind(this);
     this.onLocationChange = this.onLocationChange.bind(this);
@@ -22,84 +37,118 @@ class TournamentEditor extends React.Component {
     this.onAllowanceChange = this.onAllowanceChange.bind(this);
     this.onYearChange = this.onYearChange.bind(this);
     this.onSeasonChange = this.onSeasonChange.bind(this);
+    this.onDelete = this.onDelete.bind(this);
+    this.onTogglePublish = this.onTogglePublish.bind(this);
   }
 
   onNameChange(e) {
-    this.props.call('tournaments.update', this.props.tournament._id, {
-      name: e.target.value
-    });
+    const name = e.target.value;
+    this.setState({ name });
+    this.props.call('tournaments.update', this.props.tournament._id, { name });
   }
 
   onLocationChange(e) {
-    this.props.call('tournaments.update', this.props.tournament._id, {
-      location: e.target.value
-    });
+    const location = e.target.value;
+    this.setState({ location });
+    this.props.call('tournaments.update', this.props.tournament._id, { location });
   }
 
   onDateChange(e) {
-    this.props.call('tournaments.update', this.props.tournament._id, {
-      date: e.target.value
-    });
+    const date = e.target.value;
+    this.setState({ date });
+    this.props.call('tournaments.update', this.props.tournament._id, { date });
   }
 
   onWeighinsChange(e) {
-    this.props.call('tournaments.update', this.props.tournament._id, {
-      weighins: e.target.value
-    });
+    const weighins = e.target.value;
+    this.setState({ weighins });
+    this.props.call('tournaments.update', this.props.tournament._id, { weighins });
   }
 
   onAlternateWeighinsChange(e) {
-    this.props.call('tournaments.update', this.props.tournament._id, {
-      alternateWeighins: e.target.value
-    });
+    const alternateWeighins = e.target.value;
+    this.setState({ alternateWeighins });
+    this.props.call('tournaments.update', this.props.tournament._id, { alternateWeighins });
   }
 
   onDivisionChange(e) {
-    this.props.call('tournaments.update', this.props.tournament._id, {
-      division: e.target.value
-    });
+    const division = e.target.value;
+    this.setState({ division });
+    this.props.call('tournaments.update', this.props.tournament._id, { division });
   }
 
   onWeightClassesChange(e) {
-    this.props.call('tournaments.update', this.props.tournament._id, {
-      weightClasses: e.target.value
-    });
+    const weightClasses = e.target.value;
+    this.setState({ weightClasses });
+    this.props.call('tournaments.update', this.props.tournament._id, { weightClasses });
   }
 
   onAllowanceChange(e) {
-    this.props.call('tournaments.update', this.props.tournament._id, {
-      allowance: e.target.value
-    });
+    const allowance = e.target.value;
+    this.setState({ allowance });
+    this.props.call('tournaments.update', this.props.tournament._id, { allowance });
   }
 
   onYearChange(e) {
-    this.props.call('tournaments.update', this.props.tournament._id, {
-      year: e.target.value
-    });
+    const year = e.target.value;
+    this.setState({ year });
+    this.props.call('tournaments.update', this.props.tournament._id, { year });
   }
 
   onSeasonChange(e) {
-    this.props.call('tournaments.update', this.props.tournament._id, {
-      season: e.target.value
-    });
+    const season = e.target.value;
+    this.setState({ season });
+    this.props.call('tournaments.update', this.props.tournament._id, { season });
+  }
+
+  onTogglePublish() {
+    const publish = !this.props.tournament.publish;
+    this.setState({ publish });
+    this.props.call('tournaments.update', this.props.tournament._id, { publish });
+  }
+
+  onDelete() {
+    this.props.call('tournaments.remove', this.props.tournament._id);
+    this.props.browserHistory.push('/dashboard');
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    const currTournamentId = this.props.tournament ? this.props.tournament._id : undefined;
+    const prevTournamentId = prevProps.tournament ? prevProps.tournament._id : undefined;
+
+    if (currTournamentId && currTournamentId !== prevTournamentId) {
+      this.setState({
+        name: this.props.tournament.name,
+        location: this.props.tournament.location,
+        date: this.props.tournament.date,
+        weighins: this.props.tournament.weighins,
+        alternateWeighins: this.props.tournament.alternateWeighins,
+        division: this.props.tournament.division,
+        weightClasses: this.props.tournament.weightClasses,
+        allowance: this.props.tournament.allowance,
+        year: this.props.tournament.year,
+        season: this.props.tournament.season,
+        publish: this.props.tournament.publish
+      });
+    }
   }
 
   render() {
     if (this.props.tournament) {
       return (
         <div>
-          <input value={this.props.tournament.name} placeholder="Untitled Tournament" onChange={this.onNameChange}/>
-          <input value={this.props.tournament.location} placeholder="Location" onChange={this.onLocationChange}/>
-          <input value={this.props.tournament.date} placeholder="Date" onChange={this.onDateChange}/>
-          <input value={this.props.tournament.weighins} placeholder="Weigh-ins" onChange={this.onWeighinsChange}/>
-          <input value={this.props.tournament.alternateWeighins} placeholder="Alternate Weigh-ins" onChange={this.onAlternateWeighinsChange}/>
-          <input value={this.props.tournament.division} placeholder="Age Division" onChange={this.onDivisionChange}/>
-          <input value={this.props.tournament.weightClasses} placeholder="Weight Classes" onChange={this.onWeightClassesChange}/>
-          <input value={this.props.tournament.allowance} placeholder="Allowance" onChange={this.onAllowanceChange}/>
-          <input value={this.props.tournament.year} placeholder="Year" onChange={this.onYearChange}/>
-          <input value={this.props.tournament.season} placeholder="Season" onChange={this.onSeasonChange}/>
-          <button>Publish</button>
-          <button>Delete</button>
+          <input value={this.state.name} placeholder="Untitled Tournament" onChange={this.onNameChange}/>
+          <input value={this.state.location} placeholder="Location" onChange={this.onLocationChange}/>
+          <input value={this.state.date} placeholder="Date" onChange={this.onDateChange}/>
+          <input value={this.state.weighins} placeholder="Weigh-ins" onChange={this.onWeighinsChange}/>
+          <input value={this.state.alternateWeighins} placeholder="Alternate Weigh-ins" onChange={this.onAlternateWeighinsChange}/>
+          <input value={this.state.division} placeholder="Age Division" onChange={this.onDivisionChange}/>
+          <input value={this.state.weightClasses} placeholder="Weight Classes" onChange={this.onWeightClassesChange}/>
+          <input value={this.state.allowance} placeholder="Allowance" onChange={this.onAllowanceChange}/>
+          <input value={this.state.year} placeholder="Year" onChange={this.onYearChange}/>
+          <input value={this.state.season} placeholder="Season" onChange={this.onSeasonChange}/>
+          <button onClick={this.onTogglePublish}>{this.state.publish ? 'Unpublish' : 'Publish'}</button>
+          <button onClick={this.onDelete}>Delete</button>
         </div>
       );
     } else {
@@ -112,7 +161,9 @@ class TournamentEditor extends React.Component {
 
 TournamentEditor.propTypes = {
   tournament: PropTypes.object,
-  selectedTournamentId: PropTypes.string
+  selectedTournamentId: PropTypes.string,
+  call: PropTypes.func.isRequired,
+  browserHistory: PropTypes.object.isRequired
 };
 
 /*****************************************************************************/
@@ -125,6 +176,7 @@ export default createContainer(() => {
   return {
     selectedTournamentId,
     tournament: Tournaments.findOne(selectedTournamentId),
-    call: Meteor.call
+    call: Meteor.call,
+    browserHistory
   };
 }, TournamentEditor);
