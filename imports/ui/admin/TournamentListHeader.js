@@ -2,19 +2,29 @@ import React from 'react';
 import { Meteor } from 'meteor/meteor';
 import { PropTypes } from 'prop-types';
 import { createContainer } from 'meteor/react-meteor-data';
+import { Session } from 'meteor/session';
 
 /*****************************************************************************/
 
 const TournamentListHeader = (props) => {
+  const onAddTournament = () => {
+    props.meteorCall('tournaments.insert', (err, res) => {
+      if (res) {
+        props.Session.set('selectedTournamentId', res);
+      }
+    });
+  };
+
   return (
     <div>
-      <button onClick={() => props.meteorCall('tournaments.insert')}>Add Tournament</button>
+      <button onClick={onAddTournament}>Add Tournament</button>
     </div>
   );
 };
 
 TournamentListHeader.propTypes = {
-  meteorCall: PropTypes.func.isRequired
+  meteorCall: PropTypes.func.isRequired,
+  Session: PropTypes.object.isRequired
 };
 
 /*****************************************************************************/
@@ -23,6 +33,7 @@ export { TournamentListHeader };
 
 export default createContainer(() => {
   return {
-    meteorCall: Meteor.call
+    meteorCall: Meteor.call,
+    Session
   };
 }, TournamentListHeader);
