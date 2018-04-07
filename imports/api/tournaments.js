@@ -26,7 +26,7 @@ Meteor.methods({
       weighins: '',
       alternateWeighins: '',
       division: '',
-      weightClasses: [],
+      weightClasses: '',
       allowance: 0,
       year: '',
       season: '',
@@ -85,7 +85,7 @@ Meteor.methods({
         optional: true
       },
       weightClasses: {
-        type: Array,
+        type: String,
         optional: true
       },
       allowance: {
