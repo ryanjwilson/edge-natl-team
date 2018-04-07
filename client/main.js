@@ -16,7 +16,9 @@ import { onAuthenticationChange, routes } from '../imports/routes/routes';
 
 Tracker.autorun(() => {
   const isAuthenticated = !!Meteor.userId();
-  onAuthenticationChange(isAuthenticated);
+  const currentPagePrivacy = Session.get('currentPagePrivacy');
+
+  onAuthenticationChange(isAuthenticated, currentPagePrivacy);
 });
 
 /*
