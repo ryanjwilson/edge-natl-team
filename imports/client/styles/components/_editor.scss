@@ -16,19 +16,45 @@
   padding: $input-spacing;
 }
 
-.editor__body {
-  flex-grow: 1;
+.editor__field {
   font-weight: 300;
   margin-bottom: $large-space;
   outline: none;
   padding: $input-spacing;
   resize: none;
-
-  -webkit-overflow-scrolling: touch;
 }
+
+// .editor__body {
+//   flex-grow: 1;
+//   font-weight: 300;
+//   margin-bottom: $large-space;
+//   outline: none;
+//   padding: $input-spacing;
+//   resize: none;
+//
+//   -webkit-overflow-scrolling: touch;
+// }
 
 .editor__message {
   text-align: center;
   margin: $large-space * 2;
   font-style: italic;
+}
+
+.input-group {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+}
+
+.input-group-member {
+  width: 100%;
+}
+
+.left {
+  margin-right: $space;
+}
+
+.right {
+  margin-left: $space;
 }

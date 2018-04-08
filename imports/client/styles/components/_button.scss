@@ -36,3 +36,14 @@
   text-decoration: underline;
   text-transform: none;
 }
+
+.action-group {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+}
+
+.action-group-member {
+  outline: none;
+  width: 25%;
+}
