@@ -136,8 +136,8 @@ class TournamentEditor extends React.Component {
   render() {
     if (this.props.tournament) {
       return (
-        <div>
-          <input id="name" value={this.state.name} placeholder="Untitled Tournament" onChange={this.onNameChange}/>
+        <div className="editor">
+          <input id="name" className="editor__title" value={this.state.name} placeholder="Untitled Tournament" onChange={this.onNameChange}/>
           <input id="location" value={this.state.location} placeholder="Location" onChange={this.onLocationChange}/>
           <input id="date" value={this.state.date} placeholder="Date" onChange={this.onDateChange}/>
           <input id="weighins" value={this.state.weighins} placeholder="Weigh-ins" onChange={this.onWeighinsChange}/>
@@ -147,13 +147,15 @@ class TournamentEditor extends React.Component {
           <input id="allowance" value={this.state.allowance} placeholder="Allowance" onChange={this.onAllowanceChange}/>
           <input id="year" value={this.state.year} placeholder="Year" onChange={this.onYearChange}/>
           <input id="season" value={this.state.season} placeholder="Season" onChange={this.onSeasonChange}/>
-          <button id="staging-button" onClick={this.onToggleStatus}>{this.state.readyToPublish ? 'Unstage' : 'Stage'}</button>
-          <button id="delete-button" onClick={this.onDelete}>Delete</button>
+          <button id="staging-button" className="button button--secondary" onClick={this.onToggleStatus}>{this.state.readyToPublish ? 'Unstage' : 'Stage'}</button>
+          <button id="delete-button" className="button button--secondary" onClick={this.onDelete}>Delete</button>
         </div>
       );
     } else {
       return (
-        <p>{this.props.selectedTournamentId ? 'Tournament not found.' : 'Select or add a Tournament to get started.'}</p>
+        <div className="editor">
+          <p className="editor__message">{this.props.selectedTournamentId ? 'Tournament not found.' : 'Select or add a Tournament to get started.'}</p>
+        </div>
       );
     }
   }

@@ -7,24 +7,22 @@ import TournamentList from './TournamentList';
 
 /*****************************************************************************/
 
-class Dashboard extends React.Component {
-  constructor(props) {
-    super(props);
-  }
+const Dashboard = () => {
+  return (
+    <div>
+      <PrivateHeader title="Dashboard"/>
 
-  render() {
-    return (
-      <div>
-        <PrivateHeader title="Dashboard"/>
-
-        <div className="page-content">
+      <div className="page-content">
+        <div className="page-content__sidebar">
           <TournamentList/>
+        </div>
+        <div className="page-content__main">
           <TournamentEditor/>
         </div>
       </div>
-    );
-  }
-}
+    </div>
+  );
+};
 
 /*****************************************************************************/
 

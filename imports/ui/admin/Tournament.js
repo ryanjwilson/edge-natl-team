@@ -6,10 +6,12 @@ import { createContainer } from 'meteor/react-meteor-data';
 /*****************************************************************************/
 
 const Tournament = (props) => {
+  const className = props.tournament.selected ? 'item item--selected' : 'item';
+
   return (
-    <div onClick={() => props.Session.set('selectedTournamentId', props.tournament._id)}>
-      <h5>{props.tournament.name || 'Untitled Tournament'}</h5>
-      <p>{props.tournament.selected ? 'selected - ' : undefined}{props.tournament.date || 'Date'} &middot; {props.tournament.location || 'Location'} &middot; {props.tournament.division || 'Division'}</p>
+    <div className={className} onClick={() => props.Session.set('selectedTournamentId', props.tournament._id)}>
+      <h5 className="item__title">{props.tournament.name || 'Untitled Tournament'}</h5>
+      <p className="item__subtitle">{props.tournament.date || 'Date'} &middot; {props.tournament.location || 'Location'} &middot; {props.tournament.division || 'Division'}</p>
     </div>
   );
 };

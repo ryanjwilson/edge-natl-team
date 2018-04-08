@@ -6,9 +6,12 @@ import { createContainer } from 'meteor/react-meteor-data';
 /*****************************************************************************/
 
 const PrivateHeader = (props) => {
+  const navImgSrc = props.isNavOpen ? '/images/x.svg' : '/images/bars.svg';
+  
   return (
     <div className="header">
       <div className="header__content">
+        <img className="header__nav-toggle" src={navImgSrc} onClick={() => props.onNavToggle()}/>
         <h1 className="header__title">{props.title}</h1>
         <button className="button button--link-text" onClick={() => props.onLogout()}>Logout</button>
       </div>
@@ -27,6 +30,8 @@ export { PrivateHeader };
 
 export default createContainer(() => {
   return {
-    onLogout: () => Accounts.logout()
+    onLogout: () => Accounts.logout(),
+    onNavToggle: () => Session.set('isNavOpen', !Session.get('isNavOpen')),
+    isNavOpen: Session.get('isNavOpen')
   };
 }, PrivateHeader);
