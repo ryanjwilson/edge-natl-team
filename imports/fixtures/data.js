@@ -1,0 +1,31 @@
+export const tournaments = [{
+  _id: 'tournamentId1',
+  name: 'Test Duals 1',
+  location: 'Somewhere, NJ',
+  date: 'January 2, 2019',
+  weighins: 'January 1, 2019, at 6:00pm',
+  alternateWeighins: 'January 2, 2019, at 7:00am',
+  division: 'K-6',
+  weightClasses: '55, 60, 65, 70, 75, 80, 85, 90, 95, 100, 105, 112, 119, 127, 136, 144, HWT',
+  allowance: 0,
+  year: 0,
+  season: 'Fall',
+  readyToPublish: false,
+  userId: 'testUserId1',
+  updatedAt: 1518903073299
+},{
+  _id: 'tournamentId2',
+  name: '',
+  location: 'Anywhere, PA',
+  date: 'April 7, 2019',
+  weighins: 'April 6, 2019, at 6:00pm',
+  alternateWeighins: 'April 7, 2019, at 7:00am',
+  division: 'K-8',
+  weightClasses: '55, 60, 65, 70, 75, 80, 85, 90, 95, 100, 105, 112, 119, 127, 136, 144, 152, 165, 175, 185, 200, HWT',
+  allowance: 1,
+  year: 0,
+  season: 'Fall',
+  readyToPublish: true,
+  userId: 'testUserId1',
+  updatedAt: 1518903073299
+}];

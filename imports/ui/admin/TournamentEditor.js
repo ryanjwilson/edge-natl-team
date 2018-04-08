@@ -21,7 +21,7 @@ class TournamentEditor extends React.Component {
       alternateWeighins: '',
       division: '',
       weightClasses: '',
-      allowance: '',
+      allowance: 0,
       year: '',
       season: '',
       readyToPublish: false
@@ -137,18 +137,18 @@ class TournamentEditor extends React.Component {
     if (this.props.tournament) {
       return (
         <div>
-          <input value={this.state.name} placeholder="Untitled Tournament" onChange={this.onNameChange}/>
-          <input value={this.state.location} placeholder="Location" onChange={this.onLocationChange}/>
-          <input value={this.state.date} placeholder="Date" onChange={this.onDateChange}/>
-          <input value={this.state.weighins} placeholder="Weigh-ins" onChange={this.onWeighinsChange}/>
-          <input value={this.state.alternateWeighins} placeholder="Alternate Weigh-ins" onChange={this.onAlternateWeighinsChange}/>
-          <input value={this.state.division} placeholder="Age Division" onChange={this.onDivisionChange}/>
-          <input value={this.state.weightClasses} placeholder="Weight Classes" onChange={this.onWeightClassesChange}/>
-          <input value={this.state.allowance} placeholder="Allowance" onChange={this.onAllowanceChange}/>
-          <input value={this.state.year} placeholder="Year" onChange={this.onYearChange}/>
-          <input value={this.state.season} placeholder="Season" onChange={this.onSeasonChange}/>
-          <button onClick={this.onToggleStatus}>{this.state.readyToPublish ? 'Unstage' : 'Stage'}</button>
-          <button onClick={this.onDelete}>Delete</button>
+          <input id="name" value={this.state.name} placeholder="Untitled Tournament" onChange={this.onNameChange}/>
+          <input id="location" value={this.state.location} placeholder="Location" onChange={this.onLocationChange}/>
+          <input id="date" value={this.state.date} placeholder="Date" onChange={this.onDateChange}/>
+          <input id="weighins" value={this.state.weighins} placeholder="Weigh-ins" onChange={this.onWeighinsChange}/>
+          <input id="alternateWeighins" value={this.state.alternateWeighins} placeholder="Alternate Weigh-ins" onChange={this.onAlternateWeighinsChange}/>
+          <input id="division" value={this.state.division} placeholder="Age Division" onChange={this.onDivisionChange}/>
+          <input id="weightClasses" value={this.state.weightClasses} placeholder="Weight Classes" onChange={this.onWeightClassesChange}/>
+          <input id="allowance" value={this.state.allowance} placeholder="Allowance" onChange={this.onAllowanceChange}/>
+          <input id="year" value={this.state.year} placeholder="Year" onChange={this.onYearChange}/>
+          <input id="season" value={this.state.season} placeholder="Season" onChange={this.onSeasonChange}/>
+          <button id="staging-button" onClick={this.onToggleStatus}>{this.state.readyToPublish ? 'Unstage' : 'Stage'}</button>
+          <button id="delete-button" onClick={this.onDelete}>Delete</button>
         </div>
       );
     } else {
