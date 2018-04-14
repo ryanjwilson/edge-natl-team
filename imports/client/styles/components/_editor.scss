@@ -21,7 +21,6 @@
   margin-bottom: $space * -1;
   outline: none;
   text-align: left;
-  // padding: $input-spacing;
 }
 
 .editor__field {
@@ -33,9 +32,17 @@
 }
 
 .editor__message {
-  text-align: center;
-  margin: $large-space * 2;
   font-style: italic;
+  margin: $large-space * 2;
+  text-align: center;
+}
+
+.editor__published-message {
+  color: green;
+  font-size: $base-font-size;
+  font-style: italic;
+  font-weight: bold;
+  text-align: center;
 }
 
 .input-group, .label-group {

@@ -5,7 +5,7 @@ import { PropTypes } from 'prop-types';
 
 const EmptyItem = (props) => {
   return (
-    <p className="empty-item">Add a {props.label} to get started.</p>
+    <p className="empty-item">No {props.label} to display.</p>
   );
 };
 

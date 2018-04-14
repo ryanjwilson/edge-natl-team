@@ -24,7 +24,7 @@ class TournamentEditor extends React.Component {
       allowance: 0,
       year: '',
       season: '',
-      readyToPublish: false
+      published: false
     };
 
     this.onNameChange = this.onNameChange.bind(this);
@@ -102,9 +102,9 @@ class TournamentEditor extends React.Component {
   }
 
   onToggleStatus() {
-    const readyToPublish = !this.props.tournament.readyToPublish;
-    this.setState({ readyToPublish });
-    this.props.call('tournaments.update', this.props.tournament._id, { readyToPublish });
+    const published = !this.props.tournament.published;
+    this.setState({ published });
+    this.props.call('tournaments.update', this.props.tournament._id, { published });
   }
 
   onDelete() {
@@ -128,7 +128,7 @@ class TournamentEditor extends React.Component {
         allowance: this.props.tournament.allowance,
         year: this.props.tournament.year,
         season: this.props.tournament.season,
-        publish: this.props.tournament.publish
+        published: this.props.tournament.published
       });
     }
   }
@@ -139,45 +139,46 @@ class TournamentEditor extends React.Component {
         <div className="editor">
           <input id="name" className="editor__title" value={this.state.name} placeholder="Untitled Tournament" onChange={this.onNameChange}/>
           <div className="label-group">
-            <label for="location" className="editor__label label-group-member left">Location</label>
-            <label for="date" className="editor__label label-group-member right">Date</label>
+            <label className="editor__label label-group-member left">Location</label>
+            <label className="editor__label label-group-member right">Date</label>
           </div>
           <div className="input-group">
-            <input name="location" className="editor__field input-group-member left" value={this.state.location} placeholder="Location" onChange={this.onLocationChange}/>
-            <input name="date" className="editor__field input-group-member right" value={this.state.date} placeholder="Date" onChange={this.onDateChange}/>
+            <input id="location" name="location" className="editor__field input-group-member left" value={this.state.location} placeholder="Location" onChange={this.onLocationChange}/>
+            <input id="date" name="date" className="editor__field input-group-member right" value={this.state.date} placeholder="Date" onChange={this.onDateChange}/>
           </div>
           <div className="label-group">
-            <label for="weighins" className="editor__label label-group-member left">Weigh-ins</label>
-            <label for="alternateWeighins" className="editor__label label-group-member right">Alternate Weigh-ins</label>
+            <label className="editor__label label-group-member left">Weigh-ins</label>
+            <label className="editor__label label-group-member right">Alternate Weigh-ins</label>
           </div>
           <div className="input-group">
-            <input id="weighins" className="editor__field input-group-member left" value={this.state.weighins} placeholder="Weigh-ins" onChange={this.onWeighinsChange}/>
-            <input id="alternateWeighins" className="editor__field input-group-member right" value={this.state.alternateWeighins} placeholder="Alternate Weigh-ins" onChange={this.onAlternateWeighinsChange}/>
+            <input id="weighins" name="weighins" className="editor__field input-group-member left" value={this.state.weighins} placeholder="Weigh-ins" onChange={this.onWeighinsChange}/>
+            <input id="alternateWeighins" name="alternateWeighins" className="editor__field input-group-member right" value={this.state.alternateWeighins} placeholder="Alternate Weigh-ins" onChange={this.onAlternateWeighinsChange}/>
           </div>
           <div className="label-group">
-            <label for="division" className="editor__label label-group-member left">Age Division</label>
-            <label for="allowance" className="editor__label label-group-member right">Weight Allowance</label>
+            <label className="editor__label label-group-member left">Age Division</label>
+            <label className="editor__label label-group-member right">Weight Allowance</label>
           </div>
           <div className="input-group">
-            <input id="division" className="editor__field input-group-member left" value={this.state.division} placeholder="Age Division" onChange={this.onDivisionChange}/>
-            <input id="allowance" className="editor__field input-group-member right" value={this.state.allowance} placeholder="Allowance" onChange={this.onAllowanceChange}/>
+            <input id="division" name="division" className="editor__field input-group-member left" value={this.state.division} placeholder="Age Division" onChange={this.onDivisionChange}/>
+            <input id="allowance" name="allowance" className="editor__field input-group-member right" value={this.state.allowance} placeholder="Allowance" onChange={this.onAllowanceChange}/>
           </div>
           <div className="label-group">
-            <label for="weightClasses" className="editor__label label-group-member left">Weight Classes</label>
+            <label className="editor__label label-group-member left">Weight Classes</label>
           </div>
           <div className="input-group">
-            <input id="weightClasses" className="editor__field input-group-member" value={this.state.weightClasses} placeholder="Weight Classes" onChange={this.onWeightClassesChange}/>
+            <input id="weightClasses" name="weightClasses" className="editor__field input-group-member" value={this.state.weightClasses} placeholder="Weight Classes" onChange={this.onWeightClassesChange}/>
           </div>
           <div className="label-group">
-            <label for="year" className="editor__label label-group-member left">Year</label>
-            <label for="season" className="editor__label label-group-member right">Season</label>
+            <label className="editor__label label-group-member left">Year</label>
+            <label className="editor__label label-group-member right">Season</label>
           </div>
           <div className="input-group">
-            <input id="year" className="editor__field input-group-member left" value={this.state.year} placeholder="Year" onChange={this.onYearChange}/>
-            <input id="season" className="editor__field input-group-member right" value={this.state.season} placeholder="Season" onChange={this.onSeasonChange}/>
+            <input id="year" name="year" className="editor__field input-group-member left" value={this.state.year} placeholder="Year" onChange={this.onYearChange}/>
+            <input id="season" name="season" className="editor__field input-group-member right" value={this.state.season} placeholder="Season" onChange={this.onSeasonChange}/>
           </div>
           <div className="action-group">
-            <button id="staging-button" className="button button--secondary action-group-member" onClick={this.onToggleStatus}>{this.state.readyToPublish ? 'Unstage' : 'Stage'}</button>
+            <button id="publishing-button" className="button button--secondary action-group-member" onClick={this.onToggleStatus}>{this.state.published ? 'Unpublish' : 'Publish'}</button>
+            {this.state.published ? <div className="editor__published-message">Already Published</div> : undefined}
             <button id="delete-button" className="button button--secondary action-group-member" onClick={this.onDelete}>Delete</button>
           </div>
         </div>

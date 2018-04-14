@@ -40,10 +40,10 @@ if (Meteor.isClient) {
       expect(browserHistory.push).toHaveBeenCalledWith('/dashboard');
     });
 
-    it('should toggle the staging status of a tournament', function() {
+    it('should toggle the published status of a tournament', function() {
       const wrapper = mount(<TournamentEditor browserHistory={browserHistory} call={call} selectedTournamentId={tournaments[0]._id} tournament={tournaments[0]}/>);
-      wrapper.find('#staging-button').simulate('click');
-      expect(call).toHaveBeenCalledWith('tournaments.update', tournaments[0]._id, { readyToPublish: !tournaments[0].readyToPublish });
+      wrapper.find('#publishing-button').simulate('click');
+      expect(call).toHaveBeenCalledWith('tournaments.update', tournaments[0]._id, { published: !tournaments[0].published });
     });
 
     it('should update the tournament name on input change', function() {
@@ -203,7 +203,7 @@ if (Meteor.isClient) {
       expect(wrapper.state('allowance')).toBe(tournaments[0].allowance);
       expect(wrapper.state('year')).toBe(tournaments[0].year);
       expect(wrapper.state('season')).toBe(tournaments[0].season);
-      expect(wrapper.state('readyToPublish')).toBe(tournaments[0].readyToPublish);
+      expect(wrapper.state('published')).toBe(tournaments[0].published);
     });
 
     it('should not set state if tournament property is not provided', function() {
@@ -222,7 +222,7 @@ if (Meteor.isClient) {
       expect(wrapper.state('allowance')).toBe(0);
       expect(wrapper.state('year')).toBe('');
       expect(wrapper.state('season')).toBe('');
-      expect(wrapper.state('readyToPublish')).toBe(false);
+      expect(wrapper.state('published')).toBe(false);
     });
   });
 }

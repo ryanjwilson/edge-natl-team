@@ -17,7 +17,7 @@ const tournament = {
   allowance: 0,
   year: 0,
   season: 'Fall',
-  readyToPublish: false,
+  published: false,
   userId: 'testUserId1',
   updatedAt: 0
 };
@@ -92,7 +92,7 @@ if (Meteor.isServer) {
           allowance: tournament.allowance,
           year: tournament.year,
           season: tournament.season,
-          readyToPublish: tournament.readyToPublish
+          published: tournament.published
         });
       });
 
@@ -117,7 +117,7 @@ if (Meteor.isServer) {
           allowance: tournament.allowance,
           year: tournament.year,
           season: tournament.season,
-          readyToPublish: tournament.readyToPublish
+          published: tournament.published
         });
       });
 
@@ -142,7 +142,7 @@ if (Meteor.isServer) {
           allowance: tournament.allowance,
           year: tournament.year,
           season: tournament.season,
-          readyToPublish: tournament.readyToPublish
+          published: tournament.published
         });
       });
 
@@ -167,7 +167,7 @@ if (Meteor.isServer) {
           allowance: tournament.allowance,
           year: tournament.year,
           season: tournament.season,
-          readyToPublish: tournament.readyToPublish
+          published: tournament.published
         });
       });
 
@@ -192,7 +192,7 @@ if (Meteor.isServer) {
           allowance: tournament.allowance,
           year: tournament.year,
           season: tournament.season,
-          readyToPublish: tournament.readyToPublish
+          published: tournament.published
         });
       });
 
@@ -217,7 +217,7 @@ if (Meteor.isServer) {
           allowance: tournament.allowance,
           year: tournament.year,
           season: tournament.season,
-          readyToPublish: tournament.readyToPublish
+          published: tournament.published
         });
       });
 
@@ -242,7 +242,7 @@ if (Meteor.isServer) {
           allowance: tournament.allowance,
           year: tournament.year,
           season: tournament.season,
-          readyToPublish: tournament.readyToPublish
+          published: tournament.published
         });
       });
 
@@ -267,7 +267,7 @@ if (Meteor.isServer) {
           allowance,
           year: tournament.year,
           season: tournament.season,
-          readyToPublish: tournament.readyToPublish
+          published: tournament.published
         });
       });
 
@@ -292,7 +292,7 @@ if (Meteor.isServer) {
           allowance: tournament.allowance,
           year,
           season: tournament.season,
-          readyToPublish: tournament.readyToPublish
+          published: tournament.published
         });
       });
 
@@ -317,16 +317,16 @@ if (Meteor.isServer) {
           allowance: tournament.allowance,
           year: tournament.year,
           season,
-          readyToPublish: tournament.readyToPublish
+          published: tournament.published
         });
       });
 
       it('should update the publish status of a tournament', function() {
-        const readyToPublish = true;
+        const published = true;
         const _id = tournament._id;
         const userId = tournament.userId;
 
-        Meteor.server.method_handlers['tournaments.update'].apply({ userId }, [ _id, { readyToPublish } ]);
+        Meteor.server.method_handlers['tournaments.update'].apply({ userId }, [ _id, { published } ]);
 
         const t = Tournaments.findOne(_id);
 
@@ -342,7 +342,7 @@ if (Meteor.isServer) {
           allowance: tournament.allowance,
           year: tournament.year,
           season: tournament.season,
-          readyToPublish
+          published
         });
       });
 
@@ -357,7 +357,7 @@ if (Meteor.isServer) {
         const allowance = 0.9;
         const year = 2019;
         const season = 'Winter';
-        const readyToPublish = true;
+        const published = true;
         const _id = tournament._id;
         const userId = tournament.userId;
 
@@ -372,7 +372,7 @@ if (Meteor.isServer) {
           allowance,
           year,
           season,
-          readyToPublish
+          published
         }]);
 
         const t = Tournaments.findOne(_id);
@@ -389,7 +389,7 @@ if (Meteor.isServer) {
           allowance,
           year,
           season,
-          readyToPublish
+          published
         });
       });
 
@@ -407,7 +407,7 @@ if (Meteor.isServer) {
           allowance: 0.9,
           year: 2019,
           season: 'Winter',
-          readyToPublish: true,
+          published: true,
           style: 'Scholastic'
         };
 

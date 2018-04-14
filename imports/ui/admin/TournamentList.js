@@ -16,7 +16,7 @@ const TournamentList = (props) => {
   return (
     <div className="item-list">
       <TournamentListHeader/>
-      {props.tournaments.length === 0 ? <EmptyItem label="Tournament"/> : undefined}
+      {props.tournaments.length === 0 ? <EmptyItem label="Tournaments"/> : undefined}
       {props.tournaments.map((tournament) => {
         return <Tournament key={tournament._id} tournament={tournament}/>;
       })}

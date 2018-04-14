@@ -10,7 +10,7 @@ export const tournaments = [{
   allowance: 0,
   year: 0,
   season: 'Fall',
-  readyToPublish: false,
+  published: false,
   userId: 'testUserId1',
   updatedAt: 1518903073299
 },{
@@ -25,7 +25,7 @@ export const tournaments = [{
   allowance: 1,
   year: 0,
   season: 'Fall',
-  readyToPublish: true,
+  published: true,
   userId: 'testUserId1',
   updatedAt: 1518903073299
 }];
