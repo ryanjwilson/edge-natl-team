@@ -31,6 +31,8 @@ Tracker.autorun(() => {
 
   if (selectedTournamentId) {
     browserHistory.replace(`/dashboard/${selectedTournamentId}`);
+  } else {
+    browserHistory.replace('/dashboard');
   }
 });
 
@@ -38,5 +40,8 @@ Tracker.autorun(() => {
 
 Meteor.startup(() => {
   Session.set('selectedTournamentId', undefined);
+  Session.set('showPublished', true);
+  Session.set('showUnpublished', true);
+
   ReactDOM.render(routes, document.getElementById('app'));
 });

@@ -4,6 +4,8 @@ import { PropTypes } from 'prop-types';
 import { createContainer } from 'meteor/react-meteor-data';
 import { Session } from 'meteor/session';
 
+import TournamentListFilters from './TournamentListFilters';
+
 /*****************************************************************************/
 
 const TournamentListHeader = (props) => {
@@ -18,6 +20,7 @@ const TournamentListHeader = (props) => {
   return (
     <div className="item-list__header">
       <button className="button" onClick={onAddTournament}>Add Tournament</button>
+      <TournamentListFilters/>
     </div>
   );
 };

@@ -178,7 +178,7 @@ class TournamentEditor extends React.Component {
           </div>
           <div className="action-group">
             <button id="publishing-button" className="button button--secondary action-group-member" onClick={this.onToggleStatus}>{this.state.published ? 'Unpublish' : 'Publish'}</button>
-            {this.state.published ? <div className="editor__published-message">Already Published</div> : undefined}
+            {this.state.published ? <div className="editor__published-message">Published</div> : undefined}
             <button id="delete-button" className="button button--secondary action-group-member" onClick={this.onDelete}>Delete</button>
           </div>
         </div>
