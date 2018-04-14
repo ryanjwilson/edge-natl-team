@@ -17,13 +17,11 @@ const TournamentList = (props) => {
   if (props.tournaments) {
     if (props.tournaments.length === 0) {
       Session.set('selectedTournamentId', undefined);
-      // props.browserHistory.push('/dashboard');
     } else if (props.tournaments.length === 1) {
       Session.set('selectedTournamentId', props.tournaments[0]._id);
     } else {
       if (props.tournaments.filter((tournament) => tournament._id === Session.get('selectedTournamentId')).length === 0) {
         Session.set('selectedTournamentId', undefined);
-        // props.browserHistory.push('/dashboard');
       }
     }
   }

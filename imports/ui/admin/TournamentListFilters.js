@@ -25,13 +25,13 @@ class TournamentListFilters extends React.Component {
 
   onTogglePublished(e) {
     const showPublished = e.target.checked;
-    Session.set('showPublished', showPublished);
+    this.props.Session.set('showPublished', showPublished);
     this.setState({ showPublished });
   }
 
   onToggleUnpublished(e) {
     const showUnpublished = e.target.checked;
-    Session.set('showUnpublished', showUnpublished);
+    this.props.Session.set('showUnpublished', showUnpublished);
     this.setState({ showUnpublished });
   }
 
@@ -61,6 +61,7 @@ export default createContainer(() => {
 
   return {
     showPublished,
-    showUnpublished
+    showUnpublished,
+    Session
   };
 }, TournamentListFilters);

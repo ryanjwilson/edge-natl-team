@@ -36,9 +36,19 @@ Tracker.autorun(() => {
   }
 });
 
+/*
+ * Tracks changes in the navigation status, allowing for the mobile-friendly
+ * slide-out navigation panel to take effect.
+ */
+
+Tracker.autorun(() => {
+  document.body.classList.toggle('is-nav-open', Session.get('isNavOpen'));
+});
+
 ////////////////// CLIENT APPLICATION EXECUTION STARTS HERE //////////////////
 
 Meteor.startup(() => {
+  Session.set('isNavOpen', false);
   Session.set('selectedTournamentId', undefined);
   Session.set('showPublished', true);
   Session.set('showUnpublished', true);
