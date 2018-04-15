@@ -11,15 +11,18 @@ const Tournament = (props) => {
   const onTournamentClick = () => {
     props.Session.set('selectedTournamentId', props.tournament._id);
 
-    if (props.Session.get('isNavOpen')) {
+    if (props.isNavOpen) {
       props.Session.set('isNavOpen', false);
     }
   };
 
   return (
-    <div className={className} onClick={onTournamentClick}>
-      <h5 className="item__title">{props.tournament.name || 'Untitled Tournament'}</h5>
-      <p className="item__subtitle">{props.tournament.date || 'Date'} &middot; {props.tournament.location || 'Location'}</p>
+    <div id="tournament" className={className} onClick={onTournamentClick}>
+      <div className="item__text">
+        <h5 className="item__title">{props.tournament.name || 'Untitled Tournament'}</h5>
+        <p className="item__subtitle">{props.tournament.date || 'Date'} &middot; {props.tournament.location || 'Location'}</p>
+      </div>
+      {props.tournament.published ? <div className="item__status"><img src="/images/confirm.png"/></div> : undefined}
     </div>
   );
 };
@@ -35,6 +38,7 @@ export { Tournament };
 
 export default createContainer(() => {
   return {
-    Session
+    Session,
+    isNavOpen: Session.get('isNavOpen')
   };
 }, Tournament);

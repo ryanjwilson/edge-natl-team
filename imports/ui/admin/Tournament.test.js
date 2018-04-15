@@ -21,11 +21,11 @@ if (Meteor.isClient) {
       };
     });
 
-    it('should render tournament name, date, location, and division', function() {
+    it('should render tournament name, date, and location', function() {
       const wrapper = mount(<Tournament tournament={tournaments[0]} Session={Session}/>);
 
       expect(wrapper.find('h5').text()).toBe(tournaments[0].name);
-      expect(wrapper.find('p').text()).toBe('January 2, 2019 · Somewhere, NJ · K-6');
+      expect(wrapper.find('p').text()).toBe('January 2, 2019 · Somewhere, NJ');
     });
 
     it('should set default tournament name if not set', function() {
@@ -37,7 +37,7 @@ if (Meteor.isClient) {
     it('should set session variable on click', function() {
       const wrapper = mount(<Tournament tournament={tournaments[0]} Session={Session}/>);
 
-      wrapper.find('div').simulate('click');
+      wrapper.find('#tournament').simulate('click');
 
       expect(Session.set).toHaveBeenCalledWith('selectedTournamentId', tournaments[0]._id);
     });

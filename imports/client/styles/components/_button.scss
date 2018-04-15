@@ -46,6 +46,8 @@
 }
 
 .action-group button {
+  border-radius: 0.7rem;
+  font-weight: bold;
   outline: none;
   width: 25%;
 }
@@ -55,12 +57,7 @@
   color: black;
 }
 
-.unpublish {
-  background: #FFFF99;
-  color: black;
-}
-
 .delete {
-  background: lightcoral;
-  color: black;
+  background: red;
+  color: white;
 }

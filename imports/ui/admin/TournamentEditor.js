@@ -4,6 +4,7 @@ import { Session } from 'meteor/session';
 import { PropTypes } from 'prop-types';
 import { Meteor } from 'meteor/meteor';
 import { browserHistory } from 'react-router';
+import swal from 'sweetalert';
 
 import { Tournaments } from '../../api/tournaments';
 
@@ -25,7 +26,7 @@ class TournamentEditor extends React.Component {
       year: '',
       season: '',
       published: false,
-      publishClass: 'unpublish',
+      publishClass: '',
       publishText: 'Unpublish'
     };
 
@@ -105,7 +106,7 @@ class TournamentEditor extends React.Component {
 
   onToggleStatus() {
     const published = !this.props.tournament.published;
-    const publishClass = !published ? 'publish' : 'unpublish';
+    const publishClass = !published ? 'publish' : '';
     const publishText = !published ? 'Publish' : 'Unpublish';
 
     this.setState({ published, publishClass, publishText });
@@ -113,8 +114,18 @@ class TournamentEditor extends React.Component {
   }
 
   onDelete() {
-    this.props.call('tournaments.remove', this.props.tournament._id);
-    this.props.browserHistory.push('/dashboard');
+    swal({
+      title: "Are you sure?",
+      text: "After deleting, you cannot undo this action!",
+      icon: "warning",
+      buttons: ["No", "Yes"],
+      dangerMode: true
+    }).then((response) => {
+      if (response) {
+        this.props.call('tournaments.remove', this.props.tournament._id);
+        this.props.browserHistory.push('/dashboard');
+      }
+    });
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -183,7 +194,6 @@ class TournamentEditor extends React.Component {
           </label>
           <div className="action-group">
             <button id="publishing-button" className={"button button--secondary " + this.state.publishClass} onClick={this.onToggleStatus}>{this.state.publishText}</button>
-            {this.state.published ? <div className="editor__published-message">Published</div> : undefined}
             <button id="delete-button" className="button button--secondary delete" onClick={this.onDelete}>Delete</button>
           </div>
         </div>

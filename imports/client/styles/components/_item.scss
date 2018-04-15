@@ -20,6 +20,9 @@
 .item {
   border-left: $item-border-width solid transparent;
   cursor: pointer;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
   padding: $space;
   transition: background-color 0.3s ease, border-left 0.3s ease;
 }
@@ -47,6 +50,15 @@
 .item__subtitle {
   color: $dark-gray;
   margin: 0;
+}
+
+.item__text {
+  float: left;
+}
+
+.item__status img {
+  height: 3rem;
+  width: 3rem;
 }
 
 // Empty Item
