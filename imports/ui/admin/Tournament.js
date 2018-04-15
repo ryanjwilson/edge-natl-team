@@ -19,7 +19,7 @@ const Tournament = (props) => {
   return (
     <div className={className} onClick={onTournamentClick}>
       <h5 className="item__title">{props.tournament.name || 'Untitled Tournament'}</h5>
-      <p className="item__subtitle">{props.tournament.date || 'Date'} &middot; {props.tournament.location || 'Location'} &middot; {props.tournament.division || 'Division'}</p>
+      <p className="item__subtitle">{props.tournament.date || 'Date'} &middot; {props.tournament.location || 'Location'}</p>
     </div>
   );
 };

@@ -1,15 +1,18 @@
 .editor {
   background-color: white;
-  border: 1px solid $grey;
+  border: 1px solid $gray;
   display: flex;
   flex-direction: column;
+  overflow-y: scroll;
   padding: $large-space;
   width: 100%;
+
+  -webkit-overflow-scrolling: touch;
 }
 
 .editor__title {
   border: none;
-  border-bottom: 2px solid $grey;
+  border-bottom: 2px solid $gray;
   font-size: $large-font-size;
   margin-bottom: $large-space;
   outline: none;
@@ -17,10 +20,14 @@
 }
 
 .editor__label {
+  flex-grow: 1;
   font-weight: bold;
-  margin-bottom: $space * -1;
   outline: none;
   text-align: left;
+}
+
+.editor__label p {
+  margin-bottom: 1rem;
 }
 
 .editor__field {
@@ -29,6 +36,7 @@
   outline: none;
   padding: $input-spacing;
   resize: none;
+  width: 100%;
 }
 
 .editor__message {
@@ -39,31 +47,8 @@
 
 .editor__published-message {
   color: green;
-  font-size: $base-font-size;
+  font-size: $base-font-size * 1.5;
   font-style: italic;
   font-weight: bold;
   text-align: center;
-}
-
-.input-group, .label-group {
-  align-items: center;
-  display: flex;
-  justify-content: space-between;
-  flex-grow: 1;
-}
-
-.label-group {
-  flex-grow: 0;
-}
-
-.input-group-member, .label-group-member {
-  width: 100%;
-}
-
-.left {
-  margin-right: $space;
-}
-
-.right {
-  margin-left: $space;
 }

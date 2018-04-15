@@ -41,9 +41,26 @@
   align-items: center;
   display: flex;
   justify-content: space-between;
+  margin-top: $large-space;
+  margin-bottom: $space;
 }
 
-.action-group-member {
+.action-group button {
   outline: none;
   width: 25%;
+}
+
+.publish {
+  background: mediumseagreen;
+  color: black;
+}
+
+.unpublish {
+  background: #FFFF99;
+  color: black;
+}
+
+.delete {
+  background: lightcoral;
+  color: black;
 }

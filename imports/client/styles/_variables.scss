@@ -1,49 +1,79 @@
-// Colors
-$brand-primary: #397ab1;
-$grey: #dddddd;
-$light-grey: #f9f9f9;
-$dark-grey: #777777;
+/*
+ * Coloring scheme for the application.
+ */
 
-// Body
-$body-background-color: #fafafa;
+$primary: #397AB1;
+$gray: #DDDDDD;
+$light-gray: #F9F9F9;
+$dark-gray: #777777;
+
+/*
+ * Body-specific colors and font-families.
+ */
+
+$body-background-color: #FAFAFA;
 $body-default-color: #333333;
 $body-default-font-family: Helvetica, Arial, sans-serif;
 
-// Spacing
+/*
+ * Sizing and spacing values.
+ */
+
 $space: 1.4rem;
 $large-space: 2.8rem;
-$site-max-width: 100rem;
+$site-max-width: 125rem;
 
-// Font sizes
+/*
+ * Font sizes.
+ */
+
 $base-font-size: 1.4rem;
 $large-font-size: 2.2rem;
 
-// Form inputs
-$input-border: $grey;
+/*
+ * Form inputs.
+ */
+
+$input-border: $gray;
 $input-spacing: 1rem;
 
-// Boxed view
-$boxed-view-overlay-bg: $grey;
+/*
+ * Boxed view for Admin login.
+ */
+
+$boxed-view-overlay-bg: $gray;
 $boxed-view-bg: white;
-$boxed-view-border-color: $grey;
+$boxed-view-border-color: $gray;
 
-// Button
-$button-bg: $brand-primary;
+/*
+ * Button styles.
+ */
+
+$button-bg: $primary;
 $button-color: white;
-$button-pill-color: $brand-primary;
-$button-secondary-bg: $light-grey;
-$button-secondary-color: $dark-grey;
-$button-secondary-border-color: $grey;
+$button-pill-color: $primary;
+$button-secondary-bg: $light-gray;
+$button-secondary-color: $dark-gray;
+$button-secondary-border-color: $gray;
 
-// Header
-$header-bg: $brand-primary;
+/*
+ * Header.
+ */
+
+$header-bg: $primary;
 $header-color: white;
-$header-height: 6rem;
+$header-height: 7rem;
 
-// Item
+/*
+ * List items for TournamentList.
+ */
+
 $item-border-width: 4px;
 
-// Page Content
-$page-content-sidebar-width: 30rem;
+/*
+ * Overall page content.
+ */
+
+$page-content-sidebar-width: 30rem;//25vw;
 $page-content-main-width: calc(#{$site-max-width} - #{$page-content-sidebar-width});
 $page-content-height: calc(100vh - #{$header-height});

@@ -2,7 +2,7 @@
 
 .item-list {
   background-color: white;
-  border: 1px solid $grey;
+  border: 1px solid $gray;
   overflow-y: scroll;
   width: 100%;
 
@@ -25,13 +25,13 @@
 }
 
 .item:hover {
-  background-color: $light-grey;
-  border-left: $item-border-width solid $grey;
+  background-color: $light-gray;
+  border-left: $item-border-width solid $gray;
 }
 
 .item--selected, .item--selected:hover {
-  background-color: $light-grey;
-  border-left: $item-border-width solid $brand-primary;
+  background-color: $light-gray;
+  border-left: $item-border-width solid $primary;
 }
 
 .item__title {
@@ -45,7 +45,7 @@
 }
 
 .item__subtitle {
-  color: $dark-grey;
+  color: $dark-gray;
   margin: 0;
 }
 

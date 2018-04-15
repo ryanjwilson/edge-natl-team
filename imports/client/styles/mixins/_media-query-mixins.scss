@@ -1,5 +1,9 @@
-@mixin desktop {
-  @media (min-width: 50rem) {
+/*
+ * Mobile-friendly styling mixin.
+ */
+
+@mixin mobile {
+  @media (max-width: 50rem) {
     @content;
   }
 }

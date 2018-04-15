@@ -18,11 +18,12 @@
 }
 
 .header__nav-toggle {
-  cursor: pointer;
-  height: 2rem;
-  width: 2rem;
+  display: none;
 
-  @include desktop {
-    display: none;
-  }
+  // @include mobile {
+  //   cursor: pointer;
+  //   display: flex;
+  //   height: 2rem;
+  //   width: 2rem;
+  // }
 }
