@@ -119,6 +119,7 @@ export class TournamentEditor extends React.Component {
           text: "Cancel",
           value: null,
           visible: true,
+          className: "button--cancel",
           closeModal: true
         },
         confirm: {
@@ -131,7 +132,6 @@ export class TournamentEditor extends React.Component {
       }
     }).then((response) => {
       if (response) {
-        // const published = !this.props.tournament.published;
         const publishClass = !published ? 'button--publish' : 'button--unpublish';
         const publishText = !published ? 'Publish' : 'Unpublish';
 
@@ -139,13 +139,6 @@ export class TournamentEditor extends React.Component {
         this.props.call('tournaments.update', this.props.tournament._id, { published });
       }
     });
-
-    // const published = !this.props.tournament.published;
-    // const publishClass = !published ? 'button--publish' : 'button--unpublish';
-    // const publishText = !published ? 'Publish' : 'Unpublish';
-    //
-    // this.setState({ published, publishClass, publishText });
-    // this.props.call('tournaments.update', this.props.tournament._id, { published });
   }
 
   onDelete() {
@@ -153,8 +146,22 @@ export class TournamentEditor extends React.Component {
       title: "Are you sure?",
       text: "After deleting, you cannot undo this action!",
       icon: "warning",
-      buttons: ["No", "Yes"],
-      dangerMode: true
+      buttons: {
+        cancel: {
+          text: "Cancel",
+          value: null,
+          visible: true,
+          className: "button--cancel",
+          closeModal: true
+        },
+        confirm: {
+          text: "Delete",
+          value: true,
+          visible: true,
+          className: "button--delete",
+          closeModal: true
+        }
+      }
     }).then((response) => {
       if (response) {
         this.props.call('tournaments.remove', this.props.tournament._id);

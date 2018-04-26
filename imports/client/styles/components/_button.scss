@@ -10,10 +10,6 @@
   padding: $input-spacing;
 }
 
-.test1 {
-  background-color: green;
-}
-
 .button--add {
   background-color: $button-bg;
   border: none;
@@ -48,6 +44,10 @@
   background-color: $dark-gray;
 }
 
+.button--cancel {
+  background-color: $medium-gray;
+}
+
 .button--delete {
   background-color: $dark-red;
 }
@@ -64,7 +64,11 @@
   background-color: darken($dark-gray, 5);
 }
 
-.button--delete:hover, .swal-button--danger {
+.button--cancel:hover {
+  background-color: darken($medium-gray, 5);
+}
+
+.button--delete:hover {
   background-color: darken($dark-red, 5);
 }
 
