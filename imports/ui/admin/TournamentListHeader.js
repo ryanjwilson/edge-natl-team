@@ -19,7 +19,7 @@ const TournamentListHeader = (props) => {
 
   return (
     <div className="item-list__header">
-      <button className="button" onClick={onAddTournament}>Add Tournament</button>
+      <button className="button--add" onClick={onAddTournament}>Add Tournament</button>
       <TournamentListFilters/>
     </div>
   );

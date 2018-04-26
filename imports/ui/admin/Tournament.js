@@ -3,9 +3,9 @@ import { PropTypes } from 'prop-types';
 import { Session } from 'meteor/session';
 import { createContainer } from 'meteor/react-meteor-data';
 
-/*****************************************************************************/
+///////////////////////////////////////////////////////////////////////////////
 
-const Tournament = (props) => {
+export const Tournament = (props) => {
   const className = props.tournament.selected ? 'item item--selected' : 'item';
 
   const onTournamentClick = () => {
@@ -27,14 +27,14 @@ const Tournament = (props) => {
   );
 };
 
+///////////////////////////////////////////////////////////////////////////////
+
 Tournament.propTypes = {
   tournament: PropTypes.object.isRequired,
   Session: PropTypes.object.isRequired
 };
 
-/*****************************************************************************/
-
-export { Tournament };
+///////////////////////////////////////////////////////////////////////////////
 
 export default createContainer(() => {
   return {

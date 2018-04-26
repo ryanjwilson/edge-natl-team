@@ -7,7 +7,7 @@ import Adapter from 'enzyme-adapter-react-16';
 import { TournamentListHeader } from './TournamentListHeader';
 import { tournaments } from '../../fixtures/data';
 
-/*****************************************************************************/
+///////////////////////////////////////////////////////////////////////////////
 
 configure({ adapter: new Adapter() });
 

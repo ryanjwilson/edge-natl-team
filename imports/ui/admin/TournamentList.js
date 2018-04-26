@@ -3,17 +3,15 @@ import { Meteor } from 'meteor/meteor';
 import { PropTypes } from 'prop-types';
 import { createContainer } from 'meteor/react-meteor-data';
 import { Session } from 'meteor/session';
-// import { browserHistory } from 'react-router';
 
 import EmptyItem from './EmptyItem';
 import Tournament from './Tournament';
 import TournamentListHeader from './TournamentListHeader';
-
 import { Tournaments } from '../../api/tournaments';
 
-/*****************************************************************************/
+///////////////////////////////////////////////////////////////////////////////
 
-const TournamentList = (props) => {
+export const TournamentList = (props) => {
   if (props.tournaments) {
     if (props.tournaments.length === 0) {
       Session.set('selectedTournamentId', undefined);
@@ -37,13 +35,13 @@ const TournamentList = (props) => {
   );
 };
 
+///////////////////////////////////////////////////////////////////////////////
+
 TournamentList.propTypes = {
   tournaments: PropTypes.array.isRequired
 };
 
-/*****************************************************************************/
-
-export { TournamentList };
+///////////////////////////////////////////////////////////////////////////////
 
 export default createContainer(() => {
   const selectedTournamentId = Session.get('selectedTournamentId');
@@ -60,7 +58,6 @@ export default createContainer(() => {
           selected: tournament._id === selectedTournamentId
         };
       })
-      // browserHistory
     };
   } else if (showPublished || showUnpublished) {
     return {
@@ -72,21 +69,10 @@ export default createContainer(() => {
           selected: tournament._id === selectedTournamentId
         }
       })
-      // browserHistory
     };
   } else {
     return {
       tournaments: []
-      // browserHistory
     };
   }
-
-  // return {
-  //   tournaments: Tournaments.find().fetch().map((tournament) => {
-  //     return {
-  //       ...tournament,
-  //       selected: tournament._id === selectedTournamentId
-  //     };
-  //   })
-  // };
 }, TournamentList);

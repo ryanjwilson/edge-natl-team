@@ -5,9 +5,9 @@ import PrivateHeader from './PrivateHeader';
 import TournamentEditor from './TournamentEditor';
 import TournamentList from './TournamentList';
 
-/*****************************************************************************/
+///////////////////////////////////////////////////////////////////////////////
 
-const Dashboard = () => {
+export default Dashboard = () => {
   return (
     <div>
       <PrivateHeader title="Dashboard"/>
@@ -23,7 +23,3 @@ const Dashboard = () => {
     </div>
   );
 };
-
-/*****************************************************************************/
-
-export default Dashboard;

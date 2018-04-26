@@ -2,16 +2,18 @@
  * Coloring scheme for the application.
  */
 
-$primary: #397AB1;
-$gray: #DDDDDD;
-$light-gray: #F9F9F9;
-$dark-gray: #777777;
+$primary: #397ab1;
+$gray: #dddddd;
+$light-gray: #f9f9f9;
+$dark-gray: #909090;
+$dark-green: #2e8b57;
+$dark-red: #e64942;
 
 /*
  * Body-specific colors and font-families.
  */
 
-$body-background-color: #FAFAFA;
+$body-background-color: #fafafa;
 $body-default-color: #333333;
 $body-default-font-family: Helvetica, Arial, sans-serif;
 
@@ -41,23 +43,18 @@ $input-spacing: 1rem;
  * Boxed view for Admin login.
  */
 
-$boxed-view-overlay-bg: $gray;
 $boxed-view-bg: white;
 $boxed-view-border-color: $gray;
 
 /*
- * Button styles.
+ * Button backgrounds and colors.
  */
 
 $button-bg: $primary;
 $button-color: white;
-$button-pill-color: $primary;
-$button-secondary-bg: $light-gray;
-$button-secondary-color: $dark-gray;
-$button-secondary-border-color: $gray;
 
 /*
- * Header.
+ * Page header background, color, and size.
  */
 
 $header-bg: $primary;
@@ -74,6 +71,6 @@ $item-border-width: 4px;
  * Overall page content.
  */
 
-$page-content-sidebar-width: 30rem;//25vw;
+$page-content-sidebar-width: 30rem;
 $page-content-main-width: calc(#{$site-max-width} - #{$page-content-sidebar-width});
 $page-content-height: calc(100vh - #{$header-height});

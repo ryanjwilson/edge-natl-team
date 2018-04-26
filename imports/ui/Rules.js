@@ -1,8 +1,8 @@
 import React from 'react';
 
-/*****************************************************************************/
+///////////////////////////////////////////////////////////////////////////////
 
-class Rules extends React.Component {
+export default class Rules extends React.Component {
   render() {
     return (
       <div>
@@ -11,7 +11,3 @@ class Rules extends React.Component {
     )
   }
 }
-
-/*****************************************************************************/
-
-export default Rules;

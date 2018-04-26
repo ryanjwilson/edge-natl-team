@@ -7,7 +7,7 @@ import Adapter from 'enzyme-adapter-react-16';
 import { TournamentEditor } from './TournamentEditor';
 import { tournaments } from '../../fixtures/data';
 
-/*****************************************************************************/
+///////////////////////////////////////////////////////////////////////////////
 
 configure({ adapter: new Adapter() });
 
@@ -42,7 +42,7 @@ if (Meteor.isClient) {
 
     it('should toggle the published status of a tournament', function() {
       const wrapper = mount(<TournamentEditor browserHistory={browserHistory} call={call} selectedTournamentId={tournaments[0]._id} tournament={tournaments[0]}/>);
-      wrapper.find('#publishing-button').simulate('click');
+      wrapper.find('#publish-button').simulate('click');
       expect(call).toHaveBeenCalledWith('tournaments.update', tournaments[0]._id, { published: !tournaments[0].published });
     });
 
