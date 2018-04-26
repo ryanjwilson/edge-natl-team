@@ -4,32 +4,71 @@
   color: $button-color;
   cursor: pointer;
   font-size: $base-font-size;
-  line-height: 1.2;
+  line-height: 1.4;
   margin-bottom: $space;
+  outline: none;
+  padding: $input-spacing;
+}
+
+.test1 {
+  background-color: green;
+}
+
+.button--add {
+  background-color: $button-bg;
+  border: none;
+  color: $button-color;
+  cursor: pointer;
+  font-size: $base-font-size;
+  line-height: 1.4;
+  margin-bottom: $space;
+  outline: none;
   padding: $input-spacing;
   text-transform: uppercase;
 }
 
+.button--editor {
+  background-color: $gray;
+  border: none;
+  border-radius: 5px;
+  box-shadow: none;
+  color: #ffffff;
+  cursor: pointer;
+  font-size: $base-font-size;
+  font-weight: 600;
+  margin: 0;
+  padding: $input-spacing;
+}
+
+.button--publish {
+  background-color: $dark-green;
+}
+
+.button--unpublish {
+  background-color: $dark-gray;
+}
+
+.button--delete {
+  background-color: $dark-red;
+}
+
+.button--add:hover {
+  background-color: darken($button-bg, 5);
+}
+
+.button--publish:hover {
+  background-color: darken($dark-green, 5);
+}
+
+.button--unpublish:hover {
+  background-color: darken($dark-gray, 5);
+}
+
+.button--delete:hover, .swal-button--danger {
+  background-color: darken($dark-red, 5);
+}
+
 .button--link {
-  display: inline-block;
-  text-decoration: none;
-}
-
-.button--pill {
-  background-color: transparent;
-  border: 1px solid $button-pill-color;
-  color: $button-pill-color;
-  margin: 0 ($space / 2) 0 0;
-  padding: .3rem .8rem;
-}
-
-.button--secondary {
-  background: $button-secondary-bg;
-  border: 1px solid $button-secondary-border-color;
-  color: $button-secondary-color;
-}
-
-.button--link-text {
   background: none;
   margin: 0;
   padding: 0;
@@ -42,22 +81,12 @@
   display: flex;
   justify-content: space-between;
   margin-top: $large-space;
-  margin-bottom: $space;
 }
 
 .action-group button {
   border-radius: 0.7rem;
   font-weight: bold;
+  margin-bottom: $large-space;
   outline: none;
   width: 25%;
-}
-
-.publish {
-  background: mediumseagreen;
-  color: black;
-}
-
-.delete {
-  background: red;
-  color: white;
 }

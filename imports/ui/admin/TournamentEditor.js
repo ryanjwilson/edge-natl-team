@@ -8,9 +8,9 @@ import swal from 'sweetalert';
 
 import { Tournaments } from '../../api/tournaments';
 
-/*****************************************************************************/
+///////////////////////////////////////////////////////////////////////////////
 
-class TournamentEditor extends React.Component {
+export class TournamentEditor extends React.Component {
   constructor(props) {
     super(props);
 
@@ -26,7 +26,7 @@ class TournamentEditor extends React.Component {
       year: '',
       season: '',
       published: false,
-      publishClass: '',
+      publishClass: 'button--unpublish',
       publishText: 'Unpublish'
     };
 
@@ -106,11 +106,46 @@ class TournamentEditor extends React.Component {
 
   onToggleStatus() {
     const published = !this.props.tournament.published;
-    const publishClass = !published ? 'publish' : '';
-    const publishText = !published ? 'Publish' : 'Unpublish';
+    const buttonText = published ? "Publish" : "Unpublish";
+    const cssClass = published ? "button--publish" : "button--unpublish";
+    const message = published ? "This tournament will become visible to the public!" : "This tournament will no longer be visible to the public!";
 
-    this.setState({ published, publishClass, publishText });
-    this.props.call('tournaments.update', this.props.tournament._id, { published });
+    swal({
+      title: "Are you sure?",
+      text: message,
+      icon: "warning",
+      buttons: {
+        cancel: {
+          text: "Cancel",
+          value: null,
+          visible: true,
+          closeModal: true
+        },
+        confirm: {
+          text: buttonText,
+          value: true,
+          visible: true,
+          className: cssClass,
+          closeModal: true
+        }
+      }
+    }).then((response) => {
+      if (response) {
+        // const published = !this.props.tournament.published;
+        const publishClass = !published ? 'button--publish' : 'button--unpublish';
+        const publishText = !published ? 'Publish' : 'Unpublish';
+
+        this.setState({ published, publishClass, publishText });
+        this.props.call('tournaments.update', this.props.tournament._id, { published });
+      }
+    });
+
+    // const published = !this.props.tournament.published;
+    // const publishClass = !published ? 'button--publish' : 'button--unpublish';
+    // const publishText = !published ? 'Publish' : 'Unpublish';
+    //
+    // this.setState({ published, publishClass, publishText });
+    // this.props.call('tournaments.update', this.props.tournament._id, { published });
   }
 
   onDelete() {
@@ -145,7 +180,7 @@ class TournamentEditor extends React.Component {
         year: this.props.tournament.year,
         season: this.props.tournament.season,
         published: this.props.tournament.published,
-        publishClass: this.props.tournament.published ? 'unpublish' : 'publish',
+        publishClass: this.props.tournament.published ? 'button--unpublish' : 'button--publish',
         publishText: this.props.tournament.published ? 'Unpublish' : 'Publish'
       });
     }
@@ -193,8 +228,8 @@ class TournamentEditor extends React.Component {
             <input id="season" name="season" className="editor__field" value={this.state.season} placeholder="Season" onChange={this.onSeasonChange}/>
           </label>
           <div className="action-group">
-            <button id="publishing-button" className={"button button--secondary " + this.state.publishClass} onClick={this.onToggleStatus}>{this.state.publishText}</button>
-            <button id="delete-button" className="button button--secondary delete" onClick={this.onDelete}>Delete</button>
+            <button id="publish-button" className={"button button--editor " + this.state.publishClass} onClick={this.onToggleStatus}>{this.state.publishText}</button>
+            <button id="delete-button" className="button button--editor button--delete" onClick={this.onDelete}>Delete</button>
           </div>
         </div>
       );
@@ -208,6 +243,8 @@ class TournamentEditor extends React.Component {
   }
 }
 
+///////////////////////////////////////////////////////////////////////////////
+
 TournamentEditor.propTypes = {
   tournament: PropTypes.object,
   selectedTournamentId: PropTypes.string,
@@ -215,9 +252,7 @@ TournamentEditor.propTypes = {
   browserHistory: PropTypes.object.isRequired
 };
 
-/*****************************************************************************/
-
-export { TournamentEditor };
+///////////////////////////////////////////////////////////////////////////////
 
 export default createContainer(() => {
   const selectedTournamentId = Session.get('selectedTournamentId');
