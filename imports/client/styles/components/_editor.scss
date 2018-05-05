@@ -1,6 +1,6 @@
 .editor {
   background-color: white;
-  border: 1px solid $gray;
+  border: 0.1rem solid $gray;
   display: flex;
   flex-direction: column;
   overflow-y: scroll;
@@ -12,7 +12,7 @@
 
 .editor__title {
   border: none;
-  border-bottom: 2px solid $gray;
+  border-bottom: 0.2rem solid $gray;
   font-size: $large-font-size;
   margin-bottom: $large-space;
   outline: none;

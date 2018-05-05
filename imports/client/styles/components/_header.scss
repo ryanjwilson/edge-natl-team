@@ -27,3 +27,49 @@
   //   width: 2rem;
   // }
 }
+
+.header__menu {
+  align-items: center;
+  cursor: pointer;
+  display: flex;
+}
+
+.header__avatar {
+  height: 3.5rem;
+  margin-right: 0.75rem;
+  width: 3.5rem;
+}
+
+.header__arrow {
+  border: solid $medium-gray;
+  border-width: 0 0.3rem 0.3rem 0;
+  display: inline-block;
+  padding: 0.25rem;
+  transform: rotate(45deg);
+
+  -webkit-transform: rotate(45deg);
+}
+
+.header__slideout {
+  background-color: $light-gray;
+  box-shadow: 0rem 0.6rem 1.2rem 0rem rgba(0, 0, 0, 0.2);
+  display: none;
+  min-width: 20rem;
+  position: absolute;
+  left: $site-max-width;
+  top: $header-height;
+  z-index: 1;
+}
+
+.header__slideout a {
+  color: black;
+  display: block;
+  float: none;
+  padding: 1.2rem 1.6rem;
+  text-align: left;
+  text-decoration: none;
+}
+
+.header__menu:hover .header__slideout {
+  display: block;
+}

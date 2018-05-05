@@ -11,8 +11,8 @@ export const Tournament = (props) => {
   const onTournamentClick = () => {
     props.Session.set('selectedTournamentId', props.tournament._id);
 
-    if (props.isNavOpen) {
-      props.Session.set('isNavOpen', false);
+    if (props.isLeftNavOpen) {
+      props.Session.set('isLeftNavOpen', false);
     }
   };
 
@@ -39,6 +39,6 @@ Tournament.propTypes = {
 export default createContainer(() => {
   return {
     Session,
-    isNavOpen: Session.get('isNavOpen')
+    isLeftNavOpen: Session.get('isLeftNavOpen')
   };
 }, Tournament);

@@ -48,7 +48,8 @@ Tracker.autorun(() => {
 ////////////////// CLIENT APPLICATION EXECUTION STARTS HERE //////////////////
 
 Meteor.startup(() => {
-  Session.set('isNavOpen', false);
+  Session.set('isLeftNavOpen', false);              // items list (mobile only)
+  Session.set('isRightNavOpen', false);             // menu (desktop and mobile)
   Session.set('selectedTournamentId', undefined);
   Session.set('showPublished', true);
   Session.set('showUnpublished', true);

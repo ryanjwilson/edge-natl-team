@@ -3,7 +3,7 @@
   height: $page-content-height;
   margin: 0 auto;
   padding: $large-space $space $large-space $space;
-  width: $site-max-width;
+  max-width: $site-max-width;
 
   // @include mobile {
   //   padding: 0;
