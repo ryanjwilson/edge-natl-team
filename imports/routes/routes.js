@@ -35,6 +35,8 @@ const onAuthenticationChange = (isAuthenticated, currentPagePrivacy) => {
 const onEnterGlobal = (nextState) => {
   const destination = nextState.routes[nextState.routes.length - 1];
   Session.set('currentPagePrivacy', destination.privacy);
+
+  Session.set('isMenuOpen', false);   // close the dropdown (desktop) / slide-out (mobile) menu after selection
 };
 
 const onChangeGlobal = (prevState, nextState) => {
@@ -47,7 +49,7 @@ const onEnterTournament = (nextState) => {
 
 const onLeaveTournament = () => {
   Session.set('selectedTournamentId', undefined);
-}
+};
 
 const routes = (
   <Router history={browserHistory}>

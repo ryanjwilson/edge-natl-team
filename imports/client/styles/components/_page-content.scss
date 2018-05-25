@@ -2,42 +2,41 @@
   display: flex;
   height: $page-content-height;
   margin: 0 auto;
-  padding: $large-space $space $large-space $space;
   max-width: $site-max-width;
 
-  // @include mobile {
-  //   padding: 0;
-  // }
+  @include desktop {
+    padding: $large-space $space $large-space $space;
+  }
 }
 
 .page-content__sidebar {
   display: flex;
-  padding-right: $large-space;
-  position: static;
-  min-width: $page-content-sidebar-width;
+  transition: left 0.7s ease;
+  width: 100vw;
 
-  // @include mobile {
-  //   display: flex;
-  //   transition: left 0.3s ease;
-  //   width: 100vw;
-  //
-  //   position: fixed;
-  //   top: $header-height;
-  //   left: -100vw;;
-  //   bottom: 0;
-  //   z-index: 1;
-  // }
+  position: fixed;
+  top: $header-height;
+  left: -100vw;
+  bottom: 0;
+  z-index: 1;
+
+  @include desktop {
+    display: flex;
+    padding-right: $large-space;
+    position: static;
+    max-width: $page-content-sidebar-width;
+  }
 }
 
-.is-nav-open .page-content__sidebar {
+.is-sidebar-open .page-content__sidebar {
   left: 0;
 }
 
 .page-content__main {
   display: flex;
-  width: $page-content-main-width;
+  width: 100%;
 
-  // @include mobile {
-  //   width: 100%;
-  // }
+  @include desktop {
+    width: $page-content-main-width;
+  }
 }

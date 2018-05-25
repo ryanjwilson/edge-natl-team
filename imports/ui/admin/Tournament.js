@@ -8,16 +8,8 @@ import { createContainer } from 'meteor/react-meteor-data';
 export const Tournament = (props) => {
   const className = props.tournament.selected ? 'item item--selected' : 'item';
 
-  const onTournamentClick = () => {
-    props.Session.set('selectedTournamentId', props.tournament._id);
-
-    if (props.isLeftNavOpen) {
-      props.Session.set('isLeftNavOpen', false);
-    }
-  };
-
   return (
-    <div id="tournament" className={className} onClick={onTournamentClick}>
+    <div id="tournament" className={className} onClick={() => props.Session.set('selectedTournamentId', props.tournament._id)}>
       <div className="item__text">
         <h5 className="item__title">{props.tournament.name || 'Untitled Tournament'}</h5>
         <p className="item__subtitle">{props.tournament.date || 'Date'} &middot; {props.tournament.location || 'Location'}</p>
@@ -39,6 +31,6 @@ Tournament.propTypes = {
 export default createContainer(() => {
   return {
     Session,
-    isLeftNavOpen: Session.get('isLeftNavOpen')
+    isSidebarOpen: Session.get('isSidebarOpen')
   };
 }, Tournament);

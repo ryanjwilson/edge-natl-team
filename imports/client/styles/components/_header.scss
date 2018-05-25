@@ -14,62 +14,158 @@
 }
 
 .header__title {
+  font-size: $title-font-size;
+  font-weight: 400;
+  letter-spacing: 0.15rem;
   margin: 0;
 }
 
-.header__nav-toggle {
-  display: none;
-
-  // @include mobile {
-  //   cursor: pointer;
-  //   display: flex;
-  //   height: 2rem;
-  //   width: 2rem;
-  // }
-}
-
-.header__menu {
-  align-items: center;
+.header__sidebar-toggle {
   cursor: pointer;
+  height: 3rem;
+  width: 3rem;
+
+  @include desktop {
+    display: none;
+  }
+}
+
+.header__menu-toggle {
+  cursor: pointer;
+  height: 3rem;
+  width: 3rem;
+}
+
+.user-menu {
+  background: $very-dark-gray;
   display: flex;
-}
+  flex-direction: column;
+  transition: right 0.7s ease;
+  width: 100vw;
 
-.header__avatar {
-  height: 3.5rem;
-  margin-right: 0.75rem;
-  width: 3.5rem;
-}
-
-.header__arrow {
-  border: solid $medium-gray;
-  border-width: 0 0.3rem 0.3rem 0;
-  display: inline-block;
-  padding: 0.25rem;
-  transform: rotate(45deg);
-
-  -webkit-transform: rotate(45deg);
-}
-
-.header__slideout {
-  background-color: $light-gray;
-  box-shadow: 0rem 0.6rem 1.2rem 0rem rgba(0, 0, 0, 0.2);
-  display: none;
-  min-width: 20rem;
-  position: absolute;
-  left: $site-max-width;
+  position: fixed;
   top: $header-height;
+  bottom: 0;
+  right: -100vw;
   z-index: 1;
+
+  @include desktop {
+    background: $light-gray;
+    border: 1px solid $gray;
+    border-radius: $space;
+    bottom: auto;
+    display: none;
+    margin-left: -$page-content-menu-width + 3;
+    margin-top: $space / 2;
+    position: absolute;
+    top: auto;
+    width: $page-content-menu-width;
+  }
 }
 
-.header__slideout a {
-  color: black;
-  display: block;
-  float: none;
-  padding: 1.2rem 1.6rem;
+.is-menu-open .user-menu {
+  right: 0;
+
+  @include desktop {
+    display: block;
+    right: auto;
+  }
+}
+
+.user-menu__profile {
+  border-bottom: 1px solid $light-gray;
+  color: $light-gray;
+  padding: $space;
+
+  @include desktop {
+    border-bottom: 1px solid $gray;
+    color: black;
+  }
+}
+
+.user-menu__links, .user-menu__actions {
+  border-bottom: 1px solid $light-gray;
+  color: $light-gray;
+  display: flex;
+  flex-direction: column;
+
+  @include desktop {
+    border-bottom: 1px solid $gray;
+    color: black;
+  }
+}
+
+.user-menu__actions {
+  border-bottom: none;
+}
+
+.user-menu__actions {
+
+  @include desktop {
+    border: none;
+  }
+}
+
+.link {
+  cursor: pointer;
+  line-height: 2rem;
+  padding: $space;
+
+  @include desktop {
+    color: black;
+  }
+}
+
+.link:hover {
+  background: $primary;
+}
+
+.link:hover .link-text {
+  color: white;
+}
+
+.link.rounded:hover {
+
+  @include desktop {
+    border-bottom-left-radius: $space;
+    border-bottom-right-radius: $space;
+  }
+}
+
+.link-text {
+  color: $light-gray;
+  padding-left: $space;
   text-align: left;
   text-decoration: none;
+
+  @include desktop {
+    color: black;
+  }
 }
 
-.header__menu:hover .header__slideout {
-  display: block;
+.link-image {
+  float: left;
+  height: 2rem;
+  width: 2rem;
+}
+
+.profile-image {
+  border: 1px solid $very-dark-gray;
+  border-radius: 50%;
+  float: left;
+  height: 4rem;
+  width: 4rem;
+}
+
+.profile-text {
+  color: $light-gray;
+  font-size: $large-font-size;
+  line-height: 4rem;
+  padding-left: $large-space * 2;
+  text-align: left;
+  text-decoration: none;
+
+  @include desktop {
+    color: black;
+  }
 }

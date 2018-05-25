@@ -7,6 +7,7 @@ $gray: #dddddd;
 $light-gray: #f9f9f9;
 $medium-gray: #efefef;
 $dark-gray: #909090;
+$very-dark-gray: #323232;
 $dark-green: #2e8b57;
 $dark-red: #e64942;
 
@@ -32,6 +33,7 @@ $site-max-width: 125rem;
 
 $base-font-size: 1.4rem;
 $large-font-size: 2.2rem;
+$title-font-size: 3.0rem;
 
 /*
  * Form inputs.
@@ -73,5 +75,6 @@ $item-border-width: 4px;
  */
 
 $page-content-sidebar-width: 30rem;
+$page-content-menu-width: 30rem;
 $page-content-main-width: calc(#{$site-max-width} - #{$page-content-sidebar-width});
 $page-content-height: calc(100vh - #{$header-height});

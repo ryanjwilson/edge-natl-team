@@ -33,18 +33,18 @@ if (Meteor.isClient) {
       expect(wrapper.find('p').text()).toBe('Tournament not found.');
     });
 
-    it('should remove a tournament', function() {
-      const wrapper = mount(<TournamentEditor browserHistory={browserHistory} call={call} selectedTournamentId={tournaments[0]._id} tournament={tournaments[0]}/>);
-      wrapper.find('#delete-button').simulate('click');
-      expect(call).toHaveBeenCalledWith('tournaments.remove', tournaments[0]._id);
-      expect(browserHistory.push).toHaveBeenCalledWith('/dashboard');
-    });
+    // it('should remove a tournament', function() {
+    //   const wrapper = mount(<TournamentEditor browserHistory={browserHistory} call={call} selectedTournamentId={tournaments[0]._id} tournament={tournaments[0]}/>);
+    //   wrapper.find('#delete-button').simulate('click');
+    //   expect(call).toHaveBeenCalledWith('tournaments.remove', tournaments[0]._id);
+    //   expect(browserHistory.push).toHaveBeenCalledWith('/dashboard');
+    // });
 
-    it('should toggle the published status of a tournament', function() {
-      const wrapper = mount(<TournamentEditor browserHistory={browserHistory} call={call} selectedTournamentId={tournaments[0]._id} tournament={tournaments[0]}/>);
-      wrapper.find('#publish-button').simulate('click');
-      expect(call).toHaveBeenCalledWith('tournaments.update', tournaments[0]._id, { published: !tournaments[0].published });
-    });
+    // it('should toggle the published status of a tournament', function() {
+    //   const wrapper = mount(<TournamentEditor browserHistory={browserHistory} call={call} selectedTournamentId={tournaments[0]._id} tournament={tournaments[0]}/>);
+    //   wrapper.find('#publish-button').simulate('click');
+    //   expect(call).toHaveBeenCalledWith('tournaments.update', tournaments[0]._id, { published: !tournaments[0].published });
+    // });
 
     it('should update the tournament name on input change', function() {
       const name = 'An Updated Name';
