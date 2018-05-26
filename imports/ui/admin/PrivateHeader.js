@@ -9,6 +9,10 @@ import { Link } from 'react-router';
 const mq = window.matchMedia("(min-width: 50rem)");   // allows the selective running of functions based on screen width
 
 export const PrivateHeader = (props) => {
+  const disableScrolling = (e) => {
+    e.preventDefault();
+  };
+
   const navImgSrc = props.isSidebarOpen ? '/images/x.svg' : '/images/bars.svg';
   const menuImgSrc = props.isMenuOpen ? '/images/x.svg' : '/images/bars.svg';
 
@@ -23,7 +27,7 @@ export const PrivateHeader = (props) => {
         <h1 className="header__title">{props.title}</h1>
 
         <div>
-          <img className="header__menu-toggle" src={menuImgSrc} onClick={() => props.onMenuToggle()}/>
+          <img className="header__menu-toggle" src={menuImgSrc} onClick={() => props.onMenuToggle(disableScrolling)}/>
 
           <div className="user-menu" onMouseLeave={() => props.onCloseMenu()}>
             <div className="user-menu__profile">
@@ -97,19 +101,15 @@ export default createContainer(() => {
 
       Session.set('isSidebarOpen', !Session.get('isSidebarOpen'));
     },
-    onMenuToggle: () => {
+    onMenuToggle: (scrollBlocker) => {
       if (!Session.get('isMenuOpen')) {
-        document.body.addEventListener('touchmove', function(e) {
-          e.preventDefault();
-        }, false);
+        document.body.addEventListener('touchmove', scrollBlocker, false);
 
         if (Session.get('isSidebarOpen')) {
           Session.set('isSidebarOpen', false);
         }
       } else {
-        document.body.removeEventListener('touchmove', function(e) {
-          e.preventDefault();
-        }, false);
+        document.body.removeEventListener('touchmove', scrollBlocker, false);
       }
 
       Session.set('isMenuOpen', !Session.get('isMenuOpen'));
