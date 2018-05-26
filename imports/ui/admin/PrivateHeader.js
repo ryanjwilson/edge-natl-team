@@ -98,13 +98,19 @@ export default createContainer(() => {
       Session.set('isSidebarOpen', !Session.get('isSidebarOpen'));
     },
     onMenuToggle: () => {
-      if (!Session.get('isMenuOpen') && Session.get('isSidebarOpen')) {   // close the sidebar before opening the menu
-        Session.set('isSidebarOpen', false);
-      }
+      if (!Session.get('isMenuOpen')) {
+        document.body.addEventListener('touchmove', function(e) {
+          e.preventDefault();
+        }, false);
 
-      document.body.addEventListener('touchmove', function(e) {
-        e.preventDefault();
-      }, false);
+        if (Session.get('isSidebarOpen')) {
+          Session.set('isSidebarOpen', false);
+        }
+      } else {
+        document.body.removeEventListener('touchmove', function(e) {
+          e.preventDefault();
+        }, false);
+      }
 
       Session.set('isMenuOpen', !Session.get('isMenuOpen'));
     },
