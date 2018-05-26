@@ -25,7 +25,7 @@ export const PrivateHeader = (props) => {
         <div>
           <img className="header__menu-toggle" src={menuImgSrc} onClick={() => props.onMenuToggle()}/>
 
-          <div id="fixed-user-menu" className="user-menu" onMouseLeave={() => props.onCloseMenu()}>
+          <div className="user-menu" onMouseLeave={() => props.onCloseMenu()}>
             <div className="user-menu__profile">
               <img className="profile-image" src="/images/user-avatar.png"/>
               <div className="profile-text">Ryan Wilson</div>
@@ -101,6 +101,10 @@ export default createContainer(() => {
       if (!Session.get('isMenuOpen') && Session.get('isSidebarOpen')) {   // close the sidebar before opening the menu
         Session.set('isSidebarOpen', false);
       }
+
+      document.body.addEventListener('touchmove', function(e) {
+        e.preventDefault();
+      }, false);
 
       Session.set('isMenuOpen', !Session.get('isMenuOpen'));
     },

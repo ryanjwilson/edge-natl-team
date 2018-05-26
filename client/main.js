@@ -67,7 +67,7 @@ Meteor.startup(() => {
 
   ReactDOM.render(routes, document.getElementById('app'));
 
-  document.getElementById('fixed-user-menu').addEventListener('touchmove', function(e) {
-    e.preventDefault();
-  }, false);
+  // document.body.addEventListener('touchmove', function(e) {
+  //   e.preventDefault();
+  // }, false);
 });
