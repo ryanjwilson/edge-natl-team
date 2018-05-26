@@ -40,6 +40,7 @@
   background: $very-dark-gray;
   display: flex;
   flex-direction: column;
+  overflow-y: scroll;
   transition: right 0.7s ease;
   width: 100vw;
 
@@ -64,6 +65,7 @@
 }
 
 .is-menu-open .user-menu {
+  overflow: hidden;
   right: 0;
 
   @include desktop {
