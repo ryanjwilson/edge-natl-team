@@ -66,4 +66,8 @@ Meteor.startup(() => {
   Session.set('showUnpublished', true);
 
   ReactDOM.render(routes, document.getElementById('app'));
+
+  document.getElementById('fixed-user-menu').addEventListener('touchmove', function(e) {
+    e.preventDefault();
+  }, false);
 });

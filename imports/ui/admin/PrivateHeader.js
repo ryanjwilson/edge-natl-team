@@ -25,7 +25,7 @@ export const PrivateHeader = (props) => {
         <div>
           <img className="header__menu-toggle" src={menuImgSrc} onClick={() => props.onMenuToggle()}/>
 
-          <div className="user-menu" onMouseLeave={() => props.onCloseMenu()}>
+          <div id="fixed-user-menu" className="user-menu" onMouseLeave={() => props.onCloseMenu()}>
             <div className="user-menu__profile">
               <img className="profile-image" src="/images/user-avatar.png"/>
               <div className="profile-text">Ryan Wilson</div>
