@@ -1,3 +1,11 @@
+/*
+ * Content editor panel.
+ *    - Tournament
+ *    - Wrestler
+ *    - Roster
+ *    - Settings
+ */
+
 .editor {
   background-color: white;
   border: 0.1rem solid $gray;
@@ -7,8 +15,15 @@
   padding: $large-space;
   width: 100%;
 
-  -webkit-overflow-scrolling: touch;
+  -webkit-overflow-scrolling: touch;    // TODO - are there more mobile-specific styles?
 }
+
+/*
+ * The title component of the editor panel.
+ *    - Tournament
+ *    - Wrestler
+ *    - Roster
+ */
 
 .editor__title {
   border: none;
@@ -19,6 +34,14 @@
   padding: $input-spacing;
 }
 
+/*
+ * A label component of the editor panel.
+ *    - Tournament
+ *    - Wrestler
+ *    - Roster
+ *    - Settings
+ */
+
 .editor__label {
   flex-grow: 1;
   font-weight: bold;
@@ -26,9 +49,25 @@
   text-align: left;
 }
 
+/*
+ * Label text of the editor panel.
+ *    - Tournament
+ *    - Wrestler
+ *    - Roster
+ *    - Settings
+ */
+
 .editor__label p {
   margin-bottom: 1rem;
 }
+
+/*
+ * An input field component of the editor panel.
+ *    - Tournament
+ *    - Wrestler
+ *    - Roster
+ *    - Settings
+ */
 
 .editor__field {
   font-weight: 300;
@@ -38,6 +77,13 @@
   resize: none;
   width: 100%;
 }
+
+/*
+ * Empty editor message text when no item is selected.
+ *    - Tournament
+ *    - Wrestler
+ *    - Roster
+ */
 
 .editor__message {
   font-style: italic;

@@ -25,7 +25,8 @@ $body-default-font-family: Helvetica, Arial, sans-serif;
 
 $space: 1.4rem;
 $large-space: 2.8rem;
-$site-max-width: 125rem;
+$site-max-width: 100vw;
+$site-min-width: 102.4rem;
 
 /*
  * Font sizes.
@@ -74,7 +75,9 @@ $item-border-width: 4px;
  * Overall page content.
  */
 
-$page-content-sidebar-width: 30rem;
-$page-content-menu-width: 30rem;
+$page-content-sidebar-width: 25vw;
+$page-content-sidebar-minimum-width: 30rem;
+$page-content-menu-width: 35rem;
 $page-content-main-width: calc(#{$site-max-width} - #{$page-content-sidebar-width});
+$page-content-main-minimum-width: calc(#{$site-min-width} - #{$page-content-sidebar-minimum-width} - #{$large-space} - #{$large-space});
 $page-content-height: calc(100vh - #{$header-height});

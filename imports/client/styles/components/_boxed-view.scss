@@ -1,3 +1,8 @@
+/*
+ * Boxed view container.
+ *    - Login view
+ */
+
 .boxed-view {
   align-items: center;
   display: flex;
@@ -6,6 +11,11 @@
   width: 100vw;
 }
 
+/*
+ * Box within a boxed view container.
+ *    - Login box
+ */
+
 .boxed-view__box {
   background-color: $boxed-view-bg;
   border: 1px solid $boxed-view-border-color;
@@ -13,6 +23,11 @@
   text-align: center;
   width: 24rem;
 }
+
+/*
+ * Form within a boxed view box.
+ *    - Login form
+ */
 
 .boxed-view__form {
   display: flex;

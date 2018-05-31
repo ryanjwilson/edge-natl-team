@@ -1,42 +1,66 @@
+/*
+ * Application container, including the sidebar and content editor panels. The
+ * header and footer are specifically excluded.
+ */
+
 .page-content {
+  // display: flex;
+  // height: $page-content-height;
+  // margin: 0 auto;
+  // max-width: $site-max-width;
+
+  // desktop
   display: flex;
   height: $page-content-height;
   margin: 0 auto;
+  //min-width: $site-min-width;
+  padding: $large-space;
   max-width: $site-max-width;
 
-  @include desktop {
-    padding: $large-space $space $large-space $space;
-  }
+  transition: margin-right 0.5s;
 }
+
+/*
+ * Application sidebar panel.
+ */
 
 .page-content__sidebar {
+  // display: flex;
+  // transition: left 0.7s ease;
+  // width: 100vw;
+  //
+  // position: fixed;
+  // top: $header-height;
+  // left: -100vw;
+  // bottom: 0;
+  // z-index: 1;
+
+  // desktop
   display: flex;
-  transition: left 0.7s ease;
-  width: 100vw;
-
-  position: fixed;
-  top: $header-height;
-  left: -100vw;
-  bottom: 0;
-  z-index: 1;
-
-  @include desktop {
-    display: flex;
-    padding-right: $large-space;
-    position: static;
-    max-width: $page-content-sidebar-width;
-  }
+  padding-right: $large-space;
+  position: static;
+  min-width: $page-content-sidebar-minimum-width;
+  width: $page-content-sidebar-width;
 }
+
+/*
+ * Application sidebar panel when open (mobile only).
+ */
 
 .is-sidebar-open .page-content__sidebar {
-  left: 0;
+  // left: 0;
 }
 
-.page-content__main {
-  display: flex;
-  width: 100%;
+/*
+ * Application content editor panel.
+ */
 
-  @include desktop {
-    width: $page-content-main-width;
-  }
+.page-content__main {
+  // display: flex;
+  // width: 100%;
+
+  // desktop
+  display: flex;
+  min-width: $page-content-main-minimum-width;
+  width: $page-content-main-width;
 }

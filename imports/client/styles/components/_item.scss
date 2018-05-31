@@ -1,17 +1,38 @@
+/*
+ * Item list inside of the sidebar panel.
+ *    - TournamentList
+ *    - WrestlerList
+ *    - RosterList
+ */
+
 .item-list {
   background-color: white;
   border: 1px solid $gray;
   overflow-y: scroll;
   width: 100%;
 
-  -webkit-overflow-scrolling: touch;
+  -webkit-overflow-scrolling: touch;    // TODO - are there any other mobile-specific styles?
 }
+
+/*
+ * Header component of the item list.
+ *    - Add button
+ *    - List filters
+ *    - Separator
+ */
 
 .item-list__header {
   display: flex;
   flex-direction: column;
   padding: $space;
 }
+
+/*
+ * An item in the item list.
+ *    - Item title
+ *    - Item subtitle
+ *    - Item icon (if applicable)
+ */
 
 .item {
   border-left: $item-border-width solid transparent;
@@ -23,15 +44,27 @@
   transition: background-color 0.3s ease, border-left 0.3s ease;
 }
 
+/*
+ * Hover effect for an item in the item list.
+ */
+
 .item:hover {
   background-color: $light-gray;
   border-left: $item-border-width solid $gray;
 }
 
+/*
+ * A selected item in the item list, including a hover effect.
+ */
+
 .item--selected, .item--selected:hover {
   background-color: $light-gray;
   border-left: $item-border-width solid $primary;
 }
+
+/*
+ * Title component of an item in the item list.
+ */
 
 .item__title {
   font-weight: normal;
@@ -39,28 +72,44 @@
   margin-bottom: 0.4rem;
 }
 
+/*
+ * Title component of a selected item in the item list.
+ */
+
 .item--selected .item__title {
   font-weight: bold;
 }
+
+/*
+ * Subtitle component of an item in the item list.
+ */
 
 .item__subtitle {
   color: $dark-gray;
   margin: 0;
 }
 
-.item__text {
-  float: left;
-}
+/*
+ * Status icon container (if applicable) of an item in the item list.
+ */
 
-.item__status {
+.item__status-icon {
   display: flex;
   align-items: center;
 }
 
-.item__status img {
+/*
+ * Status icon image (if applicable) of an item in the item list.
+ */
+
+.item__status-icon img {
   height: 3rem;
   width: 3rem;
 }
+
+/*
+ * Empty item (when the item list holds no items).
+ */
 
 .empty-item {
   font-style: italic;

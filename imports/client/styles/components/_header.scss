@@ -1,17 +1,33 @@
+/*
+ * Header bar.
+ */
+
 .header {
   background: $header-bg;
   color: $header-color;
 }
+
+/*
+ * Interior contents of the header bar.
+ *    - Title and icon
+ *    - Application logo
+ *    - Menu icon
+ */
 
 .header__content {
   align-items: center;
   display: flex;
   height: $header-height;
   justify-content: space-between;
-  max-width: $site-max-width;
   margin: 0 auto;
-  padding: $space;
+  //min-width: $site-min-width;
+  padding: $large-space;
+  width: $site-max-width;
 }
+
+/*
+ * Title component of the header bar.
+ */
 
 .header__title {
   font-size: $title-font-size;
@@ -20,15 +36,20 @@
   margin: 0;
 }
 
-.header__sidebar-toggle {
-  cursor: pointer;
-  height: 3rem;
-  width: 3rem;
+// TODO - need to add icon to header title and style appropriately
 
-  @include desktop {
-    display: none;
-  }
+.header__sidebar-toggle {
+  // cursor: pointer;
+  // height: 3rem;
+  // width: 3rem;
+
+  // desktop
+  display: none;
 }
+
+/*
+ * Menu toggle button.
+ */
 
 .header__menu-toggle {
   cursor: pointer;
@@ -36,137 +57,223 @@
   width: 3rem;
 }
 
-.user-menu {
+/*
+ * Container for slide-out menu (desktop only).
+ */
+
+.header__menu {
   background: $very-dark-gray;
-  overflow-y: scroll;
-  transition: right 0.7s ease;
-  width: 100vw;
-
-  -webkit-overflow-scrolling: touch;
-
-  position: fixed;
-  top: $header-height;
-  bottom: 0;
-  right: -100vw;
+  height: 100vh;
+  overflow-x: hidden;
+  transition: width 0.7s ease;
+  width: 0;
   z-index: 1;
 
-  @include desktop {
-    background: $light-gray;
-    border: 1px solid $gray;
-    border-radius: $space;
-    bottom: auto;
-    display: none;
-    margin-left: -$page-content-menu-width + 3;
-    margin-top: $space / 2;
-    position: absolute;
-    top: auto;
-    width: $page-content-menu-width;
-  }
-}
-
-.is-menu-open .user-menu {
+  position: fixed;
+  top: 0;
   right: 0;
-
-  @include desktop {
-    display: block;
-    right: auto;
-  }
 }
 
-.user-menu__profile {
-  border-bottom: 1px solid $light-gray;
-  color: $light-gray;
-  padding: $space;
+/*
+ * Container element for all components in the menu.
+ *    - Profile section (picture, name, last login)
+ *    - Tournaments link
+ *    - Wrestlers link
+ *    - Rosters link
+ *    - Settings link
+ *    - Help link
+ *    - Logout button
+ */
 
-  @include desktop {
-    border-bottom: 1px solid $gray;
-    color: black;
-  }
+.header__menu-items {
+  padding-left: $space;
+  padding-top: $header-height + $space;
 }
 
-.user-menu__links, .user-menu__actions {
-  border-bottom: 1px solid $light-gray;
-  color: $light-gray;
+/*
+ * Container component for the profile section.
+ *    - Profile picture
+ *    - Name
+ *    - Last login
+ */
+
+.header__menu-profile {
+  align-items: center;
+  border-bottom: 3px solid $light-gray;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  margin-bottom: $space / 2;
+  margin-right: $space;
+  padding-bottom: $large-space;
+  padding-left: $space;
+}
+
+/*
+ * Profile picture.
+ */
+
+.header__menu-profile .profile-picture {
+  height: 7rem;
+  padding-right: 2rem;
+}
+
+/*
+ * Profile text section.
+ *    - Name
+ *    - Last login
+ */
+
+.header__menu-profile .profile-text {
   display: flex;
   flex-direction: column;
-
-  @include desktop {
-    border-bottom: 1px solid $gray;
-    color: black;
-  }
+  justify-content: space-around;
+  height: 7rem;
 }
 
-.user-menu__actions {
-  border-bottom: none;
+/*
+ * The profile text header, containing the name.
+ */
+
+.header__menu-profile .profile-text h1 {
+  margin: 0;
+  padding: 0;
 }
 
-.user-menu__actions {
+/*
+ * The profile text subtext, containing the last login time.
+ */
 
-  @include desktop {
-    border: none;
-  }
+.header__menu-profile .profile-text p {
+  font-style: italic;
+  margin: 0;
+  padding: 0;
 }
 
-.link {
-  cursor: pointer;
-  line-height: 2rem;
-  padding: $space;
+/*
+ * Container element for all menu links.
+ *    - Tournaments
+ *    - Wrestlers
+ *    - Rosters
+ *    - Settings
+ *    - Help
+ *    - Logout
+ */
 
-  @include desktop {
-    color: black;
-  }
+.header__menu-links {
+  margin-right: $space;
+  padding-bottom: $space;
 }
 
-.link:hover {
-  background: $primary;
-}
+/*
+ * Container component for a link within the slide-out menu.
+ *    - Link icon
+ *    - Link text
+ */
 
-.link:hover .link-text {
-  color: white;
-}
-
-.link.rounded:hover {
-
-  @include desktop {
-    border-bottom-left-radius: $space;
-    border-bottom-right-radius: $space;
-  }
-}
-
-.link-text {
-  color: $light-gray;
+.header__menu-item {
+  align-items: center;
+  border-bottom: 1px solid $light-gray;
+  color: $gray;
+  display: flex;
+  flex-direction: row;
+  padding-bottom: $large-space;
   padding-left: $space;
-  text-align: left;
+  padding-top: $large-space;
   text-decoration: none;
+}
 
-  @include desktop {
-    color: black;
+/*
+ * Hover effect for menu links within the slide-out menu.
+ */
+
+.header__menu-item:hover {
+  font-weight: bold;
+
+  .header__menu-link {
+    color: white;
+  }
+
+  .logout {
+    font-weight: bold;
+    color: white;
   }
 }
 
-.link-image {
-  float: left;
-  height: 2rem;
-  width: 2rem;
+/*
+ * Menu link icon within the slide-out menu.
+ */
+
+.header__menu-link-icon {
+  height: 2.5rem;
+  margin-right: 2rem;
+  width: 2.5rem;
 }
 
-.profile-image {
-  border: 1px solid $very-dark-gray;
-  border-radius: 50%;
-  float: left;
-  height: 4rem;
-  width: 4rem;
+/*
+ * A link within the slide-out menu.
+ *    - Tournaments
+ *    - Wrestlers
+ *    - Rosters
+ *    - Settings
+ *    - Help
+ *    - Logout
+ */
+
+.header__menu-link {
+  color: $gray;
+  display: block;
+  text-decoration: none;
 }
 
-.profile-text {
+/*
+ * Specialized styling for the Logout link specifically.
+ */
+
+.logout {
+  border: none;
+  display: flex;
+  width: 100%;
+}
+
+/*
+ * Close button for an open slide-out menu.
+ */
+
+.header__menu .header__menu-toggle {
+  height: 3rem;
+  width: 3rem;
+
+  position: absolute;
+  top: 2rem;
+  left: 2rem;
+  bottom: 2rem;
+}
+
+/*
+ * Section of text asking users to report bugs or make feature suggestions.
+ */
+
+.bug-report {
+  border-top: 3px solid $light-gray;
   color: $light-gray;
-  font-size: $large-font-size;
-  line-height: 4rem;
-  padding-left: $large-space * 2;
-  text-align: left;
-  text-decoration: none;
+  margin-right: $space;
+  padding-left: $space;
+  padding-top: $large-space;
+}
 
-  @include desktop {
-    color: black;
-  }
+/*
+ * Hover effect for link within bug report section.
+ */
+
+.bug-report button:hover {
+  text-decoration: none;
+}
+
+/*
+ * Application menu panel when open (desktop only).
+ */
+
+.is-menu-open .header__menu {
+  width: $page-content-menu-width;
 }

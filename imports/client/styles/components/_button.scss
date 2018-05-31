@@ -1,3 +1,7 @@
+/*
+ * General button styles across the application.
+ */
+
 .button {
   background-color: $button-bg;
   border: none;
@@ -9,6 +13,13 @@
   outline: none;
   padding: $input-spacing;
 }
+
+/*
+ * Add button.
+ *    - Add Tournament button
+ *    - Add Wrestler button
+ *    - Add Roster button
+ */
 
 .button--add {
   background-color: $button-bg;
@@ -23,54 +34,9 @@
   text-transform: uppercase;
 }
 
-.button--editor {
-  background-color: $gray;
-  border: none;
-  border-radius: 5px;
-  box-shadow: none;
-  color: #ffffff;
-  cursor: pointer;
-  font-size: $base-font-size;
-  font-weight: 600;
-  margin: 0;
-  padding: $input-spacing;
-}
-
-.button--publish {
-  background-color: $dark-green;
-}
-
-.button--unpublish {
-  background-color: $dark-gray;
-}
-
-.button--cancel {
-  background-color: $medium-gray;
-}
-
-.button--delete {
-  background-color: $dark-red;
-}
-
-.button--add:hover {
-  background-color: darken($button-bg, 5);
-}
-
-.button--publish:hover {
-  background-color: darken($dark-green, 5);
-}
-
-.button--unpublish:hover {
-  background-color: darken($dark-gray, 5);
-}
-
-.button--cancel:hover {
-  background-color: darken($medium-gray, 5);
-}
-
-.button--delete:hover {
-  background-color: darken($dark-red, 5);
-}
+/*
+ * Link button within slide-out menu (desktop only).
+ */
 
 .button--link {
   background: none;
@@ -80,6 +46,35 @@
   text-transform: none;
 }
 
+/*
+ * Editor button.
+ *    - Publish button
+ *    - Unpublish button
+ *    - Delete button
+ *    - Cancel button
+ */
+
+.button--editor {
+  background-color: $gray;
+  border: none;
+  border-radius: 5px;
+  box-shadow: none;
+  color: #ffffff;
+  cursor: pointer;
+  font-size: $base-font-size;
+  font-weight: bold;
+  margin: 0;
+  margin-bottom: $large-space;
+  outline: none;
+  padding: $input-spacing;
+  width: 25%;
+}
+
+/*
+ * Button group for editor panel.
+ *    - Publish/Unpublish + Delete buttons
+ */
+
 .action-group {
   align-items: center;
   display: flex;
@@ -87,10 +82,21 @@
   margin-top: $large-space;
 }
 
-.action-group button {
-  border-radius: 0.7rem;
-  font-weight: bold;
-  margin-bottom: $large-space;
-  outline: none;
-  width: 25%;
-}
+/*
+ * Background color changes for Publish, Unpublish, Cancel, and Delete buttons.
+ */
+
+.button--publish { background-color: $dark-green; }
+.button--unpublish { background-color: $dark-gray; }
+.button--cancel { background-color: $medium-gray; }
+.button--delete { background-color: $dark-red; }
+
+/*
+ * Hover effects for Add, Publish, Unpublish, Cancel, and Delete buttons.
+ */
+
+.button--add:hover { background-color: darken($button-bg, 5); }
+.button--publish:hover { background-color: darken($dark-green, 5); }
+.button--unpublish:hover { background-color: darken($dark-gray, 5); }
+.button--cancel:hover { background-color: darken($medium-gray, 5); }
+.button--delete:hover { background-color: darken($dark-red, 5); }
