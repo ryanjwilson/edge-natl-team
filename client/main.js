@@ -7,7 +7,7 @@ import { browserHistory } from 'react-router';
 import { onAuthenticationChange, routes } from '../imports/routes/routes';
 import '../imports/startup/simple-schema-config.js';
 
-/*****************************************************************************/
+/******************************************************************************/
 
 /*
  * Tracks authentication changes via the isAuthenticated variable. This code
@@ -56,7 +56,26 @@ Tracker.autorun(() => {
   document.body.classList.toggle('is-menu-open', Session.get('isMenuOpen'));
 });
 
-////////////////// CLIENT APPLICATION EXECUTION STARTS HERE //////////////////
+/////// EVENT LISTENERS ////////////////////////////////////////////////////////
+
+/*
+ * Close the slide-out menu (desktop-only) when a user clicks somewhere else in
+ * the application.
+ */
+
+const closeMenu = function(e) {
+  if (Session.get('isMenuOpen')) {
+    Session.set('isMenuOpen', false);
+  }
+};
+
+const ignoreCloseMenu = function(e) {
+  if (Session.get('isMenuOpen')) {
+    e.stopPropagation();
+  }
+};
+
+/////// CLIENT APPLICATION EXECUTION STARTS HERE ///////////////////////////////
 
 Meteor.startup(() => {
   Session.set('selectedTournamentId', undefined);
@@ -67,7 +86,10 @@ Meteor.startup(() => {
 
   ReactDOM.render(routes, document.getElementById('app'));
 
-  // document.body.addEventListener('touchmove', function(e) {
-  //   e.preventDefault();
-  // }, false);
+  /*
+   * Add event listeners.
+   */
+   
+  document.body.addEventListener('click', closeMenu);
+  document.getElementById('slide-out-menu').addEventListener('click', ignoreCloseMenu);
 });
