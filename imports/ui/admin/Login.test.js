@@ -6,8 +6,6 @@ import Adapter from 'enzyme-adapter-react-16';
 
 import { Login } from './Login';
 
-///////////////////////////////////////////////////////////////////////////////
-
 configure({ adapter: new Adapter() });
 
 if (Meteor.isClient) {

@@ -5,8 +5,6 @@ import PrivateHeader from './PrivateHeader';
 import TournamentEditor from './TournamentEditor';
 import TournamentList from './TournamentList';
 
-///////////////////////////////////////////////////////////////////////////////
-
 export default Dashboard = () => {
   return (
     <div>

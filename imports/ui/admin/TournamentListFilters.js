@@ -3,8 +3,6 @@ import { Session } from 'meteor/session';
 import { Tracker } from 'meteor/tracker';
 import { createContainer } from 'meteor/react-meteor-data';
 
-///////////////////////////////////////////////////////////////////////////////
-
 export class TournamentListFilters extends React.Component {
   constructor(props) {
     super(props);
@@ -52,8 +50,6 @@ export class TournamentListFilters extends React.Component {
     );
   }
 }
-
-///////////////////////////////////////////////////////////////////////////////
 
 export default createContainer(() => {
   const showPublished = Session.get('showPublished');

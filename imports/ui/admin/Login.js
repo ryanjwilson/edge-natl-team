@@ -3,8 +3,6 @@ import { Meteor } from 'meteor/meteor';
 import { PropTypes } from 'prop-types';
 import { createContainer } from 'meteor/react-meteor-data';
 
-///////////////////////////////////////////////////////////////////////////////
-
 export class Login extends React.Component {
   constructor(props) {
     super(props);
@@ -50,13 +48,9 @@ export class Login extends React.Component {
   }
 }
 
-///////////////////////////////////////////////////////////////////////////////
-
 Login.propTypes = {
   loginWithPassword: PropTypes.func.isRequired
 };
-
-///////////////////////////////////////////////////////////////////////////////
 
 export default createContainer(() => {
   return {

@@ -9,8 +9,6 @@ import Tournament from './Tournament';
 import TournamentListHeader from './TournamentListHeader';
 import { Tournaments } from '../../api/tournaments';
 
-///////////////////////////////////////////////////////////////////////////////
-
 export const TournamentList = (props) => {
   if (props.tournaments) {
     if (props.tournaments.length === 0) {
@@ -27,6 +25,7 @@ export const TournamentList = (props) => {
   return (
     <div className="item-list">
       <TournamentListHeader/>
+
       {props.tournaments.length === 0 ? <EmptyItem label="Tournaments"/> : undefined}
       {props.tournaments.map((tournament) => {
         return <Tournament key={tournament._id} tournament={tournament}/>;
@@ -35,13 +34,9 @@ export const TournamentList = (props) => {
   );
 };
 
-///////////////////////////////////////////////////////////////////////////////
-
 TournamentList.propTypes = {
   tournaments: PropTypes.array.isRequired
 };
-
-///////////////////////////////////////////////////////////////////////////////
 
 export default createContainer(() => {
   const selectedTournamentId = Session.get('selectedTournamentId');

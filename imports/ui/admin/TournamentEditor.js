@@ -8,8 +8,6 @@ import swal from 'sweetalert';
 
 import { Tournaments } from '../../api/tournaments';
 
-///////////////////////////////////////////////////////////////////////////////
-
 export class TournamentEditor extends React.Component {
   constructor(props) {
     super(props);
@@ -250,16 +248,12 @@ export class TournamentEditor extends React.Component {
   }
 }
 
-///////////////////////////////////////////////////////////////////////////////
-
 TournamentEditor.propTypes = {
   tournament: PropTypes.object,
   selectedTournamentId: PropTypes.string,
   call: PropTypes.func.isRequired,
   browserHistory: PropTypes.object.isRequired
 };
-
-///////////////////////////////////////////////////////////////////////////////
 
 export default createContainer(() => {
   const selectedTournamentId = Session.get('selectedTournamentId');

@@ -7,8 +7,6 @@ import Adapter from 'enzyme-adapter-react-16';
 import { tournaments } from '../../fixtures/data';
 import { TournamentList } from './TournamentList';
 
-///////////////////////////////////////////////////////////////////////////////
-
 configure({ adapter: new Adapter() });
 
 if (Meteor.isClient) {

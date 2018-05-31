@@ -6,8 +6,6 @@ import { Session } from 'meteor/session';
 
 import TournamentListFilters from './TournamentListFilters';
 
-/*****************************************************************************/
-
 const TournamentListHeader = (props) => {
   const onAddTournament = () => {
     props.meteorCall('tournaments.insert', (err, res) => {
@@ -29,8 +27,6 @@ TournamentListHeader.propTypes = {
   meteorCall: PropTypes.func.isRequired,
   Session: PropTypes.object.isRequired
 };
-
-/*****************************************************************************/
 
 export { TournamentListHeader };
 

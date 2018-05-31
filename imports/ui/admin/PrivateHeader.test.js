@@ -6,8 +6,6 @@ import Adapter from 'enzyme-adapter-react-16';
 
 import { PrivateHeader } from './PrivateHeader';
 
-///////////////////////////////////////////////////////////////////////////////
-
 configure({ adapter: new Adapter() });
 
 if (Meteor.isClient) {
