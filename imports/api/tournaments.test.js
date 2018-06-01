@@ -9,7 +9,8 @@ const tournament = {
   _id: 'testTournamentId1',
   name: 'Test Duals 1',
   location: 'Somewhere, NJ',
-  date: 'January 2, 2019',
+  startDate: 'January 2, 2019',
+  endDate: 'January 3, 2019',
   weighins: 'January 1, 2019, at 6:00pm',
   alternateWeighins: 'January 2, 2019, at 7:00am',
   division: 'K-6',
@@ -84,7 +85,8 @@ if (Meteor.isServer) {
         expect(t).toInclude({
           name,
           location: tournament.location,
-          date: tournament.date,
+          startDate: tournament.startDate,
+          endDate: tournament.endDate,
           weighins: tournament.weighins,
           alternateWeighins: tournament.alternateWeighins,
           division: tournament.division,
@@ -109,7 +111,8 @@ if (Meteor.isServer) {
         expect(t).toInclude({
           name: tournament.name,
           location,
-          date: tournament.date,
+          startDate: tournament.startDate,
+          endDate: tournament.endDate,
           weighins: tournament.weighins,
           alternateWeighins: tournament.alternateWeighins,
           division: tournament.division,
@@ -121,12 +124,12 @@ if (Meteor.isServer) {
         });
       });
 
-      it('should update the date of a tournament', function() {
-        const date = 'Updated Date';
+      it('should update the start date of a tournament', function() {
+        const startDate = 'Updated Start Date';
         const _id = tournament._id;
         const userId = tournament.userId;
 
-        Meteor.server.method_handlers['tournaments.update'].apply({ userId }, [ _id, { date } ]);
+        Meteor.server.method_handlers['tournaments.update'].apply({ userId }, [ _id, { startDate } ]);
 
         const t = Tournaments.findOne(_id);
 
@@ -134,7 +137,34 @@ if (Meteor.isServer) {
         expect(t).toInclude({
           name: tournament.name,
           location: tournament.location,
-          date,
+          startDate,
+          endDate: tournament.endDate,
+          weighins: tournament.weighins,
+          alternateWeighins: tournament.alternateWeighins,
+          division: tournament.division,
+          weightClasses: tournament.weightClasses,
+          allowance: tournament.allowance,
+          year: tournament.year,
+          season: tournament.season,
+          published: tournament.published
+        });
+      });
+
+      it('should update the end date of a tournament', function() {
+        const endDate = 'Updated End Date';
+        const _id = tournament._id;
+        const userId = tournament.userId;
+
+        Meteor.server.method_handlers['tournaments.update'].apply({ userId }, [ _id, { endDate } ]);
+
+        const t = Tournaments.findOne(_id);
+
+        expect(t.updatedAt).toBeGreaterThan(tournament.updatedAt);
+        expect(t).toInclude({
+          name: tournament.name,
+          location: tournament.location,
+          startDate: tournament.startDate,
+          endDate,
           weighins: tournament.weighins,
           alternateWeighins: tournament.alternateWeighins,
           division: tournament.division,
@@ -159,7 +189,8 @@ if (Meteor.isServer) {
         expect(t).toInclude({
           name: tournament.name,
           location: tournament.location,
-          date: tournament.date,
+          startDate: tournament.startDate,
+          endDate: tournament.endDate,
           weighins,
           alternateWeighins: tournament.alternateWeighins,
           division: tournament.division,
@@ -184,7 +215,8 @@ if (Meteor.isServer) {
         expect(t).toInclude({
           name: tournament.name,
           location: tournament.location,
-          date: tournament.date,
+          startDate: tournament.startDate,
+          endDate: tournament.endDate,
           weighins: tournament.weighins,
           alternateWeighins,
           division: tournament.division,
@@ -209,7 +241,8 @@ if (Meteor.isServer) {
         expect(t).toInclude({
           name: tournament.name,
           location: tournament.location,
-          date: tournament.date,
+          startDate: tournament.startDate,
+          endDate: tournament.endDate,
           weighins: tournament.weighins,
           alternateWeighins: tournament.alternateWeighins,
           division,
@@ -234,7 +267,8 @@ if (Meteor.isServer) {
         expect(t).toInclude({
           name: tournament.name,
           location: tournament.location,
-          date: tournament.date,
+          startDate: tournament.startDate,
+          endDate: tournament.endDate,
           weighins: tournament.weighins,
           alternateWeighins: tournament.alternateWeighins,
           division: tournament.division,
@@ -259,7 +293,8 @@ if (Meteor.isServer) {
         expect(t).toInclude({
           name: tournament.name,
           location: tournament.location,
-          date: tournament.date,
+          startDate: tournament.startDate,
+          endDate: tournament.endDate,
           weighins: tournament.weighins,
           alternateWeighins: tournament.alternateWeighins,
           division: tournament.division,
@@ -284,7 +319,8 @@ if (Meteor.isServer) {
         expect(t).toInclude({
           name: tournament.name,
           location: tournament.location,
-          date: tournament.date,
+          startDate: tournament.startDate,
+          endDate: tournament.endDate,
           weighins: tournament.weighins,
           alternateWeighins: tournament.alternateWeighins,
           division: tournament.division,
@@ -309,7 +345,8 @@ if (Meteor.isServer) {
         expect(t).toInclude({
           name: tournament.name,
           location: tournament.location,
-          date: tournament.date,
+          startDate: tournament.startDate,
+          endDate: tournament.endDate,
           weighins: tournament.weighins,
           alternateWeighins: tournament.alternateWeighins,
           division: tournament.division,
@@ -334,7 +371,8 @@ if (Meteor.isServer) {
         expect(t).toInclude({
           name: tournament.name,
           location: tournament.location,
-          date: tournament.date,
+          startDate: tournament.startDate,
+          endDate: tournament.endDate,
           weighins: tournament.weighins,
           alternateWeighins: tournament.alternateWeighins,
           division: tournament.division,
@@ -349,7 +387,8 @@ if (Meteor.isServer) {
       it('should update a tournament', function() {
         const name = 'Updated Name';
         const location = 'Updated Location';
-        const date = 'Updated Date';
+        const startDate = 'Updated Start Date';
+        const endDate = 'Updated End Date';
         const weighins = 'Updated Weigh-ins';
         const alternateWeighins = 'Updated Alternate Weigh-ins';
         const division = 'Updated Division';
@@ -364,7 +403,8 @@ if (Meteor.isServer) {
         Meteor.server.method_handlers['tournaments.update'].apply({ userId }, [ _id, {
           name,
           location,
-          date,
+          startDate,
+          endDate,
           weighins,
           alternateWeighins,
           division,
@@ -381,7 +421,8 @@ if (Meteor.isServer) {
         expect(t).toInclude({
           name,
           location,
-          date,
+          startDate,
+          endDate,
           weighins,
           alternateWeighins,
           division,
@@ -399,7 +440,8 @@ if (Meteor.isServer) {
         const extras = {
           name: 'Updated Name',
           location: 'Updated Location',
-          date: 'Updated Date',
+          startDate: 'Updated Start Date',
+          endDate: 'Updated End Date',
           weighins: 'Updated Weigh-ins',
           alternateWeighins: 'Updated Alternate Weigh-ins',
           division: 'Updated Division',

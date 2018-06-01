@@ -15,7 +15,8 @@ export class TournamentEditor extends React.Component {
     this.state = {
       name: '',
       location: '',
-      date: '',
+      startDate: '',
+      endDate: '',
       weighins: '',
       alternateWeighins: '',
       division: '',
@@ -30,7 +31,8 @@ export class TournamentEditor extends React.Component {
 
     this.onNameChange = this.onNameChange.bind(this);
     this.onLocationChange = this.onLocationChange.bind(this);
-    this.onDateChange = this.onDateChange.bind(this);
+    this.onStartDateChange = this.onStartDateChange.bind(this);
+    this.onEndDateChange = this.onEndDateChange.bind(this);
     this.onWeighinsChange = this.onWeighinsChange.bind(this);
     this.onAlternateWeighinsChange = this.onAlternateWeighinsChange.bind(this);
     this.onDivisionChange = this.onDivisionChange.bind(this);
@@ -54,10 +56,16 @@ export class TournamentEditor extends React.Component {
     this.props.call('tournaments.update', this.props.tournament._id, { location });
   }
 
-  onDateChange(e) {
-    const date = e.target.value;
-    this.setState({ date });
-    this.props.call('tournaments.update', this.props.tournament._id, { date });
+  onStartDateChange(e) {
+    const startDate = e.target.value;
+    this.setState({ startDate });
+    this.props.call('tournaments.update', this.props.tournament._id, { startDate });
+  }
+
+  onEndDateChange(e) {
+    const endDate = e.target.value;
+    this.setState({ endDate });
+    this.props.call('tournaments.update', this.props.tournament._id, { endDate });
   }
 
   onWeighinsChange(e) {
@@ -78,16 +86,16 @@ export class TournamentEditor extends React.Component {
     this.props.call('tournaments.update', this.props.tournament._id, { division });
   }
 
-  onAllowanceChange(e) {
-    const allowance = e.target.value;
-    this.setState({ allowance });
-    this.props.call('tournaments.update', this.props.tournament._id, { allowance });
-  }
-
   onWeightClassesChange(e) {
     const weightClasses = e.target.value;
     this.setState({ weightClasses });
     this.props.call('tournaments.update', this.props.tournament._id, { weightClasses });
+  }
+
+  onAllowanceChange(e) {
+    const allowance = e.target.value;
+    this.setState({ allowance });
+    this.props.call('tournaments.update', this.props.tournament._id, { allowance });
   }
 
   onYearChange(e) {
@@ -176,7 +184,8 @@ export class TournamentEditor extends React.Component {
       this.setState({
         name: this.props.tournament.name,
         location: this.props.tournament.location,
-        date: this.props.tournament.date,
+        startDate: this.props.tournament.startDate,
+        endDate: this.props.tournament.endDate,
         weighins: this.props.tournament.weighins,
         alternateWeighins: this.props.tournament.alternateWeighins,
         division: this.props.tournament.division,
@@ -201,8 +210,12 @@ export class TournamentEditor extends React.Component {
             <input id="location" name="location" className="editor__field" value={this.state.location} placeholder="Location" onChange={this.onLocationChange}/>
           </label>
           <label className="editor__label">
-            <p>Date</p>
-            <input id="date" name="date" className="editor__field" value={this.state.date} placeholder="Date" onChange={this.onDateChange}/>
+            <p>Start Date</p>
+            <input id="start-date" name="date" className="editor__field" value={this.state.startDate} placeholder="Start Date" onChange={this.onStartDateChange}/>
+          </label>
+          <label className="editor__label">
+            <p>End Date</p>
+            <input id="end-date" name="date" className="editor__field" value={this.state.endDate} placeholder="End Date" onChange={this.onEndDateChange}/>
           </label>
           <label className="editor__label">
             <p>Weigh-ins</p>
@@ -217,12 +230,12 @@ export class TournamentEditor extends React.Component {
             <input id="division" name="division" className="editor__field" value={this.state.division} placeholder="Age Division" onChange={this.onDivisionChange}/>
           </label>
           <label className="editor__label">
-            <p>Weight Allowance</p>
-            <input id="allowance" name="allowance" className="editor__field" value={this.state.allowance} placeholder="Allowance" onChange={this.onAllowanceChange}/>
-          </label>
-          <label className="editor__label">
             <p>Weight Classes</p>
             <input id="weightClasses" name="weightClasses" className="editor__field" value={this.state.weightClasses} placeholder="Weight Classes" onChange={this.onWeightClassesChange}/>
+          </label>
+          <label className="editor__label">
+            <p>Weight Allowance</p>
+            <input id="allowance" name="allowance" className="editor__field" value={this.state.allowance} placeholder="Allowance" onChange={this.onAllowanceChange}/>
           </label>
           <label className="editor__label">
             <p>Year</p>

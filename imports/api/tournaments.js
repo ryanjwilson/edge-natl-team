@@ -22,7 +22,8 @@ Meteor.methods({
     return Tournaments.insert({
       name: '',
       location: '',
-      date: '',
+      startDate: '',
+      endDate: '',
       weighins: '',
       alternateWeighins: '',
       division: '',
@@ -69,8 +70,12 @@ Meteor.methods({
         type: String,
         optional: true
       },
-      date: {
-        type: String,
+      startDate: {
+        type: String,       // TODO - modify to support Date for sorting?
+        optional: true
+      },
+      endDate: {
+        type: String,       // TODO - modify to support Date for sorting?
         optional: true
       },
       weighins: {

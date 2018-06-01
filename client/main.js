@@ -69,6 +69,11 @@ const closeMenu = function(e) {
   }
 };
 
+/*
+ * Prevents the slide-out menu (desktop-only) from closing when a user clicks
+ * inside the menu itself.
+ */
+
 const ignoreCloseMenu = function(e) {
   if (Session.get('isMenuOpen')) {
     e.stopPropagation();
@@ -89,7 +94,7 @@ Meteor.startup(() => {
   /*
    * Add event listeners.
    */
-   
+
   document.body.addEventListener('click', closeMenu);
   document.getElementById('slide-out-menu').addEventListener('click', ignoreCloseMenu);
 });

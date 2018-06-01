@@ -72,18 +72,32 @@ if (Meteor.isClient) {
       expect(call).toHaveBeenCalledWith('tournaments.update', tournaments[0]._id, { location });
     });
 
-    it('should update the tournament date on input change', function() {
-      const date = 'An Updated Date';
+    it('should update the tournament start date on input change', function() {
+      const startDate = 'An Updated Start Date';
       const wrapper = mount(<TournamentEditor browserHistory={browserHistory} call={call} selectedTournamentId={tournaments[0]._id} tournament={tournaments[0]}/>);
 
-      wrapper.find('#date').simulate('change', {
+      wrapper.find('#start-date').simulate('change', {
         target: {
-          value: date
+          value: startDate
         }
       });
 
-      expect(wrapper.state('date')).toBe(date);
-      expect(call).toHaveBeenCalledWith('tournaments.update', tournaments[0]._id, { date });
+      expect(wrapper.state('startDate')).toBe(startDate);
+      expect(call).toHaveBeenCalledWith('tournaments.update', tournaments[0]._id, { startDate });
+    });
+
+    it('should update the tournament end date on input change', function() {
+      const endDate = 'An Updated End Date';
+      const wrapper = mount(<TournamentEditor browserHistory={browserHistory} call={call} selectedTournamentId={tournaments[0]._id} tournament={tournaments[0]}/>);
+
+      wrapper.find('#end-date').simulate('change', {
+        target: {
+          value: endDate
+        }
+      });
+
+      expect(wrapper.state('endDate')).toBe(endDate);
+      expect(call).toHaveBeenCalledWith('tournaments.update', tournaments[0]._id, { endDate });
     });
 
     it('should update the tournament weigh-ins on input change', function() {
