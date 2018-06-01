@@ -65,13 +65,13 @@
   background: $very-dark-gray;
   height: 100vh;
   overflow-x: hidden;
-  transition: width 0.7s ease;
-  width: 0;
-  z-index: 1;
+  transition: right .7s ease-in-out;
+  width: $page-content-menu-width;
+  z-index: 2;
 
   position: fixed;
+  right: -$page-content-menu-width;
   top: 0;
-  right: 0;
 }
 
 /*
@@ -275,5 +275,5 @@
  */
 
 .is-menu-open .header__menu {
-  width: $page-content-menu-width;
+  right: 0;
 }

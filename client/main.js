@@ -49,36 +49,12 @@ Tracker.autorun(() => {
 });
 
 /*
- * Tracks changes in the dropdown (desktop) / slide-out (mobile) menu status.
+ * Tracks changes in the slide-out menu (desktop-only).
  */
 
 Tracker.autorun(() => {
   document.body.classList.toggle('is-menu-open', Session.get('isMenuOpen'));
 });
-
-/////// EVENT LISTENERS ////////////////////////////////////////////////////////
-
-/*
- * Close the slide-out menu (desktop-only) when a user clicks somewhere else in
- * the application.
- */
-
-const closeMenu = function(e) {
-  if (Session.get('isMenuOpen')) {
-    Session.set('isMenuOpen', false);
-  }
-};
-
-/*
- * Prevents the slide-out menu (desktop-only) from closing when a user clicks
- * inside the menu itself.
- */
-
-const ignoreCloseMenu = function(e) {
-  if (Session.get('isMenuOpen')) {
-    e.stopPropagation();
-  }
-};
 
 /////// CLIENT APPLICATION EXECUTION STARTS HERE ///////////////////////////////
 
@@ -90,11 +66,4 @@ Meteor.startup(() => {
   Session.set('showUnpublished', true);
 
   ReactDOM.render(routes, document.getElementById('app'));
-
-  /*
-   * Add event listeners.
-   */
-
-  document.body.addEventListener('click', closeMenu);
-  document.getElementById('slide-out-menu').addEventListener('click', ignoreCloseMenu);
 });

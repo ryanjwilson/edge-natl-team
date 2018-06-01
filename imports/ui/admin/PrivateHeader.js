@@ -4,8 +4,6 @@ import PropTypes from 'prop-types';
 import { createContainer } from 'meteor/react-meteor-data';
 import { Link } from 'react-router';
 
-const mq = window.matchMedia("(min-width: 50rem)");   // allows the selective running of functions based on screen width
-
 export const PrivateHeader = (props) => {
   const navImgSrc = props.isSidebarOpen ? '/images/x.svg' : '/images/bars.svg';
   const menuImgSrc = props.isMenuOpen ? '/images/x.svg' : '/images/bars.svg';
@@ -21,7 +19,7 @@ export const PrivateHeader = (props) => {
         <img className="header__menu-toggle" src="/images/bars.svg" onClick={() => props.onMenuToggle()}/>
 
         <div id="slide-out-menu" className="header__menu">
-          <img className="header__menu-toggle" src="/images/x.svg" onClick={() => props.onMenuToggle()}/>
+          <img id="slide-out-menu-toggle" className="header__menu-toggle" src="/images/x.svg" onClick={() => props.onMenuToggle()}/>
 
           <div className="header__menu-items">
             <div className="header__menu-profile">
@@ -72,7 +70,6 @@ PrivateHeader.propTypes = {
   onLogout: PropTypes.func.isRequired,
   onSidebarToggle: PropTypes.func.isRequired,
   onMenuToggle: PropTypes.func.isRequired,
-  onCloseMenu: PropTypes.func.isRequired,
   isSidebarOpen: PropTypes.bool.isRequired,
   isMenuOpen: PropTypes.bool.isRequired
 };
@@ -80,7 +77,7 @@ PrivateHeader.propTypes = {
 export default createContainer(() => {
   return {
     onLogout: () => Accounts.logout(),
-    onSidebarToggle: () => {
+    onSidebarToggle: () => {      
       if (!Session.get('isSidebarOpen') && Session.get('isMenuOpen')) {   // close the menu before opening the sidebar
         Session.set('isMenuOpen', false);
       }
@@ -93,11 +90,6 @@ export default createContainer(() => {
       }
 
       Session.set('isMenuOpen', !Session.get('isMenuOpen'));
-    },
-    onCloseMenu: () => {
-      if (mq.matches) {
-        Session.set('isMenuOpen', false);
-      }
     },
     isSidebarOpen: Session.get('isSidebarOpen'),
     isMenuOpen: Session.get('isMenuOpen')

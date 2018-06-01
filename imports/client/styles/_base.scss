@@ -41,3 +41,23 @@ input[type=text], input[type=email], input[type=password], textarea {
   margin-bottom: $space;
   padding: $input-spacing;
 }
+
+div#overlay {
+  background: rgba(0, 0, 0, 0.4);
+  opacity: 0;
+  transition: visibility 0s, opacity 0.5s linear;
+  visibility: hidden;
+  height: 100vh;
+  width: 100vw;
+  z-index: 1;
+
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+}
+
+.is-menu-open div#overlay {
+  opacity: 1;
+  visibility: visible;
+}
