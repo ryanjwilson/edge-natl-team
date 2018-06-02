@@ -31,7 +31,7 @@ export const Wrestler = (props) => {
   return (
     <div id="wrestler" className={className} onClick={() => props.Session.set('selectedWrestlerId', props.wrestler._id)}>
       <div className="item__text">
-        <h5 className="item__title">{props.wrestler.firstName || 'Unknown Wrestler'}</h5>
+        <h5 className="item__title">{props.wrestler.name || 'Unknown Wrestler'}</h5>
         <p className="item__subtitle">{weightSubtitle} &middot; {gradeSubtitle}</p>
       </div>
       {/* {props.wrestler.published ? <div className="item__status-icon"><img src="/images/confirm.png"/></div> : undefined} */}

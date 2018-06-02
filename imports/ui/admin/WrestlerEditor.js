@@ -13,39 +13,29 @@ export class WrestlerEditor extends React.Component {
     super(props);
 
     this.state = {
-      firstName: '',
-      lastName: '',
+      name: '',
       dob: '',
       grade: '',
       weight: '',
-      lastWrestled: '',
       parentName: '',
       parentEmail: '',
       parentPhone: ''
     };
 
-    this.onFirstNameChange = this.onFirstNameChange.bind(this);
-    this.onLastNameChange = this.onLastNameChange.bind(this);
+    this.onNameChange = this.onNameChange.bind(this);
     this.onDobChange = this.onDobChange.bind(this);
     this.onGradeChange = this.onGradeChange.bind(this);
     this.onWeightChange = this.onWeightChange.bind(this);
-    this.onLastWrestledChange = this.onLastWrestledChange.bind(this);
     this.onParentNameChange = this.onParentNameChange.bind(this);
     this.onParentEmailChange = this.onParentEmailChange.bind(this);
     this.onParentPhoneChange = this.onParentPhoneChange.bind(this);
     this.onDelete = this.onDelete.bind(this);
   }
 
-  onFirstNameChange(e) {
-    const firstName = e.target.value;
-    this.setState({ firstName });
-    this.props.call('wrestlers.update', this.props.wrestler._id, { firstName });
-  }
-
-  onLastNameChange(e) {
-    const lastName = e.target.value;
-    this.setState({ lastName });
-    this.props.call('wrestlers.update', this.props.wrestler._id, { lastName });
+  onNameChange(e) {
+    const name = e.target.value;
+    this.setState({ name });
+    this.props.call('wrestlers.update', this.props.wrestler._id, { name });
   }
 
   onDobChange(e) {
@@ -64,12 +54,6 @@ export class WrestlerEditor extends React.Component {
     const weight = e.target.value;
     this.setState({ weight });
     this.props.call('wrestlers.update', this.props.wrestler._id, { weight });
-  }
-
-  onLastWrestledChange(e) {
-    const lastWrestled = e.target.value;
-    this.setState({ lastWrestled });
-    this.props.call('wrestlers.update', this.props.wrestler._id, { lastWrestled });
   }
 
   onParentNameChange(e) {
@@ -126,8 +110,7 @@ export class WrestlerEditor extends React.Component {
 
     if (currWrestlerId && currWrestlerId !== prevWrestlerId) {
       this.setState({
-        firstName: this.props.wrestler.firstName,
-        lastName: this.props.wrestler.lastName,
+        name: this.props.wrestler.name,
         dob: this.props.wrestler.dob,
         grade: this.props.wrestler.grade,
         weight: this.props.wrestler.weight,
@@ -143,7 +126,7 @@ export class WrestlerEditor extends React.Component {
     if (this.props.wrestler) {
       return (
         <div className="editor">
-          <input id="first-name" className="editor__title" value={this.state.firstName} placeholder="Unknown Wrestler" onChange={this.onFirstNameChange}/>
+          <input id="name" className="editor__title" value={this.state.name} placeholder="Unknown Wrestler" onChange={this.onNameChange}/>
           <label className="editor__label">
             <p>Date of Birth</p>
             <input id="dob" name="dob" className="editor__field" value={this.state.dob} placeholder="DOB" onChange={this.onDobChange}/>
@@ -155,10 +138,6 @@ export class WrestlerEditor extends React.Component {
           <label className="editor__label">
             <p>Weight</p>
             <input id="weight" name="weight" className="editor__field" value={this.state.weight} placeholder="Weight" onChange={this.onWeightChange}/>
-          </label>
-          <label className="editor__label">
-            <p>Last Wrestled</p>
-            <input id="last-wrestled" name="last-wrestled" className="editor__field" value={this.state.lastWrestled} placeholder="Last Wrestled" onChange={this.onLastWrestledChange}/>
           </label>
           <label className="editor__label">
             <p>Parent's Name</p>
