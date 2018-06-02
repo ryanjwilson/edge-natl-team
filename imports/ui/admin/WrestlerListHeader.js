@@ -9,7 +9,6 @@ import WrestlerListFilters from './WrestlerListFilters';
 const WrestlerListHeader = (props) => {
   const onAddWrestler = () => {
     props.meteorCall('wrestlers.insert', (err, res) => {
-      console.log(err);
       if (res) {
         props.Session.set('selectedWrestlerId', res);
       }

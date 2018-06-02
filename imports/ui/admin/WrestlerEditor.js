@@ -97,7 +97,6 @@ export class WrestlerEditor extends React.Component {
       }
     }).then((response) => {
       if (response) {
-        console.log(this.props);
         this.props.call('wrestlers.remove', this.props.wrestler._id);
         this.props.browserHistory.push('/wrestlers');
       }
