@@ -20,8 +20,8 @@ Meteor.methods({
     }
 
     return Applications.insert({
-      wreslter: {},
       tournament: {},
+      wrestler: {},
       weightClass: '',
       updatedAt: moment().valueOf()
     });
@@ -52,6 +52,26 @@ Meteor.methods({
         type: String,
         min: 1
       },
+      tournament: {
+        type: Object,
+        optional: true
+      },
+      'tournament.name': {
+        type: String,
+        optional: true
+      },
+      'tournament.location': {
+        type: String,
+        optional: true
+      },
+      'tournament.startDate': {
+        type: String,
+        optional: true
+      },
+      'tournament.division': {
+        type: String,
+        optional: true
+      },
       wrestler: {
         type: Object,
         optional: true
@@ -68,10 +88,6 @@ Meteor.methods({
         type: String,             // TODO - modify to support Number?
         optional: true
       },
-      'wrestler.lastWrestled': {
-        type: String,             // TODO - modify to support Date for sorting?
-        optional: true
-      },
       'wrestler.parentName': {
         type: String,
         optional: true
@@ -80,19 +96,7 @@ Meteor.methods({
         type: String,
         optional: true
       },
-      'wrestler.parentNumber': {
-        type: String,
-        optional: true
-      },
-      tournament: {
-        type: Object,
-        optional: true
-      },
-      'tournament.name': {
-        type: String,
-        optional: true
-      },
-      'tournament.division': {
+      'wrestler.parentPhone': {
         type: String,
         optional: true
       },
@@ -113,6 +117,26 @@ Meteor.methods({
         type: String,
         min: 1
       },
+      tournament: {
+        type: Object,
+        optional: false
+      },
+      'tournament.name': {
+        type: String,
+        optional: false
+      },
+      'tournament.location': {
+        type: String,
+        optional: true
+      },
+      'tournament.startDate': {
+        type: String,
+        optional: true
+      },
+      'tournament.division': {
+        type: String,
+        optional: false
+      },
       wrestler: {
         type: Object,
         optional: false
@@ -141,22 +165,6 @@ Meteor.methods({
         type: String,
         optional: false
       },
-      tournament: {
-        type: Object,
-        optional: false
-      },
-      'tournament._id': {
-        type: String,
-        min: 1
-      },
-      'tournament.name': {
-        type: String,
-        optional: false
-      },
-      'tournament.division': {
-        type: String,
-        optional: false
-      },
       weightClass: {
         type: String,
         optional: false
@@ -164,15 +172,15 @@ Meteor.methods({
     }).validate({ ...info });
 
     Applications.insert({
-      wreslter: {},
       tournament: {},
+      wrestler: {},
       weightClass: '',
       updatedAt: moment().valueOf()
     });
 
-    Applications.update({ _id }, {
-      $set: { updatedAt: moment().valueOf(), ...updates }
-    });
+    // Applications.update({ _id }, {
+    //   $set: { updatedAt: moment().valueOf(), ...updates }
+    // });
 
     // TODO - need to insert/update associated wrestler collection
 
