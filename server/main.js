@@ -3,6 +3,8 @@ import { Mongo } from 'meteor/mongo';
 import { Accounts } from 'meteor/accounts-base';
 
 import '../imports/startup/simple-schema-config.js';
+import '../imports/api/applications';
+// import '../imports/api/rosters';
 import '../imports/api/tournaments';
 import '../imports/api/wrestlers';
 

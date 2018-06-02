@@ -81,7 +81,7 @@ Tracker.autorun(() => {
 Meteor.startup(() => {
   Session.set('selectedTournamentId', undefined);     // tournament view
   Session.set('selectedWrestlerId', undefined);       // wrestler view
-  //Session.set('selectedApplicationId', undefined);  // applicant view
+  Session.set('selectedApplicationId', undefined);    // applicant view
   //Session.set('selectedRosterId', undefined);       // roster view
 
   Session.set('isSidebarOpen', false);                // items list (mobile only)
