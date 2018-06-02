@@ -79,12 +79,17 @@ Tracker.autorun(() => {
 /////// CLIENT APPLICATION EXECUTION STARTS HERE ///////////////////////////////
 
 Meteor.startup(() => {
-  Session.set('selectedTournamentId', undefined);
-  Session.set('selectedWrestlerId', undefined);
+  Session.set('selectedTournamentId', undefined);     // tournament view
+  Session.set('selectedWrestlerId', undefined);       // wrestler view
+  //Session.set('selectedApplicationId', undefined);  // applicant view
+  //Session.set('selectedRosterId', undefined);       // roster view
+
   Session.set('isSidebarOpen', false);                // items list (mobile only)
   Session.set('isMenuOpen', false);                   // menu (desktop and mobile)
-  Session.set('showPublished', true);
-  Session.set('showUnpublished', true);
+
+  // TODO - filters for other views need to be added
+  Session.set('showPublished', true);                 // toggles published tournaments
+  Session.set('showUnpublished', true);               // toggles unpublished tournaments
 
   ReactDOM.render(routes, document.getElementById('app'));
 });
