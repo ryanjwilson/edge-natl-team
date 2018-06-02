@@ -79,7 +79,7 @@ Meteor.methods({
         type: String,
         optional: true
       },
-      parentNumber: {
+      parentPhone: {
         type: String,
         optional: true
       }
