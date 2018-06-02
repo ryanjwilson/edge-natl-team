@@ -30,13 +30,17 @@ export const PrivateHeader = (props) => {
               </div>
             </div>
             <div className="header__menu-links">
-              <Link to="/dashboard" className="header__menu-item">
+              <Link to="/tournaments" className="header__menu-item">
                 <img className="header__menu-link-icon" src="/images/bars.svg"/>
                 Tournaments
               </Link>
-              <Link to="/dashboard" className="header__menu-item">
+              <Link to="/wrestlers" className="header__menu-item">
                 <img className="header__menu-link-icon" src="/images/bars.svg"/>
                 Wrestlers
+              </Link>
+              <Link to="/dashboard" className="header__menu-item">
+                <img className="header__menu-link-icon" src="/images/bars.svg"/>
+                Applicants
               </Link>
               <Link to="/dashboard" className="header__menu-item">
                 <img className="header__menu-link-icon" src="/images/bars.svg"/>
@@ -77,7 +81,7 @@ PrivateHeader.propTypes = {
 export default createContainer(() => {
   return {
     onLogout: () => Accounts.logout(),
-    onSidebarToggle: () => {      
+    onSidebarToggle: () => {
       if (!Session.get('isSidebarOpen') && Session.get('isMenuOpen')) {   // close the menu before opening the sidebar
         Session.set('isMenuOpen', false);
       }

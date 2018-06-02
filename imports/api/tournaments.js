@@ -3,8 +3,6 @@ import { Meteor } from 'meteor/meteor';
 import moment from 'moment';
 import SimpleSchema from 'simpl-schema';
 
-/*****************************************************************************/
-
 const Tournaments = new Mongo.Collection('tournaments');
 
 if (Meteor.isServer) {
@@ -34,7 +32,7 @@ Meteor.methods({
       published: false,
       userId: this.userId,
       updatedAt: moment().valueOf()
-    })
+    });
   },
 
   'tournaments.remove'(_id) {
@@ -117,7 +115,5 @@ Meteor.methods({
     });
   }
 });
-
-/*****************************************************************************/
 
 export { Tournaments };

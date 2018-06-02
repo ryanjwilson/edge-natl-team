@@ -171,7 +171,7 @@ export class TournamentEditor extends React.Component {
     }).then((response) => {
       if (response) {
         this.props.call('tournaments.remove', this.props.tournament._id);
-        this.props.browserHistory.push('/dashboard');
+        this.props.browserHistory.push('/tournaments');
       }
     });
   }

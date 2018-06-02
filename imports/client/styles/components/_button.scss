@@ -78,8 +78,17 @@
 .action-group {
   align-items: center;
   display: flex;
+  flex-direction: row;
   justify-content: space-between;
   margin-top: $large-space + $space;
+}
+
+/*
+ * Center content when there's only a single button in the action group.
+ */
+
+.action-group.single-item {
+  justify-content: space-around;
 }
 
 /*
