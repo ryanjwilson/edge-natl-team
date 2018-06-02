@@ -22,42 +22,39 @@ Tracker.autorun(() => {
 });
 
 /*
- * Tracks changes in the selected tournament via the selectedTournamentId
- * Session variable. This code is executed whenever a change is detected.
+ * Tracks changes in the selected application, tournament, or wrestler Session
+ * variable. This code is executed whenever a change is detected.
  */
 
 Tracker.autorun(() => {
+  const selectedApplicationId = Session.get('selectedApplicationId');
   const selectedTournamentId = Session.get('selectedTournamentId');
+  const selectedWrestlerId = Session.get('selectedWrestlerId');
 
-  Session.set('isSidebarOpen', false);    // close on tournament selection and browser refresh
-  Session.set('isMenuOpen', false);       // close on browser refresh (TODO: maybe there's a better place for this?)
+  Session.set('isSidebarOpen', false);    // close on selection and browser refresh
+  Session.set('isMenuOpen', false);       // close on browser refresh
 
-  if (selectedTournamentId) {
+  /*
+   * Conditionally re-direct the application based on selected application,
+   * tournament, wrestler, or current pathname.
+   */
+
+  if (selectedApplicationId) {
+    browserHistory.replace(`/applications/${selectedApplicationId}`);
+  } else if (selectedTournamentId) {
     browserHistory.replace(`/tournaments/${selectedTournamentId}`);
+  } else if (selectedWrestlerId) {
+    browserHistory.replace(`/wrestlers/${selectedWrestlerId}`);
   } else {
-    browserHistory.replace('/tournaments');
+    if (this.location.pathname.includes('/applications')) {
+      browserHistory.replace('/applications');
+    } else if (this.location.pathname.includes('/tournaments')) {
+      browserHistory.replace('/tournaments');
+    } else if (this.location.pathname.includes('/wrestlers')) {
+      browserHistory.replace('/wrestlers');
+    }
   }
 });
-
-// TODO - can the selected[Item]Id Tracker.autorun functions be merged?
-
-/*
- * Tracks changes in the selected wrestler via the selectedWrestlerId
- * Session variable. This code is executed whenever a change is detected.
- */
-
- Tracker.autorun(() => {
-   const selectedWrestlerId = Session.get('selectedWrestlerId');
-
-   Session.set('isSidebarOpen', false);    // close on tournament selection and browser refresh
-   Session.set('isMenuOpen', false);       // close on browser refresh (TODO: maybe there's a better place for this?)
-
-   if (selectedWrestlerId) {
-     browserHistory.replace(`/wrestlers/${selectedWrestlerId}`);
-   } else {
-     browserHistory.replace('/wrestlers');
-   }
- });
 
 /*
  * Tracks changes in the navigation status, allowing for the mobile-friendly

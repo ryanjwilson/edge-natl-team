@@ -9,6 +9,7 @@ import Login from '../ui/admin/Login';
 import NotFound from '../ui/NotFound';
 import Rules from '../ui/Rules';
 import Schedule from '../ui/Schedule';
+import ApplicationView from '../ui/admin/ApplicationView';
 import TournamentView from '../ui/admin/TournamentView';
 import WrestlerView from '../ui/admin/WrestlerView';
 
@@ -35,13 +36,17 @@ const onAuthenticationChange = (isAuthenticated, currentPagePrivacy) => {
 
 const onEnterGlobal = (nextState) => {
   const destination = nextState.routes[nextState.routes.length - 1];
-  Session.set('currentPagePrivacy', destination.privacy);
 
+  Session.set('currentPagePrivacy', destination.privacy);
   Session.set('isMenuOpen', false);   // close the slide-out (desktop-only) menu after selection
 };
 
 const onChangeGlobal = (prevState, nextState) => {
   onEnterGlobal(nextState);
+};
+
+const onEnterApplication = (nextState) => {
+  Session.set('selectedApplicationId', nextState.params.applicationId);
 };
 
 const onEnterTournament = (nextState) => {
@@ -50,6 +55,10 @@ const onEnterTournament = (nextState) => {
 
 const onEnterWrestler = (nextState) => {
   Session.set('selectedWrestlerId', nextState.params.wrestlerId);
+};
+
+const onLeaveApplication = () => {
+  Session.set('selectedApplicationId', undefined);
 };
 
 const onLeaveTournament = () => {
@@ -68,6 +77,8 @@ const routes = (
       <Route path="/faq" component={FAQs}/>
       <Route path="contact" component={Contact}/>
       <Route path="/admin" component={Login} privacy="unauthenticated"/>
+      <Route path="/applications" component={ApplicationView} privacy="authenticated"/>
+      <Route path="/applications/:applicationId" component={ApplicationView} privacy="authenticated" onEnter={onEnterApplication} onLeave={onLeaveApplication}/>
       <Route path="/tournaments" component={TournamentView} privacy="authenticated"/>
       <Route path="/tournaments/:tournamentId" component={TournamentView} privacy="authenticated" onEnter={onEnterTournament} onLeave={onLeaveTournament}/>
       <Route path="/wrestlers" component={WrestlerView} privacy="authenticated"/>

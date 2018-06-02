@@ -34,17 +34,17 @@ export const PrivateHeader = (props) => {
                 <img className="header__menu-link-icon" src="/images/bars.svg"/>
                 Tournaments
               </Link>
-              <Link to="/wrestlers" className="header__menu-item">
+              <Link to="/applications" className="header__menu-item">
                 <img className="header__menu-link-icon" src="/images/bars.svg"/>
-                Wrestlers
-              </Link>
-              <Link to="/dashboard" className="header__menu-item">
-                <img className="header__menu-link-icon" src="/images/bars.svg"/>
-                Applicants
+                Applications
               </Link>
               <Link to="/dashboard" className="header__menu-item">
                 <img className="header__menu-link-icon" src="/images/bars.svg"/>
                 Rosters
+              </Link>
+              <Link to="/wrestlers" className="header__menu-item">
+                <img className="header__menu-link-icon" src="/images/bars.svg"/>
+                Wrestlers
               </Link>
               <Link to="/dashboard" className="header__menu-item">
                 <img className="header__menu-link-icon" src="/images/bars.svg"/>
