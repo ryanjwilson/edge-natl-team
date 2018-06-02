@@ -18,12 +18,10 @@ Meteor.methods({
     }
 
     return Wrestlers.insert({
-      firstName: '',
-      lastName: '',
+      name: '',
       dob: '',
       grade: '',
       weight: '',
-      lastWrestled: '',
       parentName: '',
       parentEmail: '',
       parentPhone: '',
@@ -57,11 +55,7 @@ Meteor.methods({
         type: String,
         min: 1
       },
-      firstName: {
-        type: String,
-        optional: true
-      },
-      lastName: {
+      name: {
         type: String,
         optional: true
       },
@@ -75,10 +69,6 @@ Meteor.methods({
       },
       weight: {
         type: String,       // TODO - modify to support Number?
-        optional: true
-      },
-      lastWrestled: {
-        type: String,       // TODO - modify to support Date for sorting?
         optional: true
       },
       parentName: {
