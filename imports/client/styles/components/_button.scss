@@ -95,8 +95,8 @@
  * Background color changes for Publish, Unpublish, Cancel, and Delete buttons.
  */
 
-.button--publish { background-color: $dark-green; }
-.button--unpublish { background-color: $dark-gray; }
+.button--publish, .button--save { background-color: $dark-green; }
+.button--unpublish { background-color: $medium-dark-gray; }
 .button--cancel { background-color: $medium-gray; }
 .button--delete { background-color: $dark-red; }
 
@@ -105,7 +105,14 @@
  */
 
 .button--add:hover { background-color: darken($button-bg, 5); }
-.button--publish:hover { background-color: darken($dark-green, 5); }
-.button--unpublish:hover { background-color: darken($dark-gray, 5); }
+.button--publish:hover, .button--save:hover { background-color: darken($dark-green, 5); }
+.button--unpublish:hover { background-color: darken($medium-dark-gray, 5); }
 .button--cancel:hover { background-color: darken($medium-gray, 5); }
 .button--delete:hover { background-color: darken($dark-red, 5); }
+
+.modal-button {
+  font-size: $base-font-size !important;
+  margin-bottom: $space !important;
+  margin-top: $space !important;
+  padding: $space !important;
+}
