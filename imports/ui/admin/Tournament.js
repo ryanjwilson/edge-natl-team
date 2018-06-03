@@ -10,7 +10,7 @@ export const Tournament = (props) => {
     <div id="tournament" className={className} onClick={() => props.Session.set('selectedTournamentId', props.tournament._id)}>
       <div className="item__text">
         <h5 className="item__title">{props.tournament.name || 'Untitled Tournament'}</h5>
-        <p className="item__subtitle">{props.tournament.startDate || 'Date'} &middot; {props.tournament.location || 'Location'}</p>
+        <p className="item__subtitle">{props.tournament.location || 'Location'} &middot; {props.tournament.startDate || 'Date'}</p>
       </div>
       {props.tournament.published ? <div className="item__status-icon"><img src="/images/confirm.png"/></div> : undefined}
     </div>

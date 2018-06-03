@@ -43,6 +43,7 @@ export default createContainer(() => {
   const showPublished = Session.get('showPublished');
   const showUnpublished = Session.get('showUnpublished');
 
+  Meteor.call('wrestlers.sync');
   Meteor.subscribe('wrestlers');
 
   if (showPublished && showUnpublished) {

@@ -4,7 +4,7 @@ import { Session } from 'meteor/session';
 import { PropTypes } from 'prop-types';
 import { Meteor } from 'meteor/meteor';
 import { browserHistory } from 'react-router';
-import swal from 'sweetalert';
+import swal from 'sweetalert2';
 
 import { Wrestlers } from '../../api/wrestlers';
 
@@ -76,31 +76,35 @@ export class WrestlerEditor extends React.Component {
 
   onDelete() {
     swal({
-      title: "Are you sure?",
-      text: "After deleting, you cannot undo this action!",
-      icon: "warning",
-      buttons: {
-        cancel: {
-          text: "Cancel",
-          value: null,
-          visible: true,
-          className: "button--cancel",
-          closeModal: true
-        },
-        confirm: {
-          text: "Delete",
-          value: true,
-          visible: true,
-          className: "button--delete",
-          closeModal: true
-        }
-      }
+      titleText: 'Are you sure?',
+      text: 'You cannot undo this action!',
+      type: 'warning',
+      showCancelButton: true,
+      cancelButtonClass: 'modal-button button--cancel',
+      confirmButtonText: 'Delete',
+      confirmButtonClass: 'modal-button button--delete',
+      confirmButtonColor: '#e64942',
+      reverseButtons: true
     }).then((response) => {
-      if (response) {
+      if (response && response.value) {
         this.props.call('wrestlers.remove', this.props.wrestler._id);
         this.props.browserHistory.push('/wrestlers');
       }
     });
+  }
+
+  componentDidMount() {
+    if (this.props.wrestler) {
+      this.setState({
+        name: this.props.wrestler.name || '',
+        dob: this.props.wrestler.dob || '',
+        grade: this.props.wrestler.grade || '',
+        weight: this.props.wrestler.weight || '',
+        parentName: this.props.wrestler.parentName || '',
+        parentEmail: this.props.wrestler.parentEmail || '',
+        parentPhone: this.props.wrestler.parentPhone || ''
+      });
+    }
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -109,14 +113,13 @@ export class WrestlerEditor extends React.Component {
 
     if (currWrestlerId && currWrestlerId !== prevWrestlerId) {
       this.setState({
-        name: this.props.wrestler.name,
-        dob: this.props.wrestler.dob,
-        grade: this.props.wrestler.grade,
-        weight: this.props.wrestler.weight,
-        lastWrestled: this.props.wrestler.lastWrestled,
-        parentName: this.props.wrestler.parentName,
-        parentEmail: this.props.wrestler.parentEmail,
-        parentPhone: this.props.wrestler.parentPhone
+        name: this.props.wrestler.name || '',
+        dob: this.props.wrestler.dob || '',
+        grade: this.props.wrestler.grade || '',
+        weight: this.props.wrestler.weight || '',
+        parentName: this.props.wrestler.parentName || '',
+        parentEmail: this.props.wrestler.parentEmail || '',
+        parentPhone: this.props.wrestler.parentPhone || ''
       });
     }
   }

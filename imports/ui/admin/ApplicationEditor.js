@@ -4,7 +4,7 @@ import { Session } from 'meteor/session';
 import { PropTypes } from 'prop-types';
 import { Meteor } from 'meteor/meteor';
 import { browserHistory } from 'react-router';
-import swal from 'sweetalert';
+import swal from 'sweetalert2';
 
 import { Applications } from '../../api/applications';
 
@@ -20,7 +20,6 @@ export class ApplicationEditor extends React.Component {
         division: ''
       },
       wrestler: {
-        // _id: '',
         name: '',
         dob: '',
         grade: '',
@@ -28,7 +27,8 @@ export class ApplicationEditor extends React.Component {
         parentEmail: '',
         parentPhone: ''
       },
-      weightClass: ''
+      weightClass: '',
+      crossReferenced: false
     };
 
     this.onNameChange = this.onNameChange.bind(this);
@@ -56,7 +56,10 @@ export class ApplicationEditor extends React.Component {
     };
 
     this.setState({ wrestler });
-    this.props.call('applications.update', this.props.application._id, { wrestler });
+    this.props.call('applications.update', this.props.application._id, {
+      wrestler,
+      crossReferenced: this.props.application.crossReferenced
+    });
 
     // TODO - update associated wrestler?
   }
@@ -73,7 +76,10 @@ export class ApplicationEditor extends React.Component {
     };
 
     this.setState({ wrestler });
-    this.props.call('applications.update', this.props.application._id, { wrestler });
+    this.props.call('applications.update', this.props.application._id, {
+      wrestler,
+      crossReferenced: this.props.application.crossReferenced
+    });
 
     // TODO - update associated wrestler?
   }
@@ -90,7 +96,10 @@ export class ApplicationEditor extends React.Component {
     };
 
     this.setState({ wrestler });
-    this.props.call('applications.update', this.props.application._id, { wrestler });
+    this.props.call('applications.update', this.props.application._id, {
+      wrestler,
+      crossReferenced: this.props.application.crossReferenced
+    });
 
     // TODO - update associated wrestler?
   }
@@ -107,7 +116,10 @@ export class ApplicationEditor extends React.Component {
     };
 
     this.setState({ wrestler });
-    this.props.call('applications.update', this.props.application._id, { wrestler });
+    this.props.call('applications.update', this.props.application._id, {
+      wrestler,
+      crossReferenced: this.props.application.crossReferenced
+    });
 
     // TODO - update associated wrestler?
   }
@@ -124,7 +136,10 @@ export class ApplicationEditor extends React.Component {
     };
 
     this.setState({ wrestler });
-    this.props.call('applications.update', this.props.application._id, { wrestler });
+    this.props.call('applications.update', this.props.application._id, {
+      wrestler,
+      crossReferenced: this.props.application.crossReferenced
+    });
 
     // TODO - update associated wrestler?
   }
@@ -141,7 +156,10 @@ export class ApplicationEditor extends React.Component {
     };
 
     this.setState({ wrestler });
-    this.props.call('applications.update', this.props.application._id, { wrestler });
+    this.props.call('applications.update', this.props.application._id, {
+      wrestler,
+      crossReferenced: this.props.application.crossReferenced
+    });
 
     // TODO - update associated wrestler?
   }
@@ -149,34 +167,27 @@ export class ApplicationEditor extends React.Component {
   onWeightChange(e) {
     const weightClass = e.target.value;
     this.setState({ weightClass });
-    this.props.call('applications.update', this.props.application._id, { weightClass });
+    this.props.call('applications.update', this.props.application._id, {
+      weightClass,
+      crossReferenced: this.props.application.crossReferenced
+    });
 
     // TODO - update associated wrestler?
   }
 
   onDelete() {
     swal({
-      title: "Are you sure?",
-      text: "After deleting, you cannot undo this action!",
-      icon: "warning",
-      buttons: {
-        cancel: {
-          text: "Cancel",
-          value: null,
-          visible: true,
-          className: "button--cancel",
-          closeModal: true
-        },
-        confirm: {
-          text: "Delete",
-          value: true,
-          visible: true,
-          className: "button--delete",
-          closeModal: true
-        }
-      }
+      titleText: 'Are you sure?',
+      text: 'You cannot undo this action!',
+      type: 'warning',
+      showCancelButton: true,
+      cancelButtonClass: 'modal-button button--cancel',
+      confirmButtonText: 'Delete',
+      confirmButtonClass: 'modal-button button--delete',
+      confirmButtonColor: '#e64942',
+      reverseButtons: true
     }).then((response) => {
-      if (response) {
+      if (response && response.value) {
         this.props.call('applications.remove', this.props.application._id);
         this.props.browserHistory.push('/applications');
       }
@@ -190,20 +201,21 @@ export class ApplicationEditor extends React.Component {
     if (currApplicationId && currApplicationId !== prevApplicationId) {
       this.setState({
         tournament: {
-          name: this.props.application.tournament.name,
-          location: this.props.application.tournament.location,
-          date: this.props.application.tournament.startDate,
-          division: this.props.application.tournament.division
+          name: this.props.application.tournament.name || '',
+          location: this.props.application.tournament.location || '',
+          date: this.props.application.tournament.startDate || '',
+          division: this.props.application.tournament.division || ''
         },
         wrestler: {
-          name: this.props.application.wrestler.name,
-          dob: this.props.application.wrestler.dob,
-          grade: this.props.application.wrestler.grade,
-          parentName: this.props.application.wrestler.parentName,
-          parentEmail: this.props.application.wrestler.parentEmail,
-          parentPhone: this.props.application.wrestler.parentPhone
+          name: this.props.application.wrestler.name || '',
+          dob: this.props.application.wrestler.dob || '',
+          grade: this.props.application.wrestler.grade || '',
+          parentName: this.props.application.wrestler.parentName || '',
+          parentEmail: this.props.application.wrestler.parentEmail || '',
+          parentPhone: this.props.application.wrestler.parentPhone || ''
         },
-        weightClass: this.props.application.weightClass
+        weightClass: this.props.application.weightClass || '',
+        crossReferenced: this.props.application.crossReferenced || false
       });
     }
   }
@@ -212,43 +224,43 @@ export class ApplicationEditor extends React.Component {
     if (this.props.application) {
       return (
         <div className="editor">
-          <input id="tournament-name" className="editor__title" value={this.state.tournament.name || 'Untitled Tournament'} placeholder="Untitled Tournament" readOnly/>
+          <input id="tournament-name" className="editor__title" value={this.state.tournament.name} placeholder="Untitled Tournament" readOnly/>
           <label className="editor__label">
             <p>Location</p>
-            <input id="location" name="location" className="editor__field" value={this.state.tournament.location || ''} placeholder="Location" readOnly/>
+            <input id="location" name="location" className="editor__field" value={this.state.tournament.location} placeholder="Location" readOnly/>
           </label>
           <label className="editor__label">
             <p>Date</p>
-            <input id="start-date" name="date" className="editor__field" value={this.state.tournament.date || ''} placeholder="Start Date" readOnly/>
+            <input id="start-date" name="date" className="editor__field" value={this.state.tournament.date} placeholder="Start Date" readOnly/>
           </label>
           <label className="editor__label">
             <p>Age Division</p>
-            <input id="division" name="division" className="editor__field" value={this.state.tournament.division || ''} placeholder="Age Division" readOnly/>
+            <input id="division" name="division" className="editor__field" value={this.state.tournament.division} placeholder="Age Division" readOnly/>
           </label>
-          <input id="wrestler-name" className="editor__title" value={this.state.wrestler.name || ''} placeholder="Unknown Wrestler" onChange={this.onNameChange}/>
+          <input id="wrestler-name" className="editor__title" value={this.state.wrestler.name} placeholder="Unknown Wrestler" onChange={this.onNameChange}/>
           <label className="editor__label">
             <p>Weight Class</p>
             <input id="weight" name="weight" className="editor__field" value={this.state.weightClass} placeholder="Weight Class" onChange={this.onWeightChange}/>
           </label>
           <label className="editor__label">
             <p>Date of Birth</p>
-            <input id="dob" name="dob" className="editor__field" value={this.state.wrestler.dob || ''} placeholder="DOB" onChange={this.onDobChange}/>
+            <input id="dob" name="dob" className="editor__field" value={this.state.wrestler.dob} placeholder="DOB" onChange={this.onDobChange}/>
           </label>
           <label className="editor__label">
             <p>Grade</p>
-            <input id="grade" name="grade" className="editor__field" value={this.state.wrestler.grade || ''} placeholder="Grade" onChange={this.onGradeChange}/>
+            <input id="grade" name="grade" className="editor__field" value={this.state.wrestler.grade} placeholder="Grade" onChange={this.onGradeChange}/>
           </label>
           <label className="editor__label">
             <p>Parent's Name</p>
-            <input id="parent-name" name="parent-name" className="editor__field" value={this.state.wrestler.parentName || ''} placeholder="Parent's Name" onChange={this.onParentNameChange}/>
+            <input id="parent-name" name="parent-name" className="editor__field" value={this.state.wrestler.parentName} placeholder="Parent's Name" onChange={this.onParentNameChange}/>
           </label>
           <label className="editor__label">
             <p>Parent's Email</p>
-            <input id="parent-email" name="parent-email" className="editor__field" value={this.state.wrestler.parentEmail || ''} placeholder="Parent's Email" onChange={this.onParentEmailChange}/>
+            <input id="parent-email" name="parent-email" className="editor__field" value={this.state.wrestler.parentEmail} placeholder="Parent's Email" onChange={this.onParentEmailChange}/>
           </label>
           <label className="editor__label">
             <p>Parent's Phone</p>
-            <input id="parent-phone" name="parent-phone" className="editor__field" value={this.state.wrestler.parentPhone || ''} placeholder="Parent's Phone" onChange={this.onParentPhoneChange}/>
+            <input id="parent-phone" name="parent-phone" className="editor__field" value={this.state.wrestler.parentPhone} placeholder="Parent's Phone" onChange={this.onParentPhoneChange}/>
           </label>
           <div className="action-group single-item">
             <button id="delete-button" className="button button--editor button--delete" onClick={this.onDelete}>Delete</button>

@@ -4,7 +4,7 @@ import { Session } from 'meteor/session';
 import { PropTypes } from 'prop-types';
 import { Meteor } from 'meteor/meteor';
 import { browserHistory } from 'react-router';
-import swal from 'sweetalert';
+import swal from 'sweetalert2';
 
 import { Tournaments } from '../../api/tournaments';
 
@@ -112,32 +112,23 @@ export class TournamentEditor extends React.Component {
 
   onToggleStatus() {
     const published = !this.props.tournament.published;
-    const buttonText = published ? "Publish" : "Unpublish";
-    const cssClass = published ? "button--publish" : "button--unpublish";
-    const message = published ? "This tournament will become visible to the public!" : "This tournament will no longer be visible to the public!";
+    const buttonText = published ? 'Publish' : 'Unpublish';
+    const buttonColor = published ? '#2e8b57' : '#5a5a5a';
+    const cssClass = published ? 'modal-button button--publish' : 'modal-button button--unpublish';
+    const message = published ? 'This tournament will become visible to the public!' : 'This tournament will no longer be visible to the public!';
 
     swal({
-      title: "Are you sure?",
+      titleText: 'Are you sure?',
       text: message,
-      icon: "warning",
-      buttons: {
-        cancel: {
-          text: "Cancel",
-          value: null,
-          visible: true,
-          className: "button--cancel",
-          closeModal: true
-        },
-        confirm: {
-          text: buttonText,
-          value: true,
-          visible: true,
-          className: cssClass,
-          closeModal: true
-        }
-      }
+      type: 'warning',
+      showCancelButton: true,
+      cancelButtonClass: 'modal-button button--cancel',
+      confirmButtonText: buttonText,
+      confirmButtonClass: cssClass,
+      confirmButtonColor: buttonColor,
+      reverseButtons: true
     }).then((response) => {
-      if (response) {
+      if (response && response.value) {
         const publishClass = !published ? 'button--publish' : 'button--unpublish';
         const publishText = !published ? 'Publish' : 'Unpublish';
 
@@ -149,27 +140,17 @@ export class TournamentEditor extends React.Component {
 
   onDelete() {
     swal({
-      title: "Are you sure?",
-      text: "After deleting, you cannot undo this action!",
-      icon: "warning",
-      buttons: {
-        cancel: {
-          text: "Cancel",
-          value: null,
-          visible: true,
-          className: "button--cancel",
-          closeModal: true
-        },
-        confirm: {
-          text: "Delete",
-          value: true,
-          visible: true,
-          className: "button--delete",
-          closeModal: true
-        }
-      }
+      titleText: 'Are you sure?',
+      text: 'You cannot undo this action!',
+      type: 'warning',
+      showCancelButton: true,
+      cancelButtonClass: 'modal-button button--cancel',
+      confirmButtonText: 'Delete',
+      confirmButtonClass: 'modal-button button--delete',
+      confirmButtonColor: '#e64942',
+      reverseButtons: true
     }).then((response) => {
-      if (response) {
+      if (response && response.value) {
         this.props.call('tournaments.remove', this.props.tournament._id);
         this.props.browserHistory.push('/tournaments');
       }
@@ -182,18 +163,18 @@ export class TournamentEditor extends React.Component {
 
     if (currTournamentId && currTournamentId !== prevTournamentId) {
       this.setState({
-        name: this.props.tournament.name,
-        location: this.props.tournament.location,
-        startDate: this.props.tournament.startDate,
-        endDate: this.props.tournament.endDate,
-        weighins: this.props.tournament.weighins,
-        alternateWeighins: this.props.tournament.alternateWeighins,
-        division: this.props.tournament.division,
-        weightClasses: this.props.tournament.weightClasses,
-        allowance: this.props.tournament.allowance,
-        year: this.props.tournament.year,
-        season: this.props.tournament.season,
-        published: this.props.tournament.published,
+        name: this.props.tournament.name || '',
+        location: this.props.tournament.location || '',
+        startDate: this.props.tournament.startDate || '',
+        endDate: this.props.tournament.endDate || '',
+        weighins: this.props.tournament.weighins || '',
+        alternateWeighins: this.props.tournament.alternateWeighins || '',
+        division: this.props.tournament.division || '',
+        weightClasses: this.props.tournament.weightClasses || '',
+        allowance: this.props.tournament.allowance || '',
+        year: this.props.tournament.year || '',
+        season: this.props.tournament.season || '',
+        published: this.props.tournament.published || '',
         publishClass: this.props.tournament.published ? 'button--unpublish' : 'button--publish',
         publishText: this.props.tournament.published ? 'Unpublish' : 'Publish'
       });

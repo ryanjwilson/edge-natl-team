@@ -3,6 +3,8 @@ import { Meteor } from 'meteor/meteor';
 import moment from 'moment';
 import SimpleSchema from 'simpl-schema';
 
+import { Applications } from './applications';
+
 const Wrestlers = new Mongo.Collection('wrestlers');
 
 if (Meteor.isServer) {
@@ -87,6 +89,34 @@ Meteor.methods({
 
     Wrestlers.update({ _id, userId: this.userId }, {
       $set: { updatedAt: moment().valueOf(), ...updates }
+    });
+  },
+
+  'wrestlers.sync'() {
+    if (!this.userId) {
+      throw new Meteor.Error('not-authorized');
+    }
+
+    Applications.find({
+      crossReferenced: false
+    }).fetch().map((application) => {
+      if (application.wrestler.name && application.wrestler.name !== '') {
+        Wrestlers.insert({
+          name: application.wrestler.name,
+          dob: application.wrestler.dob,
+          grade: application.wrestler.grade,
+          weight: application.weightClass,
+          parentName: application.wrestler.parentName,
+          parentEmail: application.wrestler.parentEmail,
+          parentPhone: application.wrestler.parentPhone,
+          userId: this.userId,
+          updatedAt: moment().valueOf()
+        });
+
+        Applications.update({ _id: application._id }, {
+          $set: { crossReferenced: true, updatedAt: moment().valueOf() }
+        });
+      }
     });
   }
 });

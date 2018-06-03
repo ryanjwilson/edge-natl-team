@@ -23,8 +23,80 @@ Meteor.methods({
       tournament: {},
       wrestler: {},
       weightClass: '',
+      crossReferenced: false,
       updatedAt: moment().valueOf()
     });
+  },
+
+  'applications.submit'(values) {
+    new SimpleSchema({
+      tournament: {
+        type: Object,
+        optional: false
+      },
+      'tournament.name': {
+        type: String,
+        optional: false
+      },
+      'tournament.location': {
+        type: String,
+        optional: true
+      },
+      'tournament.startDate': {
+        type: String,
+        optional: true
+      },
+      'tournament.division': {
+        type: String,
+        optional: false
+      },
+      wrestler: {
+        type: Object,
+        optional: false
+      },
+      'wrestler.name': {
+        type: String,
+        optional: false
+      },
+      'wrestler.dob': {
+        type: String,             // TODO - modify to support Date for sorting?
+        optional: false
+      },
+      'wrestler.grade': {
+        type: String,             // TODO - modify to support Number?
+        optional: false
+      },
+      'wrestler.parentName': {
+        type: String,
+        optional: false
+      },
+      'wrestler.parentEmail': {
+        type: String,
+        optional: false
+      },
+      'wrestler.parentPhone': {
+        type: String,
+        optional: false
+      },
+      weightClass: {
+        type: String,
+        optional: false
+      },
+      crossReferenced: {
+        type: Boolean,
+        optional: false
+      }
+    }).validate({ ...values });
+
+    Applications.insert({
+      tournament: values.tournament,
+      wrestler: values.wrestler,
+      weightClass: values.weightClass,
+      crossReferenced: false,
+      updatedAt: moment().valueOf()
+    });
+
+    // TODO - need to insert/update associated wrestler collection
   },
 
   'applications.remove'(_id) {
@@ -103,88 +175,16 @@ Meteor.methods({
       weightClass: {
         type: String,
         optional: true
+      },
+      crossReferenced: {
+        type: Boolean,
+        optional: false
       }
     }).validate({ _id, ...updates });
 
     Applications.update({ _id }, {
       $set: { updatedAt: moment().valueOf(), ...updates }
     });
-  },
-
-  'applications.submit'(updates) {
-    new SimpleSchema({
-      _id: {
-        type: String,
-        min: 1
-      },
-      tournament: {
-        type: Object,
-        optional: false
-      },
-      'tournament.name': {
-        type: String,
-        optional: false
-      },
-      'tournament.location': {
-        type: String,
-        optional: true
-      },
-      'tournament.startDate': {
-        type: String,
-        optional: true
-      },
-      'tournament.division': {
-        type: String,
-        optional: false
-      },
-      wrestler: {
-        type: Object,
-        optional: false
-      },
-      'wrestler.name': {
-        type: String,
-        optional: false
-      },
-      'wrestler.dob': {
-        type: String,             // TODO - modify to support Date for sorting?
-        optional: false
-      },
-      'wrestler.grade': {
-        type: String,             // TODO - modify to support Number?
-        optional: false
-      },
-      'wrestler.parentName': {
-        type: String,
-        optional: false
-      },
-      'wrestler.parentEmail': {
-        type: String,
-        optional: false
-      },
-      'wrestler.parentNumber': {
-        type: String,
-        optional: false
-      },
-      weightClass: {
-        type: String,
-        optional: false
-      }
-    }).validate({ ...info });
-
-    Applications.insert({
-      tournament: {},
-      wrestler: {},
-      weightClass: '',
-      updatedAt: moment().valueOf()
-    });
-
-    // Applications.update({ _id }, {
-    //   $set: { updatedAt: moment().valueOf(), ...updates }
-    // });
-
-    // TODO - need to insert/update associated wrestler collection
-
-    console.log(updates);
   }
 });
 
