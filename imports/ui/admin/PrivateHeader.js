@@ -54,7 +54,7 @@ export const PrivateHeader = (props) => {
                 <img className="header__menu-link-icon" src="/images/bars.svg"/>
                 Help
               </Link>
-              <button className="header__menu-item button button--link header__menu-link logout">
+              <button className="header__menu-item button button--link header__menu-link logout" onClick={() => props.onLogout}>
                 <img className="header__menu-link-icon" src="/images/bars.svg"/>
                 Logout
               </button>
