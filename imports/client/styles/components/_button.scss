@@ -110,9 +110,58 @@
 .button--cancel:hover { background-color: darken($medium-gray, 5); }
 .button--delete:hover { background-color: darken($dark-red, 5); }
 
+/*
+ * Default styles for SweetAlert2 modals.
+ */
+
 .modal-button {
   font-size: $base-font-size !important;
   margin-bottom: $space !important;
   margin-top: $space !important;
   padding: $space !important;
+}
+
+/*
+ * Button groups for multiselect group in list headers.
+ */
+
+.multiselect-group.three {
+  display: flex;
+  flex-direction: row;
+
+  button {
+    text-transform: uppercase;
+    width: 30%;
+  }
+
+  :first-child {
+    margin-right: 2.5%;
+  }
+
+  :last-child {
+    margin-left: 2.5%;
+  }
+
+  :nth-child(2) {
+    margin-left: 2.5%;
+    margin-right: 2.5%;
+  }
+}
+
+.multiselect-group.two {
+  display: flex;
+  flex-direction: row;
+
+  button {
+    text-transform: uppercase;
+    width: 47.5%;
+  }
+
+  :first-child {
+    margin-right: 2.5%;
+  }
+
+  :last-child {
+    margin-left: 2.5%;
+  }
 }

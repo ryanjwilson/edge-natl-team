@@ -11,6 +11,37 @@ import { Tournaments } from '../../api/tournaments';
 
 export const TournamentList = (props) => {
   if (props.tournaments) {
+    const staleIds = Session.get('multiselectedTournamentIds');   // current ids in multiselect list
+
+    /*
+     * After filtering tournaments, we need to refresh the list of multiselected tournaments.
+     * This prevents users from accidentally showing, hiding, or deleting a tournament that
+     * was previously selected, but is no longer visible (i.e., filtered out).
+     */
+
+    let freshIds = [];
+    props.tournaments.forEach((tournament) => {
+      if (staleIds.includes(tournament._id)) {
+        freshIds.push(tournament._id);
+      }
+    });
+
+    /*
+     * Reset the selected tournament(s).
+     */
+
+    if (freshIds.length === 1) {
+      Session.set('selectedTournamentId', freshIds[0]);
+    }
+    Session.set('multiselectedTournamentIds', freshIds);
+
+    /*
+     * Auto-update the selected tournament.
+     *    - undefined if the tournament list is empty
+     *    - the first and only tournament in the list
+     *    - whichever tournament is marked as selected
+     */
+
     if (props.tournaments.length === 0) {
       Session.set('selectedTournamentId', undefined);
     } else if (props.tournaments.length === 1) {
@@ -50,7 +81,8 @@ export default createContainer(() => {
       tournaments: Tournaments.find().fetch().map((tournament) => {
         return {
           ...tournament,
-          selected: tournament._id === selectedTournamentId
+          selected: tournament._id === selectedTournamentId,
+          multiselected: Session.get('multiselectedTournamentIds').includes(tournament._id)
         };
       })
     };
@@ -61,7 +93,8 @@ export default createContainer(() => {
       }).fetch().map((tournament) => {
         return {
           ...tournament,
-          selected: tournament._id === selectedTournamentId
+          selected: tournament._id === selectedTournamentId,
+          multiselected: Session.get('multiselectedTournamentIds').includes(tournament._id)
         }
       })
     };
