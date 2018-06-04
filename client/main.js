@@ -81,6 +81,11 @@ Meteor.startup(() => {
   Session.set('selectedApplicationId', undefined);    // applicant view
   //Session.set('selectedRosterId', undefined);       // roster view
 
+  Session.set('multiselectedTournamentIds', []);
+  Session.set('multiselectedWrestlerIds', []);
+  // Session.set('multiselectedApplicationIds', []);
+  // Session.set('multiselectedRosterIds', []);
+
   Session.set('isSidebarOpen', false);                // items list (mobile only)
   Session.set('isMenuOpen', false);                   // menu (desktop and mobile)
 

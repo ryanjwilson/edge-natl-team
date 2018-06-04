@@ -11,6 +11,37 @@ import { Wrestlers } from '../../api/wrestlers';
 
 export const WrestlerList = (props) => {
   if (props.wrestlers) {
+    const staleIds = Session.get('multiselectedWrestlerIds');   // current ids in multiselect list
+
+    /*
+     * After filtering wrestlers, we need to refresh the list of multiselected wrestlers.
+     * This prevents users from accidentally deleting a wrestler that was previously selected,
+     * but is no longer visible (i.e., filtered out).
+     */
+
+    let freshIds = [];
+    props.wrestlers.forEach((wrestler) => {
+      if (staleIds.includes(wrestler._id)) {
+        freshIds.push(wrestler._id);
+      }
+    });
+
+    /*
+     * Reset the selected wrestler(s).
+     */
+
+    if (freshIds.length === 1) {
+      Session.set('selectedWrestlerId', freshIds[0]);
+    }
+    Session.set('multiselectedWrestlerIds', freshIds);
+
+    /*
+     * Auto-update the selected wrestler.
+     *    - undefined if the wrestler list is empty
+     *    - the first and only wrestler in the list
+     *    - whichever wrestler is marked as selected
+     */
+
     if (props.wrestlers.length === 0) {
       Session.set('selectedWrestlerId', undefined);
     } else if (props.wrestlers.length === 1) {
@@ -51,7 +82,8 @@ export default createContainer(() => {
       wrestlers: Wrestlers.find().fetch().map((wrestler) => {
         return {
           ...wrestler,
-          selected: wrestler._id === selectedWrestlerId
+          selected: wrestler._id === selectedWrestlerId,
+          multiselected: Session.get('multiselectedWrestlerIds').includes(wrestler._id)
         };
       })
     };
@@ -62,7 +94,8 @@ export default createContainer(() => {
       }).fetch().map((wrestler) => {
         return {
           ...wrestler,
-          selected: wrestler._id === selectedWrestlerId
+          selected: wrestler._id === selectedWrestlerId,
+          multiselected: Session.get('multiselectedWrestlerIds').includes(wrestler._id)
         }
       })
     };

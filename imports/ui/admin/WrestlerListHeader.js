@@ -3,11 +3,15 @@ import { Meteor } from 'meteor/meteor';
 import { PropTypes } from 'prop-types';
 import { createContainer } from 'meteor/react-meteor-data';
 import { Session } from 'meteor/session';
+import swal from 'sweetalert2';
+import { browserHistory } from 'react-router';
 
 import WrestlerListFilters from './WrestlerListFilters';
 
 const WrestlerListHeader = (props) => {
   const onAddWrestler = () => {
+    props.Session.set('multiselectedWrestlerIds', []);      // clear multiselect list
+
     props.meteorCall('wrestlers.insert', (err, res) => {
       if (res) {
         props.Session.set('selectedWrestlerId', res);
@@ -15,9 +19,50 @@ const WrestlerListHeader = (props) => {
     });
   };
 
+  /*
+   * Deletes one or more wrestlers simultaneously based on multiselection.
+   */
+
+  const onDeleteWrestlers = () => {
+    const wrestlerIds = props.Session.get('multiselectedWrestlerIds');
+
+    if (wrestlerIds.length === 0) {
+      swal({
+        titleText: 'No Wrestler Selected',
+        text: 'You\'ll need to select at least one Wrestler to delete.',
+        type: 'info',
+        confirmButtonColor: '#e64942'
+      });
+    } else {
+      swal({
+        titleText: 'Are you sure?',
+        text: 'You\'re about to delete ' + wrestlerIds.length + (wrestlerIds.length > 1 ? ' wrestlers.' : ' wrestler.'),
+        type: 'warning',
+        showCancelButton: true,
+        cancelButtonClass: 'modal-button button--cancel',
+        confirmButtonText: 'Delete',
+        confirmButtonClass: 'modal-button button--delete',
+        confirmButtonColor: '#e64942',
+        reverseButtons: true
+      }).then((response) => {
+        if (response && response.value) {
+          wrestlerIds.forEach((wrestlerId) => {
+            props.meteorCall('wrestlers.remove', wrestlerId);
+          });
+
+          props.browserHistory.push('/wrestlers');
+        }
+      });
+    }
+  };
+
   return (
     <div className="item-list__header">
       <button className="button--add" onClick={onAddWrestler}>Add Wrestler</button>
+      <div className="multiselect-group two">
+        <button className="button button--unpublish" onClick={() => { }}>Merge</button>
+        <button className="button button--delete" onClick={onDeleteWrestlers}>Delete</button>
+      </div>
       <WrestlerListFilters/>
     </div>
   );
@@ -32,6 +77,7 @@ export { WrestlerListHeader };
 
 export default createContainer(() => {
   return {
+    browserHistory,
     meteorCall: Meteor.call,
     Session
   };

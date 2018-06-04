@@ -18,13 +18,36 @@ export const Wrestler = (props) => {
 
     return null;
   };
-
-  const className = props.wrestler.selected ? 'item item--selected' : 'item';
+  
+  const className = props.wrestler.selected || props.wrestler.multiselected ? 'item item--selected' : 'item';
   const subtitlePrimary = props.wrestler.weight ? props.wrestler.weight + ' lbs.' : 'Weight';
   const subtitleSecondary = convertGrade(props.wrestler.grade);
 
+  const onWrestlerSelect = (e) => {
+    let ids = props.Session.get('multiselectedWrestlerIds');
+
+    if (e.metaKey) {
+      if (!ids.includes(props.wrestler._id)) {
+        ids.push(props.wrestler._id);             // add to multiselect list
+      }
+
+      if (ids.length === 1) {
+        props.Session.set('selectedWrestlerId', props.wrestler._id)
+      } else {
+        props.Session.set('selectedWrestlerId', undefined);
+      }
+    } else {
+      ids = [];                           // clear multiselect list
+      ids.push(props.wrestler._id);       // add newly selected to list
+
+      props.Session.set('selectedWrestlerId', props.wrestler._id)
+    }
+
+    props.Session.set('multiselectedWrestlerIds', ids);
+  }
+
   return (
-    <div id="wrestler" className={className} onClick={() => props.Session.set('selectedWrestlerId', props.wrestler._id)}>
+    <div id="wrestler" className={className} onClick={onWrestlerSelect}>
       <div className="item__text">
         <h5 className="item__title">{props.wrestler.name || 'Unknown Wrestler'}</h5>
         <p className="item__subtitle">{subtitlePrimary} &middot; {subtitleSecondary || 'Grade'}</p>
