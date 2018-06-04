@@ -40,8 +40,8 @@ export class TournamentEditor extends React.Component {
     this.onWeightClassesChange = this.onWeightClassesChange.bind(this);
     this.onYearChange = this.onYearChange.bind(this);
     this.onSeasonChange = this.onSeasonChange.bind(this);
-    this.onDelete = this.onDelete.bind(this);
-    this.onToggleStatus = this.onToggleStatus.bind(this);
+    // this.onDelete = this.onDelete.bind(this);
+    // this.onToggleStatus = this.onToggleStatus.bind(this);
   }
 
   onNameChange(e) {
@@ -110,52 +110,52 @@ export class TournamentEditor extends React.Component {
     this.props.call('tournaments.update', this.props.tournament._id, { season });
   }
 
-  onToggleStatus() {
-    const published = !this.props.tournament.published;
-    const buttonText = published ? 'Publish' : 'Unpublish';
-    const buttonColor = published ? '#2e8b57' : '#5a5a5a';
-    const cssClass = published ? 'modal-button button--publish' : 'modal-button button--unpublish';
-    const message = published ? 'This tournament will become visible to the public!' : 'This tournament will no longer be visible to the public!';
+  // onToggleStatus() {
+  //   const published = !this.props.tournament.published;
+  //   const buttonText = published ? 'Publish' : 'Unpublish';
+  //   const buttonColor = published ? '#2e8b57' : '#5a5a5a';
+  //   const cssClass = published ? 'modal-button button--publish' : 'modal-button button--unpublish';
+  //   const message = published ? 'This tournament will become visible to the public!' : 'This tournament will no longer be visible to the public!';
+  //
+  //   swal({
+  //     titleText: 'Are you sure?',
+  //     text: message,
+  //     type: 'warning',
+  //     showCancelButton: true,
+  //     cancelButtonClass: 'modal-button button--cancel',
+  //     confirmButtonText: buttonText,
+  //     confirmButtonClass: cssClass,
+  //     confirmButtonColor: buttonColor,
+  //     reverseButtons: true
+  //   }).then((response) => {
+  //     if (response && response.value) {
+  //       const publishClass = !published ? 'button--publish' : 'button--unpublish';
+  //       const publishText = !published ? 'Publish' : 'Unpublish';
+  //
+  //       this.setState({ published, publishClass, publishText });
+  //       this.props.call('tournaments.update', this.props.tournament._id, { published });
+  //     }
+  //   });
+  // }
 
-    swal({
-      titleText: 'Are you sure?',
-      text: message,
-      type: 'warning',
-      showCancelButton: true,
-      cancelButtonClass: 'modal-button button--cancel',
-      confirmButtonText: buttonText,
-      confirmButtonClass: cssClass,
-      confirmButtonColor: buttonColor,
-      reverseButtons: true
-    }).then((response) => {
-      if (response && response.value) {
-        const publishClass = !published ? 'button--publish' : 'button--unpublish';
-        const publishText = !published ? 'Publish' : 'Unpublish';
-
-        this.setState({ published, publishClass, publishText });
-        this.props.call('tournaments.update', this.props.tournament._id, { published });
-      }
-    });
-  }
-
-  onDelete() {
-    swal({
-      titleText: 'Are you sure?',
-      text: 'You cannot undo this action!',
-      type: 'warning',
-      showCancelButton: true,
-      cancelButtonClass: 'modal-button button--cancel',
-      confirmButtonText: 'Delete',
-      confirmButtonClass: 'modal-button button--delete',
-      confirmButtonColor: '#e64942',
-      reverseButtons: true
-    }).then((response) => {
-      if (response && response.value) {
-        this.props.call('tournaments.remove', this.props.tournament._id);
-        this.props.browserHistory.push('/tournaments');
-      }
-    });
-  }
+  // onDelete() {
+  //   swal({
+  //     titleText: 'Are you sure?',
+  //     text: 'You cannot undo this action!',
+  //     type: 'warning',
+  //     showCancelButton: true,
+  //     cancelButtonClass: 'modal-button button--cancel',
+  //     confirmButtonText: 'Delete',
+  //     confirmButtonClass: 'modal-button button--delete',
+  //     confirmButtonColor: '#e64942',
+  //     reverseButtons: true
+  //   }).then((response) => {
+  //     if (response && response.value) {
+  //       this.props.call('tournaments.remove', this.props.tournament._id);
+  //       this.props.browserHistory.push('/tournaments');
+  //     }
+  //   });
+  // }
 
   componentDidUpdate(prevProps, prevState) {
     const currTournamentId = this.props.tournament ? this.props.tournament._id : undefined;
@@ -226,10 +226,10 @@ export class TournamentEditor extends React.Component {
             <p>Season</p>
             <input id="season" name="season" className="editor__field" value={this.state.season} placeholder="Season" onChange={this.onSeasonChange}/>
           </label>
-          <div className="action-group">
+          {/* <div className="action-group">
             <button id="publish-button" className={"button button--editor " + this.state.publishClass} onClick={this.onToggleStatus}>{this.state.publishText}</button>
             <button id="delete-button" className="button button--editor button--delete" onClick={this.onDelete}>Delete</button>
-          </div>
+          </div> */}
         </div>
       );
     } else {
