@@ -29,21 +29,24 @@ const WrestlerListHeader = (props) => {
     if (wrestlerIds.length === 0) {
       swal({
         titleText: 'No Wrestler Selected',
-        text: 'You\'ll need to select at least one Wrestler to delete.',
+        html: '<div class="swal-modal-text">You\'ll need to select at least one Wrestler to delete.</div>',
         type: 'info',
-        confirmButtonColor: '#e64942'
+        confirmButtonColor: '#e64942',
+        confirmButtonClass: 'modal-button button--delete',
+        customClass: 'swal-modal'
       });
     } else {
       swal({
         titleText: 'Are you sure?',
-        text: 'You\'re about to delete ' + wrestlerIds.length + (wrestlerIds.length > 1 ? ' wrestlers.' : ' wrestler.'),
+        html: '<div class="swal-modal-text">You\'re about to delete ' + wrestlerIds.length + (wrestlerIds.length > 1 ? ' Wrestlers.' : ' Wrestler.') + '</div>',
         type: 'warning',
         showCancelButton: true,
         cancelButtonClass: 'modal-button button--cancel',
         confirmButtonText: 'Delete',
         confirmButtonClass: 'modal-button button--delete',
         confirmButtonColor: '#e64942',
-        reverseButtons: true
+        reverseButtons: true,
+        customClass: 'swal-modal'
       }).then((response) => {
         if (response && response.value) {
           wrestlerIds.forEach((wrestlerId) => {
@@ -55,6 +58,8 @@ const WrestlerListHeader = (props) => {
       });
     }
   };
+
+  // TODO - add onMergeWrestlers function
 
   return (
     <div className="item-list__header">

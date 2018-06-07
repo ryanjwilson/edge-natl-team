@@ -18,10 +18,6 @@ export const Wrestler = (props) => {
 
     return null;
   };
-  
-  const className = props.wrestler.selected || props.wrestler.multiselected ? 'item item--selected' : 'item';
-  const subtitlePrimary = props.wrestler.weight ? props.wrestler.weight + ' lbs.' : 'Weight';
-  const subtitleSecondary = convertGrade(props.wrestler.grade);
 
   const onWrestlerSelect = (e) => {
     let ids = props.Session.get('multiselectedWrestlerIds');
@@ -44,7 +40,11 @@ export const Wrestler = (props) => {
     }
 
     props.Session.set('multiselectedWrestlerIds', ids);
-  }
+  };
+
+  const className = props.wrestler.selected || props.wrestler.multiselected ? 'item item--selected' : 'item';
+  const subtitlePrimary = props.wrestler.weight ? props.wrestler.weight + ' lbs.' : 'Weight';
+  const subtitleSecondary = convertGrade(props.wrestler.grade);
 
   return (
     <div id="wrestler" className={className} onClick={onWrestlerSelect}>
@@ -52,7 +52,6 @@ export const Wrestler = (props) => {
         <h5 className="item__title">{props.wrestler.name || 'Unknown Wrestler'}</h5>
         <p className="item__subtitle">{subtitlePrimary} &middot; {subtitleSecondary || 'Grade'}</p>
       </div>
-      {/* {props.wrestler.published ? <div className="item__status-icon"><img src="/images/confirm.png"/></div> : undefined} */}
     </div>
   );
 };

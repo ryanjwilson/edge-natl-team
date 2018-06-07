@@ -29,7 +29,6 @@ export class WrestlerEditor extends React.Component {
     this.onParentNameChange = this.onParentNameChange.bind(this);
     this.onParentEmailChange = this.onParentEmailChange.bind(this);
     this.onParentPhoneChange = this.onParentPhoneChange.bind(this);
-    // this.onDelete = this.onDelete.bind(this);
   }
 
   onNameChange(e) {
@@ -73,25 +72,6 @@ export class WrestlerEditor extends React.Component {
     this.setState({ parentPhone });
     this.props.call('wrestlers.update', this.props.wrestler._id, { parentPhone });
   }
-
-  // onDelete() {
-  //   swal({
-  //     titleText: 'Are you sure?',
-  //     text: 'You cannot undo this action!',
-  //     type: 'warning',
-  //     showCancelButton: true,
-  //     cancelButtonClass: 'modal-button button--cancel',
-  //     confirmButtonText: 'Delete',
-  //     confirmButtonClass: 'modal-button button--delete',
-  //     confirmButtonColor: '#e64942',
-  //     reverseButtons: true
-  //   }).then((response) => {
-  //     if (response && response.value) {
-  //       this.props.call('wrestlers.remove', this.props.wrestler._id);
-  //       this.props.browserHistory.push('/wrestlers');
-  //     }
-  //   });
-  // }
 
   componentDidMount() {
     if (this.props.wrestler) {
@@ -153,9 +133,6 @@ export class WrestlerEditor extends React.Component {
             <p>Parent's Phone</p>
             <input id="parent-phone" name="parent-phone" className="editor__field" value={this.state.parentPhone} placeholder="Parent's Phone" onChange={this.onParentPhoneChange}/>
           </label>
-          {/* <div className="action-group single-item">
-            <button id="delete-button" className="button button--editor button--delete" onClick={this.onDelete}>Delete</button>
-          </div> */}
         </div>
       );
     } else {

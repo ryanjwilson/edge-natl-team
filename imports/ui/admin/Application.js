@@ -19,17 +19,39 @@ export const Application = (props) => {
     return null;
   };
 
-  const className = props.application.selected ? 'item item--selected' : 'item';
+  const onApplicationSelect = (e) => {
+    let ids = props.Session.get('multiselectedApplicationIds');
+
+    if (e.metaKey) {
+      if (!ids.includes(props.application._id)) {
+        ids.push(props.application._id);             // add to multiselect list
+      }
+
+      if (ids.length === 1) {
+        props.Session.set('selectedApplicationId', props.application._id)
+      } else {
+        props.Session.set('selectedApplicationId', undefined);
+      }
+    } else {
+      ids = [];                              // clear multiselect list
+      ids.push(props.application._id);       // add newly selected to list
+
+      props.Session.set('selectedApplicationId', props.application._id)
+    }
+
+    props.Session.set('multiselectedApplicationIds', ids);
+  };
+
+  const className = props.application.selected || props.application.multiselected ? 'item item--selected' : 'item';
   const subtitlePrimary = props.application.weightClass ? props.application.weightClass + ' lbs.' : 'Weight';
   const subtitleSecondary = convertGrade(props.application.wrestler.grade);
 
   return (
-    <div id="application" className={className} onClick={() => props.Session.set('selectedApplicationId', props.application._id)}>
+    <div id="application" className={className} onClick={onApplicationSelect}>
       <div className="item__text">
         <h5 className="item__title">{props.application.wrestler.name || 'Unknown Wrestler'}</h5>
         <p className="item__subtitle">{subtitlePrimary} &middot; {subtitleSecondary || 'Grade'}</p>
       </div>
-      {/* {props.wrestler.published ? <div className="item__status-icon"><img src="/images/confirm.png"/></div> : undefined} */}
     </div>
   );
 };

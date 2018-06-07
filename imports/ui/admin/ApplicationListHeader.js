@@ -4,6 +4,7 @@ import { PropTypes } from 'prop-types';
 import { createContainer } from 'meteor/react-meteor-data';
 import { Session } from 'meteor/session';
 import swal from 'sweetalert2';
+import { browserHistory } from 'react-router';
 
 import { Tournaments } from '../../api/tournaments';
 import ApplicationListFilters from './ApplicationListFilters';
@@ -28,10 +29,13 @@ const ApplicationListHeader = (props) => {
         inputPlaceholder: '--Tournament--',
         inputOptions: options,
         type: 'info',
+        showCancelButton: true,
+        cancelButtonClass: 'modal-button button--cancel',
         confirmButtonText: 'Save',
         confirmButtonClass: 'modal-button button--save',
         confirmButtonColor: '#2e8b57',
-        reverseButtons: true
+        reverseButtons: true,
+        customClass: 'swal-modal'
       }).then((response) => {
         if (response.value) {
           const associatedTournament = Tournaments.findOne(response.value);
@@ -53,21 +57,74 @@ const ApplicationListHeader = (props) => {
             },
             weightClass: '',
             crossReferenced: false
-          }, (err, res) => {
-            if (res) {
-              props.Session.set('selectedApplicationId', res);
+          }, (error, result) => {
+            if (result) {
+              props.Session.set('selectedApplicationId', result);
             }
           });
         }
       });
     } else {
-      // TODO - prevent adding application
+      swal({
+        titleText: 'No Tournaments',
+        html: '<div class="swal-modal-text">There are no published Tournaments. Create and publish a Tournament before adding an Application.</div>',
+        type: 'info',
+        confirmButtonColor: '#5a5a5a',
+        confirmButtonClass: 'modal-button button--unpublish',
+        customClass: 'swal-modal'
+      });
+    }
+  };
+
+  /*
+   * Deletes one or more tournaments simultaneously based on multiselection.
+   */
+
+  const onDeleteApplications = () => {
+    const selectedId = props.Session.get('selectedApplicationId');
+    const applicationIds = props.Session.get('multiselectedApplicationIds');
+
+    if (applicationIds.length > 0 || selectedId) {
+      swal({
+        titleText: 'Are you sure?',
+        html: '<div class="swal-modal-text">You\'re about to delete ' + (applicationIds.length > 0 ? applicationIds.length + ' Applications.' : 1 + ' Application.') + '</div>',
+        type: 'warning',
+        showCancelButton: true,
+        cancelButtonClass: 'modal-button button--cancel',
+        confirmButtonText: 'Delete',
+        confirmButtonClass: 'modal-button button--delete',
+        confirmButtonColor: '#e64942',
+        reverseButtons: true,
+        customClass: 'swal-modal'
+      }).then((response) => {
+        if (response.value) {
+          if (applicationIds.length > 0) {
+            applicationIds.forEach((applicationId) => {
+              props.meteorCall('applications.remove', applicationId);
+            });
+          } else if (selectedId) {
+            props.meteorCall('applications.remove', selectedId);
+          }
+
+          props.browserHistory.push('/applications');
+        }
+      });
+    } else {
+      swal({
+        titleText: 'No Application Selected',
+        html: '<div class="swal-modal-text">You\'ll need to select at least one Application to delete.</div>',
+        type: 'info',
+        confirmButtonColor: '#e64942',
+        confirmButtonClass: 'modal-button button--delete',
+        customClass: 'swal-modal'
+      });
     }
   };
 
   return (
     <div className="item-list__header">
       <button className="button--add" onClick={onAddApplication}>Add Application</button>
+      <button className="button button--delete" onClick={onDeleteApplications}>Delete</button>
       <ApplicationListFilters/>
     </div>
   );
@@ -85,6 +142,7 @@ export default createContainer(() => {
   Meteor.subscribe('tournaments');
 
   return {
+    browserHistory,
     tournaments: Tournaments.find({
       published: true
     }).fetch().map((tournament) => {

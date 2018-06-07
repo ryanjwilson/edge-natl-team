@@ -29,21 +29,24 @@ const TournamentListHeader = (props) => {
     if (tournamentIds.length === 0) {
       swal({
         titleText: 'No Tournament Selected',
-        text: 'You\'ll need to select at least one Tournament to publish.',
+        html: '<div class="swal-modal-text">You\'ll need to select at least one Tournament to publish.</div>',
         type: 'info',
-        confirmButtonColor: '#2e8b57'
+        confirmButtonColor: '#2e8b57',
+        confirmButtonClass: 'modal-button button--publish',
+        customClass: 'swal-modal'
       });
     } else {
       swal({
         titleText: 'Are you sure?',
-        text: 'You\'re about to publish ' + tournamentIds.length + (tournamentIds.length > 1 ? ' tournaments.' : ' tournament.'),
+        html: '<div class="swal-modal-text">You\'re about to publish ' + tournamentIds.length + (tournamentIds.length > 1 ? ' Tournaments.' : ' Tournament.') + '</div>',
         type: 'warning',
         showCancelButton: true,
         cancelButtonClass: 'modal-button button--cancel',
         confirmButtonText: 'Show',
         confirmButtonClass: 'modal-button button--publish',
         confirmButtonColor: '#2e8b57',
-        reverseButtons: true
+        reverseButtons: true,
+        customClass: 'swal-modal'
       }).then((response) => {
         if (response && response.value) {
           tournamentIds.forEach((tournamentId) => {
@@ -64,21 +67,24 @@ const TournamentListHeader = (props) => {
     if (tournamentIds.length === 0) {
       swal({
         titleText: 'No Tournament Selected',
-        text: 'You\'ll need to select at least one Tournament to unpublish.',
+        html: '<div class="swal-modal-text">You\'ll need to select at least one Tournament to unpublish.</div>',
         type: 'info',
-        confirmButtonColor: '#5a5a5a'
+        confirmButtonColor: '#5a5a5a',
+        confirmButtonClass: 'modal-button button--unpublish',
+        customClass: 'swal-modal'
       });
     } else {
       swal({
         titleText: 'Are you sure?',
-        text: 'You\'re about to unpublish ' + tournamentIds.length + (tournamentIds.length > 1 ? ' tournaments.' : ' tournament.'),
+        html: '<div class="swal-modal-text">You\'re about to unpublish ' + tournamentIds.length + (tournamentIds.length > 1 ? ' tournaments.' : ' tournament.') + '</div>',
         type: 'warning',
         showCancelButton: true,
         cancelButtonClass: 'modal-button button--cancel',
         confirmButtonText: 'Hide',
         confirmButtonClass: 'modal-button button--unpublish',
         confirmButtonColor: '#5a5a5a',
-        reverseButtons: true
+        reverseButtons: true,
+        customClass: 'swal-modal'
       }).then((response) => {
         if (response && response.value) {
           tournamentIds.forEach((tournamentId) => {
@@ -99,21 +105,24 @@ const TournamentListHeader = (props) => {
     if (tournamentIds.length === 0) {
       swal({
         titleText: 'No Tournament Selected',
-        text: 'You\'ll need to select at least one Tournament to delete.',
+        html: '<div class="swal-modal-text">You\'ll need to select at least one Tournament to delete.</div>',
         type: 'info',
-        confirmButtonColor: '#e64942'
+        confirmButtonColor: '#e64942',
+        confirmButtonClass: 'modal-button button--unpublish',
+        customClass: 'swal-modal'
       });
     } else {
       swal({
         titleText: 'Are you sure?',
-        text: 'You\'re about to delete ' + tournamentIds.length + (tournamentIds.length > 1 ? ' tournaments.' : ' tournament.'),
+        html: '<div class="swal-modal-text">You\'re about to delete ' + tournamentIds.length + (tournamentIds.length > 1 ? ' tournaments.' : ' tournament.') + '</div>',
         type: 'warning',
         showCancelButton: true,
         cancelButtonClass: 'modal-button button--cancel',
         confirmButtonText: 'Delete',
         confirmButtonClass: 'modal-button button--delete',
         confirmButtonColor: '#e64942',
-        reverseButtons: true
+        reverseButtons: true,
+        customClass: 'swal-modal'
       }).then((response) => {
         if (response && response.value) {
           tournamentIds.forEach((tournamentId) => {

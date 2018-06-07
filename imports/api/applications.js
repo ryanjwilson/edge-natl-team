@@ -88,7 +88,7 @@ Meteor.methods({
       }
     }).validate({ ...values });
 
-    Applications.insert({
+    return Applications.insert({
       tournament: values.tournament,
       wrestler: values.wrestler,
       weightClass: values.weightClass,

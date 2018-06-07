@@ -11,6 +11,37 @@ import { Applications } from '../../api/applications';
 
 export const ApplicationList = (props) => {
   if (props.applications) {
+    const staleIds = Session.get('multiselectedApplicationIds');   // current ids in multiselect list
+
+    /*
+     * After filtering applications, we need to refresh the list of multiselected applications.
+     * This prevents users from accidentally deleting an application that was previously selected,
+     * but is no longer visible (i.e., filtered out).
+     */
+
+    let freshIds = [];
+    props.applications.forEach((application) => {
+      if (staleIds.includes(application._id)) {
+        freshIds.push(application._id);
+      }
+    });
+
+    /*
+     * Reset the selected wrestler(s).
+     */
+
+    if (freshIds.length === 1) {
+      Session.set('selectedApplicationId', freshIds[0]);
+    }
+    Session.set('multiselectedApplicationIds', freshIds);
+
+    /*
+     * Auto-update the selected wrestler.
+     *    - undefined if the wrestler list is empty
+     *    - the first and only wrestler in the list
+     *    - whichever wrestler is marked as selected
+     */
+
     if (props.applications.length === 0) {
       Session.set('selectedApplicationId', undefined);
     } else if (props.applications.length === 1) {
@@ -50,7 +81,8 @@ export default createContainer(() => {
       applications: Applications.find().fetch().map((application) => {
         return {
           ...application,
-          selected: application._id === selectedApplicationId
+          selected: application._id === selectedApplicationId,
+          multiselected: Session.get('multiselectedApplicationIds').includes(application._id)
         };
       })
     };
@@ -61,7 +93,8 @@ export default createContainer(() => {
       }).fetch().map((application) => {
         return {
           ...application,
-          selected: application._id === selectedApplicationId
+          selected: application._id === selectedApplicationId,
+          multiselected: Session.get('multiselectedApplicationIds').includes(application._id)
         }
       })
     };

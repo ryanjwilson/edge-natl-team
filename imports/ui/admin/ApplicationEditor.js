@@ -262,9 +262,6 @@ export class ApplicationEditor extends React.Component {
             <p>Parent's Phone</p>
             <input id="parent-phone" name="parent-phone" className="editor__field" value={this.state.wrestler.parentPhone} placeholder="Parent's Phone" onChange={this.onParentPhoneChange}/>
           </label>
-          <div className="action-group single-item">
-            <button id="delete-button" className="button button--editor button--delete" onClick={this.onDelete}>Delete</button>
-          </div>
         </div>
       );
     } else {
