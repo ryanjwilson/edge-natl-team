@@ -4,7 +4,8 @@ export default class Schedule extends React.Component {
   render() {
     return (
       <div>
-        Schedule component here.
+        Schedule Component
+        <Footer/>
       </div>
     )
   }

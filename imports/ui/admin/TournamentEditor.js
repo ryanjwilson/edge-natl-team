@@ -108,6 +108,27 @@ export class TournamentEditor extends React.Component {
     this.props.call('tournaments.update', this.props.tournament._id, { season });
   }
 
+  componentWillMount() {
+    if (this.props.tournament) {
+      this.setState({
+        name: this.props.tournament.name || '',
+        location: this.props.tournament.location || '',
+        startDate: this.props.tournament.startDate || '',
+        endDate: this.props.tournament.endDate || '',
+        weighins: this.props.tournament.weighins || '',
+        alternateWeighins: this.props.tournament.alternateWeighins || '',
+        division: this.props.tournament.division || '',
+        weightClasses: this.props.tournament.weightClasses || '',
+        allowance: this.props.tournament.allowance || '',
+        year: this.props.tournament.year || '',
+        season: this.props.tournament.season || '',
+        published: this.props.tournament.published || '',
+        publishClass: this.props.tournament.published ? 'button--unpublish' : 'button--publish',
+        publishText: this.props.tournament.published ? 'Unpublish' : 'Publish'
+      });
+    }
+  }
+
   componentDidUpdate(prevProps, prevState) {
     const currTournamentId = this.props.tournament ? this.props.tournament._id : undefined;
     const prevTournamentId = prevProps.tournament ? prevProps.tournament._id : undefined;

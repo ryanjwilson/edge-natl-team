@@ -1,0 +1,18 @@
+.footer {
+  background: $header-bg;
+  color: $header-color;
+}
+
+.footer__content {
+  align-items: center;
+  display: flex;
+  height: $header-height;
+  justify-content: space-between;
+  margin: 0 auto;
+  padding: $large-space;
+  width: $site-max-width;
+}
+
+.public-content {
+  width: $public-site-max-width;
+}

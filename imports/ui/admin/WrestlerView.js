@@ -2,6 +2,7 @@ import React from 'react';
 import { Accounts } from 'meteor/accounts-base';
 
 import PrivateHeader from './PrivateHeader';
+import Footer from '../Footer';
 import WrestlerEditor from './WrestlerEditor';
 import WrestlerList from './WrestlerList';
 
@@ -18,6 +19,8 @@ export default WrestlerView = () => {
           <WrestlerEditor/>
         </div>
       </div>
+
+      <Footer/>
     </div>
   );
 };

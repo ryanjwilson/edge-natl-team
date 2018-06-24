@@ -2,6 +2,7 @@ import React from 'react';
 import { Accounts } from 'meteor/accounts-base';
 
 import PrivateHeader from './PrivateHeader';
+import Footer from '../Footer';
 import TournamentEditor from './TournamentEditor';
 import TournamentList from './TournamentList';
 
@@ -18,6 +19,8 @@ export default TournamentView = () => {
           <TournamentEditor/>
         </div>
       </div>
+
+      <Footer/>
     </div>
   );
 };

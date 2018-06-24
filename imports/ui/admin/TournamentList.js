@@ -88,14 +88,12 @@ export default createContainer(() => {
     };
   } else if (showPublished || showUnpublished) {
     return {
-      tournaments: Tournaments.find({
-        published: showPublished
-      }).fetch().map((tournament) => {
+      tournaments: Tournaments.find({ published: showPublished }).fetch().map((tournament) => {
         return {
           ...tournament,
           selected: tournament._id === selectedTournamentId,
           multiselected: Session.get('multiselectedTournamentIds').includes(tournament._id)
-        }
+        };
       })
     };
   } else {

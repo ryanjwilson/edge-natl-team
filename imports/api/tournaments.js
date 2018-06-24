@@ -93,11 +93,11 @@ Meteor.methods({
         optional: true
       },
       allowance: {
-        type: Number,
+        type: String,
         optional: true
       },
       year: {
-        type: Number,
+        type: String,
         optional: true
       },
       season: {

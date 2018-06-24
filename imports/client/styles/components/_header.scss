@@ -24,6 +24,10 @@
   width: $site-max-width;
 }
 
+.public-content {
+  width: $public-site-max-width;
+}
+
 /*
  * Title component of the header bar.
  */
@@ -33,6 +37,16 @@
   font-weight: 400;
   letter-spacing: 0.15rem;
   margin: 0;
+}
+
+.header__nav {
+  color: $gray;
+  font-size: $nav-font-size;
+  text-decoration: none;
+}
+
+.header__nav:hover {
+  color: white;
 }
 
 // TODO - need to add icon to header title and style appropriately

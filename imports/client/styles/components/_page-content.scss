@@ -13,11 +13,18 @@
   display: flex;
   height: $page-content-height;
   margin: 0 auto;
-  //min-width: $site-min-width;
   padding: $large-space;
   max-width: $site-max-width;
 
   transition: margin-right 0.5s;
+}
+
+.page-content__public {
+  display: flex;
+  height: auto;
+  margin: 0 auto;
+  padding: $large-space;
+  max-width: $site-max-width;
 }
 
 /*
@@ -63,4 +70,11 @@
   display: flex;
   min-width: $page-content-main-minimum-width;
   width: $page-content-main-width;
+}
+
+.page-content__main-public {
+  display: flex;
+  margin: 0 auto;
+  min-width: $page-content-public-minimum-width;
+  width: $page-content-public-width;
 }

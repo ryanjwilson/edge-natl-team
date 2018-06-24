@@ -2,6 +2,7 @@ import React from 'react';
 import { Accounts } from 'meteor/accounts-base';
 
 import PrivateHeader from './PrivateHeader';
+import Footer from '../Footer';
 import ApplicationEditor from './ApplicationEditor';
 import ApplicationList from './ApplicationList';
 
@@ -18,6 +19,8 @@ export default ApplicationView = () => {
           <ApplicationEditor/>
         </div>
       </div>
+
+      <Footer/>
     </div>
   );
 };
