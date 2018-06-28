@@ -1,17 +1,15 @@
+import { browserHistory } from 'react-router';
 import { Meteor } from 'meteor/meteor';
 import ReactDOM from 'react-dom';
-import { Tracker } from 'meteor/tracker';
 import { Session } from 'meteor/session';
-import { browserHistory } from 'react-router';
+import { Tracker } from 'meteor/tracker';
 
-import { onAuthenticationChange, routes } from '../imports/routes/routes';
 import '../imports/startup/simple-schema-config.js';
+import { onAuthenticationChange, routes } from '../imports/routes/routes';
 
-/******************************************************************************/
-
-/*
- * Tracks authentication changes via the isAuthenticated variable. This code
- * is executed whenever a change is detected.
+/**
+ * Tracks authentication changes via the isAuthenticated variable. This code is
+ * executed whenever a change is detected.
  */
 
 Tracker.autorun(() => {
@@ -21,7 +19,7 @@ Tracker.autorun(() => {
   onAuthenticationChange(isAuthenticated, currentPagePrivacy);
 });
 
-/*
+/**
  * Tracks changes in the selected application, tournament, or wrestler Session
  * variable. This code is executed whenever a change is detected.
  */
@@ -34,10 +32,8 @@ Tracker.autorun(() => {
   Session.set('isSidebarOpen', false);    // close on selection and browser refresh
   Session.set('isMenuOpen', false);       // close on browser refresh
 
-  /*
-   * Conditionally re-direct the application based on selected application,
-   * tournament, wrestler, or current pathname.
-   */
+  // conditionally re-direct the application based on selected application,
+  // tournament, wrestler, or current pathname.
 
   if (selectedApplicationId) {
     browserHistory.replace(`/applications/${selectedApplicationId}`);
@@ -56,16 +52,16 @@ Tracker.autorun(() => {
   }
 });
 
-/*
- * Tracks changes in the navigation status, allowing for the mobile-friendly
- * slide-out navigation panel to take effect.
+/**
+ * Tracks changes in the sidebar menu status, allowing for the mobile-friendly
+ * slide-out item list panel to take effect.
  */
 
 Tracker.autorun(() => {
   document.body.classList.toggle('is-sidebar-open', Session.get('isSidebarOpen'));
 });
 
-/*
+/**
  * Tracks changes in the slide-out menu (desktop-only).
  */
 
@@ -73,7 +69,7 @@ Tracker.autorun(() => {
   document.body.classList.toggle('is-menu-open', Session.get('isMenuOpen'));
 });
 
-/////// CLIENT APPLICATION EXECUTION STARTS HERE ///////////////////////////////
+/////// CLIENT APPLICATION EXECUTION STARTS HERE ///////////////////////////////////////////////////////////////////////////////////////////
 
 Meteor.startup(() => {
   Session.set('selectedTournamentId', undefined);     // tournament view
@@ -90,8 +86,9 @@ Meteor.startup(() => {
   Session.set('isMenuOpen', false);                   // menu (desktop and mobile)
 
   // TODO - filters for other views need to be added
-  Session.set('showPublished', true);                 // toggles published tournaments
-  Session.set('showUnpublished', true);               // toggles unpublished tournaments
+
+  Session.set('showPublished', true);                 // toggles tournaments shown on the public schedule
+  Session.set('showUnpublished', true);               // toggles tournaments hidden from the public schedule
 
   ReactDOM.render(routes, document.getElementById('app'));
 });

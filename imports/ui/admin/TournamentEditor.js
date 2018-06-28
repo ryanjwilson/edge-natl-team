@@ -1,14 +1,27 @@
+import moment from 'moment';
 import React from 'react';
-import { createContainer } from 'meteor/react-meteor-data';
-import { Session } from 'meteor/session';
-import { PropTypes } from 'prop-types';
-import { Meteor } from 'meteor/meteor';
-import { browserHistory } from 'react-router';
 import swal from 'sweetalert2';
+import { browserHistory } from 'react-router';
+import { createContainer } from 'meteor/react-meteor-data';
+import { Meteor } from 'meteor/meteor';
+import { PropTypes } from 'prop-types';
+import { Session } from 'meteor/session';
 
 import { Tournaments } from '../../api/tournaments';
 
+/**
+ * A TournamentEditor component provides fields to enter tournament details to
+ * be later displayed on the public Schedule.
+ */
+
 export class TournamentEditor extends React.Component {
+
+  /**
+   * Constructs a reactive TournamentEditor component.
+   *
+   * @param props - the initializing properties passed to this component
+   */
+
   constructor(props) {
     super(props);
 
@@ -19,15 +32,21 @@ export class TournamentEditor extends React.Component {
       endDate: '',
       weighins: '',
       alternateWeighins: '',
-      division: '',
-      weightClasses: '',
-      allowance: 0,
-      year: '',
-      season: '',
+      divisions: [{
+        name: '',
+        weightClasses: [],
+        allowance: '',
+        teams: ''
+      }],
       published: false,
       publishClass: 'button--unpublish',
-      publishText: 'Unpublish'
+      publishText: 'Unpublish',
+      year: '',
+      season: ''
     };
+
+    // bind field listeners to this context. remaining listeners are bound
+    // manually, as they take additional parameters.
 
     this.onNameChange = this.onNameChange.bind(this);
     this.onLocationChange = this.onLocationChange.bind(this);
@@ -35,123 +54,219 @@ export class TournamentEditor extends React.Component {
     this.onEndDateChange = this.onEndDateChange.bind(this);
     this.onWeighinsChange = this.onWeighinsChange.bind(this);
     this.onAlternateWeighinsChange = this.onAlternateWeighinsChange.bind(this);
-    this.onDivisionChange = this.onDivisionChange.bind(this);
-    this.onAllowanceChange = this.onAllowanceChange.bind(this);
-    this.onWeightClassesChange = this.onWeightClassesChange.bind(this);
-    this.onYearChange = this.onYearChange.bind(this);
-    this.onSeasonChange = this.onSeasonChange.bind(this);
   }
 
-  onNameChange(e) {
-    const name = e.target.value;
-    this.setState({ name });
-    this.props.call('tournaments.update', this.props.tournament._id, { name });
-  }
-
-  onLocationChange(e) {
-    const location = e.target.value;
-    this.setState({ location });
-    this.props.call('tournaments.update', this.props.tournament._id, { location });
-  }
-
-  onStartDateChange(e) {
-    const startDate = e.target.value;
-    this.setState({ startDate });
-    this.props.call('tournaments.update', this.props.tournament._id, { startDate });
-  }
-
-  onEndDateChange(e) {
-    const endDate = e.target.value;
-    this.setState({ endDate });
-    this.props.call('tournaments.update', this.props.tournament._id, { endDate });
-  }
-
-  onWeighinsChange(e) {
-    const weighins = e.target.value;
-    this.setState({ weighins });
-    this.props.call('tournaments.update', this.props.tournament._id, { weighins });
-  }
-
-  onAlternateWeighinsChange(e) {
-    const alternateWeighins = e.target.value;
-    this.setState({ alternateWeighins });
-    this.props.call('tournaments.update', this.props.tournament._id, { alternateWeighins });
-  }
-
-  onDivisionChange(e) {
-    const division = e.target.value;
-    this.setState({ division });
-    this.props.call('tournaments.update', this.props.tournament._id, { division });
-  }
-
-  onWeightClassesChange(e) {
-    const weightClasses = e.target.value;
-    this.setState({ weightClasses });
-    this.props.call('tournaments.update', this.props.tournament._id, { weightClasses });
-  }
-
-  onAllowanceChange(e) {
-    const allowance = e.target.value;
-    this.setState({ allowance });
-    this.props.call('tournaments.update', this.props.tournament._id, { allowance });
-  }
-
-  onYearChange(e) {
-    const year = e.target.value;
-    this.setState({ year });
-    this.props.call('tournaments.update', this.props.tournament._id, { year });
-  }
-
-  onSeasonChange(e) {
-    const season = e.target.value;
-    this.setState({ season });
-    this.props.call('tournaments.update', this.props.tournament._id, { season });
-  }
+  /**
+   * Refresh the component state when it is mounted.
+   */
 
   componentWillMount() {
     if (this.props.tournament) {
-      this.setState({
-        name: this.props.tournament.name || '',
-        location: this.props.tournament.location || '',
-        startDate: this.props.tournament.startDate || '',
-        endDate: this.props.tournament.endDate || '',
-        weighins: this.props.tournament.weighins || '',
-        alternateWeighins: this.props.tournament.alternateWeighins || '',
-        division: this.props.tournament.division || '',
-        weightClasses: this.props.tournament.weightClasses || '',
-        allowance: this.props.tournament.allowance || '',
-        year: this.props.tournament.year || '',
-        season: this.props.tournament.season || '',
-        published: this.props.tournament.published || '',
-        publishClass: this.props.tournament.published ? 'button--unpublish' : 'button--publish',
-        publishText: this.props.tournament.published ? 'Unpublish' : 'Publish'
-      });
+      this.setState({ ...this.props.tournament });
     }
   }
+
+  /**
+   * Refresh the component state when it is updated.
+   *
+   * @param prevProps - the previous set of properties passed to this component
+   * @param prevState - the previous state of this component
+   */
 
   componentDidUpdate(prevProps, prevState) {
     const currTournamentId = this.props.tournament ? this.props.tournament._id : undefined;
     const prevTournamentId = prevProps.tournament ? prevProps.tournament._id : undefined;
 
+    // update state unless the current and previous tournaments are the same
+
     if (currTournamentId && currTournamentId !== prevTournamentId) {
-      this.setState({
-        name: this.props.tournament.name || '',
-        location: this.props.tournament.location || '',
-        startDate: this.props.tournament.startDate || '',
-        endDate: this.props.tournament.endDate || '',
-        weighins: this.props.tournament.weighins || '',
-        alternateWeighins: this.props.tournament.alternateWeighins || '',
-        division: this.props.tournament.division || '',
-        weightClasses: this.props.tournament.weightClasses || '',
-        allowance: this.props.tournament.allowance || '',
-        year: this.props.tournament.year || '',
-        season: this.props.tournament.season || '',
-        published: this.props.tournament.published || '',
-        publishClass: this.props.tournament.published ? 'button--unpublish' : 'button--publish',
-        publishText: this.props.tournament.published ? 'Unpublish' : 'Publish'
-      });
+      this.setState({ ...this.props.tournament });
     }
   }
+
+  /**
+   * Adds a division to this event, which entails adding a division name,
+   * weight classes for that division, and a weight allowance for those weight
+   * classes.
+   *
+   * @param index - the index at which the division should be added
+   */
+
+  onAddDivision(index) {
+    const divisions = this.state.divisions;
+
+    divisions.splice(index + 1, 0, {
+      name: '',
+      weightClasses: [],
+      allowance: '',
+      teams: 1
+    });
+    this.setState({ divisions });
+    this.props.call('tournaments.update', this.props.tournament._id, { divisions });
+  }
+
+  /**
+   * Deletes a division from this event, which entails removing a division name,
+   * weight classes for that division, and a weight allowance for those weight
+   * classes.
+   *
+   * @param index - the index at which the division should be added
+   */
+
+  onDeleteDivision(index) {
+    const divisions = this.state.divisions;
+
+    divisions.splice(index, 1);
+    this.setState({ divisions });
+    this.props.call('tournaments.update', this.props.tournament._id, { divisions });
+  }
+
+  /**
+   * Updates the name of this tournament.
+   *
+   * @param e - the change event
+   */
+
+  onNameChange(e) {
+    const name = e.target.value;
+
+    this.setState({ name });
+    this.props.call('tournaments.update', this.props.tournament._id, { name });
+  }
+
+  /**
+   * Updates the location of this tournament.
+   *
+   * @param e - the change event
+   */
+
+  onLocationChange(e) {
+    const location = e.target.value;
+
+    this.setState({ location });
+    this.props.call('tournaments.update', this.props.tournament._id, { location });
+  }
+
+  /**
+   * Updates the start date of this tournament.
+   *
+   * @param e - the change event
+   */
+
+  onStartDateChange(e) {
+    const startDate = e.target.value;
+
+    this.setState({ startDate });
+    this.props.call('tournaments.update', this.props.tournament._id, { startDate });
+  }
+
+  /**
+   * Updates the end date of this tournament.
+   *
+   * @param e - the change event
+   */
+
+  onEndDateChange(e) {
+    const endDate = e.target.value;
+
+    this.setState({ endDate });
+    this.props.call('tournaments.update', this.props.tournament._id, { endDate });
+  }
+
+  /**
+   * Updates the weigh-ins for this tournament.
+   *
+   * @param e - the change event
+   */
+
+  onWeighinsChange(e) {
+    const weighins = e.target.value;
+
+    this.setState({ weighins });
+    this.props.call('tournaments.update', this.props.tournament._id, { weighins });
+  }
+
+  /**
+   * Updates the alternate weigh-ins for this tournament.
+   *
+   * @param e - the change event
+   */
+
+  onAlternateWeighinsChange(e) {
+    const alternateWeighins = e.target.value;
+
+    this.setState({ alternateWeighins });
+    this.props.call('tournaments.update', this.props.tournament._id, { alternateWeighins });
+  }
+
+  /**
+   * Updates a division name for this tournament.
+   *
+   * @param index - the index of the division
+   * @param e - the change event
+   */
+
+  onDivisionChange(index, e) {
+    const divisions = this.state.divisions;
+
+    divisions[index].name = e.target.value;
+    this.setState({ divisions });
+    this.props.call('tournaments.update', this.props.tournament._id, { divisions });
+  }
+
+  /**
+   * Updates the weight classes of a division for this tournament.
+   *
+   * @param index - the index of the division
+   * @param e - the change event
+   */
+
+  onWeightClassesChange(index, e) {
+    const divisions = this.state.divisions;
+    const weightClasses = e.target.value;
+
+    divisions[index].weightClasses = weightClasses.replace(/\s/g,'').split(',');
+    this.setState({ divisions });
+    this.props.call('tournaments.update', this.props.tournament._id, { divisions });
+  }
+
+  /**
+   * Updates the weight allowance of a division for this tournament.
+   *
+   * @param index - the index of the division
+   * @param e - the change event
+   */
+
+  onAllowanceChange(index, e) {
+    const divisions = this.state.divisions;
+    const allowance = Number(e.target.value) >= 0 ? Number(e.target.value) : 0;
+
+    divisions[index].allowance = allowance;
+    this.setState({ divisions });
+    this.props.call('tournaments.update', this.props.tournament._id, { divisions });
+  }
+
+  /**
+   * Updates the number of teams being entered per division for this tournament.
+   *
+   * @param index - the index of the division
+   * @param e - the change event
+   */
+
+  onTeamsChange(index, e) {
+    const divisions = this.state.divisions;
+    const teams = parseInt(e.target.value) > 0 ? parseInt(e.target.value) : 1;
+
+    divisions[index].teams = teams;
+    this.setState({ divisions });
+    this.props.call('tournaments.update', this.props.tournament._id, { divisions });
+  }
+
+  /**
+   * Renders this component to the browser.
+   *
+   * @return the JSX markup
+   */
 
   render() {
     if (this.props.tournament) {
@@ -178,26 +293,32 @@ export class TournamentEditor extends React.Component {
             <p>Alternate Weigh-ins</p>
             <input id="alternateWeighins" name="alternateWeighins" className="editor__field" value={this.state.alternateWeighins} placeholder="Alternate Weigh-ins" onChange={this.onAlternateWeighinsChange}/>
           </label>
-          <label className="editor__label">
-            <p>Age Division</p>
-            <input id="division" name="division" className="editor__field" value={this.state.division} placeholder="Age Division" onChange={this.onDivisionChange}/>
-          </label>
-          <label className="editor__label">
-            <p>Weight Classes</p>
-            <input id="weightClasses" name="weightClasses" className="editor__field" value={this.state.weightClasses} placeholder="Weight Classes" onChange={this.onWeightClassesChange}/>
-          </label>
-          <label className="editor__label">
-            <p>Weight Allowance</p>
-            <input id="allowance" name="allowance" className="editor__field" value={this.state.allowance} placeholder="Allowance" onChange={this.onAllowanceChange}/>
-          </label>
-          <label className="editor__label">
-            <p>Year</p>
-            <input id="year" name="year" className="editor__field" value={this.state.year} placeholder="Year" onChange={this.onYearChange}/>
-          </label>
-          <label className="editor__label">
-            <p>Season</p>
-            <input id="season" name="season" className="editor__field" value={this.state.season} placeholder="Season" onChange={this.onSeasonChange}/>
-          </label>
+
+          {this.state.divisions.map((division, index, divisions) => {
+            return (
+              <div id="division-group" key={index}>
+                <label className="editor__label">
+                  {index === 0 ?
+                    <p className="editor__dynamic-label top-label">Age Division <img className="editor__add" src="/images/add.svg" onClick={this.onAddDivision.bind(this, index)}/></p> :
+                    <p className="editor__dynamic-label top-label">Age Division <img className="editor__add" src="/images/add.svg" onClick={this.onAddDivision.bind(this, index)}/> <img className="editor__delete" src="/images/delete.svg" onClick={this.onDeleteDivision.bind(this, index)}/></p>
+                  }
+                  <input id="division" name="division" className="editor__field" value={this.state.divisions[index].name} placeholder="Age Division" onChange={this.onDivisionChange.bind(this, index)}/>
+                </label>
+                <label className="editor__label">
+                  <p>Weight Classes</p>
+                  <input id="weightClasses" name="weightClasses" className="editor__field" value={this.state.divisions[index].weightClasses} placeholder="Weight Classes" onChange={this.onWeightClassesChange.bind(this, index)}/>
+                </label>
+                <label className="editor__label">
+                  <p>Weight Allowance</p>
+                  <input id="allowance" name="allowance" type="number" min="0" step="0.1" className="editor__field" value={this.state.divisions[index].allowance} placeholder="Allowance" onChange={this.onAllowanceChange.bind(this, index)}/>
+                </label>
+                <label className="editor__label">
+                  <p>Teams Entered</p>
+                  <input id="teams" name="teams" type="number" min="1" className={index === divisions.length - 1 ? 'editor__field editor__bottom-field' : 'editor__field'} value={this.state.divisions[index].teams} placeholder="Teams Entered" onChange={this.onTeamsChange.bind(this, index)}/>
+                </label>
+              </div>
+            );
+          })}
         </div>
       );
     } else {
@@ -210,12 +331,16 @@ export class TournamentEditor extends React.Component {
   }
 }
 
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 TournamentEditor.propTypes = {
   tournament: PropTypes.object,
   selectedTournamentId: PropTypes.string,
   call: PropTypes.func.isRequired,
   browserHistory: PropTypes.object.isRequired
 };
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 export default createContainer(() => {
   const selectedTournamentId = Session.get('selectedTournamentId');

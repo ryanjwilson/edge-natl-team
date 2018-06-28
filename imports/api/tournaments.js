@@ -3,7 +3,7 @@ import { Meteor } from 'meteor/meteor';
 import moment from 'moment';
 import SimpleSchema from 'simpl-schema';
 
-const Tournaments = new Mongo.Collection('tournaments');
+export const Tournaments = new Mongo.Collection('tournaments');
 
 if (Meteor.isServer) {
   Meteor.publish('tournaments', function() {
@@ -11,7 +11,18 @@ if (Meteor.isServer) {
   });
 }
 
+/**
+ * An API for inserting, removing, and updating a Tournament.
+ */
+
 Meteor.methods({
+
+  /**
+   * Inserts a new Tournament into the Collection.
+   *
+   * @return the unqiue _id of the inserted document
+   */
+
   'tournaments.insert'() {
     if (!this.userId) {
       throw new Meteor.Error('not-authorized');
@@ -20,20 +31,29 @@ Meteor.methods({
     return Tournaments.insert({
       name: '',
       location: '',
-      startDate: '',
-      endDate: '',
+      startDate: '',              // TODO - default date object rather than empty string.
+      endDate: '',                // TODO - but what should the default date be?
       weighins: '',
       alternateWeighins: '',
-      division: '',
-      weightClasses: '',
-      allowance: 0,
-      year: '',
-      season: '',
+      divisions: [{
+        name: '',
+        weightClasses: [ ],
+        allowance: '',
+        teams: 1
+      }],
       published: false,
+      year: '',                   // TODO - if we make this an integer, what should the default value be?
+      season: '',
       userId: this.userId,
       updatedAt: moment().valueOf()
     });
   },
+
+  /**
+   * Removes a Tournament from the Collection.
+   *
+   * @param _id - the unique _id of the Tournament to be removed
+   */
 
   'tournaments.remove'(_id) {
     if (!this.userId) {
@@ -41,14 +61,18 @@ Meteor.methods({
     }
 
     new SimpleSchema({
-      _id: {
-        type: String,
-        min: 1
-      }
+      _id: { type: String, min: 1 }
     }).validate({ _id });
 
     Tournaments.remove({ _id, userId: this.userId });
   },
+
+  /**
+   * Updates a Tournament in the Collection.
+   *
+   * @param _id - the unique _id of the Tournament to update
+   * @param updates - the updates to be applied to the Tournament
+   */
 
   'tournaments.update'(_id, updates) {
     if (!this.userId) {
@@ -56,64 +80,27 @@ Meteor.methods({
     }
 
     new SimpleSchema({
-      _id: {
-        type: String,
-        min: 1
-      },
-      name: {
-        type: String,
-        optional: true
-      },
-      location: {
-        type: String,
-        optional: true
-      },
-      startDate: {
-        type: String,       // TODO - modify to support Date for sorting?
-        optional: true
-      },
-      endDate: {
-        type: String,       // TODO - modify to support Date for sorting?
-        optional: true
-      },
-      weighins: {
-        type: String,
-        optional: true
-      },
-      alternateWeighins: {
-        type: String,
-        optional: true
-      },
-      division: {
-        type: String,
-        optional: true
-      },
-      weightClasses: {
-        type: String,
-        optional: true
-      },
-      allowance: {
-        type: String,
-        optional: true
-      },
-      year: {
-        type: String,
-        optional: true
-      },
-      season: {
-        type: String,
-        optional: true
-      },
-      published: {
-        type: Boolean,
-        optional: true
-      }
-    }).validate({ _id, ...updates });
+      _id: { type: String, min: 1, required: true },
+      name: { type: String },
+      location: { type: String },
+      startDate: { type: String },                          // TODO - convert to Date?
+      endDate: { type: String },                            // TODO - convert to Date?
+      weighins: { type: String },                           // TODO - convert to Date?
+      alternateWeighins: { type: String },                  // TODO - convert to Date?
+      divisions: { type: Array, minCount: 1 },
+      'divisions.$': { type: Object },
+      'divisions.$.name': { type: String },
+      'divisions.$.weightClasses': { type: Array },
+      'divisions.$.weightClasses.$': { type: String },      // TODO - convert to Array of Numbers?
+      'divisions.$.allowance': { type: Number },
+      'divisions.$.teams': { type: SimpleSchema.Integer, min: 1 },
+      published: { type: Boolean, defaultValue: false },
+      year: { type: String },                               // TODO - convert to SimpleSchema.Integer?
+      season: { type: String }
+    }, { requiredByDefault: false }).validate({ _id, ...updates });
 
     Tournaments.update({ _id, userId: this.userId }, {
       $set: { updatedAt: moment().valueOf(), ...updates }
     });
   }
 });
-
-export { Tournaments };

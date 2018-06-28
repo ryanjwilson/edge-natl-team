@@ -1,16 +1,28 @@
 import React from 'react';
-import { Meteor } from 'meteor/meteor';
-import { PropTypes } from 'prop-types';
-import { createContainer } from 'meteor/react-meteor-data';
-import { Session } from 'meteor/session';
 import swal from 'sweetalert2';
 import { browserHistory } from 'react-router';
+import { createContainer } from 'meteor/react-meteor-data';
+import { Meteor } from 'meteor/meteor';
+import { PropTypes } from 'prop-types';
+import { Session } from 'meteor/session';
 
 import TournamentListFilters from './TournamentListFilters';
 
-const TournamentListHeader = (props) => {
+/**
+ * A TournamentListHeader component holds the action buttons pertaining to the
+ * TournamentList component, as well as the TournamentListFilters component.
+ *
+ * @param props - the initializing properties passed to this component
+ */
+
+export const TournamentListHeader = (props) => {
+
+  /**
+   * Adds a new Tournament to the TournamentList.
+   */
+
   const onAddTournament = () => {
-    props.Session.set('multiselectedTournamentIds', []);      // clear multiselect list
+    props.Session.set('multiselectedTournamentIds', []);    // clear any previously multiselected tournaments
 
     props.meteorCall('tournaments.insert', (err, res) => {
       if (res) {
@@ -19,13 +31,17 @@ const TournamentListHeader = (props) => {
     });
   };
 
-  /*
-   * Publishes one or more tournaments simultaneously based on multiselection.
+  /**
+   * Publishes one or more Tournaments simultaneously based on user selection.
    */
 
   const onShowTournaments = () => {
-    const tournamentIds = props.Session.get('multiselectedTournamentIds');
+    let tournamentIds = props.Session.get('multiselectedTournamentIds');
 
+    if (tournamentIds.length === 0 && props.Session.get('selectedTournamentId')) {
+      tournamentIds.push(props.Session.get('selectedTournamentId'));
+    }
+    
     if (tournamentIds.length === 0) {
       swal({
         titleText: 'No Tournament Selected',
@@ -57,12 +73,16 @@ const TournamentListHeader = (props) => {
     }
   };
 
-  /*
-   * Unpublishes one or more tournaments simultaneously based on multiselection.
+  /**
+   * Unpublishes one or more tournaments simultaneously based on user selection.
    */
 
   const onHideTournaments = () => {
-    const tournamentIds = props.Session.get('multiselectedTournamentIds');
+    let tournamentIds = props.Session.get('multiselectedTournamentIds');
+
+    if (tournamentIds.length === 0 && props.Session.get('selectedTournamentId')) {
+      tournamentIds.push(props.Session.get('selectedTournamentId'));
+    }
 
     if (tournamentIds.length === 0) {
       swal({
@@ -96,11 +116,15 @@ const TournamentListHeader = (props) => {
   };
 
   /*
-   * Deletes one or more tournaments simultaneously based on multiselection.
+   * Deletes one or more tournaments simultaneously based on user selection.
    */
 
   const onDeleteTournaments = () => {
-    const tournamentIds = props.Session.get('multiselectedTournamentIds');
+    let tournamentIds = props.Session.get('multiselectedTournamentIds');
+
+    if (tournamentIds.length === 0 && props.Session.get('selectedTournamentId')) {
+      tournamentIds.push(props.Session.get('selectedTournamentId'));
+    }
 
     if (tournamentIds.length === 0) {
       swal({
@@ -135,6 +159,9 @@ const TournamentListHeader = (props) => {
     }
   };
 
+  // return a TournamentListHeader component, which is comprised of Add, Show,
+  // Hide, and Delete buttons, as well as a TournamentListFilters component.
+
   return (
     <div className="item-list__header">
       <button className="button--add" onClick={onAddTournament}>Add Tournament</button>
@@ -148,12 +175,14 @@ const TournamentListHeader = (props) => {
   );
 };
 
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 TournamentListHeader.propTypes = {
   meteorCall: PropTypes.func.isRequired,
   Session: PropTypes.object.isRequired
 };
 
-export { TournamentListHeader };
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 export default createContainer(() => {
   return {

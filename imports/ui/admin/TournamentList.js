@@ -1,7 +1,7 @@
 import React from 'react';
+import { createContainer } from 'meteor/react-meteor-data';
 import { Meteor } from 'meteor/meteor';
 import { PropTypes } from 'prop-types';
-import { createContainer } from 'meteor/react-meteor-data';
 import { Session } from 'meteor/session';
 
 import EmptyItem from './EmptyItem';
@@ -9,15 +9,20 @@ import Tournament from './Tournament';
 import TournamentListHeader from './TournamentListHeader';
 import { Tournaments } from '../../api/tournaments';
 
+/**
+ * A TournamentList component holds a list of Tournaments. Through the
+ * TournamentListFilters component, this component is filterable and sortable.
+ *
+ * @param props - the initializing properties passed to this component
+ */
+
 export const TournamentList = (props) => {
   if (props.tournaments) {
-    const staleIds = Session.get('multiselectedTournamentIds');   // current ids in multiselect list
+    const staleIds = Session.get('multiselectedTournamentIds');
 
-    /*
-     * After filtering tournaments, we need to refresh the list of multiselected tournaments.
-     * This prevents users from accidentally showing, hiding, or deleting a tournament that
-     * was previously selected, but is no longer visible (i.e., filtered out).
-     */
+    // refresh multiselected tournaments after filtering to prevent accidentally
+    // showing/hiding/deleting a tournament that was previously selected, but is
+    // no longer visible in the list (i.e., filtered out).
 
     let freshIds = [];
     props.tournaments.forEach((tournament) => {
@@ -26,21 +31,12 @@ export const TournamentList = (props) => {
       }
     });
 
-    /*
-     * Reset the selected tournament(s).
-     */
-
     if (freshIds.length === 1) {
       Session.set('selectedTournamentId', freshIds[0]);
     }
     Session.set('multiselectedTournamentIds', freshIds);
 
-    /*
-     * Auto-update the selected tournament.
-     *    - undefined if the tournament list is empty
-     *    - the first and only tournament in the list
-     *    - whichever tournament is marked as selected
-     */
+    // update the selected tournament Session variable as needed.
 
     if (props.tournaments.length === 0) {
       Session.set('selectedTournamentId', undefined);
@@ -52,6 +48,9 @@ export const TournamentList = (props) => {
       }
     }
   }
+
+  // return a TournamentList, which is comprised of a TournamentListHeader and
+  // a list of Tournaments.
 
   return (
     <div className="item-list">
@@ -65,9 +64,13 @@ export const TournamentList = (props) => {
   );
 };
 
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 TournamentList.propTypes = {
   tournaments: PropTypes.array.isRequired
 };
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 export default createContainer(() => {
   const selectedTournamentId = Session.get('selectedTournamentId');
@@ -76,7 +79,10 @@ export default createContainer(() => {
 
   Meteor.subscribe('tournaments');
 
-  if (showPublished && showUnpublished) {
+  // conditionally query the tournaments collection based on the filter
+  // selections made by the user.
+
+  if (showPublished && showUnpublished) {   // both shown and hidden checkboxes are selected
     return {
       tournaments: Tournaments.find().fetch().map((tournament) => {
         return {
@@ -86,7 +92,7 @@ export default createContainer(() => {
         };
       })
     };
-  } else if (showPublished || showUnpublished) {
+  } else if (showPublished || showUnpublished) {    // either the shown or hidden checkbox (not both) is selected
     return {
       tournaments: Tournaments.find({ published: showPublished }).fetch().map((tournament) => {
         return {
@@ -96,7 +102,7 @@ export default createContainer(() => {
         };
       })
     };
-  } else {
+  } else {    // neither the shown or the hidden checkbox is selected
     return {
       tournaments: []
     };

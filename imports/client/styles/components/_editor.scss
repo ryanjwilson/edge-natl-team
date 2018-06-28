@@ -78,6 +78,10 @@
   width: 100%;
 }
 
+.editor__bottom-field {
+  margin-bottom: 0;
+}
+
 /*
  * Empty editor message text when no item is selected.
  *    - Tournament
@@ -89,4 +93,26 @@
   font-style: italic;
   margin: $large-space * 2;
   text-align: center;
+}
+
+.top-label {
+  border-top: 2px solid $gray;
+  padding-top: $space;
+}
+
+.editor__dynamic-label {
+  align-items: center;
+  display: flex;
+}
+
+.editor__dynamic-field {
+  display: flex;
+}
+
+.editor__add, .editor__delete {
+  cursor: pointer;
+  height: 2.5rem;
+  width: 2.5rem;
+
+  margin-left: 1rem;
 }
