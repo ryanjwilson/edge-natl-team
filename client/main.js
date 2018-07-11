@@ -20,12 +20,11 @@ Tracker.autorun(() => {
 });
 
 /**
- * Tracks changes in the selected application, tournament, or wrestler Session
- * variable. This code is executed whenever a change is detected.
+ * Tracks changes in the selected Tournament or Wrestler Session variable. This
+ * code is executed whenever a change is detected.
  */
 
 Tracker.autorun(() => {
-  const selectedApplicationId = Session.get('selectedApplicationId');
   const selectedTournamentId = Session.get('selectedTournamentId');
   const selectedWrestlerId = Session.get('selectedWrestlerId');
 
@@ -35,16 +34,12 @@ Tracker.autorun(() => {
   // conditionally re-direct the application based on selected application,
   // tournament, wrestler, or current pathname.
 
-  if (selectedApplicationId) {
-    browserHistory.replace(`/applications/${selectedApplicationId}`);
-  } else if (selectedTournamentId) {
+  if (selectedTournamentId) {
     browserHistory.replace(`/tournaments/${selectedTournamentId}`);
   } else if (selectedWrestlerId) {
     browserHistory.replace(`/wrestlers/${selectedWrestlerId}`);
   } else {
-    if (this.location.pathname.includes('/applications')) {
-      browserHistory.replace('/applications');
-    } else if (this.location.pathname.includes('/tournaments')) {
+    if (this.location.pathname.includes('/tournaments')) {
       browserHistory.replace('/tournaments');
     } else if (this.location.pathname.includes('/wrestlers')) {
       browserHistory.replace('/wrestlers');
@@ -72,23 +67,28 @@ Tracker.autorun(() => {
 /////// CLIENT APPLICATION EXECUTION STARTS HERE ///////////////////////////////////////////////////////////////////////////////////////////
 
 Meteor.startup(() => {
-  Session.set('selectedTournamentId', undefined);     // tournament view
-  Session.set('selectedWrestlerId', undefined);       // wrestler view
-  Session.set('selectedApplicationId', undefined);    // applicant view
-  //Session.set('selectedRosterId', undefined);       // roster view
+  Session.set('isSidebarOpen', false);    // mobile list selected (tournament, wrestler, roster)
+  Session.set('isMenuOpen', false);       // application navigation (desktop and mobile)
+
+  // setup selected tournament, wrestler, and roster for each view
+
+  Session.set('selectedTournamentId', undefined);
+  Session.set('selectedWrestlerId', undefined);
+  //Session.set('selectedRosterId', undefined);
+
+  // setup multiselected tournaments, wrestlers, and rosters for each view
 
   Session.set('multiselectedTournamentIds', []);
   Session.set('multiselectedWrestlerIds', []);
-  Session.set('multiselectedApplicationIds', []);
   // Session.set('multiselectedRosterIds', []);
 
-  Session.set('isSidebarOpen', false);                // items list (mobile only)
-  Session.set('isMenuOpen', false);                   // menu (desktop and mobile)
+  // setup session variables for list filtering
 
-  // TODO - filters for other views need to be added
-
-  Session.set('showPublished', true);                 // toggles tournaments shown on the public schedule
-  Session.set('showUnpublished', true);               // toggles tournaments hidden from the public schedule
+  Session.set('showPublishedFilter', true);               // tournament view, events shown on public calendar
+  Session.set('showUnpublishedFilter', true);             // tournament view, events hidden on public calendar
+  Session.set('selectedTournamentFilter', undefined);     // wrestler view, tournament selected from filter dropdown menu
+  Session.set('selectedDivisionFilter', undefined);       // wrestler view, division selected from filter dropdown
+  Session.set('selectedWeightClassFilter', undefined);    // wrestler view, weight class selected from filter dropdown
 
   ReactDOM.render(routes, document.getElementById('app'));
 });
