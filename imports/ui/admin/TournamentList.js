@@ -74,8 +74,8 @@ TournamentList.propTypes = {
 
 export default createContainer(() => {
   const selectedTournamentId = Session.get('selectedTournamentId');
-  const showPublished = Session.get('showPublished');
-  const showUnpublished = Session.get('showUnpublished');
+  const showPublished = Session.get('showPublishedFilter');
+  const showUnpublished = Session.get('showUnpublishedFilter');
 
   Meteor.subscribe('tournaments');
 

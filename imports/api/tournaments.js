@@ -38,7 +38,7 @@ Meteor.methods({
       divisions: [{
         name: '',
         weightClasses: [ ],
-        allowance: '',
+        allowance: 0,
         teams: 1
       }],
       published: false,
@@ -83,19 +83,19 @@ Meteor.methods({
       _id: { type: String, min: 1, required: true },
       name: { type: String },
       location: { type: String },
-      startDate: { type: String },                          // TODO - convert to Date?
-      endDate: { type: String },                            // TODO - convert to Date?
-      weighins: { type: String },                           // TODO - convert to Date?
-      alternateWeighins: { type: String },                  // TODO - convert to Date?
+      startDate: { type: String },                          // TODO - convert to DateTime
+      endDate: { type: String },                            // TODO - convert to DateTime
+      weighins: { type: String },                           // TODO - convert to DateTime
+      alternateWeighins: { type: String },                  // TODO - convert to DateTime
       divisions: { type: Array, minCount: 1 },
       'divisions.$': { type: Object },
       'divisions.$.name': { type: String },
       'divisions.$.weightClasses': { type: Array },
-      'divisions.$.weightClasses.$': { type: String },      // TODO - convert to Array of Numbers?
-      'divisions.$.allowance': { type: Number },
+      'divisions.$.weightClasses.$': { type: Number },
+      'divisions.$.allowance': { type: Number, min: 0 },
       'divisions.$.teams': { type: SimpleSchema.Integer, min: 1 },
       published: { type: Boolean, defaultValue: false },
-      year: { type: String },                               // TODO - convert to SimpleSchema.Integer?
+      year: { type: SimpleSchema.Integer },
       season: { type: String }
     }, { requiredByDefault: false }).validate({ _id, ...updates });
 

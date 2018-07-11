@@ -39,8 +39,8 @@ export class TournamentEditor extends React.Component {
         teams: ''
       }],
       published: false,
-      publishClass: 'button--unpublish',
-      publishText: 'Unpublish',
+      publishClass: 'button--unpublish',    // TODO - can this be removed?
+      publishText: 'Unpublish',             // TODO - can this be removed?
       year: '',
       season: ''
     };
@@ -85,7 +85,7 @@ export class TournamentEditor extends React.Component {
   }
 
   /**
-   * Adds a division to this event, which entails adding a division name,
+   * Adds a division to this Tournament, which entails adding a division name,
    * weight classes for that division, and a weight allowance for those weight
    * classes.
    *
@@ -98,7 +98,7 @@ export class TournamentEditor extends React.Component {
     divisions.splice(index + 1, 0, {
       name: '',
       weightClasses: [],
-      allowance: '',
+      allowance: 0,
       teams: 1
     });
     this.setState({ divisions });
@@ -106,9 +106,9 @@ export class TournamentEditor extends React.Component {
   }
 
   /**
-   * Deletes a division from this event, which entails removing a division name,
-   * weight classes for that division, and a weight allowance for those weight
-   * classes.
+   * Deletes a division from this Tournament, which entails removing a division
+   * name, weight classes for that division, and a weight allowance for those
+   * weight classes.
    *
    * @param index - the index at which the division should be added
    */
@@ -154,7 +154,7 @@ export class TournamentEditor extends React.Component {
    */
 
   onStartDateChange(e) {
-    const startDate = e.target.value;
+    const startDate = e.target.value;   // TODO - validate Date
 
     this.setState({ startDate });
     this.props.call('tournaments.update', this.props.tournament._id, { startDate });
@@ -167,7 +167,7 @@ export class TournamentEditor extends React.Component {
    */
 
   onEndDateChange(e) {
-    const endDate = e.target.value;
+    const endDate = e.target.value;   // TODO - validate Date
 
     this.setState({ endDate });
     this.props.call('tournaments.update', this.props.tournament._id, { endDate });
@@ -180,7 +180,7 @@ export class TournamentEditor extends React.Component {
    */
 
   onWeighinsChange(e) {
-    const weighins = e.target.value;
+    const weighins = e.target.value;    // TODO - validate Date
 
     this.setState({ weighins });
     this.props.call('tournaments.update', this.props.tournament._id, { weighins });
@@ -193,7 +193,7 @@ export class TournamentEditor extends React.Component {
    */
 
   onAlternateWeighinsChange(e) {
-    const alternateWeighins = e.target.value;
+    const alternateWeighins = e.target.value;   // TODO - validate Date
 
     this.setState({ alternateWeighins });
     this.props.call('tournaments.update', this.props.tournament._id, { alternateWeighins });
@@ -223,9 +223,9 @@ export class TournamentEditor extends React.Component {
 
   onWeightClassesChange(index, e) {
     const divisions = this.state.divisions;
-    const weightClasses = e.target.value;
+    const weightClasses = e.target.value.replace(/\s/g,'').split(',').map(Number);
 
-    divisions[index].weightClasses = weightClasses.replace(/\s/g,'').split(',');
+    divisions[index].weightClasses = weightClasses;
     this.setState({ divisions });
     this.props.call('tournaments.update', this.props.tournament._id, { divisions });
   }
@@ -268,6 +268,8 @@ export class TournamentEditor extends React.Component {
    * @return the JSX markup
    */
 
+   // TODO - modify to not show the trailing zero in weight classes?
+
   render() {
     if (this.props.tournament) {
       return (
@@ -293,7 +295,6 @@ export class TournamentEditor extends React.Component {
             <p>Alternate Weigh-ins</p>
             <input id="alternateWeighins" name="alternateWeighins" className="editor__field" value={this.state.alternateWeighins} placeholder="Alternate Weigh-ins" onChange={this.onAlternateWeighinsChange}/>
           </label>
-
           {this.state.divisions.map((division, index, divisions) => {
             return (
               <div id="division-group" key={index}>
@@ -306,7 +307,7 @@ export class TournamentEditor extends React.Component {
                 </label>
                 <label className="editor__label">
                   <p>Weight Classes</p>
-                  <input id="weightClasses" name="weightClasses" className="editor__field" value={this.state.divisions[index].weightClasses} placeholder="Weight Classes" onChange={this.onWeightClassesChange.bind(this, index)}/>
+                  <input id="weightClasses" name="weightClasses" className="editor__field" value={this.state.divisions[index].weightClasses.length > 0 && this.state.divisions[index].weightClasses[0] === 0 ? '' : this.state.divisions[index].weightClasses} placeholder="Weight Classes" onChange={this.onWeightClassesChange.bind(this, index)}/>
                 </label>
                 <label className="editor__label">
                   <p>Weight Allowance</p>
