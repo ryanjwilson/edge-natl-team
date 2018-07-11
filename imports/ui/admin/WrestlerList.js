@@ -70,38 +70,106 @@ WrestlerList.propTypes = {
 };
 
 export default createContainer(() => {
-  const selectedWrestlerId = Session.get('selectedWrestlerId');
-  const showPublished = Session.get('showPublished');
-  const showUnpublished = Session.get('showUnpublished');
-
-  Meteor.call('wrestlers.sync');
   Meteor.subscribe('wrestlers');
 
-  if (showPublished && showUnpublished) {
+  const selectedWrestlerId = Session.get('selectedWrestlerId');
+  const multiselectedWrestlerIds = Session.get('multiselectedWrestlerIds');
+  const selectedTournamentFilter = Session.get('selectedTournamentFilter');
+  const selectedDivisionFilter = Session.get('selectedDivisionFilter');
+  const selectedWeightClassFilter = Session.get('selectedWeightClassFilter');
+
+  if (selectedTournamentFilter && selectedDivisionFilter && selectedWeightClassFilter) {
+    return {
+      wrestlers: Wrestlers.find({
+        'applications.tournamentId': selectedTournamentFilter,
+        'applications.division': selectedDivisionFilter,
+        'applications.weightClasses': Number(selectedWeightClassFilter)
+      }).fetch().map((wrestler) => {
+        return {
+          ...wrestler,
+          selected: wrestler._id === selectedWrestlerId,
+          multiselected: multiselectedWrestlerIds.includes(wrestler._id)
+        };
+      })
+    };
+  } else if (selectedTournamentFilter && selectedDivisionFilter) {
+    return {
+      wrestlers: Wrestlers.find({
+        'applications.tournamentId': selectedTournamentFilter,
+        'applications.division': selectedDivisionFilter
+      }).fetch().map((wrestler) => {
+        return {
+          ...wrestler,
+          selected: wrestler._id === selectedWrestlerId,
+          multiselected: multiselectedWrestlerIds.includes(wrestler._id)
+        };
+      })
+    };
+  } else if (selectedTournamentFilter && selectedWeightClassFilter) {
+    return {
+      wrestlers: Wrestlers.find({
+        'applications.tournamentId': selectedTournamentFilter,
+        'applications.weightClasses': Number(selectedWeightClassFilter)
+      }).fetch().map((wrestler) => {
+        return {
+          ...wrestler,
+          selected: wrestler._id === selectedWrestlerId,
+          multiselected: multiselectedWrestlerIds.includes(wrestler._id)
+        };
+      })
+    };
+  } else if (selectedDivisionFilter && selectedWeightClassFilter) {
+    return {
+      wrestlers: Wrestlers.find({
+        'applications.division': selectedDivisionFilter,
+        'applications.weightClasses': Number(selectedWeightClassFilter)
+      }).fetch().map((wrestler) => {
+        return {
+          ...wrestler,
+          selected: wrestler._id === selectedWrestlerId,
+          multiselected: multiselectedWrestlerIds.includes(wrestler._id)
+        };
+      })
+    };
+  } else if (selectedTournamentFilter) {
+    return {
+      wrestlers: Wrestlers.find({ 'applications.tournamentId': selectedTournamentFilter }).fetch().map((wrestler) => {
+        return {
+          ...wrestler,
+          selected: wrestler._id === selectedWrestlerId,
+          multiselected: multiselectedWrestlerIds.includes(wrestler._id)
+        };
+      })
+    };
+  } else if (selectedDivisionFilter) {
+    return {
+      wrestlers: Wrestlers.find({ 'applications.division': selectedDivisionFilter }).fetch().map((wrestler) => {
+        return {
+          ...wrestler,
+          selected: wrestler._id === selectedWrestlerId,
+          multiselected: multiselectedWrestlerIds.includes(wrestler._id)
+        };
+      })
+    };
+  } else if (selectedWeightClassFilter) {
+    return {
+      wrestlers: Wrestlers.find({ 'applications.weightClasses': Number(selectedWeightClassFilter) }).fetch().map((wrestler) => {
+        return {
+          ...wrestler,
+          selected: wrestler._id === selectedWrestlerId,
+          multiselected: multiselectedWrestlerIds.includes(wrestler._id)
+        };
+      })
+    };
+  } else {
     return {
       wrestlers: Wrestlers.find().fetch().map((wrestler) => {
         return {
           ...wrestler,
           selected: wrestler._id === selectedWrestlerId,
-          multiselected: Session.get('multiselectedWrestlerIds').includes(wrestler._id)
+          multiselected: multiselectedWrestlerIds.includes(wrestler._id)
         };
       })
-    };
-  } else if (showPublished || showUnpublished) {
-    return {
-      wrestlers: Wrestlers.find({
-        published: showPublished
-      }).fetch().map((wrestler) => {
-        return {
-          ...wrestler,
-          selected: wrestler._id === selectedWrestlerId,
-          multiselected: Session.get('multiselectedWrestlerIds').includes(wrestler._id)
-        }
-      })
-    };
-  } else {
-    return {
-      wrestlers: []
     };
   }
 }, WrestlerList);
