@@ -71,7 +71,7 @@
 
 .editor__field {
   font-weight: 300;
-  margin-bottom: $large-space;
+  margin-bottom: $large-space !important;
   outline: none;
   padding: $input-spacing;
   resize: none;
@@ -79,7 +79,7 @@
 }
 
 .editor__bottom-field {
-  margin-bottom: 0;
+  margin-bottom: 0 !important;
 }
 
 /*
@@ -107,6 +107,7 @@
 
 .editor__dynamic-field {
   display: flex;
+  flex-direction: row;
 }
 
 .editor__add, .editor__delete {
@@ -115,4 +116,48 @@
   width: 2.5rem;
 
   margin-left: 1rem;
+}
+
+.no-applications {
+  font-weight: normal;
+  margin: 0;
+}
+
+.dropdown__filter-group {
+  align-items: center;
+  border-bottom: 1px solid $gray;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  padding-bottom: $space;
+}
+
+.dropdown-menu {
+  height: 3rem;
+  width: 100%;
+
+  font-size: $base-font-size;
+  margin-top: $space / 4;
+  outline: none;
+}
+
+.dropdown-content {
+  border-left: $item-border-width solid $primary;
+  padding-left: $large-space;
+  margin-top: $space;
+  margin-left: -$large-space;
+}
+
+.open-application {
+  border-left: $item-border-width solid $primary;
+}
+
+.past-application {
+  border-left: $item-border-width solid $gray;
+}
+
+.application-label {
+  border-top: 2px solid $gray;
+  margin-top: $large-space;
+  padding-top: $space;
 }
