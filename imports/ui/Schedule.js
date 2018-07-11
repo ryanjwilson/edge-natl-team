@@ -5,7 +5,6 @@ export default class Schedule extends React.Component {
     return (
       <div>
         Schedule Component
-        <Footer/>
       </div>
     )
   }
