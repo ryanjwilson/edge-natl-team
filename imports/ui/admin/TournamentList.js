@@ -73,11 +73,11 @@ TournamentList.propTypes = {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 export default createContainer(() => {
+  Meteor.subscribe('tournaments');
+
   const selectedTournamentId = Session.get('selectedTournamentId');
   const showPublished = Session.get('showPublishedFilter');
   const showUnpublished = Session.get('showUnpublishedFilter');
-
-  Meteor.subscribe('tournaments');
 
   // conditionally query the tournaments collection based on the filter
   // selections made by the user.
