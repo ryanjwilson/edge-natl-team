@@ -9,185 +9,221 @@ import { Session } from 'meteor/session';
 import TournamentListFilters from './TournamentListFilters';
 
 /**
- * A TournamentListHeader component holds the action buttons pertaining to the
- * TournamentList component, as well as the TournamentListFilters component.
- *
- * @param props - the initializing properties passed to this component
+ * A TournamentListHeader component represents a fixture above the
+ * TournamentList. It contains buttons for adding, showing, hiding, and
+ * deleting one or more tournaments, as well as the TournamentListFilters.
  */
 
-export const TournamentListHeader = (props) => {
+export class TournamentListHeader extends React.Component {
 
   /**
-   * Adds a new Tournament to the TournamentList.
+   * Initializes a TournamentListHeader component.
+   *
+   * @param props - the properties with which this component is initialized
    */
 
-  const onAddTournament = () => {
-    props.Session.set('multiselectedTournamentIds', []);    // clear any previously multiselected tournaments
+  constructor(props) {
+    super(props);
 
-    props.meteorCall('tournaments.insert', (err, res) => {
-      if (res) {
-        props.Session.set('selectedTournamentId', res);
-      }
+    this.state = {
+
+    };
+
+    // bind field listeners to this context. remaining listeners are bound
+    // manually, as they take additional parameters.
+
+    this.onAddTournament = this.onAddTournament.bind(this);
+    this.onShowTournaments = this.onShowTournaments.bind(this);
+    this.onHideTournaments = this.onHideTournaments.bind(this);
+    this.onDeleteTournaments = this.onDeleteTournaments.bind(this);
+  }
+
+  componentWillReceiveProps(nextProps) {
+
+  }
+
+  /**
+   * Adds a Tournament to the TournamentList.
+   */
+
+  onAddTournament() {
+    Session.set('multiselectedTournamentIds', []);    // clear any previously multiselected tournaments
+
+    Meteor.call('tournaments.insert', (err, res) => {
+      if (res) Session.set('selectedTournamentId', res);
     });
-  };
+  }
 
   /**
-   * Publishes one or more Tournaments simultaneously based on user selection.
+   * Publishes one or more Tournaments to the public schedule, making them
+   * visible to public users.
    */
 
-  const onShowTournaments = () => {
-    let tournamentIds = props.Session.get('multiselectedTournamentIds');
+  onShowTournaments() {
+    let tournamentIds = Session.get('multiselectedTournamentIds');
 
-    if (tournamentIds.length === 0 && props.Session.get('selectedTournamentId')) {
-      tournamentIds.push(props.Session.get('selectedTournamentId'));
-    }
-    
-    if (tournamentIds.length === 0) {
-      swal({
-        titleText: 'No Tournament Selected',
-        html: '<div class="swal-modal-text">You\'ll need to select at least one Tournament to publish.</div>',
-        type: 'info',
-        confirmButtonColor: '#2e8b57',
-        confirmButtonClass: 'modal-button button--publish',
-        customClass: 'swal-modal'
-      });
-    } else {
-      swal({
-        titleText: 'Are you sure?',
-        html: '<div class="swal-modal-text">You\'re about to publish ' + tournamentIds.length + (tournamentIds.length > 1 ? ' Tournaments.' : ' Tournament.') + '</div>',
-        type: 'warning',
-        showCancelButton: true,
-        cancelButtonClass: 'modal-button button--cancel',
-        confirmButtonText: 'Show',
-        confirmButtonClass: 'modal-button button--publish',
-        confirmButtonColor: '#2e8b57',
-        reverseButtons: true,
-        customClass: 'swal-modal'
-      }).then((response) => {
-        if (response && response.value) {
-          tournamentIds.forEach((tournamentId) => {
-            props.meteorCall('tournaments.update', tournamentId, { published: true });
-          });
-        }
-      });
-    }
-  };
-
-  /**
-   * Unpublishes one or more tournaments simultaneously based on user selection.
-   */
-
-  const onHideTournaments = () => {
-    let tournamentIds = props.Session.get('multiselectedTournamentIds');
-
-    if (tournamentIds.length === 0 && props.Session.get('selectedTournamentId')) {
-      tournamentIds.push(props.Session.get('selectedTournamentId'));
+    if (tournamentIds.length === 0 && Session.get('selectedTournamentId')) {
+      tournamentIds.push(Session.get('selectedTournamentId'));
     }
 
     if (tournamentIds.length === 0) {
-      swal({
-        titleText: 'No Tournament Selected',
-        html: '<div class="swal-modal-text">You\'ll need to select at least one Tournament to unpublish.</div>',
-        type: 'info',
-        confirmButtonColor: '#5a5a5a',
-        confirmButtonClass: 'modal-button button--unpublish',
-        customClass: 'swal-modal'
-      });
+      showInvalidSelectionAlert('publish', '#2e8b57', 'modal-button button--publish');
     } else {
-      swal({
-        titleText: 'Are you sure?',
-        html: '<div class="swal-modal-text">You\'re about to unpublish ' + tournamentIds.length + (tournamentIds.length > 1 ? ' tournaments.' : ' tournament.') + '</div>',
-        type: 'warning',
-        showCancelButton: true,
-        cancelButtonClass: 'modal-button button--cancel',
-        confirmButtonText: 'Hide',
-        confirmButtonClass: 'modal-button button--unpublish',
-        confirmButtonColor: '#5a5a5a',
-        reverseButtons: true,
-        customClass: 'swal-modal'
-      }).then((response) => {
-        if (response && response.value) {
-          tournamentIds.forEach((tournamentId) => {
-            props.meteorCall('tournaments.update', tournamentId, { published: false });
-          });
-        }
-      });
+      showConfirmationAlert('publish', tournamentIds, 'Show', 'modal-button button--publish', '#2e8b57', true)
     }
-  };
+  }
+
+  /**
+   * Unpublishes one or more Tournaments from the public schedule, making them
+   * hidden from public users.
+   */
+
+  onHideTournaments() {
+    let tournamentIds = Session.get('multiselectedTournamentIds');
+
+    if (tournamentIds.length === 0 && Session.get('selectedTournamentId')) {
+      tournamentIds.push(Session.get('selectedTournamentId'));
+    }
+
+    if (tournamentIds.length === 0) {
+      showInvalidSelectionAlert('unpublish', '#5a5a5a', 'modal-button button--unpublish');
+    } else {
+      showConfirmationAlert('unpublish', tournamentIds, 'Hide', 'modal-button button--unpublish', '#5a5a5a', false)
+    }
+  }
 
   /*
-   * Deletes one or more tournaments simultaneously based on user selection.
+   * Removes one or more Tournaments from the TournamentList.
    */
 
-  const onDeleteTournaments = () => {
-    let tournamentIds = props.Session.get('multiselectedTournamentIds');
+  onDeleteTournaments() {
+    let tournamentIds = Session.get('multiselectedTournamentIds');
 
-    if (tournamentIds.length === 0 && props.Session.get('selectedTournamentId')) {
-      tournamentIds.push(props.Session.get('selectedTournamentId'));
+    if (tournamentIds.length === 0 && Session.get('selectedTournamentId')) {
+      tournamentIds.push(Session.get('selectedTournamentId'));
     }
 
     if (tournamentIds.length === 0) {
-      swal({
-        titleText: 'No Tournament Selected',
-        html: '<div class="swal-modal-text">You\'ll need to select at least one Tournament to delete.</div>',
-        type: 'info',
-        confirmButtonColor: '#e64942',
-        confirmButtonClass: 'modal-button button--unpublish',
-        customClass: 'swal-modal'
-      });
+      showInvalidSelectionAlert('unpublish', '#e64942', 'modal-button button--unpublish');
     } else {
-      swal({
-        titleText: 'Are you sure?',
-        html: '<div class="swal-modal-text">You\'re about to delete ' + tournamentIds.length + (tournamentIds.length > 1 ? ' tournaments.' : ' tournament.') + '</div>',
-        type: 'warning',
-        showCancelButton: true,
-        cancelButtonClass: 'modal-button button--cancel',
-        confirmButtonText: 'Delete',
-        confirmButtonClass: 'modal-button button--delete',
-        confirmButtonColor: '#e64942',
-        reverseButtons: true,
-        customClass: 'swal-modal'
-      }).then((response) => {
-        if (response && response.value) {
-          tournamentIds.forEach((tournamentId) => {
-            props.meteorCall('tournaments.remove', tournamentId);
-          });
+      showDeletionAlert(tournamentIds);
+    }
+  }
 
-          props.browserHistory.push('/tournaments');
-        }
+  /**
+   * Renders this component to the page.
+   *
+   * @return the JSX for this component
+   */
+
+  render() {
+    return (
+      <div className="item-list__header">
+        <button className="button--add" onClick={this.onAddTournament}>Add Tournament</button>
+        <div className="multiselect-group three">
+          <button className="button button--publish" onClick={this.onShowTournaments}>Show</button>
+          <button className="button button--unpublish" onClick={this.onHideTournaments}>Hide</button>
+          <button className="button button--delete" onClick={this.onDeleteTournaments}>Delete</button>
+        </div>
+        <TournamentListFilters/>
+      </div>
+    );
+  }
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+/**
+ * Shows an alert dialog informing the user that they haven't selected any
+ * Tournaments from the TournamentList.
+ *
+ * @param action - the action the user is attemping to perform
+ * @param color - the button color associated with the attempted action
+ * @param css - the css associated with the attempted action
+ */
+
+const showInvalidSelectionAlert = (action, color, css) => {
+  swal({
+    titleText: 'No Tournament Selected',
+    html: '<div class="swal-modal-text">You\'ll need to select at least one Tournament to ' + action + '.</div>',
+    type: 'info',
+    confirmButtonColor: color,
+    confirmButtonClass: css,
+    customClass: 'swal-modal'
+  });
+};
+
+/**
+ * Shows a confirmation dialog warning the user that they are about to show
+ * or hide one or more Tournaments to the public schedule.
+ *
+ * @param action - the action the user is attemping to perform
+ * @param tournamentIds - the tournaments the user is going to show or hide
+ * @param text - the button text associated with the attempted action
+ * @param css - the css associated with the attempted action
+ * @param color - the button color associated with the attempted action
+ * @param published - true for publish actions; false for unpublish actions
+ */
+
+const showConfirmationAlert = (action, tournamentIds, text, css, color, published) => {
+  swal({
+    titleText: 'Are you sure?',
+    html: '<div class="swal-modal-text">You\'re about to ' + action + ' ' + tournamentIds.length + (tournamentIds.length > 1 ? ' Tournaments.' : ' Tournament.') + '</div>',
+    type: 'warning',
+    showCancelButton: true,
+    cancelButtonClass: 'modal-button button--cancel',
+    confirmButtonText: text,
+    confirmButtonClass: css,
+    confirmButtonColor: color,
+    reverseButtons: true,
+    customClass: 'swal-modal'
+  }).then((response) => {
+    if (response && response.value) {
+      tournamentIds.forEach((tournamentId) => {
+        Meteor.call('tournaments.update', tournamentId, { published });
       });
     }
-  };
+  });
+};
 
-  // return a TournamentListHeader component, which is comprised of Add, Show,
-  // Hide, and Delete buttons, as well as a TournamentListFilters component.
+/**
+ * Shows a confirmation dialog warning the user that they are about to delete
+ * or hide one or more Tournaments from the TournamentList.
+ *
+ * @param tournamentIds - the tournaments the user is going to delete
+ */
 
-  return (
-    <div className="item-list__header">
-      <button className="button--add" onClick={onAddTournament}>Add Tournament</button>
-      <div className="multiselect-group three">
-        <button className="button button--publish" onClick={onShowTournaments}>Show</button>
-        <button className="button button--unpublish" onClick={onHideTournaments}>Hide</button>
-        <button className="button button--delete" onClick={onDeleteTournaments}>Delete</button>
-      </div>
-      <TournamentListFilters/>
-    </div>
-  );
+const showDeletionAlert = (tournamentIds) => {
+  swal({
+    titleText: 'Are you sure?',
+    html: '<div class="swal-modal-text">You\'re about to delete ' + tournamentIds.length + (tournamentIds.length > 1 ? ' tournaments.' : ' tournament.') + '</div>',
+    type: 'warning',
+    showCancelButton: true,
+    cancelButtonClass: 'modal-button button--cancel',
+    confirmButtonText: 'Delete',
+    confirmButtonClass: 'modal-button button--delete',
+    confirmButtonColor: '#e64942',
+    reverseButtons: true,
+    customClass: 'swal-modal'
+  }).then((response) => {
+    if (response && response.value) {
+      tournamentIds.forEach((tournamentId) => {
+        Meteor.call('tournaments.remove', tournamentId);
+      });
+      browserHistory.push('/tournaments');
+    }
+  });
 };
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 TournamentListHeader.propTypes = {
-  meteorCall: PropTypes.func.isRequired,
-  Session: PropTypes.object.isRequired
+  meteorCall: PropTypes.func,
+  Session: PropTypes.object
 };
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 export default createContainer(() => {
-  return {
-    browserHistory,
-    meteorCall: Meteor.call,
-    Session
-  };
+  return {};
 }, TournamentListHeader);

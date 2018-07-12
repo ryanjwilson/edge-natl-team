@@ -7,25 +7,49 @@ import TournamentEditor from './TournamentEditor';
 import TournamentList from './TournamentList';
 
 /**
- * A TournamentView component encompasses the entirety of the Tournament
- * section, including both functionality and user interface.
+ * A TournamentView component represents all Tournament-related components,
+ * which essentially amounts to the TournamentList (of Tournaments) and the
+ * TournamentEditor components.
  */
 
-export default TournamentView = () => {
-  return (
-    <div>
-      <PrivateHeader title="Tournaments"/>
+export default class TournamentView extends React.Component {
 
-      <div className="page-content">
-        <div className="page-content__sidebar">
-          <TournamentList/>
+  /**
+   * Initializes an EmptyItem component.
+   *
+   * @param props - the properties with which this component is initialized
+   */
+
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      title: 'Tournaments'
+    };
+  }
+
+  /**
+   * Renders this component to the page.
+   *
+   * @return the JSX for this component
+   */
+
+  render() {
+    return (
+      <div>
+        <PrivateHeader title={this.state.title}/>
+
+        <div className="page-content">
+          <div className="page-content__sidebar">
+            <TournamentList/>
+          </div>
+          <div className="page-content__main">
+            <TournamentEditor/>
+          </div>
         </div>
-        <div className="page-content__main">
-          <TournamentEditor/>
-        </div>
+
+        <Footer/>
       </div>
-
-      <Footer/>
-    </div>
-  );
-};
+    );
+  }
+}

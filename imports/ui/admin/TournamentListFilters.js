@@ -2,7 +2,7 @@ import React from 'react';
 import { createContainer } from 'meteor/react-meteor-data';
 import { PropTypes } from 'prop-types';
 import { Session } from 'meteor/session';
-import { Tracker } from 'meteor/tracker';
+// import { Tracker } from 'meteor/tracker';
 
 /**
  * A TournamentListFilters component provides filters that allow the user to
@@ -12,9 +12,9 @@ import { Tracker } from 'meteor/tracker';
 export class TournamentListFilters extends React.Component {
 
   /**
-   * Constructs a reactive TournamentListFilters component.
+   * Initializes an EmptyItem component.
    *
-   * @param props - the initializing properties passed to this component
+   * @param props - the properties with which this component is initialized
    */
 
   constructor(props) {
@@ -25,66 +25,65 @@ export class TournamentListFilters extends React.Component {
       showUnpublished: true
     };
 
-    // bind field listeners to this context.
+    // bind field listeners to this context. remaining listeners are bound
+    // manually, as they take additional parameters.
 
-    this.onTogglePublished = this.onTogglePublished.bind(this);
-    this.onToggleUnpublished = this.onToggleUnpublished.bind(this);
+    this.togglePublished = this.togglePublished.bind(this);
+    this.toggleUnpublished = this.toggleUnpublished.bind(this);
   }
 
   /**
-   * Refresh the component state when it is mounted.
+   * Updates the component state when new properties are received.
+   *
+   * @param nextProps - the new properties with which to update the state
    */
 
-  componentDidMount() {
-    this.setState({
-      showPublished: this.props.showPublished,
-      showUnpublished: this.props.showUnpublished
-    });
+  componentWillReceiveProps(nextProps) {
+    if (this.props.showPublished !== nextProps.showPublished) this.setState({ showPublished: nextProps.showPublished });
+    if (this.props.showUnpublished !== nextProps.showUnpublished) this.setState({ showUnpublished: nextProps.showUnpublished });
   }
 
   /**
-   * Toggle the visibility of Tournaments in the TournamentList. When checked,
-   * Tournaments that are published to the public Schedule will be visible in
-   * the TournamentList.
+   * Toggles the visibility of published Tournaments in the TournamentList.
    *
    * @param e - the change event
    */
 
-  onTogglePublished(e) {
+  togglePublished(e) {
     const showPublished = e.target.checked;
-    this.props.Session.set('showPublishedFilter', showPublished);
+
+    Session.set('showPublishedFilter', showPublished);
     this.setState({ showPublished });
   }
 
   /**
-   * Toggle the visibility of Tournaments in the TournamentList. When checked,
-   * Tournaments that are not published to the public Schedule will be visible
-   * in the TournamentList.
+   * Toggles the visibility of unpublished Tournaments in the TournamentList.
    *
    * @param e - the change event
    */
 
-  onToggleUnpublished(e) {
+  toggleUnpublished(e) {
     const showUnpublished = e.target.checked;
-    this.props.Session.set('showUnpublishedFilter', showUnpublished);
+
+    Session.set('showUnpublishedFilter', showUnpublished);
     this.setState({ showUnpublished });
   }
 
   /**
-   * Renders this component to the browser.
+   * Renders this component to the page.
    *
-   * @return the JSX markup
+   * @return the JSX for this component
    */
 
   render() {
     return (
       <div className="checkbox__filter-group">
         <label className="checkbox">
-          <input className="checkbox__box" type="checkbox" checked={this.state.showPublished} onChange={this.onTogglePublished}/>
+          <input className="checkbox__box" type="checkbox" checked={this.state.showPublished} onChange={this.togglePublished}/>
           Shown
         </label>
         <label className="checkbox">
-          <input className="checkbox__box" type="checkbox" checked={this.state.showUnpublished} onChange={this.onToggleUnpublished}/>
+          <input className="checkbox__box" type="checkbox" checked={this.state.showUnpublished} onChange={this.toggleUnpublished}/>
           Hidden
         </label>
       </div>
@@ -96,8 +95,7 @@ export class TournamentListFilters extends React.Component {
 
 TournamentListFilters.propTypes = {
   showPublished: PropTypes.bool,
-  showUnpublished: PropTypes.bool,
-  Session: PropTypes.object.isRequired
+  showUnpublished: PropTypes.bool
 };
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -108,7 +106,6 @@ export default createContainer(() => {
 
   return {
     showPublished,
-    showUnpublished,
-    Session
+    showUnpublished
   };
 }, TournamentListFilters);

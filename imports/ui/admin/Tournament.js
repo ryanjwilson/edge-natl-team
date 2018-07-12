@@ -4,81 +4,108 @@ import { PropTypes } from 'prop-types';
 import { Session } from 'meteor/session';
 
 /**
- * A Tournament component is displayed as a selectable item in the sidebar.
- *
- * @param props - the initializing properties passed to this component
+ * A Tournament component represents a single item in the TournamentList.
  */
 
-export const Tournament = (props) => {
-  const className = props.tournament.selected || props.tournament.multiselected ? 'item item--selected' : 'item';
+export class Tournament extends React.Component {
+
+  /**
+   * Initializes a Tournament component.
+   *
+   * @param props - the properties with which this component is initialized
+   */
+
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      tournament: props.tournament,
+      css: props.tournament.selected || props.tournament.multiselected ? 'item item--selected' : 'item'
+    };
+
+    // bind field listeners to this context. remaining listeners are bound
+    // manually, as they take additional parameters.
+
+    this.onTournamentSelect = this.onTournamentSelect.bind(this);
+  }
+
+  /**
+   * Updates the component state when new properties are received.
+   *
+   * @param nextProps - the new properties with which to update the state
+   */
+
+  componentWillReceiveProps(nextProps) {
+    if (this.props.tournament._id !== nextProps.tournament._id) this.setState({ tournament: nextProps.tournament });
+
+    if (this.props.tournament.selected !== nextProps.tournament.selected || this.props.tournament.multiselected !== nextProps.tournament.multiselected) {
+      this.setState({ css: nextProps.tournament.selected || nextProps.tournament.multiselected ? 'item item--selected' : 'item' });
+    }
+
+    this.setState({ tournament: nextProps.tournament });
+  }
 
   /**
    * Generates the list of selected tournaments, and pushes these changes to
-   * the respective Session variables.
+   * their respective Session variables.
    *
    * @param e - the change event
    */
 
-  const onTournamentSelect = (e) => {
-    let ids = props.Session.get('multiselectedTournamentIds');
-    const currTournamentId = props.Session.get('selectedTournamentId');
+  onTournamentSelect(e) {
+    let ids = Session.get('multiselectedTournamentIds');
+    const selectedTournamentId = Session.get('selectedTournamentId');
 
-    // add the currently selected tournament to the list
-
-    if (currTournamentId && !ids.includes(currTournamentId)) {
-      ids.push(currTournamentId);
+    if (selectedTournamentId && !ids.includes(selectedTournamentId)) {
+      ids.push(selectedTournamentId);
     }
 
-    // set the selectedTournamentId and multiselectedTournamentIds Session
-    // variables based on user multiselection (via command/control key).
-
     if (e.metaKey) {
-      if (!ids.includes(props.tournament._id)) {
-        ids.push(props.tournament._id);
+      if (!ids.includes(this.state.tournament._id)) {
+        ids.push(this.state.tournament._id);
       }
 
       if (ids.length === 1) {
-        props.Session.set('selectedTournamentId', props.tournament._id);
+        Session.set('selectedTournamentId', this.state.tournament._id);
       } else {
-        props.Session.set('selectedTournamentId', undefined);
+        Session.set('selectedTournamentId', undefined);
       }
     } else {
       ids = [];
-      ids.push(props.tournament._id);
+      ids.push(this.state.tournament._id);
 
-      props.Session.set('selectedTournamentId', props.tournament._id);
+      Session.set('selectedTournamentId', this.state.tournament._id);
     }
+    Session.set('multiselectedTournamentIds', ids);
+  }
 
-    props.Session.set('multiselectedTournamentIds', ids);
-  };
+  /**
+   * Renders this component to the page.
+   *
+   * @return the JSX for this component
+   */
 
-  // return a Tournament, which is comprised of a title (the tournament name)
-  // and a subtitle (the tournament location and start date). optionally, a
-  // status icon indicates its visibility on the public schedule.
-
-  return (
-    <div id="tournament" className={className} onClick={onTournamentSelect}>
-      <div className="item__text">
-        <h5 className="item__title">{props.tournament.name || 'Untitled Tournament'}</h5>
-        <p className="item__subtitle">{props.tournament.location || 'Location'} &middot; {props.tournament.startDate || 'Date'}</p>
+  render() {
+    return (
+      <div id="tournament" className={this.state.css} onClick={this.onTournamentSelect}>
+        <div className="item__text">
+          <h5 className="item__title">{this.state.tournament.name || 'Untitled Tournament'}</h5>
+          <p className="item__subtitle">{this.state.tournament.location || 'Location'} &middot; {this.state.tournament.startDate || 'Date'}</p>
+        </div>
+        {this.state.tournament.published ? <div className="item__status-icon"><img src="/images/confirm.png"/></div> : undefined}
       </div>
-      {props.tournament.published ? <div className="item__status-icon"><img src="/images/confirm.png"/></div> : undefined}
-    </div>
-  );
-};
+    );
+  }
+}
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 Tournament.propTypes = {
-  tournament: PropTypes.object.isRequired,
-  Session: PropTypes.object.isRequired
+  tournament: PropTypes.object.isRequired
 };
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 export default createContainer(() => {
-  return {
-    Session,
-    isSidebarOpen: Session.get('isSidebarOpen')
-  };
+  return {};
 }, Tournament);
