@@ -11,11 +11,11 @@ export default WrestlerView = () => {
     <div>
       <PrivateHeader title="Wrestlers"/>
 
-      <div className="page-content">
-        <div className="page-content__sidebar">
+      <div className="private-page-content">
+        <div className="private-page-content__sidebar">
           <WrestlerList/>
         </div>
-        <div className="page-content__main">
+        <div className="private-page-content__main">
           <WrestlerEditor/>
         </div>
       </div>

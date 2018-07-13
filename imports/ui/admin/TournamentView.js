@@ -39,11 +39,11 @@ export default class TournamentView extends React.Component {
       <div>
         <PrivateHeader title={this.state.title}/>
 
-        <div className="page-content">
-          <div className="page-content__sidebar">
+        <div className="private-page-content">
+          <div className="private-page-content__sidebar">
             <TournamentList/>
           </div>
-          <div className="page-content__main">
+          <div className="private-page-content__main">
             <TournamentEditor/>
           </div>
         </div>
