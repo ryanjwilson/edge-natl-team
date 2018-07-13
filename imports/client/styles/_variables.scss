@@ -62,28 +62,33 @@ $button-bg: $primary;
 $button-color: white;
 
 /*
- * Page header background, color, and size.
- */
-
-$header-bg: $primary;
-$header-color: white;
-$header-height: 6rem;
-
-/*
  * List items for TournamentList.
  */
 
 $item-border-width: 4px;
 
-/*
- * Overall page content.
- */
+/// HEADER & FOOTER ////////////////////////////////////////////////////////////
 
-$page-content-sidebar-width: 25vw;
-$page-content-sidebar-minimum-width: 30rem;
-$page-content-menu-width: 35rem;
-$page-content-main-width: calc(#{$site-max-width} - #{$page-content-sidebar-width});
-$page-content-main-minimum-width: calc(#{$site-min-width} - #{$page-content-sidebar-minimum-width} - #{$large-space} - #{$large-space});
-$page-content-public-width: $public-site-max-width;
-$page-content-public-minimum-width: calc(#{$public-site-min-width} - #{$large-space} - #{$large-space});
-$page-content-height: calc(100vh - #{$header-height} - #{$header-height});
+$header-bg: $primary;
+$header-color: $light-gray;
+$header-height: 6rem;
+
+$footer-bg: $primary;
+$footer-color: $light-gray;
+$footer-height: 6rem;
+
+/// COMPONENT WIDTHS & HEIGHTS /////////////////////////////////////////////////
+
+$header-height: 6rem;
+$footer-height: 6rem;
+
+$site-max-width: 136.6rem;
+$site-min-width: 102.4rem;
+
+$sidebar-width: 25vw;
+$sidebar-min-width: 35rem;
+$slide-out-menu-width: 35rem;
+
+$page-content-height: calc(100vh - #{$header-height} - #{$footer-height});
+$page-content-width: calc(#{$site-max-width} - #{$sidebar-width});
+$page-content-min-width: calc(#{$site-min-width} - #{$sidebar-min-width} - #{$large-space} - #{$large-space});

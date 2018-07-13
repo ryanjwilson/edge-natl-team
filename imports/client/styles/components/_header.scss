@@ -21,11 +21,11 @@
   justify-content: space-between;
   margin: 0 auto;
   padding: $large-space;
-  width: $site-max-width;
+  width: 100vw;
 }
 
 .public-content {
-  width: $public-site-max-width;
+  width: $site-max-width;
 }
 
 /*
@@ -79,11 +79,11 @@
   height: 100vh;
   overflow-x: hidden;
   transition: right .5s ease-in-out;
-  width: $page-content-menu-width;
+  width: $slide-out-menu-width;
   z-index: 2;
 
   position: fixed;
-  right: -$page-content-menu-width;
+  right: -$slide-out-menu-width;
   top: 0;
 }
 

@@ -1,12 +1,12 @@
 .footer {
-  background: $header-bg;
-  color: $header-color;
+  background: $footer-bg;
+  color: $footer-color;
 }
 
 .footer__content {
   align-items: center;
   display: flex;
-  height: $header-height;
+  height: $footer-height;
   justify-content: space-between;
   margin: 0 auto;
   padding: $large-space;
@@ -14,5 +14,5 @@
 }
 
 .public-content {
-  width: $public-site-max-width;
+  width: $site-max-width;
 }

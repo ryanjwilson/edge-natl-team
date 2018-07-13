@@ -3,7 +3,7 @@
  * header and footer are specifically excluded.
  */
 
-.page-content {
+.private-page-content {
   // display: flex;
   // height: $page-content-height;
   // margin: 0 auto;
@@ -19,19 +19,28 @@
   transition: margin-right 0.5s;
 }
 
-.page-content__public {
+.public-page-content {
+  // display: flex;
+  // height: $page-content-height;
+  // margin: 0 auto;
+  // max-width: $site-max-width;
+
+  // desktop
+  background: $light-gray;
   display: flex;
-  height: auto;
+  height: $page-content-height;
   margin: 0 auto;
-  padding: $large-space;
+  //padding: $large-space;
   max-width: $site-max-width;
+
+  transition: margin-right 0.5s;
 }
 
 /*
  * Application sidebar panel.
  */
 
-.page-content__sidebar {
+.private-page-content__sidebar {
   // display: flex;
   // transition: left 0.7s ease;
   // width: 100vw;
@@ -46,15 +55,15 @@
   display: flex;
   padding-right: $large-space;
   position: static;
-  min-width: $page-content-sidebar-minimum-width;
-  width: $page-content-sidebar-width;
+  min-width: $sidebar-min-width;
+  width: $sidebar-width;
 }
 
 /*
  * Application sidebar panel when open (mobile only).
  */
 
-.is-sidebar-open .page-content__sidebar {
+.is-sidebar-open .private-page-content__sidebar {
   // left: 0;
 }
 
@@ -62,19 +71,31 @@
  * Application content editor panel.
  */
 
-.page-content__main {
+.private-page-content__main {
   // display: flex;
   // width: 100%;
 
   // desktop
   display: flex;
-  min-width: $page-content-main-minimum-width;
-  width: $page-content-main-width;
+  min-width: $page-content-min-width;
+  width: $page-content-width;
 }
 
-.page-content__main-public {
+.public-page-content__main {
+  // display: flex;
+  // width: 100%;
+
+  // desktop
   display: flex;
-  margin: 0 auto;
-  min-width: $page-content-public-minimum-width;
-  width: $page-content-public-width;
+  min-width: $page-content-min-width;
+  width: $page-content-width;
+}
+
+.public-page-content__tournaments {
+  display: flex;
+  width: 35%;
+}
+
+.public-page-content__application {
+  width: 65%;
 }
