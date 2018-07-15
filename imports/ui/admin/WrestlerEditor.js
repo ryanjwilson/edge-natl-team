@@ -334,10 +334,10 @@ export class WrestlerEditor extends React.Component {
               }
             })}
           </label>
-          <label className="editor__label top-label">
+          <label className="editor__label editor__top-label">
             <p className="editor__dynamic-label">Applications</p>
             {this.state.applications.length > 0 ?
-              <select className={this.state.selectedApplication ? 'dropdown-menu selected' : 'dropdown-menu'} value={this.state.selectedApplication} onChange={this.onApplicationSelect}>
+              <select className={this.state.selectedApplication ? 'editor__dropdown-menu selected' : 'editor__dropdown-menu'} value={this.state.selectedApplication} onChange={this.onApplicationSelect}>
                 <optgroup label="Open Applications">
                   {this.state.applications.map((application, index, applications) => {
                     if (application.open) {
@@ -356,13 +356,13 @@ export class WrestlerEditor extends React.Component {
                     }
                   })}
                 </optgroup>
-              </select> : <div className="editor__message no-applications">No Applications to Display</div>
+              </select> : <div className="editor__message editor__no-applications">No Applications to Display</div>
             }
           </label>
           {this.state.applications.map((application) => {
             if (application.tournamentId === this.state.selectedApplication) {
               return (
-                <div key={application.tournamentId} className={'dropdown-content ' + (application.open ? 'open-application' : 'past-application')}>
+                <div key={application.tournamentId} className={'editor__dropdown-content ' + (application.open ? 'editor__open-application' : 'editor__past-application')}>
                   <label className="editor__label">
                     <p>Tournament</p>
                     <input id="tournament" name="tournament" className="editor__field" value={application.name} placeholder="Tournament" disabled/>

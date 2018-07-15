@@ -111,7 +111,7 @@ export class WrestlerListFilters extends React.Component {
 
   render() {
     return (
-      <div className="dropdown__filter-group">
+      <div className="editor__dropdown-filter-group">
         <select className="dropdown-menu" value={this.state.selectedTournament} onChange={this.onTournamentSelect}>
           <option key="-1" value="">--Tournament--</option>
 
@@ -124,7 +124,7 @@ export class WrestlerListFilters extends React.Component {
             );
           })}
         </select>
-        <select className="dropdown-menu" value={this.state.selectedDivision} onChange={this.onDivisionSelect}>
+        <select className="editor__dropdown-menu" value={this.state.selectedDivision} onChange={this.onDivisionSelect}>
           <option key="-1" value="">--Division--</option>
 
           {/* TODO - allow for multi-select (would need to make selectedDivision(s) -- here and Session variable in main.js -- into an array) */}
@@ -135,7 +135,7 @@ export class WrestlerListFilters extends React.Component {
             );
           })}
         </select>
-        <select className="dropdown-menu" value={this.state.selectedWeightClass} onChange={this.onWeightClassSelect}>
+        <select className="editor__dropdown-menu" value={this.state.selectedWeightClass} onChange={this.onWeightClassSelect}>
           <option key="-1" value="">--Weight Class--</option>
 
           {/* TODO - allow for multi-select (would need to make selectedWeightClass(es) -- here and Session variable in main.js -- into an array) */}
@@ -154,7 +154,7 @@ export class WrestlerListFilters extends React.Component {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 const getTournaments = () => {
-  return Tournaments.find().fetch().map((tournament) => {
+  return Tournaments.find({ published: true }).fetch().map((tournament) => {
     return { ...tournament };
   });
 };
@@ -204,7 +204,7 @@ const getWeightClassesForTournament = (tournaments, selectedTournament) => {
     });
   }
 
-  return weightClasses;
+  return weightClasses.sort((a, b) => (a - b));
 };
 
 const getWeightClassesForDivision = (tournaments, selectedDivision) => {
@@ -230,7 +230,7 @@ const getWeightClassesForDivision = (tournaments, selectedDivision) => {
     });
   }
 
-  return weightClasses;
+  return weightClasses.sort((a, b) => (a - b));
 };
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

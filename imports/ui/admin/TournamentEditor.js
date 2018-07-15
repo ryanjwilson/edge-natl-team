@@ -299,9 +299,9 @@ export class TournamentEditor extends React.Component {
             return (
               <div id="division-group" key={index}>
                 <label className="editor__label">
-                  {index === 0 ?
-                    <p className="editor__dynamic-label top-label">Age Division <img className="editor__add" src="/images/add.svg" onClick={this.onAddDivision.bind(this, index)}/></p> :
-                    <p className="editor__dynamic-label top-label">Age Division <img className="editor__add" src="/images/add.svg" onClick={this.onAddDivision.bind(this, index)}/> <img className="editor__delete" src="/images/delete.svg" onClick={this.onDeleteDivision.bind(this, index)}/></p>
+                  {index === 0
+                    ? <p className="editor__dynamic-label editor__top-label">Age Division <img className="editor__add" src="/images/add.svg" onClick={this.onAddDivision.bind(this, index)}/></p>
+                    : <p className="editor__dynamic-label editor__top-label">Age Division <img className="editor__add" src="/images/add.svg" onClick={this.onAddDivision.bind(this, index)}/> <img className="editor__delete" src="/images/delete.svg" onClick={this.onDeleteDivision.bind(this, index)}/></p>
                   }
                   <input id="division" name="division" className="editor__field" value={this.state.divisions[index].name} placeholder="Age Division" onChange={this.onDivisionChange.bind(this, index)}/>
                 </label>

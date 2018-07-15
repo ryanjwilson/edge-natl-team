@@ -95,7 +95,7 @@
   text-align: center;
 }
 
-.top-label {
+.editor__top-label {
   border-top: 2px solid $gray;
   padding-top: $space;
 }
@@ -118,12 +118,12 @@
   margin-left: 1rem;
 }
 
-.no-applications {
+.editor__no-applications {
   font-weight: normal;
   margin: 0;
 }
 
-.dropdown__filter-group {
+.editor__dropdown-filter-group {
   align-items: center;
   border-bottom: 1px solid $gray;
   display: flex;
@@ -132,7 +132,7 @@
   padding-bottom: $space;
 }
 
-.dropdown-menu {
+.editor__dropdown-menu {
   height: 3rem;
   width: 100%;
 
@@ -141,18 +141,18 @@
   outline: none;
 }
 
-.dropdown-content {
+.editor__dropdown-content {
   border-left: $item-border-width solid $primary;
   padding-left: $large-space;
   margin-top: $space;
   margin-left: -$large-space;
 }
 
-.open-application {
+.editor__open-application {
   border-left: $item-border-width solid $primary;
 }
 
-.past-application {
+.editor__past-application {
   border-left: $item-border-width solid $gray;
 }
 
