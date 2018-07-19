@@ -84,8 +84,8 @@ export class WrestlerListFilters extends React.Component {
 
   onTournamentSelect(e) {
     const selectedTournament = (e.target.value.length > 0 ? e.target.value : undefined);
-    const divisions = getDivisionsForTournament(this.state.tournaments, selectedTournament);
-    const weightClasses = getWeightClassesForTournament(this.state.tournaments, selectedTournament);
+    const divisions = getDivisions(this.state.tournaments, selectedTournament);
+    const weightClasses = getWeightClasses(this.state.tournaments, selectedTournament, undefined);
 
     this.setState({ divisions, weightClasses, selectedTournament, selectedDivision: '', selectedWeightClass: '' });
     this.props.Session.set('selectedTournamentFilter', selectedTournament);
@@ -93,10 +93,7 @@ export class WrestlerListFilters extends React.Component {
 
   onDivisionSelect(e) {
     const selectedDivision = (e.target.value.length > 0 ? e.target.value : undefined);
-    const weightClasses = (selectedDivision
-      ? getWeightClassesForDivision(this.state.tournaments, selectedDivision)
-      : getWeightClassesForTournament(this.state.tournaments, selectedDivision)
-    );
+    const weightClasses = getWeightClasses(this.state.tournaments, this.state.selectedTournament, selectedDivision);
 
     this.setState({ weightClasses, selectedDivision, selectedWeightClass: '' });
     this.props.Session.set('selectedDivisionFilter', selectedDivision);
@@ -112,7 +109,7 @@ export class WrestlerListFilters extends React.Component {
   render() {
     return (
       <div className="editor__dropdown-filter-group">
-        <select className="dropdown-menu" value={this.state.selectedTournament} onChange={this.onTournamentSelect}>
+        <select className="editor__dropdown-menu" value={this.state.selectedTournament} onChange={this.onTournamentSelect}>
           <option key="-1" value="">--Tournament--</option>
 
           {/* TODO - allow for upcoming v. past tournament optgroups */}
@@ -159,7 +156,7 @@ const getTournaments = () => {
   });
 };
 
-const getDivisionsForTournament = (tournaments, selectedTournament) => {
+const getDivisions = (tournaments, selectedTournament) => {
   const divisions = [];
 
   if (selectedTournament) {
@@ -181,56 +178,36 @@ const getDivisionsForTournament = (tournaments, selectedTournament) => {
   return divisions;
 };
 
-const getWeightClassesForTournament = (tournaments, selectedTournament) => {
-  const weightClasses = [];
+const getWeightClasses = (tournaments, selectedTournament, selectedDivision) => {
+  if (selectedTournament && selectedDivision) {
+    const tournament = tournaments.find((tournament) => tournament._id === selectedTournament);
+    const division = tournament.divisions.find((division) => division.name === selectedDivision);
 
-  if (selectedTournament) {
-    tournaments.forEach((tournament) => {
-      if (tournament._id === selectedTournament) {
-        tournament.divisions.forEach((division) => {
-          division.weightClasses.forEach((weightClass) => {
-            if (!weightClasses.includes(weightClass)) weightClasses.push(weightClass);
-          });
-        });
-      }
+    return division.weightClasses.filter(isUnique).sort(sortAscending);
+  } else if (selectedTournament) {
+    const tournament = tournaments.find((tournament) => tournament._id === selectedTournament);
+    const weightClasses = tournament.divisions.map((division) => division.weightClasses);
+
+    return [].concat.apply([], weightClasses).filter(isUnique).sort(sortAscending);
+  } else if (selectedDivision) {
+    const weightClasses = tournaments.map((tournament) => {
+      const division = tournament.divisions.find((division) => division.name === selectedDivision);
+
+      return division ? division.weightClasses : [];
     });
+
+    return [].concat.apply([], weightClasses).filter(isUnique).sort(sortAscending);
   } else {
-    tournaments.forEach((tournament) => {
-      tournament.divisions.forEach((division) => {
-        division.weightClasses.forEach((weightClass) => {
-          if (!weightClasses.includes(weightClass)) weightClasses.push(weightClass);
-        });
-      });
-    });
+    return [];
   }
-
-  return weightClasses.sort((a, b) => (a - b));
 };
 
-const getWeightClassesForDivision = (tournaments, selectedDivision) => {
-  const weightClasses = [];
+const isUnique = (value, index, self) => {
+  return self.indexOf(value) === index;
+};
 
-  if (selectedDivision) {
-    tournaments.forEach((tournament) => {
-      tournament.divisions.forEach((division) => {
-        if (division.name === selectedDivision) {
-          division.weightClasses.forEach((weightClass) => {
-            if (!weightClasses.includes(weightClass)) weightClasses.push(weightClass);
-          });
-        }
-      });
-    });
-  } else {
-    tournaments.forEach((tournament) => {
-      tournament.divisions.forEach((division) => {
-        division.weightClasses.forEach((weightClass) => {
-          if (!weightClasses.includes(weightClass)) weightClasses.push(weightClass);
-        });
-      });
-    });
-  }
-
-  return weightClasses.sort((a, b) => (a - b));
+const sortAscending = (a, b) => {
+  return a - b;
 };
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -251,8 +228,8 @@ export default createContainer(() => {
   Meteor.subscribe('tournaments');
 
   const tournaments = getTournaments();
-  const divisions = getDivisionsForTournament(tournaments, undefined);
-  const weightClasses = getWeightClassesForTournament(tournaments, undefined);
+  const divisions = getDivisions(tournaments, undefined);
+  const weightClasses = getWeightClasses(tournaments, undefined, undefined);
   const selectedTournament = Session.get('selectedTournamentFilter');
   const selectedDivision = Session.get('selectedDivisionFilter');
   const selectedWeightClass = Session.get('selectedWeightClassFilter');

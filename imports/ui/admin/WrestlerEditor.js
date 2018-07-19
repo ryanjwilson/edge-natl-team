@@ -372,8 +372,8 @@ export class WrestlerEditor extends React.Component {
                     <input id="age-division" name="age-division" className="editor__field" value={application.division} placeholder="Age Division" disabled/>
                   </label>
                   <label className="editor__label">
-                    <p>Weight Classes</p>
-                    <input id="weight-classes" name="weight-classes" className={'editor__field' + (application.open ? ' editor__bottom-field' : '')} value={application.weightClasses} placeholder="Weight Classes" disabled/>
+                    <p>Weight Class</p>
+                    <input id="weight-classes" name="weight-classes" className={'editor__field' + (application.open ? ' editor__bottom-field' : '')} value={application.weightClass} placeholder="Weight Class" disabled/>
                   </label>
                   {!application.open ?
                   <label className="editor__label">
