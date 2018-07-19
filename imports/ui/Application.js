@@ -1,5 +1,6 @@
 import React from 'react';
 import { createContainer } from 'meteor/react-meteor-data';
+import { Meteor } from 'meteor/meteor';
 import { PropTypes } from 'prop-types';
 import { Session } from 'meteor/session';
 
@@ -190,7 +191,31 @@ export class Application extends React.Component {
   }
 
   onSubmitApplication(e) {
-    console.log(this.state);
+    // TODO - data validation on client and server
+
+    const wrestler = {
+      name: this.state.name,
+      dob: this.state.dob,
+      grade: this.state.grade,
+      weight: String(Math.max.apply(Math, this.state.selectedTournaments.map((selectedTournament) => {
+        return selectedTournament.selectedWeightClass
+      }))),
+      parents: this.state.parents,
+      emails: this.state.emails,
+      phones: this.state.phones,
+      applications: this.state.selectedTournaments.map((selectedTournament) => {
+        return {
+          tournamentId: selectedTournament.tournamentId,
+          name: selectedTournament.tournamentName,
+          division: selectedTournament.selectedDivision,
+          weightClass: selectedTournament.selectedWeightClass,
+          open: true,
+          status: ''
+        };
+      })
+    };
+
+    Meteor.call('wrestlers.submit', { ...wrestler });
   }
 
   render() {

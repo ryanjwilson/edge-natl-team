@@ -18,7 +18,7 @@ export const Event = (props) => {
           <ul key={index} className="schedule__detail-list-header">
             <li className="schedule__detail-list-item">{division.name} -- {division.weightClasses.map((weightClass, index, weightClasses) => {
               return (
-                (index === weightClasses.length - 1 ? weightClass + (division.allowance > 0 ? ' (with a ' + division.allowance + ' lb. allowance)' : ' (no allowance)') : weightClass + ', ')
+                (index === weightClasses.length - 1 ? weightClass + (division.allowance > 0 ? ' (with a ' + division.allowance + '-lb. allowance)' : ' (no allowance)') : weightClass + ', ')
               );
             })}</li>
           </ul>

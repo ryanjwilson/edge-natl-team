@@ -8,8 +8,8 @@ import SimpleSchema from 'simpl-schema';
 export const Wrestlers = new Mongo.Collection('wrestlers');
 
 if (Meteor.isServer) {
-  Meteor.publish('wrestlers', function() {
-    return Wrestlers.find({ userId: this.userId });
+  Meteor.publish('wrestlers', () => {
+    return Wrestlers.find({});
   });
 }
 
@@ -40,32 +40,6 @@ Meteor.methods({
       emails: [''],
       phones: [''],
       applications: [],
-      // applications: [{
-      //   tournamentId: 'ciEodXxSyxxwR2sWS',
-      //   name: 'Test 1a',
-      //   startDate: 'July 21, 2018',
-      //   division: 'Test 1 Division',
-      //   weightClasses: [1],
-      //   open: true,
-      //   status: ''
-      // }, {
-      //   tournamentId: 'auBg5jHQfN4hDDap8',
-      //   name: 'Test 2a',
-      //   startDate: 'July 27, 2018',
-      //   division: 'Test 2 Division',
-      //   weightClasses: [4],
-      //   open: true,
-      //   status: ''
-      // }, {
-      //   tournamentId: '2x9PG3kGHdZ5CNrwG',
-      //   name: 'Test 1b',
-      //   startDate: 'August 1, 2018',
-      //   division: 'Test 3 Division',
-      //   weightClasses: [7],
-      //   open: true,
-      //   status: ''
-      // }],
-      userId: this.userId,
       updatedAt: moment().valueOf()
     });
   },
@@ -78,14 +52,11 @@ Meteor.methods({
    */
 
   'wrestlers.submit'(values) {
-    if (!this.userId) {
-      throw new Meteor.Error('not-authorized');
-    }
-
     new SimpleSchema({
       name: { type: String },
       dob: { type: String },
       grade: { type: String },
+      weight: { type: String },
       parents: { type: Array },
       'parents.$': { type: String },
       emails: { type: Array },
@@ -97,19 +68,21 @@ Meteor.methods({
       'applications.$.tournamentId': { type: String, min: 1 },
       'applications.$.name': { type: String },
       'applications.$.division': { type: String },
-      'applications.$.weightClasses': { type: Array, minCount: 1 },
-      'applications.$.weightClasses.$': { type: Number },
-    }, { requiredByDefault: false }).validate(...values);
+      'applications.$.weightClass': { type: Number },
+      'applications.$.open': { type: Boolean, defaultValue: true },
+      'applications.$.status': { type: String, defaultValue: '' }
+    }, { requiredByDefault: false }).validate({ ...values });
 
     return Wrestlers.insert({
       name: values.name,
       dob: values.dob,
       grade: values.grade,
+      weight: values.weight,
       parents: values.parents,
       emails: values.emails,
       phones: values.phones,
       applications: values.applications,
-      updatedAt: moment().valueOf()
+      updatedAt: moment().valueOf(),
     });
   },
 
@@ -128,7 +101,7 @@ Meteor.methods({
       _id: { type: String, min: 1 }
     }).validate({ _id });
 
-    Wrestlers.remove({ _id, userId: this.userId });
+    Wrestlers.remove({ _id });
   },
 
   /**
@@ -160,11 +133,10 @@ Meteor.methods({
       'applications.$.tournamentId': { type: String, min: 1 },
       'applications.$.name': { type: String },
       'applications.$.division': { type: String },
-      'applications.$.weightClasses': { type: Array, minCount: 1 },
-      'applications.$.weightClasses.$': { type: Number },
+      'applications.$.weightClass': { type: Number },
     }, { requiredByDefault: false }).validate({ _id, ...updates });
 
-    Wrestlers.update({ _id, userId: this.userId }, {
+    Wrestlers.update({ _id }, {
       $set: { updatedAt: moment().valueOf(), ...updates }
     });
   }
