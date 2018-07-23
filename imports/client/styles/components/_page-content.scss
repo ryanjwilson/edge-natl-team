@@ -26,7 +26,7 @@
   // max-width: $site-max-width;
 
   // desktop
-  background: $light-gray;
+  background-color: black;//$light-gray;
   display: flex;
   height: $page-content-height;
   margin: 0 auto;
@@ -99,4 +99,9 @@
 .public-page-content__application {
   display: flex;
   width: 65%;
+}
+
+.public-page-content__team-rules, .public-page-content__faq, .public-page-content__contact {
+  display: flex;
+  width: 100%;
 }

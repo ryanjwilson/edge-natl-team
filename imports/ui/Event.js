@@ -5,7 +5,7 @@ import { Session } from 'meteor/session';
 
 export const Event = (props) => {
   return (
-    <div id="scheduled-tournament" className="schedule__event">
+    <div id="scheduled-tournament" className={props.bottom ? 'schedule__event schedule__bottom' : 'schedule__event'}>
       <h5 className="schedule__event-title">{props.tournament.name}</h5>
       <h6 className="schedule__detail-header">Date &amp; Location</h6>
       <p className="schedule__detail">{props.tournament.startDate}, in {props.tournament.location}</p>

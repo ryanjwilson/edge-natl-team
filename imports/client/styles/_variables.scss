@@ -12,6 +12,11 @@ $very-dark-gray: #323232;
 $dark-green: #2e8b57;
 $dark-red: #e64942;
 
+/// COLORS /////////////////////////////////////////////////////////////////////
+
+$brand-primary: #3F3F3F;      // edge dark gray
+$brand-secondary: #980000;    // edge dark red
+
 /*
  * Body-specific colors and font-families.
  */
@@ -69,11 +74,11 @@ $item-border-width: 4px;
 
 /// HEADER & FOOTER ////////////////////////////////////////////////////////////
 
-$header-bg: $primary;
+$header-bg: $brand-primary;
 $header-color: $light-gray;
 $header-height: 6rem;
 
-$footer-bg: $primary;
+$footer-bg: $brand-primary;
 $footer-color: $light-gray;
 $footer-height: 6rem;
 

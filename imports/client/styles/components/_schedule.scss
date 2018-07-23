@@ -1,31 +1,57 @@
 .schedule__event-list {
   background: $light-gray;
-  overflow-y: scroll;
-  padding-bottom: $space / 2;
+  border: 2px solid $brand-secondary;
+  border-top: 5rem solid $brand-secondary;
+  border-radius: 7px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  margin: $space;
+  margin-top: $space * 2;
+  margin-bottom: $space * 1.5;
   padding-top: $space;
   width: 100%;
+}
+
+.schedule__event-list-content {
+  display: flex;
+  flex-direction: column;
+  overflow-y: scroll;
 
   -webkit-overflow-scrolling: touch;    // TODO - are there any other mobile-specific styles?
 }
 
 .schedule__event-list-title {
-
+  color: $light-gray;
+  font-size: 1.8rem;
+  line-height: 5rem;
+  margin-top: -($space * 2 + 5rem - 1.6rem);
+  margin-left: $space;
 }
 
 .schedule__event {
   background: $light-gray;
-  border: 2px solid $primary;
-  border-top: 5rem solid $primary;
+  border: 1px solid $brand-secondary;
   border-radius: 7px;
-
-  margin: $space;
-  margin-bottom: $space;// * 1.5;
-  padding: $space;
-
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  color: black;
+  margin: $space;
+  margin-bottom: $space / 2;
+  padding: $space;
 }
 
-.schedule__event-title, .schedule__application-title {
+.schedule__bottom {
+  margin-bottom: $space;
+}
+
+.schedule__event-title {
+  border-bottom: 2px solid $brand-secondary;
+  color: black;
+  font-size: 1.6rem;
+  padding-bottom: $space / 2;
+}
+
+.schedule__application-title {
   color: $light-gray;
   font-size: 1.8rem;
   line-height: 5rem;
@@ -63,8 +89,8 @@
 
 .schedule__application {
   background: $light-gray;
-  border: 2px solid $primary;
-  border-top: 5rem solid $primary;
+  border: 2px solid $brand-secondary;
+  border-top: 5rem solid $brand-secondary;
   border-radius: 7px;
   display: flex;
   flex-direction: column;
@@ -195,11 +221,12 @@
 }
 
 .schedule__application-submit-button {
-  background-color: $primary;
-  border: 1px solid $very-dark-gray;
+  background-color: #E5C100;
+  border: 1px solid $brand-secondary;
   border-radius: 4px;
-  color: $light-gray;
+  color: $very-dark-gray;
   font-size: $base-font-size;
+  font-weight: bold;
   line-height: 1.4;
   min-height: 4rem !important;
 
@@ -209,4 +236,4 @@
   text-transform: uppercase;
 }
 
-.schedule__application-submit-button:hover { background-color: darken($primary, 5); }
+.schedule__application-submit-button:hover { background-color: darken(#E5C100, 5); }

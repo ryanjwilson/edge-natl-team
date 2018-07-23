@@ -7,8 +7,8 @@ import Contact from '../ui/Contact';
 import FAQs from '../ui/FAQs';
 import Login from '../ui/admin/Login';
 import NotFound from '../ui/NotFound';
-import Rules from '../ui/Rules';
 import Schedule from '../ui/Schedule';
+import TeamRules from '../ui/TeamRules';
 import ApplicationView from '../ui/admin/ApplicationView';
 import TournamentView from '../ui/admin/TournamentView';
 import WrestlerView from '../ui/admin/WrestlerView';
@@ -73,9 +73,9 @@ const routes = (
   <Router history={browserHistory}>
     <Route onEnter={onEnterGlobal} onChange={onChangeGlobal}>
       <Route path="/" component={Schedule}/>
-      <Route path="/rules" component={Rules}/>
+      <Route path="/rules" component={TeamRules}/>
       <Route path="/faq" component={FAQs}/>
-      <Route path="contact" component={Contact}/>
+      <Route path="/contact" component={Contact}/>
       <Route path="/admin" component={Login} privacy="unauthenticated"/>
       <Route path="/applications" component={ApplicationView} privacy="authenticated"/>
       <Route path="/applications/:applicationId" component={ApplicationView} privacy="authenticated" onEnter={onEnterApplication} onLeave={onLeaveApplication}/>

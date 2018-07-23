@@ -13,6 +13,10 @@
   width: $site-max-width;
 }
 
-.public-content {
-  width: $site-max-width;
+.footer__link {
+  color: $footer-color;
+}
+
+.footer__link:hover {
+  text-decoration: none;
 }

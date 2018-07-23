@@ -215,7 +215,13 @@ export class Application extends React.Component {
       })
     };
 
-    Meteor.call('wrestlers.submit', { ...wrestler });
+    Meteor.call('wrestlers.submit', { ...wrestler }, (error, result) => {
+      if (error) {
+
+      } else if (result) {
+
+      }
+    });
   }
 
   render() {
@@ -349,8 +355,9 @@ export class Application extends React.Component {
               </fieldset>
             );
           })}
+          <button className="schedule__application-submit-button" onClick={this.onSubmitApplication}>Submit Application</button>
         </div>
-        <button className="schedule__application-submit-button" onClick={this.onSubmitApplication}>Submit Application</button>
+        {/* <button className="schedule__application-submit-button" onClick={this.onSubmitApplication}>Submit Application</button> */}
       </div>
     );
   }

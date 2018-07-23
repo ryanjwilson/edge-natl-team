@@ -21,11 +21,14 @@
   justify-content: space-between;
   margin: 0 auto;
   padding: $large-space;
-  width: 100vw;
+  width: $site-max-width;
 }
 
-.public-content {
-  width: $site-max-width;
+.header__content-center {
+  left: 50%;
+  right: 50%;
+  margin: 0 auto;
+  position: absolute;
 }
 
 /*
@@ -41,12 +44,24 @@
 
 .header__nav {
   color: $gray;
-  font-size: $nav-font-size;
+  font-size: 1.7rem;
   text-decoration: none;
+}
+
+.header__left {
+  padding-right: $large-space;
+}
+
+.header__right {
+  padding-left: $large-space;
 }
 
 .header__nav:hover {
   color: white;
+}
+
+.header__nav-logo {
+  height: 5rem;
 }
 
 // TODO - need to add icon to header title and style appropriately
