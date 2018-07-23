@@ -36,6 +36,7 @@
  */
 
 .header__title {
+  font-family: "Montserrat", sans-serif;
   font-size: $title-font-size;
   font-weight: 400;
   letter-spacing: 0.15rem;
@@ -44,8 +45,14 @@
 
 .header__nav {
   color: $gray;
+  font-family: "Montserrat", sans-serif;
   font-size: 1.7rem;
+  font-weight: 500;
   text-decoration: none;
+}
+
+.header__nav-selected {
+  font-weight: 700;
 }
 
 .header__left {

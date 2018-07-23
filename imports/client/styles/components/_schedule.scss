@@ -23,6 +23,7 @@
 
 .schedule__event-list-title {
   color: $light-gray;
+  font-family: "Montserrat", sans-serif;
   font-size: 1.8rem;
   line-height: 5rem;
   margin-top: -($space * 2 + 5rem - 1.6rem);
@@ -47,24 +48,28 @@
 .schedule__event-title {
   border-bottom: 2px solid $brand-secondary;
   color: black;
+  font-family: "Montserrat", sans-serif;
   font-size: 1.6rem;
   padding-bottom: $space / 2;
 }
 
 .schedule__application-title {
   color: $light-gray;
+  font-family: "Montserrat", sans-serif;
   font-size: 1.8rem;
   line-height: 5rem;
   margin-top: -($space * 2 + 5rem - 1.6rem);
 }
 
 .schedule__detail-header {
+  font-family: "Montserrat", sans-serif;
   font-size: 1.4rem;
   padding-bottom: $space / 4;
   padding-top: $space;
 }
 
 .schedule__detail {
+  font-family: "Montserrat", sans-serif;
   font-size: 1.4rem;
   margin-bottom: 0;
   padding-top: 0.25rem;
@@ -108,6 +113,8 @@
   display: flex;
   flex-direction: column;
   overflow-y: scroll;
+  height: 100%;
+
   -webkit-overflow-scrolling: touch;    // TODO - are there any other mobile-specific styles?
 }
 
@@ -121,6 +128,8 @@
 
 .schedule__application-label {
   flex-grow: 1;
+  font-family: "Montserrat", sans-serif;
+  font-size: $base-font-size;
   font-weight: bold;
   outline: none;
   text-align: left;
@@ -148,6 +157,8 @@
  */
 
 .schedule__application-field {
+  font-family: "Montserrat", sans-serif;
+  font-size: $base-font-size;
   font-weight: 300;
   outline: none;
   padding: $input-spacing;
@@ -176,6 +187,7 @@
   height: 3rem;
   width: 100%;
 
+  font-family: "Montserrat", sans-serif;
   font-size: $base-font-size;
   margin-top: $space / 4;
   margin-bottom: $space / 2;
@@ -191,7 +203,7 @@
 }
 
 .schedule__application-top-label {
-  border-top: 2px solid $gray;
+  border-top: 2px solid $brand-secondary;
   margin-top: $space;
   padding-top: $space / 2;
 }
@@ -215,6 +227,8 @@
 }
 
 .schedule__tournament-application legend {
+  font-family: "Montserrat", sans-serif;
+  font-size: $base-font-size;
   font-weight: bold;
   padding-left: 0.5rem;
   padding-right: 0.5rem;

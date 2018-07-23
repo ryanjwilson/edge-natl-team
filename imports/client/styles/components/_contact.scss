@@ -18,13 +18,87 @@
 .contact__contact-form-content {
   display: flex;
   flex-direction: column;
+  height: 100%;
   overflow-y: scroll;
+  padding: $space;
+  padding-bottom: 0;
+
   -webkit-overflow-scrolling: touch;    // TODO - are there any other mobile-specific styles?
+}
+
+.contact__contact-form-content hr {
+  border: 1px solid $brand-secondary;
 }
 
 .contact__contact-form-title {
   color: $light-gray;
+  font-family: "Montserrat", sans-serif;
   font-size: 1.8rem;
   line-height: 5rem;
   margin-top: -($space * 2 + 5rem - 1.6rem);
 }
+
+.contact__contact-form p {
+  font-family: "Montserrat", sans-serif;
+  font-size: 1.6rem;
+  line-height: 2.1rem;
+  padding-top: $space;
+}
+
+.contact__contact-form-label {
+  font-family: "Montserrat", sans-serif;
+  font-size: $base-font-size;
+  font-weight: bold;
+  outline: none;
+  text-align: left;
+}
+
+.contact__contact-form-label p {
+  font-family: "Montserrat", sans-serif;
+  font-size: $base-font-size;
+  margin-bottom: 1rem;
+  padding-top: $space;
+}
+
+.contact__contact-form-field {
+  font-family: "Montserrat", sans-serif;
+  font-size: $base-font-size;
+  font-weight: 300;
+  outline: none;
+  padding: $input-spacing;
+  resize: none;
+  width: 100%;
+}
+
+.contact__contact-form-textarea {
+  flex-grow: 1;
+  font-family: "Montserrat", sans-serif;
+  font-size: $base-font-size;
+  font-weight: 300;
+  height: 100%;
+  outline: none;
+  padding: $input-spacing;
+  resize: none;
+  width: 100%;
+
+  -webkit-overflow-scrolling: touch;
+}
+
+.contact__contact-form-submit-button {
+  background-color: #E5C100;
+  border: 1px solid $brand-secondary;
+  border-radius: 4px;
+  color: $very-dark-gray;
+  font-family: "Montserrat", sans-serif;
+  font-size: $base-font-size;
+  font-weight: bold;
+  line-height: 1.4;
+  min-height: 4rem !important;
+
+  margin-top: $space;
+  padding: $input-spacing;
+  outline: none;
+  text-transform: uppercase;
+}
+
+.contact__contact-form-submit-button:hover { background-color: darken(#E5C100, 5); }

@@ -23,7 +23,7 @@ export class Rules extends React.Component {
   render() {
     return (
       <div className="team-rules__rules">
-        <h5 className="team-rules__rules-title">Team Rules</h5>
+        <h5 className="team-rules__rules-title">Team Rules &amp; Wrestle-offs</h5>
 
         <div className="team-rules__rules-content">
           <ol className="team-rules__rules-list">

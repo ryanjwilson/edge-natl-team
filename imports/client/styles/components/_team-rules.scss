@@ -19,17 +19,24 @@
   display: flex;
   flex-direction: column;
   overflow-y: scroll;
+  padding: $space;
+  padding-bottom: 0;
+
   -webkit-overflow-scrolling: touch;    // TODO - are there any other mobile-specific styles?
 }
 
 .team-rules__rules-title {
   color: $light-gray;
+  font-family: "Montserrat", sans-serif;
   font-size: 1.8rem;
   line-height: 5rem;
   margin-top: -($space * 2 + 5rem - 1.6rem);
 }
 
 .team-rules__rules-list {
+  font-family: "Montserrat", sans-serif;
+  font-size: $base-font-size;
+  line-height: 1.9rem;
   padding: $space;
   padding-left: $large-space;
 }
@@ -54,6 +61,7 @@
 }
 
 .team-rules__rules-list hr {
+  border: 1px solid $brand-secondary;
   margin-top: $space * 1.5;
   margin-bottom: $space * 1.5;
   margin-left: -$space;

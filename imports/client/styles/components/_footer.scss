@@ -6,6 +6,8 @@
 .footer__content {
   align-items: center;
   display: flex;
+  font-family: "Montserrat", sans-serif;
+  font-size: $base-font-size;
   height: $footer-height;
   justify-content: space-between;
   margin: 0 auto;
@@ -15,6 +17,8 @@
 
 .footer__link {
   color: $footer-color;
+  font-family: "Montserrat", sans-serif;
+  font-size: $base-font-size;
 }
 
 .footer__link:hover {

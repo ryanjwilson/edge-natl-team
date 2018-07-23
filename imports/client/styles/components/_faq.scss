@@ -19,17 +19,24 @@
   display: flex;
   flex-direction: column;
   overflow-y: scroll;
+  padding: $space;
+  padding-bottom: 0;
+
   -webkit-overflow-scrolling: touch;    // TODO - are there any other mobile-specific styles?
 }
 
 .faq__questions-answers-title {
   color: $light-gray;
+  font-family: "Montserrat", sans-serif;
   font-size: 1.8rem;
   line-height: 5rem;
   margin-top: -($space * 2 + 5rem - 1.6rem);
 }
 
 .faq__questions-answers p {
+  font-family: "Montserrat", sans-serif;
+  font-size: 1.6rem;
+  line-height: 2.1rem;
   padding-top: $space;
 }
 
@@ -43,10 +50,18 @@
   padding-left: $space;
 }
 
+.faq__questions-answers-content hr {
+  border: 1px solid $brand-secondary;
+}
+
 .faq__question {
+  font-family: "Montserrat", sans-serif;
+  font-size: $base-font-size !important;
   font-weight: bold;
 }
 
 .faq__answer {
-  margin-top: -$space;
+  font-family: "Montserrat", sans-serif;
+  font-size: $base-font-size !important;
+  padding-top: 0 !important;
 }
