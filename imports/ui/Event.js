@@ -4,9 +4,16 @@ import { PropTypes } from 'prop-types';
 import { Session } from 'meteor/session';
 
 export const Event = (props) => {
+  const onApplyNow = () => {
+    Session.set('isApplicationOpen', true);
+  };
+
   return (
     <div className={props.bottom ? 'event event__bottom' : 'event'}>
-      <h5 className="event__title">{props.tournament.name}</h5>
+      <div className="event__header">
+        <h5 className="event__title">{props.tournament.name}</h5>
+        <img src="/images/roster.svg"/>
+      </div>
       <h6 className="event__detail-header">Date &amp; Location</h6>
       <p className="event__detail">{props.tournament.startDate}, in {props.tournament.location}</p>
       <h6 className="event__detail-header">Weigh-ins</h6>
@@ -18,7 +25,7 @@ export const Event = (props) => {
           <ul key={index} className="event__detail-list-header">
             <li className="event__detail-list-item">{division.name} -- {division.weightClasses.map((weightClass, index, weightClasses) => {
               return (
-                (index === weightClasses.length - 1 ? weightClass + (division.allowance > 0 ? ' (with a ' + division.allowance + '-lb. allowance)' : ' (no allowance)') : weightClass + ', ')
+                (index === weightClasses.length - 1 ? weightClass + ' (+' + division.allowance + ')' : weightClass + ', ')
               );
             })}</li>
           </ul>

@@ -23,13 +23,15 @@ export class Header extends React.Component {
     super(props);
 
     this.state = {
-
+      isSidebarOpen: props.isNavigationOpen,
+      isMenuOpen: props.isMenuOpen
     };
 
     // bind field listeners to this context. remaining listeners are bound
     // manually, as they take additional parameters.
 
-    // this.toggleSidebar = this.toggleSidebar.bind(this);
+    this.toggleNavigation = this.toggleNavigation.bind(this);
+    this.toggleMenu = this.toggleMenu.bind(this);
     // this.toggleMenu = this.toggleMenu.bind(this);
     // this.logout = this.logout.bind(this);
   }
@@ -50,16 +52,20 @@ export class Header extends React.Component {
     // if (this.props.isMenuOpen !== nextProps.isMenuOpen) {
     //   this.setState({ menuImage: (nextProps.isMenuOpen ? '/images/x.svg' : '/images/bars.svg'), isMenuOpen: nextProps.isMenuOpen });
     // }
+
+    if (this.props.isSidebarOpen !== nextProps.isSidebarOpen) this.setState({ isSidebarOpen: nextProps.isSidebarOpen });
+    if (this.props.isMenuOpen !== nextProps.isMenuOpen) this.setState({ isMenuOpen: nextProps.isMenuOpen });
   }
 
   /**
    * Toggles the state of the sidebar between open and closed.
    */
 
-  toggleSidebar() {
+  toggleNavigation() {
     if (!this.state.isSidebarOpen && this.state.isMenuOpen) {
       Session.set('isMenuOpen', false);
     }
+
     Session.set('isSidebarOpen', !this.state.isSidebarOpen);
   }
 
@@ -89,29 +95,38 @@ export class Header extends React.Component {
    */
 
   render() {
+    const navIconSrc = (this.state.isSidebarOpen ? '/images/x.svg' : '/images/bars.svg');
+    const menuIconSrc = (this.state.isMenuOpen ? '/images/x.svg' : '/images/dots.svg');
+
     return (
       <div className="header">
         <div className="header__content">
           <div className="header__content-left">
-            <img src="/images/edge-team-logo.png" className="header__nav-logo"/>
+            <img src="/images/edge-team-logo.png" className="header__nav-logo-desktop"/>
             <div>
-              <Link to="/" className="header__nav">SCHEDULE</Link>
-              <Link to="/rules" className="header__nav">TEAM RULES</Link>
-              <Link to="/faq" className="header__nav">FAQ</Link>
-              <Link to="/past-events" className="header__nav">PAST EVENTS</Link>
-              <Link to="/contact" className="header__nav">CONTACT</Link>
+              <img src={navIconSrc} className="header__nav-toggle-icon" onClick={this.toggleNavigation}/>
+              <Link to="/" className="header__nav-item">SCHEDULE</Link>
+              <Link to="/rules" className="header__nav-item">TEAM RULES</Link>
+              <Link to="/faq" className="header__nav-item">FAQ</Link>
+              <Link to="/past-events" className="header__nav-item">PAST EVENTS</Link>
+              <Link to="/contact" className="header__nav-item">CONTACT</Link>
             </div>
           </div>
-          {!Meteor.userId() ?
+          <div className="header__content-center">
+            <img src="/images/edge-team-logo.png" className="header__nav-logo-mobile"/>
+          </div>
+          {Meteor.userId() ?
             <div className="header__content-right">
-              <Link to="/tournaments" className="header__nav">TOURNAMENTS</Link>
-              <Link to="/wrestlers" className="header__nav">WRESTLERS</Link>
-              <Link to="/teams" className="header__nav">TEAMS</Link>
-              <Link to="/admin" className="header__nav">LOGOUT</Link>
+              <img src={menuIconSrc} className="header__menu-toggle-icon" onClick={this.toggleMenu}/>
+              <Link to="/tournaments" className="header__nav-item">TOURNAMENTS</Link>
+              <Link to="/wrestlers" className="header__nav-item">WRESTLERS</Link>
+              <Link to="/teams" className="header__nav-item">TEAMS</Link>
+              <Link to="/admin" className="header__nav-item">LOGOUT</Link>
             </div>
             :
             <div className="header__content-right">
-              <Link to="/admin" className="header__nav header__right">ADMIN</Link>
+              <img src={menuIconSrc} className="header__menu-toggle-icon" onClick={this.toggleMenu}/>
+              <Link to="/admin" className="header__nav-item header__right">ADMIN</Link>
             </div>
           }
         </div>

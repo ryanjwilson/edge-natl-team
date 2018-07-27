@@ -25,9 +25,19 @@
   text-decoration: none;
 }
 
+.footer__social-media-icons {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
 .footer img {
   height: 2.5rem;
-  margin-left: 1rem;
-  margin-right: 1rem;
+  margin-left: 2rem;
   width: 2.5rem;
+
+  @include mobile {
+    margin-left: 1rem;
+  }
 }

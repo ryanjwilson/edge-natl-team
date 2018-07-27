@@ -22,13 +22,16 @@ export class EventPictures extends React.Component {
 
   render() {
     return (
-      <div className="container">
+      <div className="container container__past-events">
         <h5 className="container__title">Past Events</h5>
 
         <div className="container__content">
           <p className="container__subtitle">Coming soon!</p>
           <hr/>
 
+          <div>
+            
+          </div>
         </div>
       </div>
     );

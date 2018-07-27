@@ -1,9 +1,7 @@
-/*
- * Mobile-friendly styling mixin.
- */
+/// styles specific to smartphones /////////////////////////////////////////////
 
-@mixin desktop {
-  @media (min-width: 50rem) {
+@mixin mobile {
+  @media (max-width: 56.8rem) {
     @content;
   }
 }
