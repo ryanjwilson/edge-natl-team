@@ -9,7 +9,12 @@ export const Footer = (props) => {
     <div className="footer">
       <div className="footer__content">
         <div>Copyright &copy; 1984-2018. <a className="footer__link" href="https://www.edgewrestling.com">Edge Wrestling</a>. All Rights Reserved.</div>
-        <div>Powered by RosterFX.</div>
+        {/* <div>Powered by RosterFX.</div> */}
+        <div>
+          <a href="https://www.facebook.com/EdgeWrestlingSchool" target="_blank"><img src="/images/facebook.svg"/></a>
+          <a href="https://www.instagram.com/edge_whippany/" target="_blank"><img src="/images/twitter.svg"/></a>
+          <a href="https://twitter.com/EdgeWrestling" target="_blank"><img src="/images/instagram.svg"/></a>
+        </div>
       </div>
     </div>
   );
