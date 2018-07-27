@@ -1,17 +1,17 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat');
+@import url('https://fonts.googleapis.com/css?family=Montserrat:700');
+
 @import './variables';
 @import './mixins/media-query-mixins';
 @import './base';
 @import './components/boxed-view';
 @import './components/button';
 @import './components/checkbox';
+@import './components/container';
 @import './components/editor';
+@import './components/event';
+@import './components/footer';
 @import './components/header';
 @import './components/item';
 @import './components/page-content';
 @import './components/swal';
-@import './components/footer';
-
-@import './components/schedule';
-@import './components/team-rules';
-@import './components/faq';
-@import './components/contact';

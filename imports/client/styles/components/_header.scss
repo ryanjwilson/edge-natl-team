@@ -5,6 +5,7 @@
 .header {
   background: $header-bg;
   color: $header-color;
+  height: $header-height;
 }
 
 /*
@@ -20,15 +21,33 @@
   height: $header-height;
   justify-content: space-between;
   margin: 0 auto;
-  padding: $large-space;
-  width: $site-max-width;
+  max-width: $site-max-width;
+  padding-left: $space;
+  padding-right: $space;
 }
 
-.header__content-center {
-  left: 50%;
-  right: 50%;
-  margin: 0 auto;
-  position: absolute;
+.header__content-left {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+}
+
+.header__content-left .header__nav {
+  padding-left: $space;
+  padding-right: $space;
+}
+
+.header__content-right .header__nav {
+  padding-left: $space;
+  padding-right: $space;
+}
+
+.header__content-right .header__nav:last-child {
+  padding-right: 0;
+}
+
+.header__content-left img {
+  padding-right: $space;
 }
 
 /*
@@ -48,6 +67,7 @@
   font-family: "Montserrat", sans-serif;
   font-size: 1.7rem;
   font-weight: 500;
+  height: $header-height;
   text-decoration: none;
 }
 
@@ -56,7 +76,8 @@
 }
 
 .header__left {
-  padding-right: $large-space;
+  padding-left: $space;
+  padding-right: $space;
 }
 
 .header__right {
@@ -69,6 +90,10 @@
 
 .header__nav-logo {
   height: 5rem;
+  // left: 50%;
+  // right: 50%;
+  // margin: 0 auto;
+  // position: absolute;
 }
 
 // TODO - need to add icon to header title and style appropriately

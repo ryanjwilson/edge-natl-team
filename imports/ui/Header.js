@@ -93,28 +93,27 @@ export class Header extends React.Component {
       <div className="header">
         <div className="header__content">
           <div className="header__content-left">
-            <Link to="/" className="header__nav header__left">SCHEDULE</Link>
-            <Link to="/rules" className="header__nav header__left">TEAM RULES</Link>
-            <Link to="/faq" className="header__nav header__left">FAQ</Link>
-            <Link to="/contact" className="header__nav header__left">CONTACT</Link>
+            <img src="/images/edge-team-logo.png" className="header__nav-logo"/>
+            <div>
+              <Link to="/" className="header__nav">SCHEDULE</Link>
+              <Link to="/rules" className="header__nav">TEAM RULES</Link>
+              <Link to="/faq" className="header__nav">FAQ</Link>
+              <Link to="/past-events" className="header__nav">PAST EVENTS</Link>
+              <Link to="/contact" className="header__nav">CONTACT</Link>
+            </div>
           </div>
-          <div className="header__content-center">
-            <img src="/images/national-team-logo.png" className="header__nav-logo"/>
-          </div>
-          <div className="header__content-right">
-            {!Meteor.userId() ?
-              <div>
-                <Link to="/tournaments" className="header__nav header__right">TOURNAMENTS</Link>
-                <Link to="/wrestlers" className="header__nav header__right">WRESTLERS</Link>
-                <Link to="/teams" className="header__nav header__right">TEAMS</Link>
-                <Link to="/admin" className="header__nav header__right">LOGOUT</Link>
-              </div>
-              :
-              <div>
-                <Link to="/admin" className="header__nav header__right">ADMIN</Link>
-              </div>
-            }
-          </div>
+          {!Meteor.userId() ?
+            <div className="header__content-right">
+              <Link to="/tournaments" className="header__nav">TOURNAMENTS</Link>
+              <Link to="/wrestlers" className="header__nav">WRESTLERS</Link>
+              <Link to="/teams" className="header__nav">TEAMS</Link>
+              <Link to="/admin" className="header__nav">LOGOUT</Link>
+            </div>
+            :
+            <div className="header__content-right">
+              <Link to="/admin" className="header__nav header__right">ADMIN</Link>
+            </div>
+          }
         </div>
       </div>
     );

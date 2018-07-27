@@ -226,21 +226,21 @@ export class Application extends React.Component {
 
   render() {
     return (
-      <div className="schedule__application">
-        <h5 className="schedule__application-title">Application</h5>
+      <div className="container">
+        <h5 className="container__title">Application</h5>
 
-        <div className="schedule__application-content">
-          <label className="schedule__application-label">
+        <div className="container__content container__application-form">
+          <label>
             <p>Wrestler</p>
-            <input id="name" name="name" className="schedule__application-field" value={this.state.name} placeholder="Name" onChange={this.onNameChange}/>
+            <input id="name" name="name" value={this.state.name} placeholder="Name" onChange={this.onNameChange}/>
           </label>
-          <label className="schedule__application-label">
+          <label>
             <p>Date of Birth</p>
-            <input id="dob" name="dob" type="date" className="schedule__application-field" value={this.state.dob} placeholder="Date of Birth" onChange={this.onDobChange}/>
+            <input id="dob" name="dob" type="date" value={this.state.dob} placeholder="Date of Birth" onChange={this.onDobChange}/>
           </label>
-          <label className="schedule__application-label">
+          <label>
             <p>Grade (for 2018-2019)</p>
-            <select id="grade" name="grade" className="schedule__application-dropdown-menu" value={this.state.grade} onChange={this.onGradeChange}>
+            <select id="grade" name="grade" value={this.state.grade} onChange={this.onGradeChange}>
               <option value="">--Select Grade--</option>
               <option value="0">Kindergarten</option>
               <option value="1">1st</option>
@@ -257,69 +257,69 @@ export class Application extends React.Component {
               <option value="12">12th</option>
             </select>
           </label>
-          <label className="schedule__application-label">
+          <label>
             <p>Parent</p>
             {this.state.parents.map((parent, index) => {
               if (index === 0) {
                 return (
-                  <div key={index} className="schedule__application-dynamic-field">
-                    <input id="parent" name="parent" className="schedule__application-field" value={this.state.parents[index]} placeholder="Parent" onChange={this.onParentChange.bind(this, index)}/>
-                    <img className="schedule__application-add" src="/images/add.svg" onClick={this.onAddParent}/>
+                  <div key={index} className="dynamic-field">
+                    <input id="parent" name="parent" value={this.state.parents[index]} placeholder="Parent" onChange={this.onParentChange.bind(this, index)}/>
+                    <img src="/images/add.svg" onClick={this.onAddParent}/>
                   </div>
                 );
               } else {
                 return (
-                  <div key={index} className="schedule__application-dynamic-field">
-                    <input id="parent" name="parent" className="schedule__application-field" value={this.state.parents[index]} placeholder="Parent" onChange={this.onParentChange.bind(this, index)}/>
-                    <img className="schedule__application-delete" src="/images/delete.svg" onClick={this.onDeleteParent.bind(this, index)}/>
+                  <div key={index} className="dynamic-field">
+                    <input id="parent" name="parent" value={this.state.parents[index]} placeholder="Parent" onChange={this.onParentChange.bind(this, index)}/>
+                    <img src="/images/delete.svg" onClick={this.onDeleteParent.bind(this, index)}/>
                   </div>
                 );
               }
             })}
           </label>
-          <label className="schedule__application-label">
+          <label>
             <p>Email</p>
             {this.state.emails.map((email, index) => {
               if (index === 0) {
                 return (
-                  <div key={index} className="schedule__application-dynamic-field">
-                    <input id="email" name="email" className="schedule__application-field" value={this.state.emails[index]} placeholder="Email" onChange={this.onEmailChange.bind(this, index)}/>
-                    <img className="schedule__application-add" src="/images/add.svg" onClick={this.onAddEmail}/>
+                  <div key={index} className="dynamic-field">
+                    <input id="email" name="email" type="email" value={this.state.emails[index]} placeholder="Email" onChange={this.onEmailChange.bind(this, index)}/>
+                    <img src="/images/add.svg" onClick={this.onAddEmail}/>
                   </div>
                 );
               } else {
                 return (
-                  <div key={index} className="schedule__application-dynamic-field">
-                    <input id="email" name="email" className="schedule__application-field" value={this.state.emails[index]} placeholder="Email" onChange={this.onEmailChange.bind(this, index)}/>
-                    <img className="schedule__application-delete" src="/images/delete.svg" onClick={this.onDeleteEmail.bind(this, index)}/>
+                  <div key={index} className="dynamic-field">
+                    <input id="email" name="email" type="email" value={this.state.emails[index]} placeholder="Email" onChange={this.onEmailChange.bind(this, index)}/>
+                    <img src="/images/delete.svg" onClick={this.onDeleteEmail.bind(this, index)}/>
                   </div>
                 );
               }
             })}
           </label>
-          <label className="schedule__application-label">
+          <label>
             <p>Phone</p>
             {this.state.phones.map((phone, index, phones) => {
               if (index === 0) {
                 return (
-                  <div key={index} className="schedule__application-dynamic-field">
-                    <input id="phone" name="phone" type="tel" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" className="schedule__application-field" value={this.state.phones[index]} placeholder="Phone" onChange={this.onPhoneChange.bind(this, index)}/>
-                    <img className="schedule__application-add" src="/images/add.svg" onClick={this.onAddPhone}/>
+                  <div key={index} className="dynamic-field">
+                    <input id="phone" name="phone" type="tel" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" value={this.state.phones[index]} placeholder="Phone" onChange={this.onPhoneChange.bind(this, index)}/>
+                    <img src="/images/add.svg" onClick={this.onAddPhone}/>
                   </div>
                 );
               } else {
                 return (
-                  <div key={index} className="schedule__application-dynamic-field">
-                    <input id="phone" name="phone" type="tel" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" className="schedule__application-field" value={this.state.phones[index]} placeholder="Phone" onChange={this.onPhoneChange.bind(this, index)}/>
-                    <img className="schedule__application-delete" src="/images/delete.svg" onClick={this.onDeletePhone.bind(this, index)}/>
+                  <div key={index} className="dynamic-field">
+                    <input id="phone" name="phone" type="tel" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" value={this.state.phones[index]} placeholder="Phone" onChange={this.onPhoneChange.bind(this, index)}/>
+                    <img src="/images/delete.svg" onClick={this.onDeletePhone.bind(this, index)}/>
                   </div>
                 );
               }
             })}
           </label>
-          <label className="schedule__application-label schedule__application-top-label">
-            <p className="schedule__application-dynamic-label">Tournaments</p>
-            <select id="tournament" name="tournament" className="schedule__application-dropdown-menu schedule__multi-dropdown" size={this.state.tournaments.length} value={this.state.selectedTournaments.map((selectedTournament) => selectedTournament.tournamentId)} onChange={this.onTournamentSelection} multiple>
+          <label className="bordered">
+            <p className="dynamic-label">Tournaments</p>
+            <select id="tournament" name="tournament" className="multi" size={this.state.tournaments.length} value={this.state.selectedTournaments.map((selectedTournament) => selectedTournament.tournamentId)} onChange={this.onTournamentSelection} multiple>
               {this.state.tournaments.map((tournament) => {
                 return (
                   <option key={tournament._id} value={tournament._id}>{tournament.name}</option>
@@ -330,11 +330,11 @@ export class Application extends React.Component {
 
           {this.state.selectedTournaments.map((selectedTournament) => {
             return (
-              <fieldset key={selectedTournament.tournamentId} className="schedule__tournament-application">
+              <fieldset key={selectedTournament.tournamentId}>
                 <legend>{selectedTournament.tournamentName}</legend>
-                <label className="schedule__application-label">
+                <label>
                   <p>Division</p>
-                  <select id="selected-tournament-division" name="selected-tournament-division" className="schedule__application-dropdown-menu" value={selectedTournament.selectedDivision} onChange={this.onDivisionSelection.bind(this, selectedTournament)}>
+                  <select id="selected-tournament-division" name="selected-tournament-division" value={selectedTournament.selectedDivision} onChange={this.onDivisionSelection.bind(this, selectedTournament)}>
                     {selectedTournament.divisions.map((division, index) => {
                       return (
                         <option key={index} value={division.name}>{division.name}</option>
@@ -342,9 +342,9 @@ export class Application extends React.Component {
                     })}
                   </select>
                 </label>
-                <label className="schedule__application-label">
+                <label>
                   <p>Weight Class</p>
-                  <select id="selected-tournament-weight-class" name="selected-tournament-weight-class" className="schedule__application-dropdown-menu" value={selectedTournament.selectedWeightClass} onChange={this.onWeightClassSelection.bind(this, selectedTournament)}>
+                  <select id="selected-tournament-weight-class" name="selected-tournament-weight-class" value={selectedTournament.selectedWeightClass} onChange={this.onWeightClassSelection.bind(this, selectedTournament)}>
                     {selectedTournament.weightClasses.map((weightClass, index) => {
                       return (
                         <option key={index} value={weightClass}>{weightClass}</option>
@@ -355,7 +355,7 @@ export class Application extends React.Component {
               </fieldset>
             );
           })}
-          <button className="schedule__application-submit-button" onClick={this.onSubmitApplication}>Submit Application</button>
+          <button onClick={this.onSubmitApplication}>Submit Application</button>
         </div>
         {/* <button className="schedule__application-submit-button" onClick={this.onSubmitApplication}>Submit Application</button> */}
       </div>

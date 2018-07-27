@@ -1,0 +1,311 @@
+// TODO - add minimum width to general containers
+
+.container {
+  background: $light-gray;
+  border: 0.2rem solid $brand-secondary;
+  border-top: 5rem solid $brand-secondary;
+  border-radius: 0.7rem;
+  display: flex;
+  flex-direction: column;
+  margin-top: $medium-space;
+  margin-bottom: $medium-space;
+  padding: $space;          // not included for schedule event list
+  padding-bottom: 0;        // not included for schedule event list
+  padding-top: $space;
+  width: 100%;
+}
+
+.container__content {
+  display: flex;
+  flex-direction: column;
+  overflow-y: scroll;
+  padding: $space;
+  padding-bottom: 0;
+
+  -webkit-overflow-scrolling: touch;    // TODO - are there any other mobile-specific styles?
+}
+
+.container__content hr {
+  border: 0.1rem solid $brand-secondary;
+}
+
+.container__title {
+  color: $light-gray;
+  font-family: "Montserrat", sans-serif;
+  font-size: 1.8rem;
+  line-height: 5rem;
+  margin-top: -($space * 2 + 5rem - 1.6rem);
+}
+
+.container__subtitle {
+  font-family: "Montserrat", sans-serif;
+  font-size: 1.6rem;
+  line-height: 2.1rem;
+  padding-top: $space / 2;
+}
+
+.container__link {
+  color: $brand-secondary;
+}
+
+.container__link:hover {
+  text-decoration: none;
+}
+
+.container__content ol {
+  padding: $space;
+  padding-bottom: 0;
+  padding-left: $large-space;
+}
+
+.container__content ol li {
+  font-family: "Montserrat", sans-serif;
+  font-size: $base-font-size;
+}
+
+/// SCHEDULE CONTAINER /////////////////////////////////////////////////////////
+
+// TODO - add minimum widths to schedule, application containers
+
+.container__schedule {
+  padding: 0;
+  padding-top: $space;
+}
+
+.container__schedule h5 {
+  padding-left: $space;
+}
+
+.container__schedule .container__content {
+  padding: 0;
+}
+
+.container__application-form {
+  height: 100%;
+  padding-top: $space / 2;
+}
+
+.container__application-form label {
+  font-family: "Montserrat", sans-serif;
+  font-size: $base-font-size;
+  font-weight: bold;
+  outline: none;
+  text-align: left;
+}
+
+.container__application-form label.bordered {
+  border-top: 2px solid $brand-secondary;
+  margin-top: $space;
+  padding-top: $space / 2;
+}
+
+.container__application-form label p {
+  margin-bottom: 1rem;
+  padding-top: $space;
+}
+
+.container__application-form label input {
+  font-family: "Montserrat", sans-serif;
+  font-size: $base-font-size;
+  font-weight: 300;
+  margin: 0;
+  outline: none;
+  padding: $input-spacing;
+  resize: none;
+  width: 100%;
+}
+
+.container__application-form label select {
+  background: white;
+  font-family: "Montserrat", sans-serif;
+  font-size: $base-font-size;
+  height: 3rem;
+  margin-bottom: $space / 2;
+  margin-top: $space / 4;
+  outline: none;
+  width: 100%;
+}
+
+.container__application-form label select.multi {
+  height: auto;
+}
+
+.container__application-form label select.multi option {
+  padding: 0.25rem;
+}
+
+.container__application-form label div.dynamic-field {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  margin-bottom: $space / 2;
+}
+
+.container__application-form label div.dynamic-field img {
+  cursor: pointer;
+  height: 2.5rem;
+  margin-left: 1rem;
+  width: 2.5rem;
+}
+
+.container__application-form label p.dynamic-label {
+  align-items: center;
+  display: flex;
+}
+
+.container__application-form fieldset {
+  border-radius: 0.4rem;
+  margin-top: $space;
+  padding: $space;
+  padding-top: 0;
+  -moz-border-radius: 0.4rem;
+  -webkit-border-radius: 0.4rem;
+}
+
+.container__application-form fieldset legend {
+  font-family: "Montserrat", sans-serif;
+  font-size: $base-font-size;
+  font-weight: bold;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+}
+
+.container__application-form button {
+  background-color: #E5C100;
+  border: 1px solid $brand-secondary;
+  border-radius: 4px;
+  color: $very-dark-gray;
+  font-size: $base-font-size;
+  font-weight: bold;
+  line-height: 1.4;
+  margin-bottom: $space;
+  margin-top: $medium-space;
+  min-height: 4rem !important;
+  outline: none;
+  padding: $input-spacing;
+  text-transform: uppercase;
+}
+
+/// TEAM RULES CONTAINER ///////////////////////////////////////////////////////
+
+.container__content ol.team-rules li {
+  padding: $space / 3;
+  padding-left: $space;
+}
+
+.container__content ol.team-rules li:first-child {
+  padding-top: $space;
+}
+
+.container__content ol.team-rules li:last-child {
+  padding-bottom: 0;
+}
+
+.container__content ol.team-rules li ul {
+  margin-left: $large-space + $space;
+}
+
+.container__content ol.team-rules li ul li {
+  padding-bottom: 0 !important;
+  padding-left: $space / 3;
+  padding-top: 0 !important;
+}
+
+.container__content ol.team-rules li ul li:first-child {
+  padding-top: $space / 1.5;
+}
+
+.container__content ol.team-rules li ul li:last-child {
+  padding-bottom: 0;
+  padding-top: $space / 4;
+}
+
+.container__content ol.team-rules li:last-child ul li:last-child {
+  padding-bottom: $space !important;
+}
+
+/// FAQ CONTAINER //////////////////////////////////////////////////////////////
+
+.container__content ol.faq li {
+  padding-left: $space;
+}
+
+.container__content ol.faq li:first-child {
+  padding-top: $space;
+}
+
+.container__content ol.faq li:last-child {
+  padding-bottom: $space;
+}
+
+.container__content ol.faq li p:first-child {
+  font-weight: bold;
+}
+
+/// CONTACT CONTAINER //////////////////////////////////////////////////////////
+
+.container__contact-form {
+  height: 100%;
+}
+
+.container__contact-form label {
+  font-family: "Montserrat", sans-serif;
+  font-size: $base-font-size;
+  font-weight: bold;
+  outline: none;
+  text-align: left;
+}
+
+.container__contact-form label p {
+  font-family: "Montserrat", sans-serif;
+  font-size: $base-font-size;
+  margin-bottom: 1rem;
+  padding-top: $space;
+}
+
+.container__contact-form label input {
+  font-family: "Montserrat", sans-serif;
+  font-size: $base-font-size;
+  font-weight: 300;
+  margin: 0;
+  outline: none;
+  padding: $input-spacing;
+  resize: none;
+  width: 100%;
+}
+
+.container__contact-form textarea {
+  flex-grow: 1;
+  font-family: "Montserrat", sans-serif;
+  font-size: $base-font-size;
+  font-weight: 300;
+  height: 100%;
+  margin: 0;
+  outline: none;
+  padding: $input-spacing;
+  resize: none;
+  width: 100%;
+
+  -webkit-overflow-scrolling: touch;
+}
+
+.container__contact-form button {
+  background-color: #E5C100;
+  border: 0.1rem solid $brand-secondary;
+  border-radius: 0.4rem;
+  color: $very-dark-gray;
+  font-family: "Montserrat", sans-serif;
+  font-size: $base-font-size;
+  font-weight: bold;
+  line-height: 1.4;
+  margin-bottom: $space;
+  margin-top: $large-space;
+  min-height: 4rem !important;
+  outline: none;
+  padding: $input-spacing;
+  text-transform: uppercase;
+}
+
+.container__contact-form button:hover {
+  background-color: darken(#E5C100, 5);
+}

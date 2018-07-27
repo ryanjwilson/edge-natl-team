@@ -5,18 +5,18 @@ import { Session } from 'meteor/session';
 
 export const Event = (props) => {
   return (
-    <div id="scheduled-tournament" className={props.bottom ? 'schedule__event schedule__bottom' : 'schedule__event'}>
-      <h5 className="schedule__event-title">{props.tournament.name}</h5>
-      <h6 className="schedule__detail-header">Date &amp; Location</h6>
-      <p className="schedule__detail">{props.tournament.startDate}, in {props.tournament.location}</p>
-      <h6 className="schedule__detail-header">Weigh-ins</h6>
-      <p className="schedule__detail">{props.tournament.weighins}{props.tournament.alternateWeighins ? <span className="schedule__bold schedule__italic"> or </span> : undefined}</p>
-      {props.tournament.alternateWeighins ? <p className="schedule__detail">{props.tournament.alternateWeighins}</p> : undefined}
-      <h6 className="schedule__detail-header">Divisions & Weight Classes</h6>
+    <div className={props.bottom ? 'event event__bottom' : 'event'}>
+      <h5 className="event__title">{props.tournament.name}</h5>
+      <h6 className="event__detail-header">Date &amp; Location</h6>
+      <p className="event__detail">{props.tournament.startDate}, in {props.tournament.location}</p>
+      <h6 className="event__detail-header">Weigh-ins</h6>
+      <p className="event__detail">{props.tournament.weighins}{props.tournament.alternateWeighins ? <span> or </span> : undefined}</p>
+      {props.tournament.alternateWeighins ? <p className="event__detail">{props.tournament.alternateWeighins}</p> : undefined}
+      <h6 className="event__detail-header">Divisions & Weight Classes</h6>
       {props.tournament.divisions.map((division, index) => {
         return (
-          <ul key={index} className="schedule__detail-list-header">
-            <li className="schedule__detail-list-item">{division.name} -- {division.weightClasses.map((weightClass, index, weightClasses) => {
+          <ul key={index} className="event__detail-list-header">
+            <li className="event__detail-list-item">{division.name} -- {division.weightClasses.map((weightClass, index, weightClasses) => {
               return (
                 (index === weightClasses.length - 1 ? weightClass + (division.allowance > 0 ? ' (with a ' + division.allowance + '-lb. allowance)' : ' (no allowance)') : weightClass + ', ')
               );

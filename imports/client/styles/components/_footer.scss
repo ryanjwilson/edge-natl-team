@@ -12,7 +12,7 @@
   justify-content: space-between;
   margin: 0 auto;
   padding: $large-space;
-  width: $site-max-width;
+  max-width: $site-max-width;
 }
 
 .footer__link {

@@ -30,6 +30,8 @@
   display: flex;
   height: $page-content-height;
   margin: 0 auto;
+  padding-left: $space;
+  padding-right: $space;
   //padding: $large-space;
   max-width: $site-max-width;
 
@@ -93,11 +95,13 @@
 
 .public-page-content__tournaments {
   display: flex;
+  margin-right: $space / 2;
   width: 35%;
 }
 
 .public-page-content__application {
   display: flex;
+  margin-left: $space / 2;
   width: 65%;
 }
 

@@ -8,43 +8,80 @@ export class ContactForm extends React.Component {
     super(props);
 
     this.state = {
-
+      name: '',
+      email: '',
+      phone: '',
+      message: ''
     };
 
     // bind field listeners to this context. remaining listeners are bound
     // manually, as they take additional parameters.
+
+    this.onNameChange = this.onNameChange.bind(this);
+    this.onEmailChange = this.onEmailChange.bind(this);
+    this.onPhoneChange = this.onPhoneChange.bind(this);
+    this.onMessageChange = this.onMessageChange.bind(this);
+    this.onSubmitForm = this.onSubmitForm.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
 
   }
 
+  onNameChange(e) {
+    const name = e.target.value;
+
+    this.setState({ name });
+  }
+
+  onEmailChange(e) {
+    const email = e.target.value;   // TODO - validate email
+
+    this.setState({ email });
+  }
+
+  onPhoneChange(e) {
+    const phone = e.target.value;   // TODO - validate phone
+
+    this.setState({ phone });
+  }
+
+  onMessageChange(e) {
+    const message = e.target.value;
+
+    this.setState({ message });
+  }
+
+  onSubmitForm() {
+    console.log(this.state);
+  }
+
   render() {
     return (
-      <div className="contact__contact-form">
-        <h5 className="contact__contact-form-title">Contact Us</h5>
+      <div className="container">
+        <h5 className="container__title">Contact Us</h5>
 
-        <div className="contact__contact-form-content">
-          <p>Please do not hesitate to reach out with any questions, comments, or concerns.</p>
+        <div className="container__content container__contact-form">
+          <p className="container__subtitle">Please do not hesitate to reach out to us with any questions, comments, or concerns.</p>
           <hr/>
 
-          <label className="contact__contact-form-label">
+          <label>
             <p>Name</p>
-            <input id="name" name="name" className="contact__contact-form-field" value={this.state.name} placeholder="Name" onChange={this.onNameChange}/>
+            <input id="name" name="name" value={this.state.name} placeholder="Name" onChange={this.onNameChange}/>
           </label>
-          <label className="contact__contact-form-label">
+          <label>
             <p>Email</p>
-            <input id="email" name="email" className="contact__contact-form-field" value={this.state.email} placeholder="Email" onChange={this.onEmailChange}/>
+            <input id="email" name="email" type="email" value={this.state.email} placeholder="Email" onChange={this.onEmailChange}/>
           </label>
-          <label className="contact__contact-form-label">
+          <label>
             <p>Phone</p>
-            <input id="phone" name="phone" className="contact__contact-form-field" value={this.state.phone} placeholder="Phone" onChange={this.onPhoneChange}/>
+            <input id="phone" name="phone" type="tel" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" value={this.state.phone} placeholder="Phone" onChange={this.onPhoneChange}/>
           </label>
-          <label className="contact__contact-form-label">
+          <label>
             <p>Message</p>
           </label>
-          <textarea id="message" name="message" className="contact__contact-form-textarea" value={this.state.message} placeholder="Type your message here." onChange={this.onMessageChange}></textarea>
-          <button className="contact__contact-form-submit-button" onClick={this.onSubmitApplication}>Submit</button>
+          <textarea id="message" name="message" value={this.state.message} placeholder="Type your message here." onChange={this.onMessageChange}></textarea>
+          <button className="container__submit-button" onClick={this.onSubmitForm}>Submit</button>
         </div>
       </div>
     );

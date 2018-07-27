@@ -30,12 +30,12 @@ export class EventList extends React.Component {
 
   render() {
     return (
-      <div className="schedule__event-list">
-        <h5 className="schedule__event-list-title">Upcoming Duals</h5>
+      <div className="container container__schedule">
+        <h5 className="container__title">Upcoming Duals</h5>
 
-        <div className="schedule__event-list-content">
+        <div className="container__content">
+          {this.state.tournaments.length === 0 ? <p className="empty-item">There are no Upcoming Duals to display.</p> : undefined}
           {this.state.tournaments.map((tournament, index, tournaments) => {
-            console.log(index === tournaments.length - 1);
             return (
               <Event key={tournament._id} tournament={tournament} bottom={index === tournaments.length - 1}/>
             );

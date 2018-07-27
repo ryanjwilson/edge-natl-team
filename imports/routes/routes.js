@@ -7,6 +7,7 @@ import Contact from '../ui/Contact';
 import FAQs from '../ui/FAQs';
 import Login from '../ui/admin/Login';
 import NotFound from '../ui/NotFound';
+import PastEvents from '../ui/PastEvents';
 import Schedule from '../ui/Schedule';
 import TeamRules from '../ui/TeamRules';
 import ApplicationView from '../ui/admin/ApplicationView';
@@ -75,6 +76,7 @@ const routes = (
       <Route path="/" component={Schedule}/>
       <Route path="/rules" component={TeamRules}/>
       <Route path="/faq" component={FAQs}/>
+      <Route path="/past-events" component={PastEvents}/>
       <Route path="/contact" component={Contact}/>
       <Route path="/admin" component={Login} privacy="unauthenticated"/>
       <Route path="/applications" component={ApplicationView} privacy="authenticated"/>
