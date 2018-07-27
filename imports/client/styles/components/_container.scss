@@ -9,10 +9,15 @@
   flex-direction: column;
   margin-top: $medium-space;
   margin-bottom: $medium-space;
-  padding: $space;          // not included for schedule event list
-  padding-bottom: 0;        // not included for schedule event list
+  padding: $space;
+  padding-bottom: 0;
   padding-top: $space;
   width: 100%;
+
+  @include mobile {
+    margin-bottom: $space / 2;
+    margin-top: $space / 2;
+  }
 }
 
 .container__content {
@@ -27,6 +32,50 @@
 
 .container__content hr {
   border: 0.1rem solid $brand-secondary;
+}
+
+.container__header {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-top: -($space/2);
+}
+
+.container__header img {
+  display: none;
+
+  @include mobile {
+    cursor: pointer;
+    display: flex;
+    height: 2.5rem;
+    width: 2.5rem;
+  }
+}
+
+.container__header button {
+  display: none;
+
+  @include mobile {
+    background-color: #E5C100;
+    border: 0.1rem solid $very-dark-gray;
+    border-radius: 0.4rem;
+    color: $very-dark-gray;
+    display: flex;
+    font-family: "Montserrat", sans-serif;
+    font-size: $base-font-size;
+    font-weight: bold;
+    line-height: 1;
+    margin-right: $space / 4;
+    outline: none;
+    padding: $input-spacing;
+    text-transform: uppercase;
+  }
+}
+
+.container__header button:hover {
+  background-color: darken(#E5C100, 5);
+  cursor: pointer;
 }
 
 .container__title {
@@ -80,9 +129,20 @@
   padding: 0;
 }
 
+.container__application {
+  @include mobile {
+    margin-left: $space / 2;
+    margin-right: $space / 2;
+  }
+}
+
 .container__application-form {
   height: 100%;
   padding-top: $space / 2;
+
+  @include mobile {
+    height: auto;
+  }
 }
 
 .container__application-form label {
@@ -186,6 +246,11 @@
   text-transform: uppercase;
 }
 
+.container__application-form button:hover {
+  background-color: darken(#E5C100, 5);
+  cursor: pointer;
+}
+
 /// TEAM RULES CONTAINER ///////////////////////////////////////////////////////
 
 .container__content ol.team-rules li {
@@ -242,6 +307,14 @@
   font-weight: bold;
 }
 
+/// PAST EVENTS CONTAINER //////////////////////////////////////////////////////
+
+.container__past-events .container__content div {
+  @include mobile {
+    height: 100vh;
+  }
+}
+
 /// CONTACT CONTAINER //////////////////////////////////////////////////////////
 
 .container__contact-form {
@@ -287,6 +360,10 @@
   width: 100%;
 
   -webkit-overflow-scrolling: touch;
+
+  @include mobile {
+    height: 100vh;
+  }
 }
 
 .container__contact-form button {
@@ -308,4 +385,5 @@
 
 .container__contact-form button:hover {
   background-color: darken(#E5C100, 5);
+  cursor: pointer;
 }

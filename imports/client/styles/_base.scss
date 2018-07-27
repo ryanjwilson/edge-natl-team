@@ -1,6 +1,3 @@
-// @import url('https://fonts.googleapis.com/css?family=Montserrat');
-// @import url('https://fonts.googleapis.com/css?family=Montserrat:700');
-
 * {
   box-sizing: border-box;
   margin: 0;
@@ -12,7 +9,7 @@ html {
 }
 
 body {
-  background-color: black;//$body-background-color;
+  background-color: black;
   color: $body-default-color;
   font-family: $body-default-font-family;
   font-size: $base-font-size;
@@ -45,22 +42,22 @@ input[type=text], input[type=email], input[type=password], textarea {
   padding: $input-spacing;
 }
 
-div#overlay {
-  background: rgba(0, 0, 0, 0.4);
-  opacity: 0;
-  transition: visibility 0s, opacity 0.5s linear;
-  visibility: hidden;
-  height: 100vh;
-  width: 100vw;
-  z-index: 1;
-
-  position: fixed;
-  top: 0;
-  left: 0;
-  bottom: 0;
-}
-
-.is-menu-open div#overlay {
-  opacity: 1;
-  visibility: visible;
-}
+// div#overlay {
+//   background: rgba(0, 0, 0, 0.4);
+//   opacity: 0;
+//   transition: visibility 0s, opacity 0.5s linear;
+//   visibility: hidden;
+//   height: 100vh;
+//   width: 100vw;
+//   z-index: 1;
+//
+//   position: fixed;
+//   top: 0;
+//   left: 0;
+//   bottom: 0;
+// }
+//
+// .is-menu-open div#overlay {
+//   opacity: 1;
+//   visibility: visible;
+// }

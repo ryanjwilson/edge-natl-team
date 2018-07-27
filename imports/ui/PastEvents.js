@@ -11,7 +11,7 @@ export default class PastEvents extends React.Component {
         <Header/>
 
         <div className="public-page-content">
-          <div className="public-page-content__team-rules">
+          <div className="public-page-content__past-events">
             <EventPictuers/>
           </div>
         </div>

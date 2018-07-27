@@ -19,7 +19,8 @@ export class Application extends React.Component {
       emails: [ '' ],
       phones: [ '' ],
       tournaments: this.props.tournaments,
-      selectedTournaments: []
+      selectedTournaments: [],
+      backButtonSrc: '/images/back.svg'
     };
 
     // bind field listeners to this context. remaining listeners are bound
@@ -33,6 +34,8 @@ export class Application extends React.Component {
     this.onGradeChange = this.onGradeChange.bind(this);
     this.onTournamentSelection = this.onTournamentSelection.bind(this);
     this.onSubmitApplication = this.onSubmitApplication.bind(this);
+    this.onGoBack = this.onGoBack.bind(this);
+    this.onHover = this.onHover.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -224,10 +227,25 @@ export class Application extends React.Component {
     });
   }
 
+  onGoBack() {
+    Session.set('isApplicationOpen', false);
+  }
+
+  onHover() {
+    if (this.state.backButtonSrc === '/images/back.svg') {
+      this.setState({ backButtonSrc: '/images/back-gold.svg'});
+    } else if (this.state.backButtonSrc === '/images/back-gold.svg') {
+      this.setState({ backButtonSrc: '/images/back.svg'});
+    }
+  }
+
   render() {
     return (
-      <div className="container">
-        <h5 className="container__title">Application</h5>
+      <div className="container container__application">
+        <div className="container__header">
+          <h5 className="container__title">Application</h5>
+          <img className="container__title" src={this.state.backButtonSrc} onClick={this.onGoBack} onMouseOver={this.onHover} onMouseOut={this.onHover}/>
+        </div>
 
         <div className="container__content container__application-form">
           <label>

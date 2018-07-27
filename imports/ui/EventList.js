@@ -1,6 +1,7 @@
 import React from 'react';
 import { createContainer } from 'meteor/react-meteor-data';
 import { PropTypes } from 'prop-types';
+import { Session } from 'meteor/session';
 
 import { Event } from './Event';
 import { Tournaments } from '../api/tournaments';
@@ -28,10 +29,17 @@ export class EventList extends React.Component {
     }
   }
 
+  onApplyNow() {
+    Session.set('isApplicationOpen', true);
+  }
+
   render() {
     return (
       <div className="container container__schedule">
-        <h5 className="container__title">Upcoming Duals</h5>
+        <div className="container__header">
+          <h5 className="container__title">Upcoming Duals</h5>
+          <button className="container__title" onClick={this.onApplyNow}>APPLY NOW!</button>
+        </div>
 
         <div className="container__content">
           {this.state.tournaments.length === 0 ? <p className="empty-item">There are no Upcoming Duals to display.</p> : undefined}

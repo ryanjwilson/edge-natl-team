@@ -28,8 +28,9 @@ Tracker.autorun(() => {
   const selectedTournamentId = Session.get('selectedTournamentId');
   const selectedWrestlerId = Session.get('selectedWrestlerId');
 
-  Session.set('isSidebarOpen', false);    // close on selection and browser refresh
-  Session.set('isMenuOpen', false);       // close on browser refresh
+  Session.set('isSidebarOpen', false);        // prevents admin sidebar panel animation on browser refresh
+  Session.set('isMenuOpen', false);           // prevents admin menu animation on browser refresh
+  Session.set('isApplicationOpen', false);    // prevents application animation on browser refresh
 
   // conditionally re-direct the application based on selected application,
   // tournament, wrestler, or current pathname.
@@ -64,11 +65,20 @@ Tracker.autorun(() => {
   document.body.classList.toggle('is-menu-open', Session.get('isMenuOpen'));
 });
 
+/*
+ * Tracks changes in the slide-out application view (mobile-only).
+ */
+
+Tracker.autorun(() => {
+  document.body.classList.toggle('is-application-open', Session.get('isApplicationOpen'));
+});
+
 /////// CLIENT APPLICATION EXECUTION STARTS HERE ///////////////////////////////////////////////////////////////////////////////////////////
 
 Meteor.startup(() => {
-  Session.set('isSidebarOpen', false);    // mobile list selected (tournament, wrestler, roster)
-  Session.set('isMenuOpen', false);       // application navigation (desktop and mobile)
+  Session.set('isSidebarOpen', false);      // mobile list selected (tournament, wrestler, roster)
+  Session.set('isMenuOpen', false);         // application navigation (desktop and mobile)
+  Session.set('isApplicationOpen', false);  // wrestler application (mobile-only)
 
   // setup selected tournament, wrestler, and roster for each view
 

@@ -1,111 +1,149 @@
 /*
- * Application container, including the sidebar and content editor panels. The
- * header and footer are specifically excluded.
+ * Application container, including sidebar and content editor panels. This is specific to the admin sections of the application.
  */
 
 .private-page-content {
-  // display: flex;
-  // height: $page-content-height;
-  // margin: 0 auto;
-  // max-width: $site-max-width;
-
-  // desktop
   display: flex;
   height: $page-content-height;
   margin: 0 auto;
+  max-width: $site-max-width;
   padding: $large-space;
-  max-width: $site-max-width;
-
   transition: margin-right 0.5s;
-}
 
-.public-page-content {
-  // display: flex;
-  // height: $page-content-height;
-  // margin: 0 auto;
-  // max-width: $site-max-width;
-
-  // desktop
-  background-color: black;//$light-gray;
-  display: flex;
-  height: $page-content-height;
-  margin: 0 auto;
-  padding-left: $space;
-  padding-right: $space;
-  //padding: $large-space;
-  max-width: $site-max-width;
-
-  transition: margin-right 0.5s;
+  @include mobile {
+    padding: 0;
+  }
 }
 
 /*
- * Application sidebar panel.
+ * Application container, including sidebar and main content panels. This is specific to the public sections of the application.
+ */
+
+.public-page-content {
+  display: flex;
+  height: $page-content-height;
+  margin: 0 auto;
+  max-width: $site-max-width;
+  padding-left: $space;
+  padding-right: $space;
+  transition: margin-right 0.5s;
+
+  @include mobile {
+    display: flex;
+    flex-direction: column;
+    //height: auto;
+    padding-left: $space / 2;
+    padding-right: $space / 2;
+  }
+}
+
+/*
+ * Sidebar panel for admin sections. These will include tournament, wrestler, team, and message lists.
  */
 
 .private-page-content__sidebar {
-  // display: flex;
-  // transition: left 0.7s ease;
-  // width: 100vw;
-  //
-  // position: fixed;
-  // top: $header-height;
-  // left: -100vw;
-  // bottom: 0;
-  // z-index: 1;
-
-  // desktop
   display: flex;
   padding-right: $large-space;
   position: static;
   min-width: $sidebar-min-width;
   width: $sidebar-width;
+
+  @include mobile {
+    display: flex;
+    transition: left 0.7s ease;
+    width: 100vw;
+
+    position: fixed;
+    top: $header-height;
+    left: -100vw;
+    bottom: 0;
+    z-index: 1;
+  }
 }
 
 /*
- * Application sidebar panel when open (mobile only).
+ * Sidebar panel (mobile only). This is specific to the admin sections of the application.
  */
 
 .is-sidebar-open .private-page-content__sidebar {
-  // left: 0;
+  @include mobile {
+    left: 0;
+  }
 }
 
 /*
- * Application content editor panel.
+ * Content editor panels. This is specific to the admin sections of the application.
  */
 
 .private-page-content__main {
-  // display: flex;
-  // width: 100%;
-
-  // desktop
   display: flex;
   min-width: $page-content-min-width;
   width: $page-content-width;
+
+  @include mobile {
+    display: flex;
+    margin: 0;
+    width: 100%;
+  }
 }
 
-.public-page-content__main {
-  // display: flex;
-  // width: 100%;
-
-  // desktop
-  display: flex;
-  min-width: $page-content-min-width;
-  width: $page-content-width;
-}
+/*
+ * The sidebar panel containing scheduled events for which parents and/or wrestlers can apply. This is specific to the public sections of the application.
+ */
 
 .public-page-content__tournaments {
   display: flex;
   margin-right: $space / 2;
   width: 35%;
+
+  @include mobile {
+    display: flex;
+    width: 100%;
+  }
 }
+
+/*
+ * The content panel containing the event application form for wrestlers and/or parents. This is specific to the public sections of the application.
+ * For the mobile version of the application, this panel is initially hidden.
+ */
 
 .public-page-content__application {
   display: flex;
   margin-left: $space / 2;
   width: 65%;
+
+  @include mobile {
+    display: flex;
+    margin-left: 0;
+    margin-top: 0;
+    width: 100%;
+
+    position: fixed;
+    bottom: $footer-height;
+    left: -100vw;
+    right: 0;
+    top: $header-height;
+    transition: left 0.7s ease;
+  }
 }
 
-.public-page-content__team-rules, .public-page-content__faq, .public-page-content__contact {
+/*
+ * The content panel containing the event application form for wrestlers and/or parents when visible (mobile-only). This is specific to the public
+ * sections of the application.
+ */
+
+.is-application-open .public-page-content__application {
+  @include mobile {
+    left: 0;
+  }
+}
+
+/*
+ * The content panels for the Team Rules, FAQ, Past Events, and Contact sections of the application. These are specific to the public sections of the
+ * application.
+ */
+
+.public-page-content__team-rules, .public-page-content__faq, .public-page-content__past-events, .public-page-content__contact {
   display: flex;
   width: 100%;
 }

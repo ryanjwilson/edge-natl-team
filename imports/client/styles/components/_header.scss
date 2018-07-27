@@ -32,17 +32,25 @@
   flex-direction: row;
 }
 
-.header__content-left .header__nav {
+.header__content-left .header__nav-item {
   padding-left: $space;
   padding-right: $space;
 }
 
-.header__content-right .header__nav {
+.header__content-center {
+  display: none;
+
+  @include mobile {
+    display: flex;
+  }
+}
+
+.header__content-right .header__nav-item {
   padding-left: $space;
   padding-right: $space;
 }
 
-.header__content-right .header__nav:last-child {
+.header__content-right .header__nav-item:last-child {
   padding-right: 0;
 }
 
@@ -62,16 +70,20 @@
   margin: 0;
 }
 
-.header__nav {
+.header__nav-item {
   color: $gray;
   font-family: "Montserrat", sans-serif;
   font-size: 1.7rem;
   font-weight: 500;
   height: $header-height;
   text-decoration: none;
+
+  @include mobile {
+    display: none;
+  }
 }
 
-.header__nav-selected {
+.header__nav-item-selected {
   font-weight: 700;
 }
 
@@ -84,27 +96,51 @@
   padding-left: $large-space;
 }
 
-.header__nav:hover {
+.header__nav-item:hover {
   color: white;
 }
 
-.header__nav-logo {
+.header__nav-logo-desktop {
   height: 5rem;
-  // left: 50%;
-  // right: 50%;
-  // margin: 0 auto;
-  // position: absolute;
+
+  @include mobile {
+    display: none;
+  }
+}
+
+.header__nav-logo-mobile {
+  display: none;
+
+  @include mobile {
+    display: flex;
+    height: 5rem;
+  }
 }
 
 // TODO - need to add icon to header title and style appropriately
 
-.header__sidebar-toggle {
-  // cursor: pointer;
-  // height: 3rem;
-  // width: 3rem;
-
-  // desktop
+.header__nav-toggle-icon {
   display: none;
+
+  @include mobile {
+    cursor: pointer;
+    display: flex;
+    height: 3rem;
+    padding: 0 !important;
+    width: 3rem;
+  }
+}
+
+.header__menu-toggle-icon {
+  display: none;
+
+  @include mobile {
+    cursor: pointer;
+    display: flex;
+    height: 3rem;
+    padding: 0 !important;
+    width: 3rem;
+  }
 }
 
 /*
