@@ -25,7 +25,7 @@ export class PrivateHeader extends React.Component {
       title: props.title,
       sidebarImage: (props.isSidebarOpen ? '/images/x.svg' : '/images/bars.svg'),
       menuImage: (props.isMenuOpen ? '/images/x.svg' : '/images/bars.svg'),
-      isSidebarOpen: props.isSidebarOpen,
+      isNavigationOpen: props.isNavigationOpen,
       isMenuOpen: props.isMenuOpen
     };
 
@@ -138,7 +138,7 @@ export class PrivateHeader extends React.Component {
 
 PrivateHeader.propTypes = {
   title: PropTypes.string.isRequired,
-  isSidebarOpen: PropTypes.bool.isRequired,
+  isNavigationOpen: PropTypes.bool.isRequired,
   isMenuOpen: PropTypes.bool.isRequired
 };
 
@@ -146,7 +146,7 @@ PrivateHeader.propTypes = {
 
 export default createContainer(() => {
   return {
-    isSidebarOpen: Session.get('isSidebarOpen'),
+    isNavigationOpen: Session.get('isNavigationOpen'),
     isMenuOpen: Session.get('isMenuOpen')
   };
 }, PrivateHeader);

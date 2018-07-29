@@ -8,7 +8,7 @@
 
 .editor {
   background-color: white;
-  border: 0.1rem solid $gray;
+  border: 1px solid $gray;
   display: flex;
   flex-direction: column;
   overflow-y: scroll;
@@ -31,7 +31,7 @@
   font-size: $large-font-size;
   margin-bottom: $large-space;
   outline: none;
-  padding: $input-spacing;
+  padding: $input-space;
 }
 
 /*
@@ -73,7 +73,7 @@
   font-weight: 300;
   margin-bottom: $large-space !important;
   outline: none;
-  padding: $input-spacing;
+  padding: $input-space;
   resize: none;
   width: 100%;
 }
@@ -97,7 +97,7 @@
 
 .editor__top-label {
   border-top: 2px solid $gray;
-  padding-top: $space;
+  padding-top: $default-space;
 }
 
 .editor__dynamic-label {
@@ -129,7 +129,7 @@
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  padding-bottom: $space;
+  padding-bottom: $default-space;
 }
 
 .editor__dropdown-menu {
@@ -137,19 +137,19 @@
   width: 100%;
 
   font-size: $base-font-size;
-  margin-top: $space / 4;
+  margin-top: $tiny-space;
   outline: none;
 }
 
 .editor__dropdown-content {
-  border-left: $item-border-width solid $primary;
+  border-left: $item-border-width solid $edge-gray;
   padding-left: $large-space;
-  margin-top: $space;
+  margin-top: $default-space;
   margin-left: -$large-space;
 }
 
 .editor__open-application {
-  border-left: $item-border-width solid $primary;
+  border-left: $item-border-width solid $edge-gray;
 }
 
 .editor__past-application {
@@ -159,5 +159,5 @@
 .application-label {
   border-top: 2px solid $gray;
   margin-top: $large-space;
-  padding-top: $space;
+  padding-top: $default-space;
 }

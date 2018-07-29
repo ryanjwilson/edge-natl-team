@@ -24,7 +24,7 @@
 .item-list__header {
   display: flex;
   flex-direction: column;
-  padding: $space;
+  padding: $default-space;
 }
 
 /*
@@ -40,7 +40,7 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  padding: $space;
+  padding: $default-space;
   transition: background-color 0.3s ease, border-left 0.3s ease;
 }
 
@@ -59,7 +59,7 @@
 
 .item--selected, .item--selected:hover {
   background-color: $light-gray;
-  border-left: $item-border-width solid $primary;
+  border-left: $item-border-width solid $edge-red;
 }
 
 // .item--published, .item--published:hover {
@@ -122,6 +122,6 @@
 
 .empty-item {
   font-style: italic;
-  padding: $space;
+  padding: $default-space;
   text-align: center;
 }

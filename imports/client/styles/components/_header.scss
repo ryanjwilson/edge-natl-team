@@ -16,8 +16,8 @@
   justify-content: space-between;
   margin: 0 auto;
   max-width: $site-max-width;
-  padding-left: $space;
-  padding-right: $space;
+  padding-left: $default-space;
+  padding-right: $default-space;
 }
 
 .header__content-left {
@@ -42,7 +42,7 @@
 
 .header__logo-desktop {
   height: 5rem;
-  padding-right: $space / 2;
+  padding-right: $small-space;
 
   @include mobile {
     display: none;
@@ -64,8 +64,8 @@
   font-size: 1.7rem;
   font-weight: 500;
   height: $header-height;
-  padding-left: $space;
-  padding-right: $space;
+  padding-left: $default-space;
+  padding-right: $default-space;
   text-decoration: none;
 
   @include mobile {
@@ -151,7 +151,7 @@
     height: 0;
     opacity: 0;
     padding: $large-space;
-    padding-top: $large-space + $space;
+    padding-top: $medium-space * 2;
     transition: height 0.7s linear, background-color 0.7s linear, visibility 0.7s linear, opacity 0.7s linear;
     visibility: hidden;
     width: 100vw;

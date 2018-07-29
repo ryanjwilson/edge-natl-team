@@ -24,16 +24,15 @@
   height: $page-content-height;
   margin: 0 auto;
   max-width: $site-max-width;
-  padding-left: $space;
-  padding-right: $space;
+  padding-left: $default-space;
+  padding-right: $default-space;
   transition: margin-right 0.5s;
 
   @include mobile {
     display: flex;
     flex-direction: column;
-    //height: auto;
-    padding-left: $space / 2;
-    padding-right: $space / 2;
+    padding-left: $small-space;
+    padding-right: $small-space;
   }
 }
 
@@ -93,7 +92,7 @@
 
 .public-page-content__tournaments {
   display: flex;
-  margin-right: $space / 2;
+  margin-right: $small-space;
   width: 35%;
 
   @include mobile {
@@ -109,7 +108,7 @@
 
 .public-page-content__application {
   display: flex;
-  margin-left: $space / 2;
+  margin-left: $small-space;
   width: 65%;
 
   @include mobile {
@@ -143,7 +142,10 @@
  * application.
  */
 
-.public-page-content__team-rules, .public-page-content__faq, .public-page-content__past-events, .public-page-content__contact {
+.public-page-content__team-rules,
+.public-page-content__faq,
+.public-page-content__past-events,
+.public-page-content__contact {
   display: flex;
   width: 100%;
 }

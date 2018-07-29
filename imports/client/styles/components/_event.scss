@@ -1,21 +1,21 @@
 .event {
   background: $light-gray;
-  border: 0.1rem solid $brand-secondary;
+  border: 1px solid $edge-red;
   border-radius: 0.7rem;
-  box-shadow: 0 0.4rem 0.8rem 0 rgba(0, 0, 0, 0.2), 0 0.6rem 2rem 0 rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 2px 0 rgba(0, 0, 0, 0.2);
   color: black;
-  margin: $space;
-  margin-bottom: $space / 2;
-  padding: $space;
+  margin: $default-space;
+  margin-bottom: $small-space;
+  padding: $default-space;
 }
 
 .event__bottom {
-  margin-bottom: $space;
+  margin-bottom: $default-space;
 }
 
 .event__header {
   align-items: center;
-  border-bottom: 2px solid $brand-secondary;
+  border-bottom: 2px solid $edge-red;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -39,7 +39,7 @@
 }
 
 .event__roster-icon span {
-  color: $brand-secondary;
+  color: $edge-red;
   font-family: "Montserrat", sans-serif;
   font-size: 1rem;
   font-weight: bold;
@@ -50,15 +50,15 @@
   color: black;
   font-family: "Montserrat", sans-serif;
   font-size: 1.6rem;
-  padding-bottom: $space / 2;
+  padding-bottom: $small-space;
   padding-left: 0 !important;
 }
 
 .event__detail-header {
   font-family: "Montserrat", sans-serif;
   font-size: 1.4rem;
-  padding-bottom: $space / 4;
-  padding-top: $space;
+  padding-bottom: $tiny-space;
+  padding-top: $default-space;
 }
 
 .event__detail {

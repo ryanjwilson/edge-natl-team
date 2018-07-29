@@ -6,7 +6,7 @@
 .checkbox {
   cursor: pointer;
   display: block;
-  margin-bottom: $space;
+  margin-bottom: $default-space;
 }
 
 /*
@@ -16,7 +16,7 @@
 
 .checkbox__box {
   cursor: pointer;
-  margin-right: $space / 2;
+  margin-right: $small-space;
 }
 
 /*

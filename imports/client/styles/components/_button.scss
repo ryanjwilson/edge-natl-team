@@ -3,15 +3,15 @@
  */
 
 .button {
-  background-color: $button-bg;
+  background-color: $button-bg-color;
   border: none;
   color: $button-color;
   cursor: pointer;
   font-size: $base-font-size;
   line-height: 1.4;
-  margin-bottom: $space;
+  margin-bottom: $default-space;
   outline: none;
-  padding: $input-spacing;
+  padding: $input-space;
 }
 
 /*
@@ -22,15 +22,15 @@
  */
 
 .button--add {
-  background-color: $button-bg;
+  background-color: $button-bg-color;
   border: none;
   color: $button-color;
   cursor: pointer;
   font-size: $base-font-size;
   line-height: 1.4;
-  margin-bottom: $space;
+  margin-bottom: $default-space;
   outline: none;
-  padding: $input-spacing;
+  padding: $input-space;
   text-transform: uppercase;
 }
 
@@ -66,7 +66,7 @@
   margin: 0;
   margin-bottom: $large-space;
   outline: none;
-  padding: $input-spacing;
+  padding: $input-space;
   width: 25%;
 }
 
@@ -80,7 +80,7 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  margin-top: $large-space + $space;
+  margin-top: $medium-space * 2;
 }
 
 /*
@@ -104,7 +104,7 @@
  * Hover effects for Add, Publish, Unpublish, Cancel, and Delete buttons.
  */
 
-.button--add:hover { background-color: darken($button-bg, 5); }
+.button--add:hover { background-color: darken($button-bg-color, 5); }
 .button--publish:hover, .button--save:hover { background-color: darken($dark-green, 5); }
 .button--unpublish:hover { background-color: darken($medium-dark-gray, 5); }
 .button--cancel:hover { background-color: darken($medium-gray, 5); }
@@ -116,9 +116,9 @@
 
 .modal-button {
   font-size: $base-font-size !important;
-  margin-bottom: $space !important;
-  margin-top: $space !important;
-  padding: $space !important;
+  margin-bottom: $default-space !important;
+  margin-top: $default-space !important;
+  padding: $default-space !important;
 }
 
 /*

@@ -2,21 +2,21 @@
 
 .container {
   background: $light-gray;
-  border: 0.2rem solid $brand-secondary;
-  border-top: 5rem solid $brand-secondary;
-  border-radius: 0.7rem;
+  border: 2px solid $edge-red;
+  border-top: $container-top-border solid $edge-red;
+  border-radius: 7px;
   display: flex;
   flex-direction: column;
   margin-top: $medium-space;
   margin-bottom: $medium-space;
-  padding: $space;
+  padding: $default-space;
   padding-bottom: 0;
-  padding-top: $space;
+  padding-top: $default-space;
   width: 100%;
 
   @include mobile {
-    margin-bottom: $space / 2;
-    margin-top: $space / 2;
+    margin-bottom: $small-space;
+    margin-top: $small-space;
   }
 }
 
@@ -24,14 +24,14 @@
   display: flex;
   flex-direction: column;
   overflow-y: scroll;
-  padding: $space;
+  padding: $default-space;
   padding-bottom: 0;
 
   -webkit-overflow-scrolling: touch;    // TODO - are there any other mobile-specific styles?
 }
 
 .container__content hr {
-  border: 0.1rem solid $brand-secondary;
+  border: 1px solid $edge-red;
 }
 
 .container__header {
@@ -39,7 +39,7 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  margin-top: -($space/2);
+  margin-top: -$small-space;
 }
 
 .container__header img {
@@ -61,7 +61,7 @@
     display: flex;
     flex-direction: column;
     margin-bottom: 0.25rem;
-    margin-top: -($space * 2 + 5rem - 1.6rem);
+    margin-top: -($large-space + $container-top-border - 1.6rem);
   }
 }
 
@@ -99,24 +99,24 @@
   display: none;
 
   @include mobile {
-    background-color: #E5C100;
-    border: 0.1rem solid $very-dark-gray;
-    border-radius: 0.4rem;
-    color: $very-dark-gray;
+    background-color: $edge-gold;
+    border: 1px solid black;
+    border-radius: 4px;
+    color: black;
     display: flex;
     font-family: "Montserrat", sans-serif;
     font-size: $base-font-size;
     font-weight: bold;
     line-height: 1;
-    margin-right: $space / 4;
+    margin-right: $tiny-space;
     outline: none;
-    padding: $input-spacing;
+    padding: $input-space;
     text-transform: uppercase;
   }
 }
 
 .container__header button:hover {
-  background-color: darken(#E5C100, 5);
+  background-color: darken($edge-gold, 5);
   cursor: pointer;
 }
 
@@ -125,18 +125,17 @@
   font-family: "Montserrat", sans-serif;
   font-size: 1.8rem;
   line-height: 5rem;
-  margin-top: -($space * 2 + 5rem - 1.6rem);
+  margin-top: -($large-space + $container-top-border - 1.6rem);
 }
 
 .container__subtitle {
   font-family: "Montserrat", sans-serif;
   font-size: 1.6rem;
-  line-height: 2.1rem;
-  padding-top: $space / 2;
+  line-height: 2.1;
+  padding-top: $small-space;
 }
 
 .container__link {
-  // color: $brand-secondary;
   border-bottom: 1px solid $edge-red;
   text-decoration: none;
 }
@@ -147,7 +146,7 @@
 }
 
 .container__content ol {
-  padding: $space;
+  padding: $default-space;
   padding-bottom: 0;
   padding-left: $large-space;
 }
@@ -163,11 +162,11 @@
 
 .container__schedule {
   padding: 0;
-  padding-top: $space;
+  padding-top: $default-space;
 }
 
 .container__schedule h5 {
-  padding-left: $space;
+  padding-left: $default-space;
 }
 
 .container__schedule .container__content {
@@ -176,14 +175,14 @@
 
 .container__application {
   @include mobile {
-    margin-left: $space / 2;
-    margin-right: $space / 2;
+    margin-left: $small-space;
+    margin-right: $small-space;
   }
 }
 
 .container__application-form {
   height: 100%;
-  padding-top: $space / 2;
+  padding-top: $small-space;
 
   @include mobile {
     height: auto;
@@ -199,14 +198,14 @@
 }
 
 .container__application-form label.bordered {
-  border-top: 2px solid $brand-secondary;
-  margin-top: $space;
-  padding-top: $space / 2;
+  border-top: 2px solid $edge-red;
+  margin-top: $default-space;
+  padding-top: $small-space;
 }
 
 .container__application-form label p {
   margin-bottom: 1rem;
-  padding-top: $space;
+  padding-top: $default-space;
 }
 
 .container__application-form label input {
@@ -215,7 +214,7 @@
   font-weight: 300;
   margin: 0;
   outline: none;
-  padding: $input-spacing;
+  padding: $input-space;
   resize: none;
   width: 100%;
 }
@@ -225,8 +224,8 @@
   font-family: "Montserrat", sans-serif;
   font-size: $base-font-size;
   height: 3rem;
-  margin-bottom: $space / 2;
-  margin-top: $space / 4;
+  margin-bottom: $small-space;
+  margin-top: $tiny-space;
   outline: none;
   width: 100%;
 }
@@ -243,7 +242,7 @@
   align-items: center;
   display: flex;
   flex-direction: row;
-  margin-bottom: $space / 2;
+  margin-bottom: $small-space;
 }
 
 .container__application-form label div.dynamic-field img {
@@ -259,12 +258,12 @@
 }
 
 .container__application-form fieldset {
-  border-radius: 0.4rem;
-  margin-top: $space;
-  padding: $space;
+  border-radius: 4px;
+  margin-top: $default-space;
+  padding: $default-space;
   padding-top: 0;
-  -moz-border-radius: 0.4rem;
-  -webkit-border-radius: 0.4rem;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
 }
 
 .container__application-form fieldset legend {
@@ -276,35 +275,35 @@
 }
 
 .container__application-form button {
-  background-color: #E5C100;
-  border: 1px solid $brand-secondary;
+  background-color: $edge-gold;
+  border: 1px solid $edge-red;
   border-radius: 4px;
-  color: $very-dark-gray;
+  color: black;
   font-size: $base-font-size;
   font-weight: bold;
   line-height: 1.4;
-  margin-bottom: $space;
+  margin-bottom: $default-space;
   margin-top: $medium-space;
   min-height: 4rem !important;
   outline: none;
-  padding: $input-spacing;
+  padding: $input-space;
   text-transform: uppercase;
 }
 
 .container__application-form button:hover {
-  background-color: darken(#E5C100, 5);
+  background-color: darken($edge-gold, 5);
   cursor: pointer;
 }
 
 /// TEAM RULES CONTAINER ///////////////////////////////////////////////////////
 
 .container__content ol.team-rules li {
-  padding: $space / 3;
-  padding-left: $space;
+  padding: $default-space / 3;
+  padding-left: $default-space;
 }
 
 .container__content ol.team-rules li:first-child {
-  padding-top: $space;
+  padding-top: $default-space;
 }
 
 .container__content ol.team-rules li:last-child {
@@ -312,40 +311,40 @@
 }
 
 .container__content ol.team-rules li ul {
-  margin-left: $large-space + $space;
+  margin-left: $medium-space * 2;
 }
 
 .container__content ol.team-rules li ul li {
   padding-bottom: 0 !important;
-  padding-left: $space / 3;
+  padding-left: $default-space / 3;
   padding-top: 0 !important;
 }
 
 .container__content ol.team-rules li ul li:first-child {
-  padding-top: $space / 1.5;
+  padding-top: $default-space / 1.5;
 }
 
 .container__content ol.team-rules li ul li:last-child {
   padding-bottom: 0;
-  padding-top: $space / 4;
+  padding-top: $tiny-space;
 }
 
 .container__content ol.team-rules li:last-child ul li:last-child {
-  padding-bottom: $space !important;
+  padding-bottom: $default-space !important;
 }
 
 /// FAQ CONTAINER //////////////////////////////////////////////////////////////
 
 .container__content ol.faq li {
-  padding-left: $space;
+  padding-left: $default-space;
 }
 
 .container__content ol.faq li:first-child {
-  padding-top: $space;
+  padding-top: $default-space;
 }
 
 .container__content ol.faq li:last-child {
-  padding-bottom: $space;
+  padding-bottom: $default-space;
 }
 
 .container__content ol.faq li p:first-child {
@@ -378,7 +377,7 @@
   font-family: "Montserrat", sans-serif;
   font-size: $base-font-size;
   margin-bottom: 1rem;
-  padding-top: $space;
+  padding-top: $default-space;
 }
 
 .container__contact-form label input {
@@ -387,7 +386,7 @@
   font-weight: 300;
   margin: 0;
   outline: none;
-  padding: $input-spacing;
+  padding: $input-space;
   resize: none;
   width: 100%;
 }
@@ -400,7 +399,7 @@
   height: 100%;
   margin: 0;
   outline: none;
-  padding: $input-spacing;
+  padding: $input-space;
   resize: none;
   width: 100%;
 
@@ -412,23 +411,23 @@
 }
 
 .container__contact-form button {
-  background-color: #E5C100;
-  border: 0.1rem solid $brand-secondary;
-  border-radius: 0.4rem;
-  color: $very-dark-gray;
+  background-color: $edge-gold;
+  border: 1px solid $edge-red;
+  border-radius: 4px;
+  color: black;
   font-family: "Montserrat", sans-serif;
   font-size: $base-font-size;
   font-weight: bold;
   line-height: 1.4;
-  margin-bottom: $space;
+  margin-bottom: $default-space;
   margin-top: $large-space;
   min-height: 4rem !important;
   outline: none;
-  padding: $input-spacing;
+  padding: $input-space;
   text-transform: uppercase;
 }
 
 .container__contact-form button:hover {
-  background-color: darken(#E5C100, 5);
+  background-color: darken($edge-gold, 5);
   cursor: pointer;
 }

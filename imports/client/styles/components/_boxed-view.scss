@@ -18,10 +18,10 @@
 
 .boxed-view__box {
   background-color: $boxed-view-bg;
-  border: 1px solid $boxed-view-border-color;
-  padding: 2.4rem;
+  border: 1px solid $edge-red;
+  padding: $medium-space;
   text-align: center;
-  width: 24rem;
+  width: $box-width;
 }
 
 /*
