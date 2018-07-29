@@ -28,12 +28,11 @@ Tracker.autorun(() => {
   const selectedTournamentId = Session.get('selectedTournamentId');
   const selectedWrestlerId = Session.get('selectedWrestlerId');
 
-  Session.set('isSidebarOpen', false);        // prevents admin sidebar panel animation on browser refresh
+  Session.set('isNavigationOpen', false);     // prevents admin sidebar panel animation on browser refresh
   Session.set('isMenuOpen', false);           // prevents admin menu animation on browser refresh
   Session.set('isApplicationOpen', false);    // prevents application animation on browser refresh
 
-  // conditionally re-direct the application based on selected application,
-  // tournament, wrestler, or current pathname.
+  // conditionally re-direct the application based on selected application, tournament, wrestler, or current pathname.
 
   if (selectedTournamentId) {
     browserHistory.replace(`/tournaments/${selectedTournamentId}`);
@@ -53,8 +52,18 @@ Tracker.autorun(() => {
  * slide-out item list panel to take effect.
  */
 
+// TODO - how will slide-out item list panel be handled for mobile version of the application?
+
+// Tracker.autorun(() => {
+//   document.body.classList.toggle('is-sidebar-open', Session.get('isSidebarOpen'));
+// });
+
+/*
+ * Tracks changes in the mobile-frienly public navigation menu (i.e., opened or closed).
+ */
+
 Tracker.autorun(() => {
-  document.body.classList.toggle('is-sidebar-open', Session.get('isSidebarOpen'));
+  document.body.classList.toggle('is-navigation-open', Session.get('isNavigationOpen'));
 });
 
 /**
@@ -76,29 +85,28 @@ Tracker.autorun(() => {
 /////// CLIENT APPLICATION EXECUTION STARTS HERE ///////////////////////////////////////////////////////////////////////////////////////////
 
 Meteor.startup(() => {
-  Session.set('isSidebarOpen', false);      // mobile list selected (tournament, wrestler, roster)
-  Session.set('isMenuOpen', false);         // application navigation (desktop and mobile)
-  Session.set('isApplicationOpen', false);  // wrestler application (mobile-only)
+  Session.set('isNavigationOpen', false);     // public navigation menu (mobile-only)
+  Session.set('isMenuOpen', false);           // admin menu (mobile-only)
+  Session.set('isApplicationOpen', false);    // wrestler application (mobile-only)
 
-  // setup selected tournament, wrestler, and roster for each view
+  // setup selected tournament, wrestler, team, and message for each of the associated views
 
   Session.set('selectedTournamentId', undefined);
   Session.set('selectedWrestlerId', undefined);
-  //Session.set('selectedRosterId', undefined);
 
-  // setup multiselected tournaments, wrestlers, and rosters for each view
+  // setup multiselected tournaments, wrestlers, teams, and messages for each of the associated views
 
   Session.set('multiselectedTournamentIds', []);
   Session.set('multiselectedWrestlerIds', []);
-  // Session.set('multiselectedRosterIds', []);
 
   // setup session variables for list filtering
 
   Session.set('showPublishedFilter', true);               // tournament view, events shown on public calendar
   Session.set('showUnpublishedFilter', true);             // tournament view, events hidden on public calendar
-  Session.set('selectedTournamentFilter', undefined);     // wrestler view, tournament selected from filter dropdown menu
-  Session.set('selectedDivisionFilter', undefined);       // wrestler view, division selected from filter dropdown
-  Session.set('selectedWeightClassFilter', undefined);    // wrestler view, weight class selected from filter dropdown
+
+  Session.set('selectedTournamentFilter', undefined);     // wrestler view, tournament selected from dropdown menu
+  Session.set('selectedDivisionFilter', undefined);       // wrestler view, division selected from dropdown menu
+  Session.set('selectedWeightClassFilter', undefined);    // wrestler view, weight class selected from dropdown menu
 
   ReactDOM.render(routes, document.getElementById('app'));
 });

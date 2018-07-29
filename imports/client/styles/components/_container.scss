@@ -136,11 +136,14 @@
 }
 
 .container__link {
-  color: $brand-secondary;
+  // color: $brand-secondary;
+  border-bottom: 1px solid $edge-red;
+  text-decoration: none;
 }
 
 .container__link:hover {
-  text-decoration: none;
+  border-bottom: none;
+  color: $edge-red;
 }
 
 .container__content ol {

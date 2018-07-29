@@ -1,7 +1,12 @@
 .header {
-  background: $header-bg;
+  background-color: $header-bg;
   color: $header-color;
   height: $header-height;
+  transition: background-color 0.7s ease;
+}
+
+.is-navigation-open .header, .is-menu-open .header {
+  background: black;
 }
 
 .header__content {
@@ -33,6 +38,43 @@
   align-items: center;
   display: flex;
   flex-direction: row;
+}
+
+.header__logo-desktop {
+  height: 5rem;
+  padding-right: $space / 2;
+
+  @include mobile {
+    display: none;
+  }
+}
+
+.header__logo-mobile {
+  display: none;
+
+  @include mobile {
+    display: flex;
+    height: 5rem;
+  }
+}
+
+.header__nav-item {
+  color: $header-color;
+  font-family: "Montserrat", sans-serif;
+  font-size: 1.7rem;
+  font-weight: 500;
+  height: $header-height;
+  padding-left: $space;
+  padding-right: $space;
+  text-decoration: none;
+
+  @include mobile {
+    display: none;
+  }
+}
+
+.header__nav-item:hover {
+  color: $edge-gold;
 }
 
 .header__admin-icon-group {
@@ -73,85 +115,6 @@
   font-weight: 500;
 }
 
-.header__content-left .header__nav-item {
-  padding-left: $space;
-  padding-right: $space;
-}
-
-.header__content-right .header__nav-item {
-  padding-left: $space;
-  padding-right: $space;
-}
-
-.header__content-right .header__nav-item:last-child {
-  padding-right: 0;
-}
-
-.header__content-left img {
-  padding-right: $space;
-}
-
-/*
- * Title component of the header bar.
- */
-
-.header__title {
-  font-family: "Montserrat", sans-serif;
-  font-size: $title-font-size;
-  font-weight: 400;
-  letter-spacing: 0.15rem;
-  margin: 0;
-}
-
-.header__nav-item {
-  color: $header-color;
-  font-family: "Montserrat", sans-serif;
-  font-size: 1.7rem;
-  font-weight: 500;
-  height: $header-height;
-  text-decoration: none;
-
-  @include mobile {
-    display: none;
-  }
-}
-
-.header__nav-item-selected {
-  font-weight: 700;
-}
-
-.header__left {
-  padding-left: $space;
-  padding-right: $space;
-}
-
-.header__right {
-  padding-left: $large-space;
-}
-
-.header__nav-item:hover {
-  color: #E5C100;
-}
-
-.header__nav-logo-desktop {
-  height: 5rem;
-
-  @include mobile {
-    display: none;
-  }
-}
-
-.header__nav-logo-mobile {
-  display: none;
-
-  @include mobile {
-    display: flex;
-    height: 5rem;
-  }
-}
-
-// TODO - need to add icon to header title and style appropriately
-
 .header__navigation-menu-icon {
   display: none;
 
@@ -176,233 +139,81 @@
   }
 }
 
-/*
- * Menu toggle button.
- */
+.header__mobile-navigation-menu, .header__mobile-admin-menu {
+  display: none;
 
-.header__menu-toggle {
-  cursor: pointer;
-  height: 3rem;
-  width: 3rem;
+  @include mobile {
+    animation-direction: reverse;
+    background-color: $header-bg;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    height: 0;
+    opacity: 0;
+    padding: $large-space;
+    padding-top: $large-space + $space;
+    transition: height 0.7s linear, background-color 0.7s linear, visibility 0.7s linear, opacity 0.7s linear;
+    visibility: hidden;
+    width: 100vw;
+
+    position: fixed;
+    left: 0;
+    top: $header-height;
+  }
 }
 
-/*
- * Container for slide-out menu (desktop only).
- */
+.header__mobile-menu-item {
+  color: white;
+  border-bottom: 1px solid $edge-gold;
+  font-family: "Montserrat", sans-serif;
+  font-size: 1.8rem;
+  font-weight: 500;
+  margin-left: $large-space;
+  margin-top: $large-space;
+  padding-bottom: $large-space;
+  text-decoration: none;
+}
 
-.header__menu {
-  background: $very-dark-gray;
+.header__mobile-menu-item:hover {
+  color: $edge-gold;
+}
+
+.header__mobile-menu-item:last-child {
+  border-bottom: none;
+}
+
+.is-navigation-open .header__mobile-navigation-menu {
+  background-color: black;
+  color: white;
+  display: flex;
   height: 100vh;
-  overflow-x: hidden;
-  transition: right .5s ease-in-out;
-  width: $slide-out-menu-width;
-  z-index: 2;
+  opacity: 0.95;
+  visibility: visible;
+  width: 100vw;
 
   position: fixed;
-  right: -$slide-out-menu-width;
-  top: 0;
+  left: 0;
+  top: $header-height;
 }
 
-/*
- * Container element for all components in the menu.
- *    - Profile section (picture, name, last login)
- *    - Tournaments link
- *    - Wrestlers link
- *    - Rosters link
- *    - Settings link
- *    - Help link
- *    - Logout button
- */
-
-.header__menu-items {
-  padding-left: $space;
-  padding-top: $header-height + $space;
-}
-
-/*
- * Container component for the profile section.
- *    - Profile picture
- *    - Name
- *    - Last login
- */
-
-.header__menu-profile {
-  align-items: center;
-  border-bottom: 3px solid $light-gray;
+.is-menu-open .header__mobile-admin-menu {
+  background-color: black;
+  color: white;
   display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  margin-bottom: $space / 2;
-  margin-right: $space;
-  padding-bottom: $large-space;
-  padding-left: $space;
+  height: 100vh;
+  opacity: 0.95;
+  visibility: visible;
+  width: 100vw;
+
+  position: fixed;
+  left: 0;
+  top: $header-height;
 }
 
-/*
- * Profile picture.
- */
-
-.header__menu-profile .profile-picture {
-  height: 7rem;
-  padding-right: 2rem;
+.is-navigation-open .header__admin-menu-icon {
+  visibility: hidden;
 }
 
-/*
- * Profile text section.
- *    - Name
- *    - Last login
- */
-
-.header__menu-profile .profile-text {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  height: 7rem;
-}
-
-/*
- * The profile text header, containing the name.
- */
-
-.header__menu-profile .profile-text h1 {
-  margin: 0;
-  padding: 0;
-}
-
-/*
- * The profile text subtext, containing the last login time.
- */
-
-.header__menu-profile .profile-text p {
-  font-style: italic;
-  margin: 0;
-  padding: 0;
-}
-
-/*
- * Container element for all menu links.
- *    - Tournaments
- *    - Wrestlers
- *    - Rosters
- *    - Settings
- *    - Help
- *    - Logout
- */
-
-.header__menu-links {
-  margin-right: $space;
-  padding-bottom: $space;
-}
-
-/*
- * Container component for a link within the slide-out menu.
- *    - Link icon
- *    - Link text
- */
-
-.header__menu-item {
-  align-items: center;
-  border-bottom: 1px solid $light-gray;
-  color: $gray;
-  display: flex;
-  flex-direction: row;
-  padding-bottom: $large-space;
-  padding-left: $space;
-  padding-top: $large-space;
-  text-decoration: none;
-}
-
-/*
- * Hover effect for menu links within the slide-out menu.
- */
-
-.header__menu-item:hover {
-  font-weight: bold;
-
-  .header__menu-link {
-    color: white;
-  }
-
-  .logout {
-    font-weight: bold;
-    color: white;
-  }
-}
-
-/*
- * Menu link icon within the slide-out menu.
- */
-
-.header__menu-link-icon {
-  height: 2.5rem;
-  margin-right: 2rem;
-  width: 2.5rem;
-}
-
-/*
- * A link within the slide-out menu.
- *    - Tournaments
- *    - Wrestlers
- *    - Rosters
- *    - Settings
- *    - Help
- *    - Logout
- */
-
-.header__menu-link {
-  color: $gray;
-  display: block;
-  text-decoration: none;
-}
-
-/*
- * Specialized styling for the Logout link specifically.
- */
-
-.logout {
-  border: none;
-  display: flex;
-  width: 100%;
-}
-
-/*
- * Close button for an open slide-out menu.
- */
-
-.header__menu .header__menu-toggle {
-  height: 3rem;
-  width: 3rem;
-
-  position: absolute;
-  top: 2rem;
-  left: 2rem;
-  bottom: 2rem;
-}
-
-/*
- * Section of text asking users to report bugs or make feature suggestions.
- */
-
-.bug-report {
-  border-top: 3px solid $light-gray;
-  color: $light-gray;
-  margin-right: $space;
-  padding-left: $space;
-  padding-top: $large-space;
-}
-
-/*
- * Hover effect for link within bug report section.
- */
-
-.bug-report button:hover {
-  text-decoration: none;
-}
-
-/*
- * Application menu panel when open (desktop only).
- */
-
-.is-menu-open .header__menu {
-  right: 0;
+.is-menu-open .header__navigation-menu-icon {
+  visibility: hidden;
 }

@@ -20,18 +20,10 @@ const onAuthenticationChange = (isAuthenticated, currentPagePrivacy) => {
   const isPrivatePage = (currentPagePrivacy === 'authenticated');
   const isPublicPage = (currentPagePrivacy === 'unauthenticated');
 
-  // redirect to login page if:
-  //    the user is not currently logged in
-  //    the user is trying to access the tournaments view page
-  //
-  // redirect to dashboard page if:
-  //    the user is currently logged in
-  //    the user is trying to access the login page
-
   if (isPrivatePage && !isAuthenticated) {
     browserHistory.replace('/admin');
   } else if (isPublicPage && isAuthenticated) {
-    browserHistory.replace('/tournaments');       // default view
+    browserHistory.replace('/');
   }
 };
 
@@ -39,7 +31,7 @@ const onEnterGlobal = (nextState) => {
   const destination = nextState.routes[nextState.routes.length - 1];
 
   Session.set('currentPagePrivacy', destination.privacy);
-  Session.set('isMenuOpen', false);   // close the slide-out (desktop-only) menu after selection
+  Session.set('isMenuOpen', false);
 };
 
 const onChangeGlobal = (prevState, nextState) => {
@@ -79,8 +71,8 @@ const routes = (
       <Route path="/media" component={PastEvents}/>
       <Route path="/contact" component={Contact}/>
       <Route path="/admin" component={Login} privacy="unauthenticated"/>
-      <Route path="/applications" component={ApplicationView} privacy="authenticated"/>
-      <Route path="/applications/:applicationId" component={ApplicationView} privacy="authenticated" onEnter={onEnterApplication} onLeave={onLeaveApplication}/>
+      {/* <Route path="/applications" component={ApplicationView} privacy="authenticated"/>
+      <Route path="/applications/:applicationId" component={ApplicationView} privacy="authenticated" onEnter={onEnterApplication} onLeave={onLeaveApplication}/> */}
       <Route path="/tournaments" component={TournamentView} privacy="authenticated"/>
       <Route path="/tournaments/:tournamentId" component={TournamentView} privacy="authenticated" onEnter={onEnterTournament} onLeave={onLeaveTournament}/>
       <Route path="/wrestlers" component={WrestlerView} privacy="authenticated"/>

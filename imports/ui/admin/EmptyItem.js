@@ -19,8 +19,7 @@ export class EmptyItem extends React.Component {
     super(props);
 
     this.state = {
-      label: props.label,
-      message: props.message    // currently unused
+      label: props.label
     };
   }
 
@@ -31,8 +30,9 @@ export class EmptyItem extends React.Component {
    */
 
   componentWillReceiveProps(nextProps) {
-    if (this.props.label !== nextProps.label) this.setState({ label: nextProps.label });
-    if (this.props.message !== nextProps.message) this.setState({ message: nextProps.message });
+    if (this.props.label !== nextProps.label) {
+      this.setState({ label: nextProps.label });
+    }
   }
 
   /**
@@ -57,5 +57,7 @@ EmptyItem.propTypes = {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 export default createContainer(() => {
-  return {};
+  return {
+    
+  };
 }, EmptyItem);

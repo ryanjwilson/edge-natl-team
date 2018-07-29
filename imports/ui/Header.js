@@ -26,7 +26,7 @@ export class Header extends React.Component {
 
     this.state = {
       isLoggedIn: props.isLoggedIn,
-      isSidebarOpen: props.isNavigationOpen,
+      isNavigationOpen: props.isNavigationOpen,
       isMenuOpen: props.isMenuOpen
     };
 
@@ -35,8 +35,6 @@ export class Header extends React.Component {
 
     this.toggleNavigation = this.toggleNavigation.bind(this);
     this.toggleMenu = this.toggleMenu.bind(this);
-    // this.toggleMenu = this.toggleMenu.bind(this);
-    // this.logout = this.logout.bind(this);
   }
 
   /**
@@ -46,41 +44,32 @@ export class Header extends React.Component {
    */
 
   componentWillReceiveProps(nextProps) {
-    // if (this.props.title !== nextProps.title) this.setState({ title: nextProps.title });
-    //
-    // if (this.props.isSidebarOpen !== nextProps.isSidebarOpen) {
-    //   this.setState({ sidebarImage: (nextProps.isSidebarOpen ? '/images/x.svg' : '/images/bars.svg'), isSidebarOpen: nextProps.isSidebarOpen });
-    // }
-    //
-    // if (this.props.isMenuOpen !== nextProps.isMenuOpen) {
-    //   this.setState({ menuImage: (nextProps.isMenuOpen ? '/images/x.svg' : '/images/bars.svg'), isMenuOpen: nextProps.isMenuOpen });
-    // }
-
     if (this.props.isLoggedIn !== nextProps.isLoggedIn) this.setState({ isLoggedIn: nextProps.isLoggedIn });
-    if (this.props.isSidebarOpen !== nextProps.isSidebarOpen) this.setState({ isSidebarOpen: nextProps.isSidebarOpen });
+    if (this.props.isNavigationOpen !== nextProps.isNavigationOpen) this.setState({ isNavigationOpen: nextProps.isNavigationOpen });
     if (this.props.isMenuOpen !== nextProps.isMenuOpen) this.setState({ isMenuOpen: nextProps.isMenuOpen });
   }
 
   /**
-   * Toggles the state of the sidebar between open and closed.
+   * Toggles the state of the navigation menu.
    */
 
   toggleNavigation() {
-    if (!this.state.isSidebarOpen && this.state.isMenuOpen) {
+    if (!this.state.isNavigationOpen && this.state.isMenuOpen) {
       Session.set('isMenuOpen', false);
     }
 
-    Session.set('isSidebarOpen', !this.state.isSidebarOpen);
+    Session.set('isNavigationOpen', !this.state.isNavigationOpen);
   }
 
   /**
-   * Toggles the state of the menu between open and closed.
+   * Toggles the state of the admin menu.
    */
 
   toggleMenu() {
-    if (!this.state.isMenuOpen && this.state.isSidebarOpen) {
-      Session.set('isSidebarOpen', false);
+    if (!this.state.isMenuOpen && this.state.isNavigationOpen) {
+      Session.set('isNavigationOpen', false);
     }
+
     Session.set('isMenuOpen', !this.state.isMenuOpen);
   }
 
@@ -89,7 +78,6 @@ export class Header extends React.Component {
    */
 
   logout() {
-    console.log('logging out');
     Accounts.logout();
   }
 
@@ -100,14 +88,14 @@ export class Header extends React.Component {
    */
 
   render() {
-    const navIconSrc = (this.state.isSidebarOpen ? '/images/navigation/menu-close-button.svg' : '/images/navigation/navigation-menu-button.svg');
+    const navIconSrc = (this.state.isNavigationOpen ? '/images/navigation/menu-close-button.svg' : '/images/navigation/navigation-menu-button.svg');
     const menuIconSrc = (this.state.isMenuOpen ? '/images/navigation/menu-close-button.svg' : '/images/navigation/admin-menu-button.svg');
 
     return (
       <div className="header">
         <div className="header__content">
           <div className="header__content-left">
-            <img src="/images/brand/edge-team-logo.png" className="header__nav-logo-desktop"/>
+            <img src="/images/brand/edge-team-logo.png" className="header__logo-desktop"/>
             <div>
               <img src={navIconSrc} className="header__navigation-menu-icon" onClick={this.toggleNavigation}/>
               <Link to="/" className="header__nav-item">SCHEDULE</Link>
@@ -118,7 +106,7 @@ export class Header extends React.Component {
             </div>
           </div>
           <div className="header__content-center">
-            <img src="/images/brand/edge-team-logo.png" className="header__nav-logo-mobile"/>
+            <img src="/images/brand/edge-team-logo.png" className="header__logo-mobile"/>
           </div>
           {Meteor.userId() ?
             <div className="header__content-right">
@@ -134,6 +122,35 @@ export class Header extends React.Component {
             <div className="header__content-right">
               <img src={menuIconSrc} className="header__admin-menu-icon" onClick={this.toggleMenu}/>
               <IconLink destination="/admin" src="/images/admin/login-button.svg" hover="/images/admin/login-hover-button.svg"/>
+            </div>
+          }
+        </div>
+
+        {/* navigation menu */}
+
+        <div className="header__mobile-navigation-menu">
+          <Link to="/" className="header__mobile-menu-item" onClick={this.toggleNavigation}>SCHEDULE</Link>
+          <Link to="/rules" className="header__mobile-menu-item" onClick={this.toggleNavigation}>RULES</Link>
+          <Link to="/faq" className="header__mobile-menu-item" onClick={this.toggleNavigation}>FAQ</Link>
+          <Link to="/media" className="header__mobile-menu-item" onClick={this.toggleNavigation}>MEDIA</Link>
+          <Link to="/contact" className="header__mobile-menu-item" onClick={this.toggleNavigation}>CONTACT</Link>
+        </div>
+
+        {/* admin menu */}
+
+        <div>
+          {Meteor.userId() ?
+            <div className="header__mobile-admin-menu">
+              <Link to="/tournaments" className="header__mobile-menu-item" onClick={this.toggleMenu}>TOURNAMENTS</Link>
+              <Link to="/wrestlers" className="header__mobile-menu-item" onClick={this.toggleMenu}>WRESTLERS</Link>
+              <Link to="/teams" className="header__mobile-menu-item" onClick={this.toggleMenu}>TEAMS</Link>
+              <Link to="/messages" className="header__mobile-menu-item" onClick={this.toggleMenu}>MESSAGES</Link>
+              <Link to="/settings" className="header__mobile-menu-item" onClick={this.toggleMenu}>SETTINGS</Link>
+              <Link to="/admin" className="header__mobile-menu-item" onClick={this.logout}>LOGOUT</Link>
+            </div>
+          :
+            <div className="header__mobile-admin-menu">
+              <Link to="/admin" className="header__mobile-menu-item" onClick={this.toggleMenu}>LOGIN</Link>
             </div>
           }
         </div>
@@ -153,7 +170,7 @@ Header.propTypes = {
 export default createContainer(() => {
   return {
     isLoggedIn: Meteor.userId(),
-    isSidebarOpen: Session.get('isSidebarOpen'),
+    isNavigationOpen: Session.get('isNavigationOpen'),
     isMenuOpen: Session.get('isMenuOpen')
   };
 }, Header);
