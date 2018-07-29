@@ -18,9 +18,8 @@ export class Application extends React.Component {
       parents: [ '' ],
       emails: [ '' ],
       phones: [ '' ],
-      tournaments: this.props.tournaments,
-      selectedTournaments: [],
-      backButtonSrc: '/images/back.svg'
+      tournaments: props.tournaments,
+      selectedTournaments: []
     };
 
     // bind field listeners to this context. remaining listeners are bound
@@ -35,7 +34,6 @@ export class Application extends React.Component {
     this.onTournamentSelection = this.onTournamentSelection.bind(this);
     this.onSubmitApplication = this.onSubmitApplication.bind(this);
     this.onGoBack = this.onGoBack.bind(this);
-    this.onHover = this.onHover.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -231,20 +229,15 @@ export class Application extends React.Component {
     Session.set('isApplicationOpen', false);
   }
 
-  onHover() {
-    if (this.state.backButtonSrc === '/images/back.svg') {
-      this.setState({ backButtonSrc: '/images/back-gold.svg'});
-    } else if (this.state.backButtonSrc === '/images/back-gold.svg') {
-      this.setState({ backButtonSrc: '/images/back.svg'});
-    }
-  }
-
   render() {
     return (
       <div className="container container__application">
         <div className="container__header">
           <h5 className="container__title">Application</h5>
-          <img className="container__title" src={this.state.backButtonSrc} onClick={this.onGoBack} onMouseOver={this.onHover} onMouseOut={this.onHover}/>
+          <div className="container__roster-icon">
+            <img src="/images/navigation/back-button.svg" onClick={this.onGoBack}/>
+            <span>BACK</span>
+          </div>
         </div>
 
         <div className="container__content container__application-form">
@@ -282,14 +275,14 @@ export class Application extends React.Component {
                 return (
                   <div key={index} className="dynamic-field">
                     <input id="parent" name="parent" value={this.state.parents[index]} placeholder="Parent" onChange={this.onParentChange.bind(this, index)}/>
-                    <img src="/images/add.svg" onClick={this.onAddParent}/>
+                    <img src="/images/add-button.svg" onClick={this.onAddParent}/>
                   </div>
                 );
               } else {
                 return (
                   <div key={index} className="dynamic-field">
                     <input id="parent" name="parent" value={this.state.parents[index]} placeholder="Parent" onChange={this.onParentChange.bind(this, index)}/>
-                    <img src="/images/delete.svg" onClick={this.onDeleteParent.bind(this, index)}/>
+                    <img src="/images/remove-button.svg" onClick={this.onDeleteParent.bind(this, index)}/>
                   </div>
                 );
               }
@@ -302,14 +295,14 @@ export class Application extends React.Component {
                 return (
                   <div key={index} className="dynamic-field">
                     <input id="email" name="email" type="email" value={this.state.emails[index]} placeholder="Email" onChange={this.onEmailChange.bind(this, index)}/>
-                    <img src="/images/add.svg" onClick={this.onAddEmail}/>
+                    <img src="/images/add-button.svg" onClick={this.onAddEmail}/>
                   </div>
                 );
               } else {
                 return (
                   <div key={index} className="dynamic-field">
                     <input id="email" name="email" type="email" value={this.state.emails[index]} placeholder="Email" onChange={this.onEmailChange.bind(this, index)}/>
-                    <img src="/images/delete.svg" onClick={this.onDeleteEmail.bind(this, index)}/>
+                    <img src="/images/remove-button.svg" onClick={this.onDeleteEmail.bind(this, index)}/>
                   </div>
                 );
               }
@@ -322,14 +315,14 @@ export class Application extends React.Component {
                 return (
                   <div key={index} className="dynamic-field">
                     <input id="phone" name="phone" type="tel" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" value={this.state.phones[index]} placeholder="Phone" onChange={this.onPhoneChange.bind(this, index)}/>
-                    <img src="/images/add.svg" onClick={this.onAddPhone}/>
+                    <img src="/images/add-button.svg" onClick={this.onAddPhone}/>
                   </div>
                 );
               } else {
                 return (
                   <div key={index} className="dynamic-field">
                     <input id="phone" name="phone" type="tel" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" value={this.state.phones[index]} placeholder="Phone" onChange={this.onPhoneChange.bind(this, index)}/>
-                    <img src="/images/delete.svg" onClick={this.onDeletePhone.bind(this, index)}/>
+                    <img src="/images/remove-button.svg" onClick={this.onDeletePhone.bind(this, index)}/>
                   </div>
                 );
               }
@@ -375,7 +368,6 @@ export class Application extends React.Component {
           })}
           <button onClick={this.onSubmitApplication}>Submit Application</button>
         </div>
-        {/* <button className="schedule__application-submit-button" onClick={this.onSubmitApplication}>Submit Application</button> */}
       </div>
     );
   }

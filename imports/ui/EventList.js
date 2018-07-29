@@ -45,7 +45,7 @@ export class EventList extends React.Component {
           {this.state.tournaments.length === 0 ? <p className="empty-item">There are no Upcoming Duals to display.</p> : undefined}
           {this.state.tournaments.map((tournament, index, tournaments) => {
             return (
-              <Event key={tournament._id} tournament={tournament} bottom={index === tournaments.length - 1}/>
+              <Event key={tournament._id} event={tournament} isLastEvent={index === tournaments.length - 1}/>
             );
           })}
         </div>

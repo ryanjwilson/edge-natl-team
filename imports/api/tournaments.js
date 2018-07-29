@@ -6,8 +6,8 @@ import SimpleSchema from 'simpl-schema';
 export const Tournaments = new Mongo.Collection('tournaments');
 
 if (Meteor.isServer) {
-  Meteor.publish('tournaments', function() {
-    return Tournaments.find({ userId: this.userId });
+  Meteor.publish('tournaments', () => {
+    return Tournaments.find({});
   });
 }
 

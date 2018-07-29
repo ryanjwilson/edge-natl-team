@@ -1,19 +1,8 @@
-/*
- * Header bar.
- */
-
 .header {
   background: $header-bg;
   color: $header-color;
   height: $header-height;
 }
-
-/*
- * Interior contents of the header bar.
- *    - Title and icon
- *    - Application logo
- *    - Menu icon
- */
 
 .header__content {
   align-items: center;
@@ -32,17 +21,61 @@
   flex-direction: row;
 }
 
-.header__content-left .header__nav-item {
-  padding-left: $space;
-  padding-right: $space;
-}
-
 .header__content-center {
   display: none;
 
   @include mobile {
     display: flex;
   }
+}
+
+.header__content-right {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+}
+
+.header__admin-icon-group {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  margin-left: $medium-space;
+
+  @include mobile {
+    display: none;
+  }
+}
+
+.header__admin-icon-group:hover {
+  cursor: pointer;
+}
+
+.header__admin-icon-group:nth-child(5) {
+  border-right: 1px solid #E5C100;
+  margin-right: 0;
+  padding-right: $medium-space;
+}
+
+.header__admin-icon-group:nth-child(6) {
+  margin-left: 0;
+  padding-left: $medium-space;
+}
+
+.header__admin-icon-group img {
+  height: 3rem;
+  width: 3rem;
+}
+
+.header__admin-icon-group span {
+  color: $header-color;
+  font-family: "Montserrat", sans-serif;
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+
+.header__content-left .header__nav-item {
+  padding-left: $space;
+  padding-right: $space;
 }
 
 .header__content-right .header__nav-item {
@@ -71,7 +104,7 @@
 }
 
 .header__nav-item {
-  color: $gray;
+  color: $header-color;
   font-family: "Montserrat", sans-serif;
   font-size: 1.7rem;
   font-weight: 500;
@@ -97,7 +130,7 @@
 }
 
 .header__nav-item:hover {
-  color: white;
+  color: #E5C100;
 }
 
 .header__nav-logo-desktop {
@@ -119,7 +152,7 @@
 
 // TODO - need to add icon to header title and style appropriately
 
-.header__nav-toggle-icon {
+.header__navigation-menu-icon {
   display: none;
 
   @include mobile {
@@ -131,7 +164,7 @@
   }
 }
 
-.header__menu-toggle-icon {
+.header__admin-menu-icon {
   display: none;
 
   @include mobile {

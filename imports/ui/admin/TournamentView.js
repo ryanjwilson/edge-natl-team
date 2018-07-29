@@ -2,7 +2,7 @@ import React from 'react';
 import { Accounts } from 'meteor/accounts-base';
 
 import Footer from '../Footer';
-import PrivateHeader from './PrivateHeader';
+import Header from '../Header';
 import TournamentEditor from './TournamentEditor';
 import TournamentList from './TournamentList';
 
@@ -37,7 +37,7 @@ export default class TournamentView extends React.Component {
   render() {
     return (
       <div>
-        <PrivateHeader title={this.state.title}/>
+        <Header/>
 
         <div className="private-page-content">
           <div className="private-page-content__sidebar">

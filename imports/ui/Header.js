@@ -5,6 +5,8 @@ import { createContainer } from 'meteor/react-meteor-data';
 import { Link } from 'react-router';
 import { Session } from 'meteor/session';
 
+import IconLink from './admin/IconLink';
+
 /**
  * A Header component represents a header bar for the public and private
  * sections of this application. It includes conditional navigation depending
@@ -23,6 +25,7 @@ export class Header extends React.Component {
     super(props);
 
     this.state = {
+      isLoggedIn: props.isLoggedIn,
       isSidebarOpen: props.isNavigationOpen,
       isMenuOpen: props.isMenuOpen
     };
@@ -53,6 +56,7 @@ export class Header extends React.Component {
     //   this.setState({ menuImage: (nextProps.isMenuOpen ? '/images/x.svg' : '/images/bars.svg'), isMenuOpen: nextProps.isMenuOpen });
     // }
 
+    if (this.props.isLoggedIn !== nextProps.isLoggedIn) this.setState({ isLoggedIn: nextProps.isLoggedIn });
     if (this.props.isSidebarOpen !== nextProps.isSidebarOpen) this.setState({ isSidebarOpen: nextProps.isSidebarOpen });
     if (this.props.isMenuOpen !== nextProps.isMenuOpen) this.setState({ isMenuOpen: nextProps.isMenuOpen });
   }
@@ -85,6 +89,7 @@ export class Header extends React.Component {
    */
 
   logout() {
+    console.log('logging out');
     Accounts.logout();
   }
 
@@ -95,38 +100,40 @@ export class Header extends React.Component {
    */
 
   render() {
-    const navIconSrc = (this.state.isSidebarOpen ? '/images/x.svg' : '/images/bars.svg');
-    const menuIconSrc = (this.state.isMenuOpen ? '/images/x.svg' : '/images/dots.svg');
+    const navIconSrc = (this.state.isSidebarOpen ? '/images/navigation/menu-close-button.svg' : '/images/navigation/navigation-menu-button.svg');
+    const menuIconSrc = (this.state.isMenuOpen ? '/images/navigation/menu-close-button.svg' : '/images/navigation/admin-menu-button.svg');
 
     return (
       <div className="header">
         <div className="header__content">
           <div className="header__content-left">
-            <img src="/images/edge-team-logo.png" className="header__nav-logo-desktop"/>
+            <img src="/images/brand/edge-team-logo.png" className="header__nav-logo-desktop"/>
             <div>
-              <img src={navIconSrc} className="header__nav-toggle-icon" onClick={this.toggleNavigation}/>
+              <img src={navIconSrc} className="header__navigation-menu-icon" onClick={this.toggleNavigation}/>
               <Link to="/" className="header__nav-item">SCHEDULE</Link>
-              <Link to="/rules" className="header__nav-item">TEAM RULES</Link>
+              <Link to="/rules" className="header__nav-item">RULES</Link>
               <Link to="/faq" className="header__nav-item">FAQ</Link>
-              <Link to="/past-events" className="header__nav-item">PAST EVENTS</Link>
+              <Link to="/media" className="header__nav-item">MEDIA</Link>
               <Link to="/contact" className="header__nav-item">CONTACT</Link>
             </div>
           </div>
           <div className="header__content-center">
-            <img src="/images/edge-team-logo.png" className="header__nav-logo-mobile"/>
+            <img src="/images/brand/edge-team-logo.png" className="header__nav-logo-mobile"/>
           </div>
           {Meteor.userId() ?
             <div className="header__content-right">
-              <img src={menuIconSrc} className="header__menu-toggle-icon" onClick={this.toggleMenu}/>
-              <Link to="/tournaments" className="header__nav-item">TOURNAMENTS</Link>
-              <Link to="/wrestlers" className="header__nav-item">WRESTLERS</Link>
-              <Link to="/teams" className="header__nav-item">TEAMS</Link>
-              <Link to="/admin" className="header__nav-item">LOGOUT</Link>
+              <img src={menuIconSrc} className="header__admin-menu-icon" onClick={this.toggleMenu}/>
+              <IconLink destination="/tournaments" src="/images/admin/tournaments-button.svg" hover="/images/admin/tournaments-hover-button.svg"/>
+              <IconLink destination="/wrestlers" src="/images/admin/wrestlers-button.svg" hover="/images/admin/wrestlers-hover-button.svg"/>
+              <IconLink destination="/teams" src="/images/admin/teams-button.svg" hover="/images/admin/teams-hover-button.svg"/>
+              <IconLink destination="/messages" src="/images/admin/messages-button.svg" hover="/images/admin/messages-hover-button.svg"/>
+              <IconLink destination="/settings" src="/images/admin/settings-button.svg" hover="/images/admin/settings-hover-button.svg"/>
+              <IconLink src="/images/admin/logout-button.svg" hover="/images/admin/logout-hover-button.svg" action={this.logout}/>
             </div>
             :
             <div className="header__content-right">
-              <img src={menuIconSrc} className="header__menu-toggle-icon" onClick={this.toggleMenu}/>
-              <Link to="/admin" className="header__nav-item header__right">ADMIN</Link>
+              <img src={menuIconSrc} className="header__admin-menu-icon" onClick={this.toggleMenu}/>
+              <IconLink destination="/admin" src="/images/admin/login-button.svg" hover="/images/admin/login-hover-button.svg"/>
             </div>
           }
         </div>
@@ -145,6 +152,7 @@ Header.propTypes = {
 
 export default createContainer(() => {
   return {
+    isLoggedIn: Meteor.userId(),
     isSidebarOpen: Session.get('isSidebarOpen'),
     isMenuOpen: Session.get('isMenuOpen')
   };

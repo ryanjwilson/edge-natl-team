@@ -53,6 +53,48 @@
   }
 }
 
+.container__roster-icon {
+  display: none;
+
+  @include mobile {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 0.25rem;
+    margin-top: -($space * 2 + 5rem - 1.6rem);
+  }
+}
+
+.container__roster-icon:hover {
+  @include mobile {
+    cursor: pointer;
+  }
+}
+
+.container__roster-icon img {
+  display: none;
+
+  @include mobile {
+    display: flex;
+    height: 2.5rem;
+    margin-bottom: 0.75rem;
+    width: 2.5rem;
+  }
+}
+
+.container__roster-icon span {
+  display: none;
+
+  @include mobile {
+    color: white;
+    display: flex;
+    font-family: "Montserrat", sans-serif;
+    font-size: 1rem;
+    font-weight: bold;
+    margin-top: -0.75rem;
+  }
+}
+
 .container__header button {
   display: none;
 

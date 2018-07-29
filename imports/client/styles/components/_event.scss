@@ -21,14 +21,29 @@
   justify-content: space-between;
 }
 
-.event__header img {
+.event__roster-icon {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 0.75rem;
+}
+
+.event__roster-icon:hover {
+  cursor: pointer;
+}
+
+.event__roster-icon img {
   height: 2.5rem;
   margin-bottom: 1rem;
   width: 2.5rem;
 }
 
-.event__header img:hover {
-  cursor: pointer;
+.event__roster-icon span {
+  color: $brand-secondary;
+  font-family: "Montserrat", sans-serif;
+  font-size: 1rem;
+  font-weight: bold;
+  margin-top: -0.75rem;
 }
 
 .event__title {

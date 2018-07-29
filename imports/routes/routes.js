@@ -76,7 +76,7 @@ const routes = (
       <Route path="/" component={Schedule}/>
       <Route path="/rules" component={TeamRules}/>
       <Route path="/faq" component={FAQs}/>
-      <Route path="/past-events" component={PastEvents}/>
+      <Route path="/media" component={PastEvents}/>
       <Route path="/contact" component={Contact}/>
       <Route path="/admin" component={Login} privacy="unauthenticated"/>
       <Route path="/applications" component={ApplicationView} privacy="authenticated"/>

@@ -16,12 +16,16 @@
 }
 
 .footer__link {
+  border-bottom: 1px solid #E5C100;
   color: $footer-color;
   font-family: "Montserrat", sans-serif;
   font-size: $base-font-size;
+  text-decoration: none;
 }
 
 .footer__link:hover {
+  border-bottom: none;
+  color: #E5C100;
   text-decoration: none;
 }
 
@@ -33,11 +37,13 @@
 }
 
 .footer img {
-  height: 2.5rem;
+  height: 3rem;
   margin-left: 2rem;
-  width: 2.5rem;
+  width: 3rem;
 
   @include mobile {
+    height: 2.5rem;
     margin-left: 1rem;
+    width: 2.5rem;
   }
 }
