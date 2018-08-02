@@ -1,33 +1,143 @@
-/*
- * Boxed view container.
- *    - Login view
- */
-
 .boxed-view {
   align-items: center;
+  background: black;
   display: flex;
   justify-content: center;
   height: 100vh;
   width: 100vw;
 }
 
-/*
- * Box within a boxed view container.
- *    - Login box
- */
-
-.boxed-view__box {
-  background-color: $boxed-view-bg;
-  border: 1px solid $edge-red;
-  padding: $medium-space;
-  text-align: center;
-  width: $box-width;
+.boxed-view--modal {
+  background: fade-out(black, 0.1);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
 }
 
-/*
- * Form within a boxed view box.
- *    - Login form
- */
+.boxed-view__box {
+  background: $light-gray;
+  border: 2px solid $edge-red;
+  border-top: $container-top-border solid $edge-red;
+  border-radius: 7px;
+  display: flex;
+  flex-direction: column;
+  height: 50vh;
+  outline: none;
+  padding: $default-space;
+  width: 76.8rem;
+}
+
+.boxed-view__box-content {
+  display: flex;
+  flex-direction: column;
+  overflow-y: scroll;
+
+  -webkit-overflow-scrolling: touch;    // TODO - are there any other mobile-specific styles?
+}
+
+.boxed-view__header {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-top: -$small-space;
+}
+
+.boxed-view__header img {
+  cursor: pointer;
+  display: flex;
+  height: 3rem;
+  margin-bottom: 0.25rem;
+  margin-top: -($large-space + $container-top-border - 1.6rem);
+  width: 3rem;
+}
+
+.boxed-view__title {
+  color: $light-gray;
+  font-family: "Montserrat", sans-serif;
+  font-size: 1.8rem;
+  line-height: 5rem;
+  margin-top: -($large-space + $container-top-border - 1.6rem);
+}
+
+.boxed-view__table {
+  border: 1px solid black;
+  border-collapse: collapse;
+  margin-top: $input-space;
+  overflow-y: scroll;
+  width: 100%;
+
+  -webkit-overflow-scrolling: touch;    // TODO - are there any other mobile-specific styles?
+}
+
+.boxed-view__table th, .boxed-view__table td {
+  padding: $input-space;
+}
+
+.boxed-view__table th:first-child, .boxed-view__table th:last-child,
+.boxed-view__table td:first-child, .boxed-view__table td:last-child {
+  text-align: center;
+  width: 15%;
+}
+
+.boxed-view__table th {
+  background-color: $edge-gold;
+}
+
+.boxed-view__table tbody tr:nth-child(even) {
+  background-color: $gray;
+}
+
+.boxed-view__tabs {
+  align-items: center;
+  background-color: $gray;
+  border: 1px solid black;
+  border-radius: 4px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  margin: 0 auto;
+  margin-bottom: $default-space + $small-space;
+  margin-top: $input-space;
+  width: 90%;
+}
+
+.boxed-view__tab {
+  padding: $input-space;
+  text-align: center;
+  width: 100%;
+}
+
+.boxed-view__tab:hover {
+  cursor: pointer;
+}
+
+.boxed-view__tab-content {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.boxed-view__left-tab {
+  border-right: 1px solid black;
+}
+
+.boxed-view__right-tab {
+  border-left: 1px solid black;
+}
+
+.boxed-view__inner-tab {
+  border-left: 1px solid black;
+  border-right: 1px solid black;
+}
+
+.boxed-view__tab--selected {
+  background-color: $dark-gray;
+  font-weight: bold;
+}
 
 .boxed-view__form {
   display: flex;

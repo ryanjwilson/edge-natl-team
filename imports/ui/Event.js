@@ -1,7 +1,10 @@
+import Modal from 'react-modal';
 import React from 'react';
 import { createContainer } from 'meteor/react-meteor-data';
 import { PropTypes } from 'prop-types';
 import { Session } from 'meteor/session';
+
+import { RosterList } from './RosterList';
 
 export class Event extends React.Component {
   constructor(props) {
@@ -9,10 +12,13 @@ export class Event extends React.Component {
 
     this.state = {
       event: props.event,
-      isLastEvent: props.isLastEvent
+      isLastEvent: props.isLastEvent,
+      isRosterModalOpen: false
     };
 
     this.onApplyNow = this.onApplyNow.bind(this);
+    this.showRosterModal = this.showRosterModal.bind(this);
+    this.closeRosterModal = this.closeRosterModal.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -23,16 +29,37 @@ export class Event extends React.Component {
     Session.set('isApplicationOpen', true);
   }
 
+  showRosterModal() {
+    this.setState({ isRosterModalOpen: true });
+  }
+
+  closeRosterModal() {
+    this.setState({ isRosterModalOpen: false });
+  }
+
   render() {
     return (
       <div className={this.state.isLastEvent ? 'event event__bottom' : 'event'}>
         <div className="event__header">
           <h5 className="event__title">{this.state.event.name}</h5>
-          <div className="event__roster-icon">
+          <div className="event__roster-icon" onClick={this.showRosterModal}>
             <img src="/images/roster-button.svg"/>
             <span>ROSTER</span>
           </div>
         </div>
+
+        {/* onAfterOpen={() => this.refs.url.focus()}  // TODO - needed? */}
+        <Modal appElement={document.getElementById('app')} isOpen={this.state.isRosterModalOpen} contentLabel="View Roster" onRequestClose={this.closeRosterModal} className="boxed-view__box" overlayClassName="boxed-view boxed-view--modal">
+          <div className="boxed-view__header">
+            <h5 className="boxed-view__title">{this.state.event.name}</h5>
+            <img src="/images/navigation/menu-close-button.svg" onClick={this.closeRosterModal}/>
+          </div>
+
+          <div className="boxed-view__box-content">
+            <RosterList key={this.state.event._id} divisions={this.state.event.divisions}/>            
+          </div>
+        </Modal>
+
         <h6 className="event__detail-header">Date &amp; Location</h6>
         <p className="event__detail">{this.state.event.startDate}, in {this.state.event.location}</p>
         <h6 className="event__detail-header">Weigh-ins</h6>

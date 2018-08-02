@@ -13,6 +13,8 @@ export class EventList extends React.Component {
     this.state = {
       tournaments: props.tournaments
     }
+
+    this.onAppyNow = this.onApplyNow.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
