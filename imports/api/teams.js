@@ -36,11 +36,18 @@ Meteor.methods({
     const roster = division.weightClasses.map((weightClass) => {
       const availableWrestlers = Wrestlers.find({
         'applications.tournamentId': tournamentId, 'applications.division': division.name, 'applications.weightClass': weightClass
-      }, { name: 1 }).fetch();
+      }, { fields: { name: 1 }}).fetch();
 
       return {
         weightClass,
-        wrestler: '',
+        wrestler: {
+          _id: '',
+          name: ''
+        },
+        split: {
+          _id: '',
+          name: ''
+        },
         role: '',
         status: 'Open',
         availableWrestlers
@@ -106,10 +113,16 @@ Meteor.methods({
       roster: { type: Array, minCount: 1 },
       'roster.$': { type: Object },
       'roster.$.weightClass': { type: Number },
-      'roster.$.wrestler': { type: String },
+      'roster.$.wrestler': { type: Object },
+      'roster.$.wrestler._id': { type: String },
+      'roster.$.wrestler.name': { type: String },
+      'roster.$.split': { type: Object },
+      'roster.$.split._id': { type: String },
+      'roster.$.split.name': { type: String },
       'roster.$.role': { type: String },
       'roster.$.status': { type: String },
       'roster.$.availableWrestlers': { type: Array },
+      'roster.$.availableWrestlers.$': { type: Object },
       'roster.$.availableWrestlers.$._id': { type: String, min: 1 },
       'roster.$.availableWrestlers.$.name': { type: String },
       year: { type: SimpleSchema.Integer },

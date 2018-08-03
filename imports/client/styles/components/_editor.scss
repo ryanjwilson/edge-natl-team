@@ -204,3 +204,23 @@
   outline: none;
   width: 100%;
 }
+
+.editor__split-weight {
+  align-items: center;
+  border: none !important;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.editor__split-weight select {
+  width: 50%;
+}
+
+.editor__split-weight select:first-child {
+  margin-right: $small-space;
+}
+
+.editor__split-weight select:last-child {
+  margin-left: $small-space;
+}

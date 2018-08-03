@@ -9,10 +9,17 @@ import { browserHistory } from 'react-router';
 import TeamListFilters from './TeamListFilters';
 
 const TeamListHeader = (props) => {
+  const onShow = () => {
+    const tournamentId = 'WBuNbYTPZxkrQg2uX';
+    const divisionName = 'Middle School';
+
+    props.meteorCall('teams.insert', tournamentId, divisionName);
+  };
+
   return (
     <div className="item-list__header">
       <div className="multiselect-group two">
-        <button className="button button--unpublish">Show</button>
+        <button className="button button--unpublish" onClick={onShow}>Show</button>
         <button className="button button--delete">Hide</button>
       </div>
       <TeamListFilters/>

@@ -36,7 +36,7 @@ export class TeamEditor extends React.Component {
         }
       },
       roster: [],
-      roles: [ 'Starter', 'Split', 'Alternate' ],
+      roles: [ 'Starter', 'Split' ],
       statuses: [ 'Open', 'Pending', 'Confirmed' ],
       published: false
     };
@@ -45,9 +45,7 @@ export class TeamEditor extends React.Component {
     // manually, as they take additional parameters.
 
     this.onNameChange = this.onNameChange.bind(this);
-    // this.onWrestlerSelect = this.onWrestlerSelect.bind(this);
-    // this.onTypeSelect = this.onTypeSelect.bind(this);
-    // this.onStatusSelect = this.onStatusSelect.bind(this);
+
   }
 
   componentWillReceiveProps(nextProps) {
@@ -90,6 +88,43 @@ export class TeamEditor extends React.Component {
     this.props.call('teams.update', this.props.team._id, { name });
   }
 
+  onWrestlerSelection(weight, split, e) {
+    const options = e.target.options;
+    const roster = this.state.roster;
+    const index = roster.findIndex((position) => position.weightClass === weight);
+
+    if (split) {
+      roster[index].split = { _id: e.target.value, name: options[options.selectedIndex].text };
+    } else {
+      roster[index].wrestler = { _id: e.target.value, name: options[options.selectedIndex].text };
+    }
+
+    this.setState({ roster });
+    this.props.call('teams.update', this.props.team._id, { roster });
+  }
+
+  onRoleSelection(weight, e) {
+    const options = e.target.options;
+    const roster = this.state.roster;
+
+    const index = roster.findIndex((position) => position.weightClass === weight);
+    roster[index].role = e.target.value;
+
+    this.setState({ roster });
+    this.props.call('teams.update', this.props.team._id, { roster });
+  }
+
+  onStatusSelection(weight, e) {
+    const options = e.target.options;
+    const roster = this.state.roster;
+
+    const index = roster.findIndex((position) => position.weightClass === weight);
+    roster[index].status = e.target.value;
+
+    this.setState({ roster });
+    this.props.call('teams.update', this.props.team._id, { roster });
+  }
+
   /**
    * Renders this component to the browser.
    *
@@ -117,8 +152,8 @@ export class TeamEditor extends React.Component {
                 return (
                   <tr key={index}>
                     <td>{position.weightClass}</td>
-                    <td>
-                      <select value={position.wrestler}>
+                    <td className={position.role === 'Split' ? 'editor__split-weight' : ''}>
+                      <select value={position.wrestler._id} onChange={this.onWrestlerSelection.bind(this, position.weightClass, false)}>
                         <option key="-1" value=""></option>
                         {position.availableWrestlers.map((availableWrestler) => {
                           return (
@@ -126,9 +161,21 @@ export class TeamEditor extends React.Component {
                           );
                         })}
                       </select>
+                      {position.role === 'Split' ?
+                        <select value={position.split._id} onChange={this.onWrestlerSelection.bind(this, position.weightClass, true)}>
+                          <option key="-1" value=""></option>
+                          {position.availableWrestlers.map((availableWrestler) => {
+                            return (
+                              <option key={availableWrestler._id} value={availableWrestler._id}>{availableWrestler.name}</option>
+                            );
+                          })}
+                        </select>
+                        :
+                        undefined
+                      }
                     </td>
                     <td>
-                      <select value={position.role}>
+                      <select value={position.role} onChange={this.onRoleSelection.bind(this, position.weightClass)}>
                         <option key="-1" value="">--Role--</option>
                         {this.state.roles.map((role, index) => {
                           return (
@@ -138,7 +185,7 @@ export class TeamEditor extends React.Component {
                       </select>
                     </td>
                     <td>
-                      <select value={position.status}>
+                      <select value={position.status} onChange={this.onStatusSelection.bind(this, position.weightClass)}>
                         <option key="-1" value="">--Status--</option>
                         {this.state.statuses.map((status, index) => {
                           return (
