@@ -3,7 +3,7 @@ import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
 
 import '../imports/api/applications';
-// import '../imports/api/rosters';
+import '../imports/api/teams';
 import '../imports/api/tournaments';
 import '../imports/api/wrestlers';
 import '../imports/startup/simple-schema-config.js';

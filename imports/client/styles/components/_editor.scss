@@ -161,3 +161,46 @@
   margin-top: $large-space;
   padding-top: $default-space;
 }
+
+.editor__table {
+  border: 1px solid black;
+  border-collapse: collapse;
+  overflow-y: scroll;
+  width: 100%;
+
+  -webkit-overflow-scrolling: touch;    // TODO - are there any other mobile-specific styles?
+}
+
+.editor__table th, .editor__table td {
+  padding: $input-space;
+}
+
+.editor__table th:first-child, .editor__table td:first-child {
+  text-align: center;
+  width: 10%;
+}
+
+.editor__table th:last-child, .editor__table td:last-child,
+.editor__table th:nth-child(3), .editor__table td:nth-child(3) {
+  text-align: center;
+  width: 20%;
+}
+
+.editor__table th {
+  background-color: $edge-gold;
+}
+
+.editor__table tbody tr:nth-child(even) {
+  background-color: $gray;
+}
+
+.editor__table select {
+  background: white;
+  font-family: "Montserrat", sans-serif;
+  font-size: $base-font-size;
+  height: 3rem;
+  margin-bottom: $small-space;
+  margin-top: $tiny-space;
+  outline: none;
+  width: 100%;
+}

@@ -93,11 +93,13 @@ Meteor.startup(() => {
 
   Session.set('selectedTournamentId', undefined);
   Session.set('selectedWrestlerId', undefined);
+  Session.set('selectedTeamId', undefined);
 
   // setup multiselected tournaments, wrestlers, teams, and messages for each of the associated views
 
   Session.set('multiselectedTournamentIds', []);
   Session.set('multiselectedWrestlerIds', []);
+  Session.set('multiselectedTeamIds', []);
 
   // setup session variables for list filtering
 

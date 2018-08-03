@@ -11,6 +11,7 @@ import PastEvents from '../ui/PastEvents';
 import Schedule from '../ui/Schedule';
 import TeamRules from '../ui/TeamRules';
 import ApplicationView from '../ui/admin/ApplicationView';
+import TeamView from '../ui/admin/TeamView';
 import TournamentView from '../ui/admin/TournamentView';
 import WrestlerView from '../ui/admin/WrestlerView';
 
@@ -50,6 +51,10 @@ const onEnterWrestler = (nextState) => {
   Session.set('selectedWrestlerId', nextState.params.wrestlerId);
 };
 
+const onEnterTeam = (nextState) => {
+  Session.set('selectedTeamId', nextState.params.teamId);
+};
+
 const onLeaveApplication = () => {
   Session.set('selectedApplicationId', undefined);
 };
@@ -60,6 +65,10 @@ const onLeaveTournament = () => {
 
 const onLeaveWrestler = () => {
   Session.set('selectedWrestlerId', undefined);
+};
+
+const onLeaveTeam = () => {
+  Session.set('selectedTeamId', undefined);
 };
 
 const routes = (
@@ -77,6 +86,8 @@ const routes = (
       <Route path="/tournaments/:tournamentId" component={TournamentView} privacy="authenticated" onEnter={onEnterTournament} onLeave={onLeaveTournament}/>
       <Route path="/wrestlers" component={WrestlerView} privacy="authenticated"/>
       <Route path="/wrestlers/:wrestlerId" component={WrestlerView} privacy="authenticated" onEnter={onEnterWrestler} onLeave={onLeaveWrestler}/>
+      <Route path="/teams" component={TeamView} privacy="authenticated"/>
+      <Route path="/teams/:teamId" component={TeamView} privacy="authenticated" onEnter={onEnterTeam} onLeave={onLeaveTeam}/>
       <Route path="*" component={NotFound}/>
     </Route>
   </Router>
