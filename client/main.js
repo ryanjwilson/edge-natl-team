@@ -8,8 +8,7 @@ import '../imports/startup/simple-schema-config.js';
 import { onAuthenticationChange, routes } from '../imports/routes/routes';
 
 /**
- * Tracks authentication changes via the isAuthenticated variable. This code is
- * executed whenever a change is detected.
+ * Tracks authentication changes via the isAuthenticated variable. This code is executed whenever a change is detected.
  */
 
 Tracker.autorun(() => {
@@ -20,36 +19,39 @@ Tracker.autorun(() => {
 });
 
 /**
- * Tracks changes in the selected Tournament or Wrestler Session variable. This
- * code is executed whenever a change is detected.
+ * Tracks changes in the selected Tournament or Wrestler Session variable. This code is executed whenever a change is detected.
  */
 
 Tracker.autorun(() => {
   const selectedTournamentId = Session.get('selectedTournamentId');
   const selectedWrestlerId = Session.get('selectedWrestlerId');
+  const selectedTeamId = Session.get('selectedTeamId');
 
   Session.set('isNavigationOpen', false);     // prevents admin sidebar panel animation on browser refresh
   Session.set('isMenuOpen', false);           // prevents admin menu animation on browser refresh
   Session.set('isApplicationOpen', false);    // prevents application animation on browser refresh
 
-  // conditionally re-direct the application based on selected application, tournament, wrestler, or current pathname.
+  // conditionally re-direct the application based on selected tournament, wrestler, team, or current pathname.
 
   if (selectedTournamentId) {
     browserHistory.replace(`/tournaments/${selectedTournamentId}`);
   } else if (selectedWrestlerId) {
     browserHistory.replace(`/wrestlers/${selectedWrestlerId}`);
+  } else if (selectedTeamId) {
+    browserHistory.replace(`/teams/${selectedTeamId}`);
   } else {
     if (this.location.pathname.includes('/tournaments')) {
       browserHistory.replace('/tournaments');
     } else if (this.location.pathname.includes('/wrestlers')) {
       browserHistory.replace('/wrestlers');
+    } else if (this.location.pathname.includes('/teams')) {
+      browserHistory.replace('/teams');
     }
   }
 });
 
 /**
- * Tracks changes in the sidebar menu status, allowing for the mobile-friendly
- * slide-out item list panel to take effect.
+ * Tracks changes in the sidebar menu status, allowing for the mobile-friendly slide-out item list panel to take effect.
  */
 
 // TODO - how will slide-out item list panel be handled for mobile version of the application?

@@ -61,6 +61,7 @@ export class Tournament extends React.Component {
     }
 
     if (e.metaKey) {
+      console.log('metakey');
       if (!ids.includes(this.state.tournament._id)) {
         ids.push(this.state.tournament._id);
       }
@@ -92,7 +93,7 @@ export class Tournament extends React.Component {
           <h5 className="item__title">{this.state.tournament.name || 'Untitled Tournament'}</h5>
           <p className="item__subtitle">{this.state.tournament.location || 'Location'} &middot; {this.state.tournament.startDate || 'Date'}</p>
         </div>
-        {this.state.tournament.published ? <div className="item__status-icon"><img src="/images/confirm.png"/></div> : undefined}
+        {this.state.tournament.published ? <div className="item__status-icon"><img src="/images/published-icon.svg"/></div> : undefined}
       </div>
     );
   }

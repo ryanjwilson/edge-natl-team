@@ -7,7 +7,7 @@
 
 .item-list {
   background-color: white;
-  border: 1px solid $gray;
+  border: 1px solid $edge-red;
   overflow-y: scroll;
   width: 100%;
 
@@ -50,7 +50,7 @@
 
 .item:hover {
   background-color: $light-gray;
-  border-left: $item-border-width solid $gray;
+  border-left: $item-border-width solid $edge-gold;
 }
 
 /*

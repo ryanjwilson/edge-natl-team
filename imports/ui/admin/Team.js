@@ -19,6 +19,7 @@ export class Team extends React.Component {
     super(props);
 
     this.state = {
+      _id: '',
       name: '',
       tournament: {
         _id: '',
@@ -31,7 +32,7 @@ export class Team extends React.Component {
       roles: [ 'Starter', 'Split', 'Alternate' ],
       statuses: [ 'Open', 'Pending', 'Confirmed' ],
       published: false,
-      css: props.selected || props.multiselected ? 'item item--selected' : 'item'
+      css: props.team.selected || props.team.multiselected ? 'item item--selected' : 'item'
     };
 
     // bind field listeners to this context. remaining listeners are bound
@@ -73,20 +74,20 @@ export class Team extends React.Component {
     }
 
     if (e.metaKey) {
-      if (!ids.includes(this.state.team._id)) {
+      if (!ids.includes(this.state._id)) {
         ids.push(this.state.team._id);
       }
 
       if (ids.length === 1) {
-        Session.set('selectedTeamId', this.state.team._id);
+        Session.set('selectedTeamId', this.state._id);
       } else {
         Session.set('selectedTeamId', undefined);
       }
     } else {
       ids = [];
-      ids.push(this.state.team._id);
+      ids.push(this.state._id);
 
-      Session.set('selectedTeamId', this.state.team._id);
+      Session.set('selectedTeamId', this.state._id);
     }
     Session.set('multiselectedTeamIds', ids);
   }

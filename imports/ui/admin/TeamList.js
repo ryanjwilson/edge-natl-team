@@ -177,7 +177,7 @@ export default createContainer(() => {
     };
   } else {
     return {
-      tams: []
+      teams: []
     };
   }
 }, TeamList);

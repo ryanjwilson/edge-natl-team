@@ -36,11 +36,25 @@ const onEnterGlobal = (nextState) => {
 };
 
 const onChangeGlobal = (prevState, nextState) => {
-  onEnterGlobal(nextState);
-};
+  const prev = (Object.keys(prevState.params).length === 0
+    ? prevState.location.pathname.substring(1)
+    : prevState.location.pathname.substring(1, prevState.location.pathname.lastIndexOf('/'))
+  );
+  const next = (Object.keys(nextState.params).length === 0
+    ? nextState.location.pathname.substring(1)
+    : nextState.location.pathname.substring(1, nextState.location.pathname.lastIndexOf('/'))
+  );
 
-const onEnterApplication = (nextState) => {
-  Session.set('selectedApplicationId', nextState.params.applicationId);
+  if (prev !== next) {
+    switch (prev) {
+      case 'tournaments': Session.set('multiselectedTournamentIds', []); break;
+      case 'wrestlers': Session.set('multiselectedWrestlerIds', []); break;
+      case 'teams': Session.set('multiselectedTeamIds', []); break;
+      default: console.log(prev); break;
+    }
+  }
+
+  onEnterGlobal(nextState);
 };
 
 const onEnterTournament = (nextState) => {
@@ -53,10 +67,6 @@ const onEnterWrestler = (nextState) => {
 
 const onEnterTeam = (nextState) => {
   Session.set('selectedTeamId', nextState.params.teamId);
-};
-
-const onLeaveApplication = () => {
-  Session.set('selectedApplicationId', undefined);
 };
 
 const onLeaveTournament = () => {
@@ -80,8 +90,6 @@ const routes = (
       <Route path="/media" component={PastEvents}/>
       <Route path="/contact" component={Contact}/>
       <Route path="/admin" component={Login} privacy="unauthenticated"/>
-      {/* <Route path="/applications" component={ApplicationView} privacy="authenticated"/>
-      <Route path="/applications/:applicationId" component={ApplicationView} privacy="authenticated" onEnter={onEnterApplication} onLeave={onLeaveApplication}/> */}
       <Route path="/tournaments" component={TournamentView} privacy="authenticated"/>
       <Route path="/tournaments/:tournamentId" component={TournamentView} privacy="authenticated" onEnter={onEnterTournament} onLeave={onLeaveTournament}/>
       <Route path="/wrestlers" component={WrestlerView} privacy="authenticated"/>

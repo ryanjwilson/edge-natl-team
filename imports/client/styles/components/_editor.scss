@@ -8,7 +8,7 @@
 
 .editor {
   background-color: white;
-  border: 1px solid $gray;
+  border: 1px solid $edge-red;
   display: flex;
   flex-direction: column;
   overflow-y: scroll;
@@ -27,7 +27,7 @@
 
 .editor__title {
   border: none;
-  border-bottom: 3px solid $gray;
+  border-bottom: 3px solid $edge-red;
   font-size: $large-font-size;
   margin-bottom: $large-space;
   outline: none;
@@ -96,7 +96,7 @@
 }
 
 .editor__top-label {
-  border-top: 2px solid $gray;
+  border-top: 2px solid $edge-red;
   padding-top: $default-space;
 }
 
