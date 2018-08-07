@@ -1,3 +1,4 @@
+import Modal from 'react-modal';
 import React from 'react';
 import { createContainer } from 'meteor/react-meteor-data';
 import { Meteor } from 'meteor/meteor';
@@ -20,7 +21,8 @@ export class Application extends React.Component {
       emails: [ '' ],
       phones: [ '' ],
       tournaments: props.tournaments,
-      selectedTournaments: []
+      selectedTournaments: [],
+      isConfirmationModalOpen: false
     };
 
     // bind field listeners to this context. remaining listeners are bound
@@ -35,6 +37,8 @@ export class Application extends React.Component {
     this.onTournamentSelection = this.onTournamentSelection.bind(this);
     this.onSubmitApplication = this.onSubmitApplication.bind(this);
     this.onGoBack = this.onGoBack.bind(this);
+    this.onShowConfirmationModal = this.onShowConfirmationModal.bind(this);
+    this.onCloseConfirmationModal = this.onCloseConfirmationModal.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -223,7 +227,7 @@ export class Application extends React.Component {
       if (result) {
         wrestler.applications.forEach((application) => {
           const team = Teams.findOne({ _id: application.teamId });
-          
+
           if (team) {
             const roster = team.roster;
             const index = team.roster.findIndex((position) => position.weightClass === application.weightClass);
@@ -233,6 +237,8 @@ export class Application extends React.Component {
             Meteor.call('teams.update', team._id, { roster });
           }
         });
+
+        this.onShowConfirmationModal();
       } else if (error) {
 
       }
@@ -241,6 +247,24 @@ export class Application extends React.Component {
 
   onGoBack() {
     Session.set('isApplicationOpen', false);
+  }
+
+  onShowConfirmationModal() {
+    this.setState({ isConfirmationModalOpen: true });
+  }
+
+  onCloseConfirmationModal() {
+    this.setState({
+      name: '',
+      dob: '',
+      grade: '',
+      selectedGrade: '',
+      parents: [ '' ],
+      emails: [ '' ],
+      phones: [ '' ],
+      selectedTournaments: [],
+      isConfirmationModalOpen: false
+    });
   }
 
   render() {
@@ -381,6 +405,26 @@ export class Application extends React.Component {
             );
           })}
           <button onClick={this.onSubmitApplication}>Submit Application</button>
+
+          <Modal appElement={document.getElementById('app')} isOpen={this.state.isConfirmationModalOpen} contentLabel="Submit Application" className="boxed-view__box unbounded-height" overlayClassName="boxed-view boxed-view--modal">
+            <div className="boxed-view__header">
+              <h5 className="boxed-view__title">Confirmation</h5>
+            </div>
+
+            <div className="boxed-view__box-content">
+              <p>Thank you for submitting your application!</p>
+              <ul>
+                {this.state.selectedTournaments.map((selectedTournament) => {
+                  return (
+                    <li key={selectedTournament.tournamentId}>
+                      {selectedTournament.tournamentName} ({selectedTournament.selectedDivision}, {selectedTournament.selectedWeightClass} lbs.)
+                    </li>
+                  );
+                })}
+              </ul>
+              <button className="button boxed-view__button-confirmation" onClick={this.onCloseConfirmationModal}>OK</button>
+            </div>
+          </Modal>
         </div>
       </div>
     );

@@ -30,7 +30,6 @@ Tracker.autorun(() => {
   Session.set('isNavigationOpen', false);       // prevents admin sidebar panel animation on browser refresh
   Session.set('isMenuOpen', false);             // prevents admin menu animation on browser refresh
   Session.set('isApplicationOpen', false);      // prevents application animation on browser refresh
-  Session.set('isInternalRosterOpen', false);   // prevents roster animation on browser refresh
 
   // conditionally re-direct the application based on selected tournament, wrestler, team, or current pathname.
 
@@ -85,21 +84,12 @@ Tracker.autorun(() => {
   document.body.classList.toggle('is-application-open', Session.get('isApplicationOpen'));
 });
 
-/*
- * Tracks changes in the slide-down roster view (mobile-only).
- */
-
-Tracker.autorun(() => {
-  document.body.classList.toggle('is-roster-open', Session.get('isInternalRosterOpen'));
-});
-
 /////// CLIENT APPLICATION EXECUTION STARTS HERE ///////////////////////////////////////////////////////////////////////////////////////////
 
 Meteor.startup(() => {
   Session.set('isNavigationOpen', false);       // public navigation menu (mobile-only)
   Session.set('isMenuOpen', false);             // admin menu (mobile-only)
   Session.set('isApplicationOpen', false);      // wrestler application (mobile-only)
-  Session.set('isInternalRosterOpen', false);   // even roster (mobile-only, non-modal)
 
   // setup selected tournament, wrestler, team, and message for each of the associated views
 

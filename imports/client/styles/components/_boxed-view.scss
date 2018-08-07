@@ -155,3 +155,39 @@
   display: flex;
   flex-direction: column;
 }
+
+.boxed-view__box-content p {
+  margin-top: $default-space;
+}
+
+.boxed-view__box-content ul {
+  margin-bottom: $default-space;
+  padding: $default-space;
+  padding-bottom: 0;
+  padding-left: $large-space;
+}
+
+.boxed-view__box-content ul li {
+  font-family: "Montserrat", sans-serif;
+  font-size: $base-font-size;
+}
+
+.boxed-view__button-confirmation {
+  background-color: $edge-gold !important;
+  border: 1px solid $edge-red !important;
+  border-radius: 4px !important;
+  color: black !important;
+  font-size: $base-font-size !important;
+  font-weight: bold !important;
+  line-height: 1.4 !important;
+  margin-bottom: $default-space !important;
+  margin-top: $medium-space !important;
+  min-height: 4rem !important;
+  outline: none !important;
+  padding: $input-space !important;
+  text-transform: uppercase !important;
+}
+
+.boxed-view__button-confirmation:hover {
+  background-color: darken($edge-gold, 5) !important;
+}
