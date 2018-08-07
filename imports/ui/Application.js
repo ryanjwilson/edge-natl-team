@@ -240,7 +240,7 @@ export class Application extends React.Component {
 
         this.onShowConfirmationModal();
       } else if (error) {
-
+        console.log('the error', error);
       }
     });
   }
@@ -444,9 +444,11 @@ export default createContainer(() => {
   Meteor.subscribe('teams');
 
   const tournaments = Tournaments.find({ published: true }).fetch().map((tournament) => {
+    const team = Teams.findOne({ 'tournament._id': tournament._id }, { fields: { _id: 1 }});
+
     return {
       ...tournament,
-      teamId: Teams.findOne({ 'tournament._id': tournament._id }, { fields: { _id: 1 }})._id,
+      teamId: (team ? team._id : undefined),
       selected: false
     };
   });
