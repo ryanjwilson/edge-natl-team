@@ -8,6 +8,7 @@ export class Roster extends React.Component {
     super(props);
 
     this.state = {
+      team: props.team,
       division: props.division
     };
   }
@@ -16,7 +17,7 @@ export class Roster extends React.Component {
 
   }
 
-  render() {
+  render() {    
     return (
       <table className="boxed-view__table" border="1">
         <thead>
@@ -27,15 +28,27 @@ export class Roster extends React.Component {
           </tr>
         </thead>
         <tbody>
-          {this.state.division.weightClasses.map((weightClass, index) => {
-            return (
-              <tr key={index}>
-                <td>{weightClass}</td>
-                <td>John Doe</td>
-                <td>Pending</td>
-              </tr>
-            );
-          })}
+          {this.state.team ?
+            this.state.team.roster.map((position, index) => {
+              return (
+                <tr key={index}>
+                  <td>{position.weightClass}</td>
+                  <td>{position.split._id ? position.wrestler.name + ' / ' + position.split.name : position.wrestler.name}</td>
+                  <td>{position.status}</td>
+                </tr>
+              );
+            })
+            :
+            this.state.division.weightClasses.map((weightClass, index) => {
+              return (
+                <tr key={index}>
+                  <td>{weightClass}</td>
+                  <td></td>
+                  <td>OPEN</td>
+                </tr>
+              );
+            })
+          }
         </tbody>
       </table>
     );
@@ -45,7 +58,8 @@ export class Roster extends React.Component {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 Roster.propTypes = {
-  division: PropTypes.object.isRequired,
+  team: PropTypes.object,
+  division: PropTypes.object,
   isLastRoster: PropTypes.bool.isRequired
 };
 

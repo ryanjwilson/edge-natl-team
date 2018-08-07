@@ -50,7 +50,6 @@ const onChangeGlobal = (prevState, nextState) => {
       case 'tournaments': Session.set('multiselectedTournamentIds', []); break;
       case 'wrestlers': Session.set('multiselectedWrestlerIds', []); break;
       case 'teams': Session.set('multiselectedTeamIds', []); break;
-      default: console.log(prev); break;
     }
   }
 

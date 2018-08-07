@@ -61,7 +61,6 @@ export class Tournament extends React.Component {
     }
 
     if (e.metaKey) {
-      console.log('metakey');
       if (!ids.includes(this.state.tournament._id)) {
         ids.push(this.state.tournament._id);
       }

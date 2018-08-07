@@ -31,28 +31,9 @@ Meteor.methods({
       throw new Meteor.Error('not-authorized');
     }
 
-    const tournament = Tournaments.findOne({ _id: tournamentId }, { name: 1, division: 1 });
-    const division = tournament.divisions.find((division) => division.name === divisionName);
-    const roster = division.weightClasses.map((weightClass) => {
-      const availableWrestlers = Wrestlers.find({
-        'applications.tournamentId': tournamentId, 'applications.division': division.name, 'applications.weightClass': weightClass
-      }, { fields: { name: 1 }}).fetch();
-
-      return {
-        weightClass,
-        wrestler: {
-          _id: '',
-          name: ''
-        },
-        split: {
-          _id: '',
-          name: ''
-        },
-        role: '',
-        status: 'Open',
-        availableWrestlers
-      };
-    });
+    const tournament = getTournament(tournamentId);
+    const division = getDivision(tournament, divisionName);
+    const roster = getRoster(division, tournamentId);
 
     return Teams.insert({
       name: '',
@@ -134,3 +115,34 @@ Meteor.methods({
     });
   }
 });
+
+const getTournament = (tournamentId) => {
+  return Tournaments.findOne({ _id: tournamentId }, { name: 1, division: 1 });
+};
+
+const getDivision = (tournament, divisionName) => {
+  return tournament.divisions.find((division) => division.name === divisionName);
+};
+
+const getRoster = (division, tournamentId) => {
+  return division.weightClasses.map((weightClass) => {
+    const availableWrestlers = Wrestlers.find({
+      'applications.tournamentId': tournamentId, 'applications.division': division.name, 'applications.weightClass': weightClass
+    }, { fields: { name: 1 }}).fetch();
+
+    return {
+      weightClass,
+      wrestler: {
+        _id: '',
+        name: ''
+      },
+      split: {
+        _id: '',
+        name: ''
+      },
+      role: '',
+      status: 'Open',
+      availableWrestlers
+    };
+  });
+}

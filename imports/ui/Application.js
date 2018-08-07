@@ -5,6 +5,7 @@ import { PropTypes } from 'prop-types';
 import { Session } from 'meteor/session';
 
 import { Tournaments } from '../api/tournaments';
+import { Teams } from '../api/teams';
 
 export class Application extends React.Component {
   constructor(props) {
@@ -148,7 +149,8 @@ export class Application extends React.Component {
           divisions: this.state.tournaments.find((tournament) => tournament._id === options[i].value).divisions,
           weightClasses: this.state.tournaments.find((tournament) => tournament._id === options[i].value).divisions[0].weightClasses,
           selectedDivision: this.state.tournaments.find((tournament) => tournament._id === options[i].value).divisions[0].name,
-          selectedWeightClass: this.state.tournaments.find((tournament) => tournament._id === options[i].value).divisions[0].weightClasses[0]
+          selectedWeightClass: this.state.tournaments.find((tournament) => tournament._id === options[i].value).divisions[0].weightClasses[0],
+          teamId: this.state.tournaments.find((tournament) => tournament._id === options[i].value).teamId
         });
       }
     }
@@ -211,15 +213,27 @@ export class Application extends React.Component {
           division: selectedTournament.selectedDivision,
           weightClass: selectedTournament.selectedWeightClass,
           open: true,
-          status: ''
+          status: '',
+          teamId: selectedTournament.teamId
         };
       })
     };
 
     Meteor.call('wrestlers.submit', { ...wrestler }, (error, result) => {
-      if (error) {
+      if (result) {
+        wrestler.applications.forEach((application) => {
+          const team = Teams.findOne({ _id: application.teamId });
+          
+          if (team) {
+            const roster = team.roster;
+            const index = team.roster.findIndex((position) => position.weightClass === application.weightClass);
 
-      } else if (result) {
+            roster[index].availableWrestlers.push({ _id: result, name: wrestler.name });
+
+            Meteor.call('teams.update', team._id, { roster });
+          }
+        });
+      } else if (error) {
 
       }
     });
@@ -383,10 +397,12 @@ Application.propTypes = {
 
 export default createContainer(() => {
   Meteor.subscribe('tournaments');
+  Meteor.subscribe('teams');
 
   const tournaments = Tournaments.find({ published: true }).fetch().map((tournament) => {
     return {
       ...tournament,
+      teamId: Teams.findOne({ 'tournament._id': tournament._id }, { fields: { _id: 1 }})._id,
       selected: false
     };
   });

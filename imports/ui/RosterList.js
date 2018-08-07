@@ -11,7 +11,9 @@ export class RosterList extends React.Component {
     super(props);
 
     this.state = {
+      teams: props.teams,
       divisions: props.divisions,
+      tournamentId: props.tournamentId,
       selectedTab: 0
     }
   }
@@ -40,11 +42,19 @@ export class RosterList extends React.Component {
         {this.state.divisions.length === 0 ? <p className="empty-item">There are no Rosters to display.</p> : undefined}
         {this.state.divisions.length > 1 ? <RosterTabBar tabs={this.state.divisions} callbackFromParent={this.showRoster.bind(this)}/> : undefined}
 
-        {this.state.divisions.map((division, index, divisions) => {
-          return (
-            this.state.selectedTab === index ? <Roster key={index} division={division} isLastRoster={index === divisions.length - 1}/> : undefined
-          );
-        })}
+        {this.state.teams.length > 0 ?
+          this.state.teams.map((team, index, teams) => {
+            return (
+              this.state.selectedTab === index ? <Roster key={index} team={team} division={undefined} isLastRoster={index === teams.length - 1}/> : undefined
+            );
+          })
+          :
+          this.state.divisions.map((division, index, divisions) => {
+            return (
+              this.state.selectedTab === index ? <Roster key={index} team={undefined} division={division} isLastRoster={index === divisions.length - 1}/> : undefined
+            );
+          })
+        }
       </div>
     );
   }

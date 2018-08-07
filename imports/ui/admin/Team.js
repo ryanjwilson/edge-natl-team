@@ -48,7 +48,7 @@ export class Team extends React.Component {
    */
 
   componentWillReceiveProps(nextProps) {
-    this.setState({ selected: nextProps.selected, multiselected: nextProps.multiselected, ...nextProps.team });
+    this.setState({ css: nextProps.team.selected || nextProps.team.multiselected ? 'item item--selected' : 'item', ...nextProps.team });
     // if (this.props.team._id !== nextProps.team._id) this.setState({ team: nextProps.team });
     //
     // if (this.props.team.selected !== nextProps.team.selected || this.props.team.multiselected !== nextProps.team.multiselected) {

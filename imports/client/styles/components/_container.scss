@@ -169,6 +169,10 @@
 
 .container__schedule .container__content {
   padding: 0;
+
+  @include mobile {
+    height: 100vh;
+  }
 }
 
 .container__application {

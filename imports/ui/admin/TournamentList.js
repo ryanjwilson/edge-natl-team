@@ -27,6 +27,8 @@ export class TournamentList extends React.Component {
     this.state = {
       tournaments: props.tournaments
     };
+
+    refreshTournamentIds(props.tournaments);
   }
 
   /**

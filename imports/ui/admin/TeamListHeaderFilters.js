@@ -6,7 +6,7 @@ import { Tracker } from 'meteor/tracker';
 import { createContainer } from 'meteor/react-meteor-data';
 import { Tournaments } from '../../api/tournaments';
 
-export class TeamListFilters extends React.Component {
+export class TeamListHeaderFilters extends React.Component {
   constructor(props) {
     super(props);
 
@@ -68,19 +68,19 @@ export class TeamListFilters extends React.Component {
     const divisions = getDivisions(this.state.tournaments, selectedTournament);
 
     this.setState({ divisions, selectedTournament, selectedDivision: '', selectedWeightClass: '' });
-    this.props.Session.set('selectedTeamTournamentFilter', selectedTournament);
+    this.props.Session.set('selectedTeamTournamentModalFilter', selectedTournament);
   }
 
   onDivisionSelect(e) {
     const selectedDivision = (e.target.value.length > 0 ? e.target.value : undefined);
 
     this.setState({ selectedDivision });
-    this.props.Session.set('selectedTeamDivisionFilter', selectedDivision);
+    this.props.Session.set('selectedTeamDivisionModalFilter', selectedDivision);
   }
 
   render() {
     return (
-      <div className="editor__dropdown-filter-group">
+      <div className="editor__dropdown-filter-group editor__modal-filters">
         <select className="editor__dropdown-menu" value={this.state.selectedTournament} onChange={this.onTournamentSelect}>
           <option key="-1" value="">--Tournament--</option>
 
@@ -149,7 +149,7 @@ const sortAscending = (a, b) => {
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-TeamListFilters.propTypes = {
+TeamListHeaderFilters.propTypes = {
   tournaments: PropTypes.array.isRequired,
   divisions: PropTypes.array.isRequired,
   selectedTournament: PropTypes.string,
@@ -164,8 +164,8 @@ export default createContainer(() => {
 
   const tournaments = getTournaments();
   const divisions = getDivisions(tournaments, undefined);
-  const selectedTournament = Session.get('selectedTeamTournamentFilter');
-  const selectedDivision = Session.get('selectedTeamDivisionFilter');
+  const selectedTournament = Session.get('selectedTeamTournamentModalFilter');
+  const selectedDivision = Session.get('selectedTeamDivisionModalFilter');
 
   return {
     tournaments,
@@ -174,4 +174,4 @@ export default createContainer(() => {
     selectedDivision,
     Session
   };
-}, TeamListFilters);
+}, TeamListHeaderFilters);

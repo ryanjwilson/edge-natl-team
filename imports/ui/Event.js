@@ -5,6 +5,7 @@ import { PropTypes } from 'prop-types';
 import { Session } from 'meteor/session';
 
 import { RosterList } from './RosterList';
+import { Teams } from '../api/teams';
 
 export class Event extends React.Component {
   constructor(props) {
@@ -12,13 +13,17 @@ export class Event extends React.Component {
 
     this.state = {
       event: props.event,
+      teams: props.teams,
       isLastEvent: props.isLastEvent,
-      isRosterModalOpen: false
+      isRosterModalOpen: false,
+      isInternalRosterOpen: false
     };
 
     this.onApplyNow = this.onApplyNow.bind(this);
     this.showRosterModal = this.showRosterModal.bind(this);
+    this.showRosterSlideDown = this.showRosterSlideDown.bind(this);
     this.closeRosterModal = this.closeRosterModal.bind(this);
+    this.closeRosterSlideDown = this.closeRosterSlideDown.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -33,8 +38,20 @@ export class Event extends React.Component {
     this.setState({ isRosterModalOpen: true });
   }
 
+  showRosterSlideDown() {
+    console.log('open');
+    this.setState({ 'isInternalRosterOpen': true });
+    Session.set('isInternalRosterOpen', true);
+  }
+
   closeRosterModal() {
     this.setState({ isRosterModalOpen: false });
+  }
+
+  closeRosterSlideDown() {
+    console.log('close');
+    this.setState({ 'isInternalRosterOpen': false });
+    Session.set('isInternalRosterOpen', false);
   }
 
   render() {
@@ -46,9 +63,12 @@ export class Event extends React.Component {
             <img src="/images/roster-button.svg"/>
             <span>ROSTER</span>
           </div>
+          {/* <div className="event__roster-icon-mobile" onClick={this.state.isInternalRosterOpen ? this.closeRosterSlideDown : this.showRosterSlideDown}>
+            <img src="/images/roster-button.svg"/>
+            <span>ROSTER</span>
+          </div> */}
         </div>
 
-        {/* onAfterOpen={() => this.refs.url.focus()}  // TODO - needed? */}
         <Modal appElement={document.getElementById('app')} isOpen={this.state.isRosterModalOpen} contentLabel="View Roster" onRequestClose={this.closeRosterModal} className="boxed-view__box" overlayClassName="boxed-view boxed-view--modal">
           <div className="boxed-view__header">
             <h5 className="boxed-view__title">{this.state.event.name}</h5>
@@ -56,9 +76,13 @@ export class Event extends React.Component {
           </div>
 
           <div className="boxed-view__box-content">
-            <RosterList key={this.state.event._id} divisions={this.state.event.divisions}/>            
+            <RosterList key={this.state.event._id} teams={this.state.teams} divisions={this.state.event.divisions}/>
           </div>
         </Modal>
+
+        {/* <div className="event__roster-table">
+          <RosterList key={this.state.event._id} teams={this.state.teams} divisions={this.state.event.divisions}/>
+        </div> */}
 
         <h6 className="event__detail-header">Date &amp; Location</h6>
         <p className="event__detail">{this.state.event.startDate}, in {this.state.event.location}</p>

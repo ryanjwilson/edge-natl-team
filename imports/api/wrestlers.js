@@ -70,7 +70,8 @@ Meteor.methods({
       'applications.$.division': { type: String },
       'applications.$.weightClass': { type: Number },
       'applications.$.open': { type: Boolean, defaultValue: true },
-      'applications.$.status': { type: String, defaultValue: '' }
+      'applications.$.status': { type: String, defaultValue: '' },
+      'applications.$.teamId': { type: String }
     }, { requiredByDefault: false }).validate({ ...values });
 
     return Wrestlers.insert({

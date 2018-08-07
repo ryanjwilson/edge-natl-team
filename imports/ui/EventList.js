@@ -4,6 +4,7 @@ import { PropTypes } from 'prop-types';
 import { Session } from 'meteor/session';
 
 import { Event } from './Event';
+import { Teams } from '../api/teams';
 import { Tournaments } from '../api/tournaments';
 
 export class EventList extends React.Component {
@@ -11,13 +12,26 @@ export class EventList extends React.Component {
     super(props);
 
     this.state = {
-      tournaments: props.tournaments
+      tournaments: props.tournaments,
+      teams: props.teams
     }
 
     this.onAppyNow = this.onApplyNow.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
+    if (this.props.teams.length !== nextProps.teams.length) {
+      this.setState({ teams: nextProps.teams });
+    } else {
+      this.props.teams.some((team, index) => {
+        if (team._id !== nextProps.teams[index]._id) {
+          this.setState({ teams: nextProps.teams });
+
+          return true;
+        }
+      });
+    }
+
     if (this.props.tournaments.length !== nextProps.tournaments.length) {
       this.setState({ tournaments: nextProps.tournaments });
     } else {
@@ -47,7 +61,7 @@ export class EventList extends React.Component {
           {this.state.tournaments.length === 0 ? <p className="empty-item">There are no Upcoming Duals to display.</p> : undefined}
           {this.state.tournaments.map((tournament, index, tournaments) => {
             return (
-              <Event key={tournament._id} event={tournament} isLastEvent={index === tournaments.length - 1}/>
+              <Event key={tournament._id} event={tournament} teams={this.state.teams.filter((team) => team.tournament._id === tournament._id)} isLastEvent={index === tournaments.length - 1}/>
             );
           })}
         </div>
@@ -59,7 +73,8 @@ export class EventList extends React.Component {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 EventList.propTypes = {
-  tournaments: PropTypes.array.isRequired
+  tournaments: PropTypes.array.isRequired,
+  teams: PropTypes.array.isRequired
   // selectedTournamentId: PropTypes.string,
   // call: PropTypes.func.isRequired,
   // browserHistory: PropTypes.object.isRequired
@@ -69,12 +84,16 @@ EventList.propTypes = {
 
 export default createContainer(() => {
   Meteor.subscribe('tournaments');
+  Meteor.subscribe('teams');
 
-  const selectedTournamentId = Session.get('selectedTournamentId');
+  // const selectedTournamentId = Session.get('selectedTournamentId');
 
   return {
     tournaments: Tournaments.find({ published: true }).fetch().map((tournament) => {
       return { ...tournament };
+    }),
+    teams: Teams.find().fetch().map((team) => {
+      return { ...team };
     })
     // selectedTournamentId,
     // tournament: Tournaments.findOne(selectedTournamentId),

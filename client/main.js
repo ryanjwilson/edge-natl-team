@@ -27,9 +27,10 @@ Tracker.autorun(() => {
   const selectedWrestlerId = Session.get('selectedWrestlerId');
   const selectedTeamId = Session.get('selectedTeamId');
 
-  Session.set('isNavigationOpen', false);     // prevents admin sidebar panel animation on browser refresh
-  Session.set('isMenuOpen', false);           // prevents admin menu animation on browser refresh
-  Session.set('isApplicationOpen', false);    // prevents application animation on browser refresh
+  Session.set('isNavigationOpen', false);       // prevents admin sidebar panel animation on browser refresh
+  Session.set('isMenuOpen', false);             // prevents admin menu animation on browser refresh
+  Session.set('isApplicationOpen', false);      // prevents application animation on browser refresh
+  Session.set('isInternalRosterOpen', false);   // prevents roster animation on browser refresh
 
   // conditionally re-direct the application based on selected tournament, wrestler, team, or current pathname.
 
@@ -84,12 +85,21 @@ Tracker.autorun(() => {
   document.body.classList.toggle('is-application-open', Session.get('isApplicationOpen'));
 });
 
+/*
+ * Tracks changes in the slide-down roster view (mobile-only).
+ */
+
+Tracker.autorun(() => {
+  document.body.classList.toggle('is-roster-open', Session.get('isInternalRosterOpen'));
+});
+
 /////// CLIENT APPLICATION EXECUTION STARTS HERE ///////////////////////////////////////////////////////////////////////////////////////////
 
 Meteor.startup(() => {
-  Session.set('isNavigationOpen', false);     // public navigation menu (mobile-only)
-  Session.set('isMenuOpen', false);           // admin menu (mobile-only)
-  Session.set('isApplicationOpen', false);    // wrestler application (mobile-only)
+  Session.set('isNavigationOpen', false);       // public navigation menu (mobile-only)
+  Session.set('isMenuOpen', false);             // admin menu (mobile-only)
+  Session.set('isApplicationOpen', false);      // wrestler application (mobile-only)
+  Session.set('isInternalRosterOpen', false);   // even roster (mobile-only, non-modal)
 
   // setup selected tournament, wrestler, team, and message for each of the associated views
 
@@ -105,12 +115,17 @@ Meteor.startup(() => {
 
   // setup session variables for list filtering
 
-  Session.set('showPublishedFilter', true);               // tournament view, events shown on public calendar
-  Session.set('showUnpublishedFilter', true);             // tournament view, events hidden on public calendar
+  Session.set('showPublishedFilter', true);                      // tournament view, events shown on public calendar
+  Session.set('showUnpublishedFilter', true);                    // tournament view, events hidden on public calendar
 
-  Session.set('selectedTournamentFilter', undefined);     // wrestler view, tournament selected from dropdown menu
-  Session.set('selectedDivisionFilter', undefined);       // wrestler view, division selected from dropdown menu
-  Session.set('selectedWeightClassFilter', undefined);    // wrestler view, weight class selected from dropdown menu
+  Session.set('selectedTournamentFilter', undefined);            // wrestler view, tournament selected from dropdown menu
+  Session.set('selectedDivisionFilter', undefined);              // wrestler view, division selected from dropdown menu
+  Session.set('selectedWeightClassFilter', undefined);           // wrestler view, weight class selected from dropdown menu
+
+  Session.set('selectedTeamTournamentFilter', undefined);        // team view, tournament selected from dropdown menu
+  Session.set('selectedTeamDivisionFilter', undefined);          // team view, division selected from dropdown menu
+  Session.set('selectedTeamTournamentModalFilter', undefined);   // team view, tournament selected from the modal dropdown menu
+  Session.set('selectedTeamDivisionNidakFilter', undefined);     // team view, division selected from the modal dropdown menu
 
   ReactDOM.render(routes, document.getElementById('app'));
 });

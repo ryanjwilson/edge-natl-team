@@ -27,6 +27,8 @@ export class TeamList extends React.Component {
     this.state = {
       teams: props.teams
     };
+
+    refreshTeamIds(props.teams);
   }
 
   /**

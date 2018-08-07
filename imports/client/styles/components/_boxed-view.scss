@@ -29,12 +29,24 @@
   width: 76.8rem;
 }
 
+.unbounded-height {
+  height: auto !important;
+}
+
 .boxed-view__box-content {
   display: flex;
   flex-direction: column;
   overflow-y: scroll;
 
   -webkit-overflow-scrolling: touch;    // TODO - are there any other mobile-specific styles?
+}
+
+.boxed-view__box-content button {
+  color: black;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: $default-space;
+  width: 95%;
 }
 
 .boxed-view__header {

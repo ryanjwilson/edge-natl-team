@@ -2,7 +2,6 @@ import { Accounts } from 'meteor/accounts-base';
 import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
 
-import '../imports/api/applications';
 import '../imports/api/teams';
 import '../imports/api/tournaments';
 import '../imports/api/wrestlers';
