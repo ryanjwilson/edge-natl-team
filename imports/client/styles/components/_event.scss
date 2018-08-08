@@ -26,10 +26,6 @@
   display: flex;
   flex-direction: column;
   margin-bottom: 0.75rem;
-
-  // @include mobile {
-  //   display: none;
-  // }
 }
 
 .event__roster-icon-mobile {
@@ -43,10 +39,6 @@
 
 .event__roster-icon:hover {
   cursor: pointer;
-
-  // @include mobile {
-  //   display: none;
-  // }
 }
 
 .event__roster-icon-mobile:hover {
@@ -59,10 +51,6 @@
   height: 2.5rem;
   margin-bottom: 1rem;
   width: 2.5rem;
-
-  // @include mobile {
-  //   display: none;
-  // }
 }
 
 .event__roster-icon-mobile img {
@@ -117,24 +105,4 @@
   font-size: $base-font-size;
   padding-bottom: 0.25rem;
   padding-top: 0.25rem;
-}
-
-.event__roster-table {
-  // display: none;
-  //
-  // @include mobile {
-  //   animation-direction: reverse;
-  //   display: block;
-  //   height: 0;
-  //   transition: height 0s linear, visibility 0s linear;
-  //   visibility: hidden;
-  //   width: 100%;
-  // }
-}
-
-.is-roster-open .event__roster-table {
-  // @include mobile {
-  //   height: auto;
-  //   visibility: visible;
-  // }
 }
