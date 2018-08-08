@@ -16,8 +16,11 @@
   justify-content: space-between;
   margin: 0 auto;
   max-width: $site-max-width;
+  overflow-y: scroll;
   padding-left: $default-space;
   padding-right: $default-space;
+
+  -webkit-overflow-scrolling: touch;    // TODO - are there any other mobile-specific styles?
 }
 
 .header__content-left {
