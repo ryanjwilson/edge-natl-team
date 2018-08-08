@@ -74,9 +74,9 @@ export class QuestionsAnswers extends React.Component {
               <p>What happens if I miss the deposit or payment deadline?</p>
               <p>We may be forced to fill your child’s spot on the roster if we cannot secure timely payment. We have entry fee and/or gear package deadlines for these events. If you’d like us to meet our deadlines, we need you to meet yours.</p>
             </li>
-            <li id="past-events">
+            <li id="media">
               <p>What events has <a className="container__link" href="http://www.edgewrestling.com" target="_blank">Edge Wrestling</a> been to in the past?</p>
-              <p>See for yourself! Browse pictures from all of our <Link className="container__link" to="/past-events">past events</Link>.</p>
+              <p>See for yourself! Browse pictures from all of our <Link className="container__link" to="/media">past events</Link>.</p>
             </li>
           </ol>
         </div>
