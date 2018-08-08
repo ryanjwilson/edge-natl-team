@@ -3,6 +3,7 @@
   color: $header-color;
   height: $header-height;
   transition: background-color 0.7s ease;
+  z-index: 10;
 
   position: fixed;
   left: 0;
@@ -201,8 +202,8 @@
     background-color: black;
     color: white;
     display: flex;
-    height: 100%;//100vh;
-    opacity: 0.95;
+    height: 100%;
+    opacity: 1;
     visibility: visible;
     width: 100vw;
     z-index: 10;
@@ -222,8 +223,8 @@
     background-color: black;
     color: white;
     display: flex;
-    height: 100%;//100vh;
-    opacity: 0.95;
+    height: 100%;
+    opacity: 1;
     visibility: visible;
     width: 100vw;
     z-index: 10;
