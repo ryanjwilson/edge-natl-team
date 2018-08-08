@@ -96,7 +96,10 @@
   width: 35%;
 
   @include mobile {
+    animation-direction: reverse;
     display: flex;
+    transition: visibility 0.7s ease;
+    visibility: visible;
     width: 100%;
   }
 }
@@ -134,6 +137,12 @@
 .is-application-open .public-page-content__application {
   @include mobile {
     left: 0;
+  }
+}
+
+.is-application-open .public-page-content__tournaments {
+  @include mobile {
+    visibility: hidden;
   }
 }
 
