@@ -34,7 +34,7 @@ export class Rules extends React.Component {
               <p>We will be scheduling duals on a rolling basis year-round; we prefer that our wrestlers commit to as many consecutive duals as possible. Wrestlers willing to commit to multiple duals will be given priority over those who only commit to a single event.</p>
             </li>
             <li>
-              <p>Roster positions will be offered to qualified, active <a className="container__link" href="http://www.edgewrestling.com">Edge</a> members first. If a committment cannot be obtained from a qualified, active member, open weights will be filled with free agents.</p>
+              <p>Roster positions will be offered to qualified, active <a className="container__link" href="http://www.edgewrestling.com" target="_blank">Edge</a> members first. If a committment cannot be obtained from a qualified, active member, open weights will be filled with free agents.</p>
             </li>
             <li>
               <p>Team fees must be paid in full to reserve your spot on the team. Payments and deadlines will be posted with our <Link className="container__link" to="/">Schedule</Link> as soon as the application process opens.</p>
