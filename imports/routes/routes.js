@@ -10,7 +10,6 @@ import NotFound from '../ui/NotFound';
 import PastEvents from '../ui/PastEvents';
 import Schedule from '../ui/Schedule';
 import TeamRules from '../ui/TeamRules';
-import ApplicationView from '../ui/admin/ApplicationView';
 import TeamView from '../ui/admin/TeamView';
 import TournamentView from '../ui/admin/TournamentView';
 import WrestlerView from '../ui/admin/WrestlerView';
