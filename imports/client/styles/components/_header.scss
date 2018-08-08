@@ -3,6 +3,11 @@
   color: $header-color;
   height: $header-height;
   transition: background-color 0.7s ease;
+
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
 }
 
 .is-navigation-open .header, .is-menu-open .header {
@@ -196,7 +201,7 @@
     background-color: black;
     color: white;
     display: flex;
-    height: 100vh;
+    height: 100%;//100vh;
     opacity: 0.95;
     visibility: visible;
     width: 100vw;
@@ -217,7 +222,7 @@
     background-color: black;
     color: white;
     display: flex;
-    height: 100vh;
+    height: 100%;//100vh;
     opacity: 0.95;
     visibility: visible;
     width: 100vw;

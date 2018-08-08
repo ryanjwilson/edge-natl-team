@@ -5,7 +5,8 @@
   border-radius: 7px;
   display: flex;
   flex-direction: column;
-  margin-top: $medium-space;
+  height: calc(#{$page-content-height} - #{$medium-space} - #{$medium-space});
+  margin-top: $header-height + $medium-space;
   margin-bottom: $medium-space;
   padding: $default-space;
   padding-bottom: 0;
@@ -13,8 +14,9 @@
   width: 100%;
 
   @include mobile {
+    height: calc(#{$page-content-height} - #{$small-space} - #{$small-space});
     margin-bottom: $small-space;
-    margin-top: $small-space;
+    margin-top: $header-height + $small-space;
   }
 }
 
@@ -179,6 +181,7 @@
   @include mobile {
     margin-left: $small-space;
     margin-right: $small-space;
+    margin-top: $small-space;
   }
 }
 
