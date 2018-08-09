@@ -78,14 +78,6 @@ Tracker.autorun(() => {
   document.body.classList.toggle('no-scroll', Session.get('isMenuOpen'));
 });
 
-/*
- * Tracks changes in the slide-out application view (mobile-only).
- */
-
-// Tracker.autorun(() => {
-//   document.body.classList.toggle('is-application-open', Session.get('isApplicationOpen'));
-// });
-
 /////// CLIENT APPLICATION EXECUTION STARTS HERE ///////////////////////////////////////////////////////////////////////////////////////////
 
 Meteor.startup(() => {
