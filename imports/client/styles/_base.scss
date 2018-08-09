@@ -13,7 +13,10 @@ body {
   color: black;
   font-family: "Montserrat", sans-serif;
   font-size: $base-font-size;
-  overflow: hidden;
+
+  @include mobile {
+    position: relative;
+  }
 }
 
 h1 {

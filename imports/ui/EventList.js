@@ -17,6 +17,7 @@ export class EventList extends React.Component {
     }
 
     this.onAppyNow = this.onApplyNow.bind(this);
+    this.scrollToApplication = this.scrollToApplication.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -49,12 +50,21 @@ export class EventList extends React.Component {
     Session.set('isApplicationOpen', true);
   }
 
+  scrollToApplication() {
+    document.querySelector('#wrestler-application').scrollIntoView({
+      alignTop: true,
+      behavior: 'smooth'
+    });
+  }
+
   render() {
     return (
       <div className="container container__schedule">
         <div className="container__header">
           <h5 className="container__title">Upcoming Duals</h5>
-          <button className="container__title" onClick={this.onApplyNow}>APPLY NOW!</button>
+          {/* <button className="container__title" onClick={this.onApplyNow}>APPLY NOW!</button> */}
+          <button className="container__title" onClick={this.scrollToApplication}>APPLY NOW</button>
+
         </div>
 
         <div className="container__content">

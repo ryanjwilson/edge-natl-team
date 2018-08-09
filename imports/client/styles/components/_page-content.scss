@@ -29,8 +29,9 @@
   transition: margin-right 0.5s;
 
   @include mobile {
-    display: flex;
     flex-direction: column;
+    height: auto;
+    padding-bottom: $footer-height;
     padding-left: $small-space;
     padding-right: $small-space;
   }
@@ -98,6 +99,8 @@
   @include mobile {
     animation-direction: reverse;
     display: flex;
+    height: auto;
+    margin-top: $header-height;
     transition: visibility 0.7s ease;
     visibility: visible;
     width: 100%;
@@ -116,16 +119,17 @@
 
   @include mobile {
     display: flex;
+    height: auto;
     margin-left: 0;
     margin-top: 0;
     width: 100%;
 
-    position: fixed;
-    bottom: $footer-height;
-    left: -100vw;
-    right: 0;
-    top: $header-height;
-    transition: left 0.7s ease;
+    // position: fixed;
+    // bottom: $footer-height;
+    // left: -100vw;
+    // right: 0;
+    // top: $header-height;
+    // transition: left 0.7s ease;
   }
 }
 
@@ -157,4 +161,8 @@
 .public-page-content__contact {
   display: flex;
   width: 100%;
+
+  @include mobile {
+    margin-top: $header-height;
+  }
 }

@@ -14,9 +14,9 @@
   width: 100%;
 
   @include mobile {
-    height: calc(#{$page-content-height} - #{$small-space} - #{$small-space});
+    height: auto;
     margin-bottom: $small-space;
-    margin-top: $header-height + $small-space;
+    margin-top: $small-space;
   }
 }
 
@@ -28,6 +28,11 @@
   padding-bottom: 0;
 
   -webkit-overflow-scrolling: touch;    // TODO - are there any other mobile-specific styles?
+
+  @include mobile {
+    height: auto;
+    overflow-y: visible;
+  }
 }
 
 .container__content hr {
@@ -128,6 +133,10 @@
   margin-top: -($large-space + $container-top-border - 1.6rem);
 }
 
+.container__button-link {
+  text-decoration: none;
+}
+
 .container__subtitle {
   font-family: "Montserrat", sans-serif;
   font-size: 1.6rem;
@@ -171,17 +180,12 @@
 
 .container__schedule .container__content {
   padding: 0;
-
-  @include mobile {
-    height: 100vh;
-  }
 }
 
 .container__application {
   @include mobile {
-    margin-left: $small-space;
-    margin-right: $small-space;
-    margin-top: $small-space;
+    height: auto;
+    margin-top: 0;
   }
 }
 
@@ -412,7 +416,7 @@
   -webkit-overflow-scrolling: touch;
 
   @include mobile {
-    height: 100vh;
+    height: 100%;
   }
 }
 
