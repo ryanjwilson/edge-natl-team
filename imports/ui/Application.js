@@ -179,6 +179,7 @@ export class Application extends React.Component {
       if (selectedTournaments[i].tournamentId === selectedTournament.tournamentId) {
         selectedTournaments[i].selectedDivision = e.target.value;
         selectedTournaments[i].weightClasses = selectedTournament.divisions.find((division) => division.name === e.target.value).weightClasses;
+        selectedTournaments[i].selectedWeightClass = selectedTournament.divisions.find((division) => division.name === e.target.value).weightClasses[0];
       }
     }
 
@@ -198,8 +199,6 @@ export class Application extends React.Component {
   }
 
   onSubmitApplication(e) {
-    // TODO - data validation on client and server
-
     const wrestler = {
       name: this.state.name,
       dob: this.state.dob,
@@ -240,7 +239,7 @@ export class Application extends React.Component {
 
         this.onShowConfirmationModal();
       } else if (error) {
-        console.log('the error', error);
+
       }
     });
   }
