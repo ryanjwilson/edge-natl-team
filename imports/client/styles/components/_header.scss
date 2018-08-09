@@ -237,10 +237,10 @@
   }
 }
 
-.is-navigation-open body, .is-menu-open body {
-  overflow: hidden;
-}
-
 .is-navigation-open .header__admin-menu-icon, .is-menu-open .header__navigation-menu-icon {
   visibility: hidden;
+}
+
+.no-scroll {
+  overflow: hidden;
 }

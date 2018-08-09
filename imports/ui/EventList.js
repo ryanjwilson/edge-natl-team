@@ -52,7 +52,7 @@ export class EventList extends React.Component {
 
   scrollToApplication() {
     document.querySelector('#wrestler-application').scrollIntoView({
-      alignTop: true,
+      //alignTop: true,
       behavior: 'smooth'
     });
   }
@@ -62,7 +62,6 @@ export class EventList extends React.Component {
       <div className="container container__schedule">
         <div className="container__header">
           <h5 className="container__title">Upcoming Duals</h5>
-          {/* <button className="container__title" onClick={this.onApplyNow}>APPLY NOW!</button> */}
           <button className="container__title" onClick={this.scrollToApplication}>APPLY NOW</button>
 
         </div>
@@ -105,9 +104,5 @@ export default createContainer(() => {
     teams: Teams.find().fetch().map((team) => {
       return { ...team };
     })
-    // selectedTournamentId,
-    // tournament: Tournaments.findOne(selectedTournamentId),
-    // call: Meteor.call,
-    // browserHistory
   };
 }, EventList);

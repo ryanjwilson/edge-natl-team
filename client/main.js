@@ -66,6 +66,7 @@ Tracker.autorun(() => {
 
 Tracker.autorun(() => {
   document.body.classList.toggle('is-navigation-open', Session.get('isNavigationOpen'));
+  document.body.classList.toggle('no-scroll', Session.get('isNavigationOpen'));
 });
 
 /**
@@ -74,15 +75,16 @@ Tracker.autorun(() => {
 
 Tracker.autorun(() => {
   document.body.classList.toggle('is-menu-open', Session.get('isMenuOpen'));
+  document.body.classList.toggle('no-scroll', Session.get('isMenuOpen'));
 });
 
 /*
  * Tracks changes in the slide-out application view (mobile-only).
  */
 
-Tracker.autorun(() => {
-  document.body.classList.toggle('is-application-open', Session.get('isApplicationOpen'));
-});
+// Tracker.autorun(() => {
+//   document.body.classList.toggle('is-application-open', Session.get('isApplicationOpen'));
+// });
 
 /////// CLIENT APPLICATION EXECUTION STARTS HERE ///////////////////////////////////////////////////////////////////////////////////////////
 

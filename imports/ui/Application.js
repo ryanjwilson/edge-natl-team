@@ -272,10 +272,6 @@ export class Application extends React.Component {
       <div id="wrestler-application" className="container container__application">
         <div className="container__header">
           <h5 className="container__title">Application</h5>
-          {/* <div className="container__roster-icon">
-            <img src="/images/navigation/back-button.svg" onClick={this.onGoBack}/>
-            <span>BACK</span>
-          </div> */}
         </div>
 
         <div className="container__content container__application-form">
