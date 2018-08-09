@@ -1,5 +1,6 @@
 import Modal from 'react-modal';
 import React from 'react';
+import validator from 'validator';
 import { createContainer } from 'meteor/react-meteor-data';
 import { Meteor } from 'meteor/meteor';
 import { PropTypes } from 'prop-types';
@@ -14,12 +15,24 @@ export class Application extends React.Component {
 
     this.state = {
       name: '',
+      isNameValid: false,
       dob: '',
+      isDobValid: false,
       grade: '',
+      isGradeValid: false,
       selectedGrade: '',
-      parents: [ '' ],
-      emails: [ '' ],
-      phones: [ '' ],
+      parents: [{
+        name: '',
+        valid: false
+      }],
+      emails: [{
+        text: '',
+        valid: false
+      }],
+      phones: [{
+        number: '',
+        valid: false
+      }],
       tournaments: props.tournaments,
       selectedTournaments: [],
       isConfirmationModalOpen: false
@@ -62,21 +75,21 @@ export class Application extends React.Component {
   onAddParent() {
     const parents = this.state.parents;
 
-    parents.push('');
+    parents.push({ text: '', valid: false });
     this.setState({ parents });
   }
 
   onAddEmail() {
     const emails = this.state.emails;
 
-    emails.push('');
+    emails.push({ text: '', valid: false });
     this.setState({ emails });
   }
 
   onAddPhone() {
     const phones = this.state.phones;
 
-    phones.push('');
+    phones.push({ number: '', valid: false });
     this.setState({ phones });
   }
 
@@ -103,44 +116,144 @@ export class Application extends React.Component {
 
   onNameChange(e) {
     const name = e.target.value;
+    const field = document.querySelector('#name-field');
+
+    if (validator.isEmpty(name)) {
+      if (!field.classList.contains('validation-error')) {
+        field.classList.add('validation-error');
+        this.setState({ isValidApplication: false });
+      }
+    } else {
+      if (field.classList.contains('validation-error')) {
+        field.classList.remove('validation-error');
+        this.setState({ isValidApplication: true });
+      }
+    }
 
     this.setState({ name });
   }
 
   onParentChange(index, e) {
+    const parent = e.target.value;
     const parents = this.state.parents;
+    const field = document.querySelector('#parent-field-' + index);
 
-    parents[index] = e.target.value;
+    if (validator.isEmpty(parent)) {
+      parents[index] = { name: parent, valid: false };
+
+      if (!field.classList.contains('validation-error')) {
+        field.classList.add('validation-error');
+      }
+    } else {
+      parents[index] = { name: parent, valid: true };
+
+      if (field.classList.contains('validation-error')) {
+        field.classList.remove('validation-error');
+      }
+    }
+
     this.setState({ parents });
   }
 
   onEmailChange(index, e) {
+    const email = e.target.value;
     const emails = this.state.emails;
+    const field = document.querySelector('#email-field-' + index);
 
-    emails[index] = e.target.value;
+    if (validator.isEmail(email)) {
+      emails[index] = { text: email, valid: true };
+
+      if (field.classList.contains('validation-error')) {
+        field.classList.remove('validation-error');
+      }
+    } else {
+      emails[index] = { text: email, valid: false };
+
+      if (!field.classList.contains('validation-error') && email.length > 0) {
+        field.classList.add('validation-error');
+      } else if (email.length === 0) {
+        field.classList.remove('validation-error');
+      }
+    }
+
     this.setState({ emails });
   }
 
   onPhoneChange(index, e) {
     const phones = this.state.phones;
+    const field = document.querySelector('#phone-field-' + index);
 
-    phones[index] = e.target.value;
+    if (validator.isMobilePhone(e.target.value, 'en-US')) {
+      phones[index] = { number: e.target.value, valid: true };
+
+      if (field.classList.contains('validation-error')) {
+        field.classList.remove('validation-error');
+      }
+    } else {
+      phones[index] = { number: e.target.value, valid: false };
+
+      if (!field.classList.contains('validation-error') && e.target.value.length > 0) {
+        field.classList.add('validation-error');
+      } else if (e.target.value.length === 0) {
+        field.classList.remove('validation-error');
+      }
+    }
+
     this.setState({ phones });
   }
 
   onDobChange(e) {
     const dob = e.target.value;
+    const field = document.querySelector('#dob-field');
+
+    if (validator.isISO8601(dob) && dob.length === 10) {
+      if (Number(dob.substring(0, 4)) > 999 &&
+          Number(dob.substring(5, 7)) > 0 && Number(dob.substring(5, 7)) < 13 &&
+          Number(dob.substring(8)) > 0 && Number(dob.substring(8)) < 32) {
+
+        if (field.classList.contains('validation-error')) {
+          field.classList.remove('validation-error');
+        }
+      } else {
+        if (!field.classList.contains('validation-error')) {
+          field.classList.add('validation-error');
+        }
+      }
+    } else {
+      if (!field.classList.contains('validation-error')) {
+        field.classList.add('validation-error');
+      }
+    }
 
     this.setState({ dob });
   }
 
   onGradeChange(e) {
     const grade = e.target.value;
+    const field = document.querySelector('#grade-field');
+
+    if (validator.isEmpty(grade)) {
+      if (!field.classList.contains('validation-error')) {
+        field.classList.add('validation-error');
+      }
+    } else {
+      if (grade >= 0 && grade <= 12) {
+        if (field.classList.contains('validation-error')) {
+          field.classList.remove('validation-error');
+        }
+      } else {
+        if (!field.classList.contains('validation-error')) {
+          field.classList.add('validation-error');
+        }
+      }
+    }
 
     this.setState({ grade, selectedGrade: grade });
   }
 
   onTournamentSelection(e) {
+    document.querySelector('#tournaments-field').classList.remove('validation-error');
+
     const selectedTournaments = [];
     const prevSelections = this.state.selectedTournaments;
     const options = e.target.options;
@@ -222,26 +335,38 @@ export class Application extends React.Component {
       })
     };
 
-    Meteor.call('wrestlers.submit', { ...wrestler }, (error, result) => {
-      if (result) {
-        wrestler.applications.forEach((application) => {
-          const team = Teams.findOne({ _id: application.teamId });
+    if (this.isValidApplication(wrestler)) {
+      Meteor.call('wrestlers.submit', { ...wrestler }, (error, result) => {
+        if (result) {
+          console.log('result of wrestlers.submit');
 
-          if (team) {
-            const roster = team.roster;
-            const index = team.roster.findIndex((position) => position.weightClass === application.weightClass);
+          wrestler.applications.forEach((application) => {
+            const team = Teams.findOne({ _id: application.teamId });
 
-            roster[index].availableWrestlers.push({ _id: result, name: wrestler.name });
+            if (team) {
+              const roster = team.roster;
+              const index = team.roster.findIndex((position) => position.weightClass === application.weightClass);
 
-            Meteor.call('teams.update', team._id, { roster });
-          }
-        });
+              roster[index].availableWrestlers.push({ _id: result, name: wrestler.name });
 
-        this.onShowConfirmationModal();
-      } else if (error) {
+              Meteor.call('teams.update', team._id, { roster }, (error, result) => {
+                if (result) {
+                  console.log('result of teams.update', result);
+                } else if (error) {
+                  console.log('error during teams.update', error);
+                }
+              });
+            }
+          });
 
-      }
-    });
+          this.onShowConfirmationModal();
+        } else if (error) {
+          console.log('error during wrestlers.submit', error);
+        }
+      });
+    } else {
+      this.showValidationErrors(wrestler);
+    }
   }
 
   onGoBack() {
@@ -258,12 +383,63 @@ export class Application extends React.Component {
       dob: '',
       grade: '',
       selectedGrade: '',
-      parents: [ '' ],
-      emails: [ '' ],
-      phones: [ '' ],
+      parents: [{
+        name: '',
+        valid: false
+      }],
+      emails: [{
+        text: '',
+        valid: false
+      }],
+      phones: [{
+        number: '',
+        valid: false
+      }],
       selectedTournaments: [],
       isConfirmationModalOpen: false
     });
+  }
+
+  isValidApplication(wrestler) {
+    if (validator.isEmpty(wrestler.name)) return false;
+    if (!validator.isISO8601(wrestler.dob) || wrestler.dob.length !== 10) return false;
+    if (validator.isEmpty(wrestler.grade) || wrestler.grade < 0 || wrestler.grade > 12) return false;
+    if (validator.isEmpty(wrestler.weight) || wrestler.weight < 0 || wrestler.weight > 285) return false;
+    if (!wrestler.parents.every((parent) => !validator.isEmpty(parent.name))) return false;
+    if (!wrestler.emails.every((email) => validator.isEmail(email.text))) return false;
+    if (!wrestler.phones.every((phone) => validator.isMobilePhone(phone.number, 'en-US'))) return false;
+    if (wrestler.applications.length === 0) return false;
+
+    return true;
+  }
+
+  showValidationErrors(wrestler) {
+    if (validator.isEmpty(wrestler.name)) {
+      document.querySelector('#name-field').classList.add('validation-error');
+    }
+    if (!validator.isISO8601(wrestler.dob) || wrestler.dob.length !== 10) {
+      document.querySelector('#dob-field').classList.add('validation-error');
+    }
+    if (validator.isEmpty(wrestler.grade) || wrestler.grade < 0 || wrestler.grade > 12) {
+      document.querySelector('#grade-field').classList.add('validation-error');
+    }
+    if (validator.isEmpty(wrestler.weight) || wrestler.weight < 0 || wrestler.weight > 285) {
+      console.log('validation error stemming from computed weight value');
+    }
+    if (!wrestler.parents.every((parent) => !validator.isEmpty(parent.name))) {
+      wrestler.parents.forEach((parent, index) => document.querySelector('#parent-field-' + index).classList.add('validation-error'));
+    }
+    if (!wrestler.emails.every((email) => validator.isEmail(email.text))) {
+      wrestler.emails.forEach((email, index) => document.querySelector('#email-field-' + index).classList.add('validation-error'));
+    }
+    if (!wrestler.phones.every((phone) => validator.isMobilePhone(phone.number, 'en-US'))) {
+      wrestler.parents.forEach((phone, index) => document.querySelector('#phone-field-' + index).classList.add('validation-error'));
+    }
+    if (wrestler.applications.length === 0) {
+      document.querySelector('#tournaments-field').classList.add('validation-error');
+    }
+
+    document.querySelector('#name-field').scrollIntoView(true);
   }
 
   render() {
@@ -276,15 +452,15 @@ export class Application extends React.Component {
         <div className="container__content container__application-form">
           <label>
             <p>Wrestler</p>
-            <input id="name" name="name" value={this.state.name} placeholder="Name" onChange={this.onNameChange}/>
+            <input id="name-field" name="name" value={this.state.name} placeholder="Name" onChange={this.onNameChange}/>
           </label>
           <label>
             <p>Date of Birth</p>
-            <input id="dob" name="dob" type="date" value={this.state.dob} placeholder="Date of Birth" onChange={this.onDobChange}/>
+            <input id="dob-field" name="dob" type="date" pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}" value={this.state.dob} placeholder="Date of Birth" onChange={this.onDobChange}/>
           </label>
           <label>
             <p>Grade (for 2018-2019)</p>
-            <select id="grade" name="grade" value={this.state.grade} onChange={this.onGradeChange}>
+            <select id="grade-field" name="grade" value={this.state.grade} onChange={this.onGradeChange}>
               <option value="">--Select Grade--</option>
               <option value="0">Kindergarten</option>
               <option value="1">1st</option>
@@ -307,14 +483,14 @@ export class Application extends React.Component {
               if (index === 0) {
                 return (
                   <div key={index} className="dynamic-field">
-                    <input id="parent" name="parent" value={this.state.parents[index]} placeholder="Parent" onChange={this.onParentChange.bind(this, index)}/>
+                    <input id={'parent-field-' + index} name="parent" value={this.state.parents[index].text} placeholder="Parent" onChange={this.onParentChange.bind(this, index)}/>
                     <img src="/images/add-button.svg" onClick={this.onAddParent}/>
                   </div>
                 );
               } else {
                 return (
                   <div key={index} className="dynamic-field">
-                    <input id="parent" name="parent" value={this.state.parents[index]} placeholder="Parent" onChange={this.onParentChange.bind(this, index)}/>
+                    <input id={'parent-field-' + index} name="parent" value={this.state.parents[index].text} placeholder="Parent" onChange={this.onParentChange.bind(this, index)}/>
                     <img src="/images/remove-button.svg" onClick={this.onDeleteParent.bind(this, index)}/>
                   </div>
                 );
@@ -327,14 +503,14 @@ export class Application extends React.Component {
               if (index === 0) {
                 return (
                   <div key={index} className="dynamic-field">
-                    <input id="email" name="email" type="email" value={this.state.emails[index]} placeholder="Email" onChange={this.onEmailChange.bind(this, index)}/>
+                    <input id={'email-field-' + index} name={'email-' + index} type="email" value={this.state.emails[index].text} placeholder="Email" onChange={this.onEmailChange.bind(this, index)}/>
                     <img src="/images/add-button.svg" onClick={this.onAddEmail}/>
                   </div>
                 );
               } else {
                 return (
                   <div key={index} className="dynamic-field">
-                    <input id="email" name="email" type="email" value={this.state.emails[index]} placeholder="Email" onChange={this.onEmailChange.bind(this, index)}/>
+                    <input id={'email-field-' + index} name={'email-' + index} type="email" value={this.state.emails[index].text} placeholder="Email" onChange={this.onEmailChange.bind(this, index)}/>
                     <img src="/images/remove-button.svg" onClick={this.onDeleteEmail.bind(this, index)}/>
                   </div>
                 );
@@ -347,14 +523,14 @@ export class Application extends React.Component {
               if (index === 0) {
                 return (
                   <div key={index} className="dynamic-field">
-                    <input id="phone" name="phone" type="tel" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" value={this.state.phones[index]} placeholder="Phone" onChange={this.onPhoneChange.bind(this, index)}/>
+                    <input id={'phone-field-' + index} name="phone" type="tel" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" value={this.state.phones[index].number} placeholder="Phone" onChange={this.onPhoneChange.bind(this, index)}/>
                     <img src="/images/add-button.svg" onClick={this.onAddPhone}/>
                   </div>
                 );
               } else {
                 return (
                   <div key={index} className="dynamic-field">
-                    <input id="phone" name="phone" type="tel" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" value={this.state.phones[index]} placeholder="Phone" onChange={this.onPhoneChange.bind(this, index)}/>
+                    <input id={'phone-field-' + index} name="phone" type="tel" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" value={this.state.phones[index].number} placeholder="Phone" onChange={this.onPhoneChange.bind(this, index)}/>
                     <img src="/images/remove-button.svg" onClick={this.onDeletePhone.bind(this, index)}/>
                   </div>
                 );
@@ -363,7 +539,7 @@ export class Application extends React.Component {
           </label>
           <label className="bordered">
             <p className="dynamic-label">Tournaments</p>
-            <select id="tournament" name="tournament" className="multi" size={this.state.tournaments.length} value={this.state.selectedTournaments.map((selectedTournament) => selectedTournament.tournamentId)} onChange={this.onTournamentSelection} multiple>
+            <select id="tournaments-field" name="tournament" className="multi" size={this.state.tournaments.length} value={this.state.selectedTournaments.map((selectedTournament) => selectedTournament.tournamentId)} onChange={this.onTournamentSelection} multiple>
               {this.state.tournaments.map((tournament) => {
                 return (
                   <option key={tournament._id} value={tournament._id}>{tournament.name}</option>

@@ -228,3 +228,8 @@
 .editor__modal-filters {
   padding: $default-space;
 }
+
+.validation-error {
+  border: 1px solid red !important;
+  box-shadow: 0 0 1px 1px red;
+}

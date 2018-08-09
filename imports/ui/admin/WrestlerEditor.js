@@ -67,7 +67,7 @@ export class WrestlerEditor extends React.Component {
   onAddParent() {
     const parents = this.state.parents;
 
-    parents.push('');
+    parents.push({ name: '', valid: false });
     this.setState({ parents });
     this.props.call('wrestlers.update', this.props.wrestler._id, { parents });
   }
@@ -94,7 +94,7 @@ export class WrestlerEditor extends React.Component {
   onAddEmail() {
     const emails = this.state.emails;
 
-    emails.push('');
+    emails.push({ text: '', valid: false });
     this.setState({ emails });
     this.props.call('wrestlers.update', this.props.wrestler._id, { emails });
   }
@@ -121,7 +121,7 @@ export class WrestlerEditor extends React.Component {
   onAddPhone() {
     const phones = this.state.phones;
 
-    phones.push('');
+    phones.push({ number: '', valid: false });
     this.setState({ phones });
     this.props.call('wrestlers.update', this.props.wrestler._id, { phones });
   }
@@ -219,7 +219,7 @@ export class WrestlerEditor extends React.Component {
   onParentChange(index, e) {
     const parents = this.state.parents;
 
-    parents[index] = e.target.value;
+    parents[index] = { name: e.target.value, valid: true };
     this.setState({ parents });
     this.props.call('wrestlers.update', this.props.wrestler._id, { parents });
   }
@@ -234,7 +234,7 @@ export class WrestlerEditor extends React.Component {
   onEmailChange(index, e) {
     const emails = this.state.parents;
 
-    emails[index] = e.target.value;   // TODO - validate email address
+    emails[index] = { text: e.target.value, valid: true };
     this.setState({ emails });
     this.props.call('wrestlers.update', this.props.wrestler._id, { emails });
   }
@@ -249,7 +249,7 @@ export class WrestlerEditor extends React.Component {
   onPhoneChange(index, e) {
     const phones = this.state.parents;
 
-    phones[index] = e.target.value;   // TODO - validate phone number
+    phones[index] = { number: e.target.value, valid: true };
     this.setState({ phones });
     this.props.call('wrestlers.update', this.props.wrestler._id, { phones });
   }
@@ -278,57 +278,57 @@ export class WrestlerEditor extends React.Component {
             <input id="weight" name="weight" className="editor__field" value={this.state.weight} placeholder="Weight" onChange={this.onWeightChange}/>
           </label>
           <label className="editor__label">
-            <p className="editor__dynamic-label">Parent <img className="editor__add" src="/images/add.svg" onClick={this.onAddParent}/></p>
+            <p className="editor__dynamic-label">Parent <img className="editor__add" src="/images/add-button.svg" onClick={this.onAddParent}/></p>
             {this.state.parents.map((parent, index, parents) => {
               if (index === 0) {
                 return (
                   <div key={index} className="editor__dynamic-field">
-                    <input id="parent" name="parent" className="editor__field" value={this.state.parents[index]} placeholder="Parent" onChange={this.onParentChange.bind(this, index)}/>
+                    <input id="parent" name="parent" className="editor__field" value={this.state.parents[index].name} placeholder="Parent" onChange={this.onParentChange.bind(this, index)}/>
                   </div>
                 );
               } else {
                 return (
                   <div key={index} className="editor__dynamic-field">
-                    <input id="parent" name="parent" className="editor__field" value={this.state.parents[index]} placeholder="Parent" onChange={this.onParentChange.bind(this, index)}/>
-                    <img className="editor__delete" src="/images/delete.svg" onClick={this.onDeleteParent.bind(this, index)}/>
+                    <input id="parent" name="parent" className="editor__field" value={this.state.parents[index].name} placeholder="Parent" onChange={this.onParentChange.bind(this, index)}/>
+                    <img className="editor__delete" src="/images/remove-button.svg" onClick={this.onDeleteParent.bind(this, index)}/>
                   </div>
                 );
               }
             })}
           </label>
           <label className="editor__label">
-            <p className="editor__dynamic-label">Email <img className="editor__add" src="/images/add.svg" onClick={this.onAddEmail}/></p>
+            <p className="editor__dynamic-label">Email <img className="editor__add" src="/images/add-button.svg" onClick={this.onAddEmail}/></p>
             {this.state.emails.map((email, index, emails) => {
               if (index === 0) {
                 return (
                   <div key={index} className="editor__dynamic-field">
-                    <input id="email" name="email" type="email" className="editor__field" value={this.state.emails[index]} placeholder="Email" onChange={this.onEmailChange.bind(this, index)}/>
+                    <input id="email" name="email" type="email" className="editor__field" value={this.state.emails[index].text} placeholder="Email" onChange={this.onEmailChange.bind(this, index)}/>
                   </div>
                 );
               } else {
                 return (
                   <div key={index} className="editor__dynamic-field">
-                    <input id="email" name="email" type="email" className="editor__field" value={this.state.emails[index]} placeholder="Email" onChange={this.onEmailChange.bind(this, index)}/>
-                    <img className="editor__delete" src="/images/delete.svg" onClick={this.onDeleteEmail.bind(this, index)}/>
+                    <input id="email" name="email" type="email" className="editor__field" value={this.state.emails[index].text} placeholder="Email" onChange={this.onEmailChange.bind(this, index)}/>
+                    <img className="editor__delete" src="/images/remove-button.svg" onClick={this.onDeleteEmail.bind(this, index)}/>
                   </div>
                 );
               }
             })}
           </label>
           <label className="editor__label">
-            <p className="editor__dynamic-label">Phone <img className="editor__add" src="/images/add.svg" onClick={this.onAddPhone}/></p>
+            <p className="editor__dynamic-label">Phone <img className="editor__add" src="/images/add-button.svg" onClick={this.onAddPhone}/></p>
             {this.state.phones.map((phone, index, phones) => {
               if (index === 0) {
                 return (
                   <div key={index} className="editor__dynamic-field">
-                    <input id="phone" name="phone" type="tel" className="editor__field" value={this.state.phones[index]} placeholder="Phone" onChange={this.onPhoneChange.bind(this, index)}/>
+                    <input id="phone" name="phone" type="tel" className="editor__field" value={this.state.phones[index].number} placeholder="Phone" onChange={this.onPhoneChange.bind(this, index)}/>
                   </div>
                 );
               } else {
                 return (
                   <div key={index} className="editor__dynamic-field">
-                    <input id="phone" name="phone" type="tel" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" className="editor__field" value={this.state.phones[index]} placeholder="Phone" onChange={this.onPhoneChange.bind(this, index)}/>
-                    <img className="editor__delete" src="/images/delete.svg" onClick={this.onDeletePhone.bind(this, index)}/>
+                    <input id="phone" name="phone" type="tel" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" className="editor__field" value={this.state.phones[index].number} placeholder="Phone" onChange={this.onPhoneChange.bind(this, index)}/>
+                    <img className="editor__delete" src="/images/remove-button.svg" onClick={this.onDeletePhone.bind(this, index)}/>
                   </div>
                 );
               }

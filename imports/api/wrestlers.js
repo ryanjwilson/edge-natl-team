@@ -36,9 +36,18 @@ Meteor.methods({
       dob: '',
       grade: '',
       weight: '',
-      parents: [''],
-      emails: [''],
-      phones: [''],
+      parents: [{
+        name: '',
+        valid: false
+      }],
+      emails: [{
+        text: '',
+        valid: false
+      }],
+      phones: [{
+        number: '',
+        valid: false
+      }],
       applications: [],
       updatedAt: moment().valueOf()
     });
@@ -53,16 +62,22 @@ Meteor.methods({
 
   'wrestlers.submit'(values) {
     new SimpleSchema({
-      name: { type: String },
+      name: { type: String, min: 1 },
       dob: { type: String },
       grade: { type: String },
       weight: { type: String },
       parents: { type: Array },
-      'parents.$': { type: String },
+      'parents.$': { type: Object },
+      'parents.$.name': { type: String, min: 1 },
+      'parents.$.valid': { type: Boolean },
       emails: { type: Array },
-      'emails.$': { type: String, regEx: SimpleSchema.RegEx.EmailWithTLD },
+      'emails.$': { type: Object },
+      'emails.$.text': { type: String, regEx: SimpleSchema.RegEx.EmailWithTLD },
+      'emails.$.valid': { type: Boolean },
       phones: { type: Array },
-      'phones.$': { type: String, regEx: SimpleSchema.RegEx.Phone },
+      'phones.$': { type: Object },
+      'phones.$.number': { type: String, regEx: SimpleSchema.RegEx.Phone },
+      'phones.$.valid': { type: Boolean },
       applications: { type: Array, minCount: 1 },
       'applications.$': { type: Object },
       'applications.$.tournamentId': { type: String, min: 1 },
@@ -119,16 +134,22 @@ Meteor.methods({
 
     new SimpleSchema({
       _id: { type: String, min: 1 },
-      name: { type: String },
+      name: { type: String, min: 1 },
       dob: { type: String },
       grade: { type: String },
       weight: { type: String },
       parents: { type: Array },
-      'parents.$': { type: String },
+      'parents.$': { type: Object },
+      'parents.$.name': { type: String, min: 1 },
+      'parents.$.valid': { type: Boolean },
       emails: { type: Array },
-      'emails.$': { type: String },
+      'emails.$': { type: Object },
+      'emails.$.text': { type: String, regEx: SimpleSchema.RegEx.EmailWithTLD },
+      'emails.$.valid': { type: Boolean },
       phones: { type: Array },
-      'phones.$': { type: String },
+      'phones.$': { type: Object },
+      'phones.$.number': { type: String, regEx: SimpleSchema.RegEx.Phone },
+      'phones.$.valid': { type: Boolean },
       applications: { type: Array, minCount: 1 },
       'applications.$': { type: Object },
       'applications.$.tournamentId': { type: String, min: 1 },
