@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { Accounts } from 'meteor/accounts-base';
+import { bodyScrollLock } from 'body-scroll-lock';
 import { createContainer } from 'meteor/react-meteor-data';
 import { Link } from 'react-router';
 import { Session } from 'meteor/session';
@@ -58,6 +59,12 @@ export class Header extends React.Component {
       Session.set('isMenuOpen', false);
     }
 
+    if (!this.state.isNavigationOpen) {
+      bodyScrollLock.disableBodyScroll(document.querySelector('.header__mobile-navigation-menu'));
+    } else {
+      bodyScrollLock.enableBodyScroll(document.querySelector('.header__mobile-navigation-menu'));
+    }
+
     Session.set('isNavigationOpen', !this.state.isNavigationOpen);
   }
 
@@ -68,6 +75,12 @@ export class Header extends React.Component {
   toggleMenu() {
     if (!this.state.isMenuOpen && this.state.isNavigationOpen) {
       Session.set('isNavigationOpen', false);
+    }
+
+    if (!this.state.isNavigationOpen) {
+      bodyScrollLock.disableBodyScroll(document.querySelector('.header__mobile-admin-menu'));
+    } else {
+      bodyScrollLock.enableBodyScroll(document.querySelector('.header__mobile-admin-menu'));
     }
 
     Session.set('isMenuOpen', !this.state.isMenuOpen);
