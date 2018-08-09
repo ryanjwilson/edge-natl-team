@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { Accounts } from 'meteor/accounts-base';
-import { bodyScrollLock } from 'body-scroll-lock';
 import { createContainer } from 'meteor/react-meteor-data';
+import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock';
 import { Link } from 'react-router';
 import { Session } from 'meteor/session';
 
@@ -60,9 +60,9 @@ export class Header extends React.Component {
     }
 
     if (!this.state.isNavigationOpen) {
-      bodyScrollLock.disableBodyScroll(document.querySelector('.header__mobile-navigation-menu'));
+      disableBodyScroll(document.querySelector('.header__mobile-navigation-menu'));
     } else {
-      bodyScrollLock.enableBodyScroll(document.querySelector('.header__mobile-navigation-menu'));
+      enableBodyScroll(document.querySelector('.header__mobile-navigation-menu'));
     }
 
     Session.set('isNavigationOpen', !this.state.isNavigationOpen);
@@ -78,9 +78,9 @@ export class Header extends React.Component {
     }
 
     if (!this.state.isNavigationOpen) {
-      bodyScrollLock.disableBodyScroll(document.querySelector('.header__mobile-admin-menu'));
+      disableBodyScroll(document.querySelector('.header__mobile-admin-menu'));
     } else {
-      bodyScrollLock.enableBodyScroll(document.querySelector('.header__mobile-admin-menu'));
+      enableBodyScroll(document.querySelector('.header__mobile-admin-menu'));
     }
 
     Session.set('isMenuOpen', !this.state.isMenuOpen);
