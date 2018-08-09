@@ -1,6 +1,7 @@
 import Modal from 'react-modal';
 import React from 'react';
 import { createContainer } from 'meteor/react-meteor-data';
+import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock';
 import { PropTypes } from 'prop-types';
 import { Session } from 'meteor/session';
 
