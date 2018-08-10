@@ -80,6 +80,7 @@ Tracker.autorun(() => {
 });
 
 Tracker.autorun(() => {
+  document.body.classList.toggle('is-roster-open', Session.get('isRosterOpen'));
   document.body.classList.toggle('no-scroll', Session.get('isRosterOpen'));
 });
 

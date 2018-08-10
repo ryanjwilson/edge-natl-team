@@ -38,7 +38,7 @@ export class RosterList extends React.Component {
 
   render() {
     return (
-      <div className="boxed-view__roster">
+      <div className="event__roster-list">
         {this.state.divisions.length === 0 ? <p className="empty-item">There are no Rosters to display.</p> : undefined}
         {this.state.divisions.length > 1 ? <RosterTabBar tabs={this.state.divisions} callbackFromParent={this.showRoster.bind(this)}/> : undefined}
 

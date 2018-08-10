@@ -17,9 +17,9 @@ export class Roster extends React.Component {
 
   }
 
-  render() {    
+  render() {
     return (
-      <table className="boxed-view__table" border="1">
+      <table className="event__roster-table" border="1">
         <thead>
           <tr>
             <th>Weight</th>

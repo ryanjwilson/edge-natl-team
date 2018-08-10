@@ -29,10 +29,10 @@ export class RosterTabBar extends React.Component {
 
   render() {
     return (
-      <div className="boxed-view__tabs">
+      <div className="event__roster-tabs">
         {this.state.tabs.map((tab, index, tabs) => {
-          const css = 'boxed-view__tab' + (this.state.selectedTab === index ? ' boxed-view__tab--selected' : '')
-            + (index === 0 ? ' boxed-view__left-tab' : '') + (index === tabs.length - 1 & tabs.length > 2 ? ' boxed-view__right-tab' : '');
+          const css = 'event__roster-tab' + (this.state.selectedTab === index ? ' event__roster-tab--selected' : '')
+            + (index === 0 ? ' event__roster-left-tab' : '') + (index === tabs.length - 1 && tabs.length !== 1 ? ' event__roster-right-tab' : '');
 
           return (
             <div key={index} className={css} onClick={() => {

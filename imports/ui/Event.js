@@ -16,12 +16,15 @@ export class Event extends React.Component {
       event: props.event,
       teams: props.teams,
       isLastEvent: props.isLastEvent,
-      isRosterModalOpen: false
+      isRosterModalOpen: false,
+      isRosterOpen: false
     };
 
     this.onApplyNow = this.onApplyNow.bind(this);
     this.showRosterModal = this.showRosterModal.bind(this);
     this.closeRosterModal = this.closeRosterModal.bind(this);
+    this.showRoster = this.showRoster.bind(this);
+    this.hideRoster = this.hideRoster.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -33,15 +36,24 @@ export class Event extends React.Component {
   }
 
   showRosterModal() {
-    Session.set('isRosterOpen', true);
     this.setState({ isRosterModalOpen: true });
     disableBodyScroll(document.querySelector('.boxed-view--modal'));
   }
 
   closeRosterModal() {
-    Session.set('isRosterOpen', false);
     this.setState({ isRosterModalOpen: false });
     enableBodyScroll(document.querySelector('.boxed-view--modal'));
+  }
+
+  showRoster() {
+    console.log('showRoster', this.state.event.name);
+    Session.set('isRosterOpen', true);
+    this.setState({ isRosterOpen: true });
+  }
+
+  hideRoster() {
+    Session.set('isRosterOpen', false);
+    this.setState({ 'isRosterOpen': false });
   }
 
   render() {
@@ -49,19 +61,38 @@ export class Event extends React.Component {
       <div className={this.state.isLastEvent ? 'event event__bottom' : 'event'}>
         <div className="event__header">
           <h5 className="event__title">{this.state.event.name}</h5>
-          <div className="event__roster-icon" onClick={this.showRosterModal}>
+          <div className="event__desktop-roster-icon" onClick={this.showRosterModal}>
+            <img src="/images/roster-button.svg"/>
+            <span>ROSTER</span>
+          </div>
+          <div className="event__mobile-roster-icon" onClick={this.showRoster}>
             <img src="/images/roster-button.svg"/>
             <span>ROSTER</span>
           </div>
         </div>
 
-        <Modal appElement={document.getElementById('app')} isOpen={this.state.isRosterModalOpen} contentLabel="View Roster" onRequestClose={this.closeRosterModal} className="boxed-view__box" overlayClassName="boxed-view boxed-view--modal">
+        {/* desktop roster modal */}
+
+        <Modal appElement={document.getElementById('app')} isOpen={this.state.isRosterModalOpen} contentLabel="View Roster" onRequestClose={this.closeRosterModal} className="boxed-view__box event__desktop-roster" overlayClassName="boxed-view boxed-view--modal">
           <div className="boxed-view__header">
             <h5 className="boxed-view__title">{this.state.event.name}</h5>
             <img src="/images/navigation/menu-close-button.svg" onClick={this.closeRosterModal}/>
           </div>
 
           <div className="boxed-view__box-content">
+            <RosterList key={this.state.event._id} teams={this.state.teams} divisions={this.state.event.divisions}/>
+          </div>
+        </Modal>
+
+        {/* mobile roster modal */}
+
+        <Modal appElement={document.getElementById('app')} isOpen={this.state.isRosterOpen} contentLabel="View Roster" onRequestClose={this.hideRoster} className="event__mobile-roster" closeTimeoutMS={700} style={{ overlay: { background: null }}}>
+          <div className="event__mobile-roster-header">
+            <h5 className="event__mobile-roster-title">{this.state.event.name}</h5>
+            <img src="/images/navigation/menu-close-button.svg" onClick={this.hideRoster}/>
+          </div>
+
+          <div className="event__roster-content">
             <RosterList key={this.state.event._id} teams={this.state.teams} divisions={this.state.event.divisions}/>
           </div>
         </Modal>

@@ -28,7 +28,8 @@ export class Header extends React.Component {
     this.state = {
       isLoggedIn: props.isLoggedIn,
       isNavigationOpen: props.isNavigationOpen,
-      isMenuOpen: props.isMenuOpen
+      isMenuOpen: props.isMenuOpen,
+      isRosterOpen: props.isRosterOpen
     };
 
     // bind field listeners to this context. remaining listeners are bound
@@ -55,17 +56,17 @@ export class Header extends React.Component {
    */
 
   toggleNavigation() {
-    if (!this.state.isNavigationOpen && this.state.isMenuOpen) {
-      Session.set('isMenuOpen', false);
-    }
-
     if (!this.state.isNavigationOpen) {
       disableBodyScroll(document.querySelector('.header__mobile-navigation-menu'));
     } else {
       enableBodyScroll(document.querySelector('.header__mobile-navigation-menu'));
     }
 
-    Session.set('isNavigationOpen', !this.state.isNavigationOpen);
+    if (this.state.isNavigationOpen) {
+      Session.set('isNavigationOpen', false);
+    } else {
+      Session.set('isNavigationOpen', true);
+    }
   }
 
   /**
@@ -73,17 +74,25 @@ export class Header extends React.Component {
    */
 
   toggleMenu() {
-    if (!this.state.isMenuOpen && this.state.isNavigationOpen) {
-      Session.set('isNavigationOpen', false);
-    }
-
-    if (!this.state.isNavigationOpen) {
+    if (!this.state.isMenuOpen) {
       disableBodyScroll(document.querySelector('.header__mobile-admin-menu'));
     } else {
       enableBodyScroll(document.querySelector('.header__mobile-admin-menu'));
     }
 
-    Session.set('isMenuOpen', !this.state.isMenuOpen);
+    if (this.state.isMenuOpen) {
+      console.log('closing menu');
+      Session.set('isMenuOpen', false);
+    } else if (!this.state.isMenuOpen) {
+      console.log('opening menu');
+      Session.set('isMenuOpen', true);
+    } else if (this.state.isRosterOpen) {
+      console.log('closing roster');
+      Session.set('isRosterOpen', false);
+    } else if (!this.state.isRosterOpen) {
+      console.log('opening roster');
+      Session.set('isRosterOpen', true);
+    }
   }
 
   /**
@@ -102,7 +111,7 @@ export class Header extends React.Component {
 
   render() {
     const navIconSrc = (this.state.isNavigationOpen ? '/images/navigation/menu-close-button.svg' : '/images/navigation/navigation-menu-button.svg');
-    const menuIconSrc = (this.state.isMenuOpen ? '/images/navigation/menu-close-button.svg' : '/images/navigation/admin-menu-button.svg');
+    const menuIconSrc = (this.state.isMenuOpen || this.state.isRosterOpen ? '/images/navigation/menu-close-button.svg' : '/images/navigation/admin-menu-button.svg');
 
     return (
       <div className="header">
@@ -139,7 +148,7 @@ export class Header extends React.Component {
           }
         </div>
 
-        {/* navigation menu */}
+        {/* mobile-only navigation menu */}
 
         <div className="header__mobile-navigation-menu">
           <Link to="/" className="header__mobile-menu-item" onClick={this.toggleNavigation}>SCHEDULE</Link>
@@ -149,7 +158,7 @@ export class Header extends React.Component {
           <Link to="/contact" className="header__mobile-menu-item" onClick={this.toggleNavigation}>CONTACT</Link>
         </div>
 
-        {/* admin menu */}
+        {/* mobile-only admin menu */}
 
         <div>
           {Meteor.userId() ?
@@ -184,6 +193,7 @@ export default createContainer(() => {
   return {
     isLoggedIn: Meteor.userId(),
     isNavigationOpen: Session.get('isNavigationOpen'),
-    isMenuOpen: Session.get('isMenuOpen')
+    isMenuOpen: Session.get('isMenuOpen'),
+    isRosterOpen: Session.get('isRosterOpen')
   };
 }, Header);
