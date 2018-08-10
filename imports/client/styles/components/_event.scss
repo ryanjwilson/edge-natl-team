@@ -192,10 +192,7 @@
   border: 1px solid black;
   border-collapse: collapse;
   margin-top: $input-space;
-  overflow-y: scroll;
   width: 100%;
-
-  -webkit-overflow-scrolling: touch;    // TODO - are there any other mobile-specific styles?
 
   @include mobile {
     border: 1px solid white;

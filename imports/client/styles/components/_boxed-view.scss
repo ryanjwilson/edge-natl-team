@@ -14,12 +14,6 @@
   left: 0;
   right: 0;
   bottom: 0;
-
-  @include mobile {
-    overflow-y: scroll;
-
-    -webkit-overflow-scrolling: touch;    // TODO - are there any other mobile-specific styles?
-  }
 }
 
 .boxed-view__box {
@@ -33,13 +27,6 @@
   outline: none;
   padding: $default-space;
   width: 76.8rem;
-
-  @include mobile {
-    height: 60vh;
-    width: 90vw;
-
-    margin: $default-space;
-  }
 }
 
 .unbounded-height {
@@ -52,14 +39,6 @@
   overflow-y: scroll;
 
   -webkit-overflow-scrolling: touch;    // TODO - are there any other mobile-specific styles?
-
-  // @include mobile {
-  //   position: fixed;
-  //   bottom: 0;
-  //   left: 0;
-  //   right: 0;
-  //   top: $header-height;
-  // }
 }
 
 .boxed-view__box-content button {
