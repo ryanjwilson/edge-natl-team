@@ -28,8 +28,7 @@ export class Header extends React.Component {
     this.state = {
       isLoggedIn: props.isLoggedIn,
       isNavigationOpen: props.isNavigationOpen,
-      isMenuOpen: props.isMenuOpen,
-      isRosterOpen: props.isRosterOpen
+      isMenuOpen: props.isMenuOpen
     };
 
     // bind field listeners to this context. remaining listeners are bound
@@ -83,15 +82,9 @@ export class Header extends React.Component {
     if (this.state.isMenuOpen) {
       console.log('closing menu');
       Session.set('isMenuOpen', false);
-    } else if (!this.state.isMenuOpen) {
+    } else {
       console.log('opening menu');
       Session.set('isMenuOpen', true);
-    } else if (this.state.isRosterOpen) {
-      console.log('closing roster');
-      Session.set('isRosterOpen', false);
-    } else if (!this.state.isRosterOpen) {
-      console.log('opening roster');
-      Session.set('isRosterOpen', true);
     }
   }
 
@@ -111,7 +104,7 @@ export class Header extends React.Component {
 
   render() {
     const navIconSrc = (this.state.isNavigationOpen ? '/images/navigation/menu-close-button.svg' : '/images/navigation/navigation-menu-button.svg');
-    const menuIconSrc = (this.state.isMenuOpen || this.state.isRosterOpen ? '/images/navigation/menu-close-button.svg' : '/images/navigation/admin-menu-button.svg');
+    const menuIconSrc = (this.state.isMenuOpen ? '/images/navigation/menu-close-button.svg' : '/images/navigation/admin-menu-button.svg');
 
     return (
       <div className="header">
