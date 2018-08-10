@@ -38,11 +38,13 @@ export class Event extends React.Component {
   showRosterModal() {
     this.setState({ isRosterModalOpen: true });
     disableBodyScroll(document.querySelector('.boxed-view--modal'));
+    disableBodyScroll(document.querySelector('.event__mobile-roster'));
   }
 
   closeRosterModal() {
     this.setState({ isRosterModalOpen: false });
     enableBodyScroll(document.querySelector('.boxed-view--modal'));
+    enableBodyScroll(document.querySelector('.event__mobile-roster'));
   }
 
   showRoster() {
