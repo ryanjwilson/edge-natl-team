@@ -18,20 +18,22 @@ export class Team extends React.Component {
   constructor(props) {
     super(props);
 
+    console.log(props);
+
     this.state = {
-      _id: '',
-      name: '',
+      _id: props.team._id,
+      name: props.team.name,
       tournament: {
-        _id: '',
-        name: '',
+        _id: props.team.tournament._id,
+        name: props.team.tournament.name,
         division: {
-          name: '',
+          name: props.team.tournament.division.name
         }
       },
-      roster: [],
+      roster: props.team.roster,
       roles: [ 'Starter', 'Split', 'Alternate' ],
       statuses: [ 'Open', 'Pending', 'Confirmed' ],
-      published: false,
+      published: props.team.published,
       css: props.team.selected || props.team.multiselected ? 'item item--selected' : 'item'
     };
 

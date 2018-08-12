@@ -155,37 +155,17 @@ export default createContainer(() => {
 
   const selectedTeamId = Session.get('selectedTeamId');
   const multiselectedTeamIds = Session.get('multiselectedTeamIds');
-  const showPublished = Session.get('showPublishedFilter');
-  const showUnpublished = Session.get('showUnpublishedFilter');
 
   // conditionally query the tournaments collection based on the filter
   // selections made by the user.
 
-  if (showPublished && showUnpublished) {
-    return {
-      teams: Teams.find().fetch().map((team) => {   // show all tournaments
-        return {
-          ...team,
-          selected: team._id === selectedTeamId,
-          multiselected: multiselectedTeamIds.includes(team._id)
-        };
-      })
-    };
-  } else if (showPublished || showUnpublished) {
-    return {
-      teams: Teams.find({
-        published: showPublished
-      }).fetch().map((team) => {    // show only published or unpublished tournaments
-        return {
-          ...team,
-          selected: team._id === selectedTeamId,
-          multiselected: multiselectedTeamIds.includes(team._id)
-        };
-      })
-    };
-  } else {
-    return {
-      teams: []
-    };
-  }
+  return {
+    teams: Teams.find().fetch().map((team) => {   // show all tournaments
+      return {
+        ...team,
+        selected: team._id === selectedTeamId,
+        multiselected: multiselectedTeamIds.includes(team._id)
+      };
+    })
+  };
 }, TeamList);
