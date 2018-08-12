@@ -60,13 +60,19 @@ export class TeamList extends React.Component {
 
   render() {
     return (
-      <div className="item-list">
-        <TeamListHeader/>
+      <div className="container container__item-list">
+        <div className="container__header container__item-list-header">
+          <h5 className="container__title">Teams</h5>
+        </div>
 
-        {this.state.teams.length === 0 ? <EmptyItem label="Teams"/> : undefined}
-        {this.state.teams.map((team) => {
-          return <Team key={team._id} team={team}/>;
-        })}
+        <div className="item-list">
+          <TeamListHeader/>
+
+          {this.state.teams.length === 0 ? <EmptyItem label="Teams"/> : undefined}
+          {this.state.teams.map((team) => {
+            return <Team key={team._id} team={team}/>;
+          })}
+        </div>
       </div>
     );
   }

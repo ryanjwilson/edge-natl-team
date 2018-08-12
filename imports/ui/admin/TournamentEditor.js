@@ -273,59 +273,63 @@ export class TournamentEditor extends React.Component {
   render() {
     if (this.props.tournament) {
       return (
-        <div className="editor">
-          <input id="name" className="editor__title" value={this.state.name} placeholder="Untitled Tournament" onChange={this.onNameChange}/>
-          <label className="editor__label">
-            <p>Location</p>
-            <input id="location" name="location" className="editor__field" value={this.state.location} placeholder="Location" onChange={this.onLocationChange}/>
-          </label>
-          <label className="editor__label">
-            <p>Start Date</p>
-            <input id="start-date" name="date" className="editor__field" value={this.state.startDate} placeholder="Start Date" onChange={this.onStartDateChange}/>
-          </label>
-          <label className="editor__label">
-            <p>End Date</p>
-            <input id="end-date" name="date" className="editor__field" value={this.state.endDate} placeholder="End Date" onChange={this.onEndDateChange}/>
-          </label>
-          <label className="editor__label">
-            <p>Weigh-ins</p>
-            <input id="weighins" name="weighins" className="editor__field" value={this.state.weighins} placeholder="Weigh-ins" onChange={this.onWeighinsChange}/>
-          </label>
-          <label className="editor__label">
-            <p>Alternate Weigh-ins</p>
-            <input id="alternateWeighins" name="alternateWeighins" className="editor__field" value={this.state.alternateWeighins} placeholder="Alternate Weigh-ins" onChange={this.onAlternateWeighinsChange}/>
-          </label>
-          {this.state.divisions.map((division, index, divisions) => {
-            return (
-              <div id="division-group" key={index}>
-                <label className="editor__label">
-                  {index === 0
-                    ? <p className="editor__dynamic-label editor__top-label">Age Division <img className="editor__add" src="/images/add-button.svg" onClick={this.onAddDivision.bind(this, index)}/></p>
-                    : <p className="editor__dynamic-label editor__top-label">Age Division <img className="editor__delete" src="/images/remove-button.svg" onClick={this.onDeleteDivision.bind(this, index)}/></p>
-                  }
-                  <input id="division" name="division" className="editor__field" value={this.state.divisions[index].name} placeholder="Age Division" onChange={this.onDivisionChange.bind(this, index)}/>
-                </label>
-                <label className="editor__label">
-                  <p>Weight Classes</p>
-                  <input id="weightClasses" name="weightClasses" className="editor__field" value={this.state.divisions[index].weightClasses.length > 0 && this.state.divisions[index].weightClasses[0] === 0 ? '' : this.state.divisions[index].weightClasses} placeholder="Weight Classes" onChange={this.onWeightClassesChange.bind(this, index)}/>
-                </label>
-                <label className="editor__label">
-                  <p>Weight Allowance</p>
-                  <input id="allowance" name="allowance" type="number" min="0" step="0.1" className="editor__field" value={this.state.divisions[index].allowance} placeholder="Allowance" onChange={this.onAllowanceChange.bind(this, index)}/>
-                </label>
-                <label className="editor__label">
-                  <p>Teams Entered</p>
-                  <input id="teams" name="teams" type="number" min="1" className={index === divisions.length - 1 ? 'editor__field editor__bottom-field' : 'editor__field'} value={this.state.divisions[index].teams} placeholder="Teams Entered" onChange={this.onTeamsChange.bind(this, index)}/>
-                </label>
-              </div>
-            );
-          })}
+        <div className="container">
+          <div className="editor">
+            <input id="name" className="editor__title" value={this.state.name} placeholder="Untitled Tournament" onChange={this.onNameChange}/>
+            <label className="editor__label">
+              <p>Location</p>
+              <input id="location" name="location" className="editor__field" value={this.state.location} placeholder="Location" onChange={this.onLocationChange}/>
+            </label>
+            <label className="editor__label">
+              <p>Start Date</p>
+              <input id="start-date" name="date" className="editor__field" value={this.state.startDate} placeholder="Start Date" onChange={this.onStartDateChange}/>
+            </label>
+            <label className="editor__label">
+              <p>End Date</p>
+              <input id="end-date" name="date" className="editor__field" value={this.state.endDate} placeholder="End Date" onChange={this.onEndDateChange}/>
+            </label>
+            <label className="editor__label">
+              <p>Weigh-ins</p>
+              <input id="weighins" name="weighins" className="editor__field" value={this.state.weighins} placeholder="Weigh-ins" onChange={this.onWeighinsChange}/>
+            </label>
+            <label className="editor__label">
+              <p>Alternate Weigh-ins</p>
+              <input id="alternateWeighins" name="alternateWeighins" className="editor__field" value={this.state.alternateWeighins} placeholder="Alternate Weigh-ins" onChange={this.onAlternateWeighinsChange}/>
+            </label>
+            {this.state.divisions.map((division, index, divisions) => {
+              return (
+                <div id="division-group" key={index}>
+                  <label className="editor__label">
+                    {index === 0
+                      ? <p className="editor__dynamic-label editor__top-label">Age Division <img className="editor__add" src="/images/add-button.svg" onClick={this.onAddDivision.bind(this, index)}/></p>
+                      : <p className="editor__dynamic-label editor__top-label">Age Division <img className="editor__delete" src="/images/remove-button.svg" onClick={this.onDeleteDivision.bind(this, index)}/></p>
+                    }
+                    <input id="division" name="division" className="editor__field" value={this.state.divisions[index].name} placeholder="Age Division" onChange={this.onDivisionChange.bind(this, index)}/>
+                  </label>
+                  <label className="editor__label">
+                    <p>Weight Classes</p>
+                    <input id="weightClasses" name="weightClasses" className="editor__field" value={this.state.divisions[index].weightClasses.length > 0 && this.state.divisions[index].weightClasses[0] === 0 ? '' : this.state.divisions[index].weightClasses} placeholder="Weight Classes" onChange={this.onWeightClassesChange.bind(this, index)}/>
+                  </label>
+                  <label className="editor__label">
+                    <p>Weight Allowance</p>
+                    <input id="allowance" name="allowance" type="number" min="0" step="0.1" className="editor__field" value={this.state.divisions[index].allowance} placeholder="Allowance" onChange={this.onAllowanceChange.bind(this, index)}/>
+                  </label>
+                  <label className="editor__label">
+                    <p>Teams Entered</p>
+                    <input id="teams" name="teams" type="number" min="1" className={index === divisions.length - 1 ? 'editor__field editor__bottom-field' : 'editor__field'} value={this.state.divisions[index].teams} placeholder="Teams Entered" onChange={this.onTeamsChange.bind(this, index)}/>
+                  </label>
+                </div>
+              );
+            })}
+          </div>
         </div>
       );
     } else {
       return (
-        <div className="editor">
-          <p className="editor__message">{this.props.selectedTournamentId ? 'Tournament not found.' : 'Select or add a Tournament to get started.'}</p>
+        <div className="container">
+          <div className="editor">
+            <p className="editor__message">{this.props.selectedTournamentId ? 'Tournament not found.' : 'Select or add a Tournament to get started.'}</p>
+          </div>
         </div>
       );
     }

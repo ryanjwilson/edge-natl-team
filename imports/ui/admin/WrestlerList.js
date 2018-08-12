@@ -54,13 +54,19 @@ export const WrestlerList = (props) => {
   }
 
   return (
-    <div className="item-list">
-      <WrestlerListHeader/>
+    <div className="container container__item-list">
+      <div className="container__header container__item-list-header">
+        <h5 className="container__title">Wrestlers</h5>
+      </div>
 
-      {props.wrestlers.length === 0 ? <EmptyItem label="Wrestlers"/> : undefined}
-      {props.wrestlers.map((wrestler) => {
-        return <Wrestler key={wrestler._id} wrestler={wrestler}/>;
-      })}
+      <div className="item-list">
+        <WrestlerListHeader/>
+
+        {props.wrestlers.length === 0 ? <EmptyItem label="Wrestlers"/> : undefined}
+        {props.wrestlers.map((wrestler) => {
+          return <Wrestler key={wrestler._id} wrestler={wrestler}/>;
+        })}
+      </div>
     </div>
   );
 };

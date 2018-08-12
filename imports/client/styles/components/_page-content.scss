@@ -1,25 +1,8 @@
 /*
- * Application container, including sidebar and content editor panels. This is specific to the admin sections of the application.
- */
-
-.private-page-content {
-  display: flex;
-  height: $page-content-height;
-  margin: 0 auto;
-  max-width: $site-max-width;
-  padding: $large-space;
-  transition: margin-right 0.5s;
-
-  @include mobile {
-    padding: 0;
-  }
-}
-
-/*
  * Application container, including sidebar and main content panels. This is specific to the public sections of the application.
  */
 
-.public-page-content {
+.public-page-content, .private-page-content {
   display: flex;
   height: $page-content-height;
   margin: 0 auto;
@@ -42,22 +25,35 @@
  */
 
 .private-page-content__sidebar {
+  // display: flex;
+  // padding-right: $large-space;
+  // position: static;
+  // min-width: $sidebar-min-width;
+  // width: $sidebar-width;
+  //
+  // @include mobile {
+  //   display: flex;
+  //   transition: left 0.7s ease;
+  //   width: 100vw;
+  //
+  //   position: fixed;
+  //   top: $header-height;
+  //   left: -100vw;
+  //   bottom: 0;
+  //   z-index: 1;
+  // }
   display: flex;
-  padding-right: $large-space;
-  position: static;
-  min-width: $sidebar-min-width;
-  width: $sidebar-width;
+  margin-right: $small-space;
+  width: 35%;
 
   @include mobile {
+    animation-direction: reverse;
     display: flex;
-    transition: left 0.7s ease;
-    width: 100vw;
-
-    position: fixed;
-    top: $header-height;
-    left: -100vw;
-    bottom: 0;
-    z-index: 1;
+    height: auto;
+    margin-top: $header-height;
+    transition: visibility 0.7s ease;
+    visibility: visible;
+    width: 100%;
   }
 }
 
@@ -77,12 +73,14 @@
 
 .private-page-content__main {
   display: flex;
-  min-width: $page-content-min-width;
-  width: $page-content-width;
+  margin-left: $small-space;
+  width: 65%;
 
   @include mobile {
     display: flex;
-    margin: 0;
+    height: auto;
+    margin-left: 0;
+    margin-top: 0;
     width: 100%;
   }
 }
@@ -123,13 +121,6 @@
     margin-left: 0;
     margin-top: 0;
     width: 100%;
-
-    // position: fixed;
-    // bottom: $footer-height;
-    // left: -100vw;
-    // right: 0;
-    // top: $header-height;
-    // transition: left 0.7s ease;
   }
 }
 

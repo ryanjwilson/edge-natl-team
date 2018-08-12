@@ -263,134 +263,138 @@ export class WrestlerEditor extends React.Component {
   render() {
     if (this.props.wrestler) {
       return (
-        <div className="editor">
-          <input id="name" className="editor__title" value={this.state.name} placeholder="Unknown Wrestler" onChange={this.onNameChange}/>
-          <label className="editor__label">
-            <p>Date of Birth</p>
-            <input id="dob" name="dob" className="editor__field" value={this.state.dob} placeholder="DOB" onChange={this.onDobChange}/>
-          </label>
-          <label className="editor__label">
-            <p>Grade</p>
-            <input id="grade" name="grade" className="editor__field" value={this.state.grade} placeholder="Grade" onChange={this.onGradeChange}/>
-          </label>
-          <label className="editor__label">
-            <p>Weight</p>
-            <input id="weight" name="weight" className="editor__field" value={this.state.weight} placeholder="Weight" onChange={this.onWeightChange}/>
-          </label>
-          <label className="editor__label">
-            <p className="editor__dynamic-label">Parent <img className="editor__add" src="/images/add-button.svg" onClick={this.onAddParent}/></p>
-            {this.state.parents.map((parent, index, parents) => {
-              if (index === 0) {
-                return (
-                  <div key={index} className="editor__dynamic-field">
-                    <input id="parent" name="parent" className="editor__field" value={this.state.parents[index].name} placeholder="Parent" onChange={this.onParentChange.bind(this, index)}/>
-                  </div>
-                );
-              } else {
-                return (
-                  <div key={index} className="editor__dynamic-field">
-                    <input id="parent" name="parent" className="editor__field" value={this.state.parents[index].name} placeholder="Parent" onChange={this.onParentChange.bind(this, index)}/>
-                    <img className="editor__delete" src="/images/remove-button.svg" onClick={this.onDeleteParent.bind(this, index)}/>
-                  </div>
-                );
+        <div className="container">
+          <div className="editor">
+            <input id="name" className="editor__title" value={this.state.name} placeholder="Unknown Wrestler" onChange={this.onNameChange}/>
+            <label className="editor__label">
+              <p>Date of Birth</p>
+              <input id="dob" name="dob" className="editor__field" value={this.state.dob} placeholder="DOB" onChange={this.onDobChange}/>
+            </label>
+            <label className="editor__label">
+              <p>Grade</p>
+              <input id="grade" name="grade" className="editor__field" value={this.state.grade} placeholder="Grade" onChange={this.onGradeChange}/>
+            </label>
+            <label className="editor__label">
+              <p>Weight</p>
+              <input id="weight" name="weight" className="editor__field" value={this.state.weight} placeholder="Weight" onChange={this.onWeightChange}/>
+            </label>
+            <label className="editor__label">
+              <p className="editor__dynamic-label">Parent <img className="editor__add" src="/images/add-button.svg" onClick={this.onAddParent}/></p>
+              {this.state.parents.map((parent, index, parents) => {
+                if (index === 0) {
+                  return (
+                    <div key={index} className="editor__dynamic-field">
+                      <input id="parent" name="parent" className="editor__field" value={this.state.parents[index].name} placeholder="Parent" onChange={this.onParentChange.bind(this, index)}/>
+                    </div>
+                  );
+                } else {
+                  return (
+                    <div key={index} className="editor__dynamic-field">
+                      <input id="parent" name="parent" className="editor__field" value={this.state.parents[index].name} placeholder="Parent" onChange={this.onParentChange.bind(this, index)}/>
+                      <img className="editor__delete" src="/images/remove-button.svg" onClick={this.onDeleteParent.bind(this, index)}/>
+                    </div>
+                  );
+                }
+              })}
+            </label>
+            <label className="editor__label">
+              <p className="editor__dynamic-label">Email <img className="editor__add" src="/images/add-button.svg" onClick={this.onAddEmail}/></p>
+              {this.state.emails.map((email, index, emails) => {
+                if (index === 0) {
+                  return (
+                    <div key={index} className="editor__dynamic-field">
+                      <input id="email" name="email" type="email" className="editor__field" value={this.state.emails[index].text} placeholder="Email" onChange={this.onEmailChange.bind(this, index)}/>
+                    </div>
+                  );
+                } else {
+                  return (
+                    <div key={index} className="editor__dynamic-field">
+                      <input id="email" name="email" type="email" className="editor__field" value={this.state.emails[index].text} placeholder="Email" onChange={this.onEmailChange.bind(this, index)}/>
+                      <img className="editor__delete" src="/images/remove-button.svg" onClick={this.onDeleteEmail.bind(this, index)}/>
+                    </div>
+                  );
+                }
+              })}
+            </label>
+            <label className="editor__label">
+              <p className="editor__dynamic-label">Phone <img className="editor__add" src="/images/add-button.svg" onClick={this.onAddPhone}/></p>
+              {this.state.phones.map((phone, index, phones) => {
+                if (index === 0) {
+                  return (
+                    <div key={index} className="editor__dynamic-field">
+                      <input id="phone" name="phone" type="tel" className="editor__field" value={this.state.phones[index].number} placeholder="Phone" onChange={this.onPhoneChange.bind(this, index)}/>
+                    </div>
+                  );
+                } else {
+                  return (
+                    <div key={index} className="editor__dynamic-field">
+                      <input id="phone" name="phone" type="tel" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" className="editor__field" value={this.state.phones[index].number} placeholder="Phone" onChange={this.onPhoneChange.bind(this, index)}/>
+                      <img className="editor__delete" src="/images/remove-button.svg" onClick={this.onDeletePhone.bind(this, index)}/>
+                    </div>
+                  );
+                }
+              })}
+            </label>
+            <label className="editor__label editor__top-label">
+              <p className="editor__dynamic-label">Applications</p>
+              {this.state.applications.length > 0 ?
+                <select className={this.state.selectedApplication ? 'editor__dropdown-menu selected' : 'editor__dropdown-menu'} value={this.state.selectedApplication} onChange={this.onApplicationSelect}>
+                  <optgroup label="Open Applications">
+                    {this.state.applications.map((application, index, applications) => {
+                      if (application.open) {
+                        return (
+                          <option key={index} value={application.tournamentId}>{application.name}</option>
+                        );
+                      }
+                    })}
+                  </optgroup>
+                  <optgroup label="Past Applications">
+                    {this.state.applications.map((application, index, applications) => {
+                      if (!application.open) {
+                        return (
+                          <option key={index} value={application.tournamentId}>{application.name}</option>
+                        );
+                      }
+                    })}
+                  </optgroup>
+                </select> : <div className="editor__message editor__no-applications">No Applications to Display</div>
               }
-            })}
-          </label>
-          <label className="editor__label">
-            <p className="editor__dynamic-label">Email <img className="editor__add" src="/images/add-button.svg" onClick={this.onAddEmail}/></p>
-            {this.state.emails.map((email, index, emails) => {
-              if (index === 0) {
+            </label>
+            {this.state.applications.map((application) => {
+              if (application.tournamentId === this.state.selectedApplication) {
                 return (
-                  <div key={index} className="editor__dynamic-field">
-                    <input id="email" name="email" type="email" className="editor__field" value={this.state.emails[index].text} placeholder="Email" onChange={this.onEmailChange.bind(this, index)}/>
-                  </div>
-                );
-              } else {
-                return (
-                  <div key={index} className="editor__dynamic-field">
-                    <input id="email" name="email" type="email" className="editor__field" value={this.state.emails[index].text} placeholder="Email" onChange={this.onEmailChange.bind(this, index)}/>
-                    <img className="editor__delete" src="/images/remove-button.svg" onClick={this.onDeleteEmail.bind(this, index)}/>
-                  </div>
-                );
-              }
-            })}
-          </label>
-          <label className="editor__label">
-            <p className="editor__dynamic-label">Phone <img className="editor__add" src="/images/add-button.svg" onClick={this.onAddPhone}/></p>
-            {this.state.phones.map((phone, index, phones) => {
-              if (index === 0) {
-                return (
-                  <div key={index} className="editor__dynamic-field">
-                    <input id="phone" name="phone" type="tel" className="editor__field" value={this.state.phones[index].number} placeholder="Phone" onChange={this.onPhoneChange.bind(this, index)}/>
-                  </div>
-                );
-              } else {
-                return (
-                  <div key={index} className="editor__dynamic-field">
-                    <input id="phone" name="phone" type="tel" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" className="editor__field" value={this.state.phones[index].number} placeholder="Phone" onChange={this.onPhoneChange.bind(this, index)}/>
-                    <img className="editor__delete" src="/images/remove-button.svg" onClick={this.onDeletePhone.bind(this, index)}/>
-                  </div>
-                );
-              }
-            })}
-          </label>
-          <label className="editor__label editor__top-label">
-            <p className="editor__dynamic-label">Applications</p>
-            {this.state.applications.length > 0 ?
-              <select className={this.state.selectedApplication ? 'editor__dropdown-menu selected' : 'editor__dropdown-menu'} value={this.state.selectedApplication} onChange={this.onApplicationSelect}>
-                <optgroup label="Open Applications">
-                  {this.state.applications.map((application, index, applications) => {
-                    if (application.open) {
-                      return (
-                        <option key={index} value={application.tournamentId}>{application.name}</option>
-                      );
+                  <div key={application.tournamentId} className={'editor__dropdown-content ' + (application.open ? 'editor__open-application' : 'editor__past-application')}>
+                    <label className="editor__label">
+                      <p>Tournament</p>
+                      <input id="tournament" name="tournament" className="editor__field" value={application.name} placeholder="Tournament" disabled/>
+                    </label>
+                    <label className="editor__label">
+                      <p>Age Division</p>
+                      <input id="age-division" name="age-division" className="editor__field" value={application.division} placeholder="Age Division" disabled/>
+                    </label>
+                    <label className="editor__label">
+                      <p>Weight Class</p>
+                      <input id="weight-classes" name="weight-classes" className={'editor__field' + (application.open ? ' editor__bottom-field' : '')} value={application.weightClass} placeholder="Weight Class" disabled/>
+                    </label>
+                    {!application.open ?
+                    <label className="editor__label">
+                      <p>Status</p>
+                      <input id="status" name="status" className="editor__field editor__bottom-field" value={application.status} placeholder="Status" disabled/>
+                    </label> : undefined
                     }
-                  })}
-                </optgroup>
-                <optgroup label="Past Applications">
-                  {this.state.applications.map((application, index, applications) => {
-                    if (!application.open) {
-                      return (
-                        <option key={index} value={application.tournamentId}>{application.name}</option>
-                      );
-                    }
-                  })}
-                </optgroup>
-              </select> : <div className="editor__message editor__no-applications">No Applications to Display</div>
-            }
-          </label>
-          {this.state.applications.map((application) => {
-            if (application.tournamentId === this.state.selectedApplication) {
-              return (
-                <div key={application.tournamentId} className={'editor__dropdown-content ' + (application.open ? 'editor__open-application' : 'editor__past-application')}>
-                  <label className="editor__label">
-                    <p>Tournament</p>
-                    <input id="tournament" name="tournament" className="editor__field" value={application.name} placeholder="Tournament" disabled/>
-                  </label>
-                  <label className="editor__label">
-                    <p>Age Division</p>
-                    <input id="age-division" name="age-division" className="editor__field" value={application.division} placeholder="Age Division" disabled/>
-                  </label>
-                  <label className="editor__label">
-                    <p>Weight Class</p>
-                    <input id="weight-classes" name="weight-classes" className={'editor__field' + (application.open ? ' editor__bottom-field' : '')} value={application.weightClass} placeholder="Weight Class" disabled/>
-                  </label>
-                  {!application.open ?
-                  <label className="editor__label">
-                    <p>Status</p>
-                    <input id="status" name="status" className="editor__field editor__bottom-field" value={application.status} placeholder="Status" disabled/>
-                  </label> : undefined
-                  }
-                </div>
-              );
-            }
-          })}
+                  </div>
+                );
+              }
+            })}
+          </div>
         </div>
       );
     } else {
       return (
-        <div className="editor">
-          <p className="editor__message">{this.props.selectedWrestlerId ? 'Wrestler not found.' : 'Select or add a Wrestler to get started.'}</p>
+        <div className="container">
+          <div className="editor">
+            <p className="editor__message">{this.props.selectedWrestlerId ? 'Wrestler not found.' : 'Select or add a Wrestler to get started.'}</p>
+          </div>
         </div>
       );
     }

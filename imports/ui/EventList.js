@@ -63,7 +63,6 @@ export class EventList extends React.Component {
         <div className="container__header">
           <h5 className="container__title">Upcoming Duals</h5>
           <button className="container__title" onClick={this.scrollToApplication}>APPLY NOW</button>
-
         </div>
 
         <div className="container__content">

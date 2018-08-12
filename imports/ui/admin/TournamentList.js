@@ -60,13 +60,19 @@ export class TournamentList extends React.Component {
 
   render() {
     return (
-      <div className="item-list">
-        <TournamentListHeader/>
+      <div className="container container__item-list">
+        <div className="container__header container__item-list-header">
+          <h5 className="container__title">Tournaments</h5>
+        </div>
 
-        {this.state.tournaments.length === 0 ? <EmptyItem label="Tournaments"/> : undefined}
-        {this.state.tournaments.map((tournament) => {
-          return <Tournament key={tournament._id} tournament={tournament}/>;
-        })}
+        <div className="item-list">
+          <TournamentListHeader/>
+
+          {this.state.tournaments.length === 0 ? <EmptyItem label="Tournaments"/> : undefined}
+          {this.state.tournaments.map((tournament) => {
+            return <Tournament key={tournament._id} tournament={tournament}/>;
+          })}
+        </div>
       </div>
     );
   }
