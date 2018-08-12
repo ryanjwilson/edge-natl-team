@@ -27,25 +27,30 @@ export class TeamEditor extends React.Component {
     super(props);
 
     this.state = {
-      name: '',
+      name: props.team ? props.team.name : '',
       tournament: {
-        _id: '',
-        name: '',
+        _id: props.team ? props.team.tournament._id : '',
+        name: props.team ? props.team.tournament.name : '',
         division: {
-          name: '',
+          name: props.team ? props.team.tournament.division.name : ''
         }
       },
-      roster: [],
+      roster: props.team ? props.team.roster : [],
       roles: [ 'Starter', 'Split' ],
       statuses: [ 'Open', 'Pending', 'Confirmed' ],
-      published: false
+      published: props.team ? props.team.published : false
     };
 
     // bind field listeners to this context. remaining listeners are bound
     // manually, as they take additional parameters.
 
     this.onNameChange = this.onNameChange.bind(this);
+  }
 
+  componentDidMount() {
+    if (this.props.team) {
+      this.setState({ ...this.props.team });
+    }
   }
 
   componentWillReceiveProps(nextProps) {
