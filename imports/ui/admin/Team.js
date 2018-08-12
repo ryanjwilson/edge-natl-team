@@ -18,8 +18,6 @@ export class Team extends React.Component {
   constructor(props) {
     super(props);
 
-    console.log(props);
-
     this.state = {
       _id: props.team._id,
       name: props.team.name,

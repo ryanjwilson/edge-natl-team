@@ -40,13 +40,13 @@ export class Rules extends React.Component {
               <p>Team fees must be paid in full to reserve your spot on the team. Payments and deadlines will be posted with our <Link className="container__link" to="/">Schedule</Link> as soon as the application process opens.</p>
             </li>
             <li>
-              <p>If you apply for and commit to a weight class, your child is expected to make that weight for all duals in which he or she is wrestling. No exceptions. If your child cannot make weight, we cannot guarantee another will be available.</p>
+              <p>If you apply for and commit to a weight class, your child is expected to make that weight for all duals in which he or she is wrestling. No exceptions. If your child cannot make weight, we cannot guarantee another spot will be available.</p>
             </li>
             <li>
               <p>We expect our wrestlers to compete on our teams, rather than wrestling as free agents with other clubs. It is only acceptable to wrestle with another club if:</p>
               <ul>
                 <li>
-                  <p>You applied for, but were not offered, a spot on our team.</p>
+                  <p>You applied for a spot on our team, but were not offered one.</p>
                 </li>
                 <li>
                   <p>We are not entering a team in an event on that particular date.</p>
@@ -63,7 +63,7 @@ export class Rules extends React.Component {
               <p>With the possible exception of free agents, team practices are mandatory.</p>
             </li>
             <li>
-              <p>Wrestle-offs, if needed, will be held approximately one month prior to the event and will be structured according to the number of wrestlers interested in a single weight class. After the wrestle-off date, remaining weights will be filled on a first-come, first-served basis.</p>
+              <p>Wrestle-offs, if needed, will be held approximately one month prior to the event and will be structured according to the number of wrestlers interested in a single weight class. After the wrestle-off date, remaining weights will be filled on a first-come, first-served basis. Our coaching staff reserves the right to determine the necessity of any and all wrestle-offs.</p>
               <ul>
                 <li>
                   <p>If two (2) wrestlers are interested in a single weight class, they will compete in a one-and-done match.</p>

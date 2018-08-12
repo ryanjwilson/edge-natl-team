@@ -268,15 +268,15 @@ export class WrestlerEditor extends React.Component {
             <input id="name" className="editor__title" value={this.state.name} placeholder="Unknown Wrestler" onChange={this.onNameChange}/>
             <label className="editor__label">
               <p>Date of Birth</p>
-              <input id="dob" name="dob" className="editor__field" value={this.state.dob} placeholder="DOB" onChange={this.onDobChange}/>
+              <input id="dob" name="dob" type="text" className="editor__field" value={this.state.dob} placeholder="DOB" onChange={this.onDobChange}/>
             </label>
             <label className="editor__label">
               <p>Grade</p>
-              <input id="grade" name="grade" className="editor__field" value={this.state.grade} placeholder="Grade" onChange={this.onGradeChange}/>
+              <input id="grade" name="grade" type="text" className="editor__field" value={this.state.grade} placeholder="Grade" onChange={this.onGradeChange}/>
             </label>
             <label className="editor__label">
               <p>Weight</p>
-              <input id="weight" name="weight" className="editor__field" value={this.state.weight} placeholder="Weight" onChange={this.onWeightChange}/>
+              <input id="weight" name="weight" type="text" className="editor__field" value={this.state.weight} placeholder="Weight" onChange={this.onWeightChange}/>
             </label>
             <label className="editor__label">
               <p className="editor__dynamic-label">Parent <img className="editor__add" src="/images/add-button.svg" onClick={this.onAddParent}/></p>
@@ -284,13 +284,13 @@ export class WrestlerEditor extends React.Component {
                 if (index === 0) {
                   return (
                     <div key={index} className="editor__dynamic-field">
-                      <input id="parent" name="parent" className="editor__field" value={this.state.parents[index].name} placeholder="Parent" onChange={this.onParentChange.bind(this, index)}/>
+                      <input id="parent" name="parent" type="text" className="editor__field" value={this.state.parents[index].name} placeholder="Parent" onChange={this.onParentChange.bind(this, index)}/>
                     </div>
                   );
                 } else {
                   return (
                     <div key={index} className="editor__dynamic-field">
-                      <input id="parent" name="parent" className="editor__field" value={this.state.parents[index].name} placeholder="Parent" onChange={this.onParentChange.bind(this, index)}/>
+                      <input id="parent" name="parent" type="text" className="editor__field" value={this.state.parents[index].name} placeholder="Parent" onChange={this.onParentChange.bind(this, index)}/>
                       <img className="editor__delete" src="/images/remove-button.svg" onClick={this.onDeleteParent.bind(this, index)}/>
                     </div>
                   );
@@ -322,7 +322,7 @@ export class WrestlerEditor extends React.Component {
                 if (index === 0) {
                   return (
                     <div key={index} className="editor__dynamic-field">
-                      <input id="phone" name="phone" type="tel" className="editor__field" value={this.state.phones[index].number} placeholder="Phone" onChange={this.onPhoneChange.bind(this, index)}/>
+                      <input id="phone" name="phone" type="tel" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" className="editor__field" value={this.state.phones[index].number} placeholder="Phone" onChange={this.onPhoneChange.bind(this, index)}/>
                     </div>
                   );
                 } else {

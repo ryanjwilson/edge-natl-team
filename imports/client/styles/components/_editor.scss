@@ -7,8 +7,6 @@
  */
 
 .editor {
-  //background-color: white;
-  //border: 1px solid $edge-red;
   display: flex;
   flex-direction: column;
   overflow-y: scroll;
@@ -26,8 +24,10 @@
  */
 
 .editor__title {
+  background-color: transparent;
   border: none;
   border-bottom: 3px solid $edge-red;
+  font-family: "Montserrat", sans-serif;
   font-size: $large-font-size;
   margin-bottom: $large-space;
   outline: none;

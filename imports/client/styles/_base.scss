@@ -37,7 +37,7 @@ a {
   color: black;
 }
 
-input[type=text], input[type=email], input[type=password], textarea {
+input[type=text], input[type=email], input[type=password], input[type=tel], textarea {
   border: 1px solid $input-border-color;
   color: black;
   font-size: $base-font-size;

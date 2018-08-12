@@ -33,8 +33,18 @@ export class Roster extends React.Component {
               return (
                 <tr key={index}>
                   <td>{position.weightClass}</td>
-                  <td>{position.split._id ? position.wrestler.name + ' / ' + position.split.name : position.wrestler.name}</td>
-                  <td>{position.status}</td>
+                  <td>
+                    {this.state.team.published
+                      ? position.split._id ? position.wrestler.name + ' / ' + position.split.name : position.wrestler.name
+                      : ''
+                    }
+                  </td>
+                  <td>
+                    {this.state.team.published
+                      ? position.status
+                      : position.status === 'Pending' || position.status === 'Confirmed' ? 'Filled' : 'Open'
+                    }
+                  </td>
                 </tr>
               );
             })
