@@ -3,6 +3,9 @@ import { Meteor } from 'meteor/meteor';
 import { PropTypes } from 'prop-types';
 import { createContainer } from 'meteor/react-meteor-data';
 
+import Header from '../Header';
+import Footer from '../Footer';
+
 export class Login extends React.Component {
   constructor(props) {
     super(props);
@@ -22,7 +25,7 @@ export class Login extends React.Component {
 
     this.props.loginWithPassword({ username }, password, (err) => {
       if (err) {
-        this.setState({ error: 'Invalid username and/or password.' });
+        this.setState({ error: 'Oops! We didn\'t recognize your username and/or password.' });
       } else {
         this.setState({ error: '' });
       }
@@ -31,18 +34,27 @@ export class Login extends React.Component {
 
   render() {
     return (
-      <div className="boxed-view">
-        <div className="boxed-view__box">
-          <h1>Admin</h1>
+      <div>
+        <Header/>
 
-          {this.state.error ? <p>{this.state.error}</p> : undefined}
+        <div className="boxed-view">
+          <div className="boxed-view__box unbounded-height login-modal">
+            <div className="boxed-view__header">
+              <h5 className="boxed-view__title">Admin</h5>
+            </div>
 
-          <form onSubmit={this.onSubmit} className="boxed-view__form" noValidate>
-            <input type="text" ref="username" name="username" placeholder="Username"/>
-            <input type="password" ref="password" name="password" placeholder="Password"/>
-            <button className="button">Login</button>
-          </form>
+            {this.state.error ? <p className="login-error">{this.state.error}</p> : undefined}
+
+            <form onSubmit={this.onSubmit} className="boxed-view__form" noValidate>
+              <img src="/images/brand/edge-team-logo.png"/>
+              <input className="username" type="text" ref="username" name="username" placeholder="Username"/>
+              <input className="password" type="password" ref="password" name="password" placeholder="Password"/>
+              <button className="button">Login</button>
+            </form>
+          </div>
         </div>
+
+      <Footer/>
       </div>
     );
   }

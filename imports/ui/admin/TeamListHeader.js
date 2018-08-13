@@ -64,17 +64,6 @@ export class TeamListHeader extends React.Component {
     this.setState({ isAddModalOpen: false });
   }
 
-  // const onShow = () => {
-  //   console.log('onShow');
-  // };
-  //
-  // const onAddTeam = () => {
-  //   const tournamentId = 'WBuNbYTPZxkrQg2uX';
-  //   const divisionName = 'Middle School';
-  //
-  //   props.meteorCall('teams.insert', tournamentId, divisionName);
-  // };
-
   render() {
     return (
       <div className="item-list__header">

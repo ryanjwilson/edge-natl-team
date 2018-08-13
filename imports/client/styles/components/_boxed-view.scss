@@ -33,6 +33,18 @@
   height: auto !important;
 }
 
+.login-modal {
+  width: 56.8rem;
+}
+
+.login-error {
+  color: red;
+  font-family: "Montserrat", sans-serif;
+  font-size: $base-font-size;
+  margin: 0 auto;
+  margin-top: $small-space;
+}
+
 .boxed-view__box-content {
   display: flex;
   flex-direction: column;
@@ -77,6 +89,38 @@
 .boxed-view__form {
   display: flex;
   flex-direction: column;
+}
+
+.boxed-view__form img {
+  height: 9rem;
+  width: 9rem;
+
+  margin: 0 auto;
+  margin-bottom: $default-space;
+  margin-top: $large-space;
+}
+
+.boxed-view__form button {
+  border: 1px solid $edge-red;
+  border-radius: 7px;
+  color: black;
+  font-family: "Montserrat", sans-serif;
+  font-size: $base-font-size;
+  font-weight: bold;
+  margin: 0 auto;
+  margin-bottom: $large-space;
+  margin-top: $large-space;
+  width: 80%;
+}
+
+.boxed-view__form button:hover {
+  background-color: darken($edge-gold, 5);
+}
+
+.boxed-view__form .username, .boxed-view__form .password {
+  margin: 0 auto;
+  margin-top: $default-space;
+  width: 80%;
 }
 
 .boxed-view__box-content p {
