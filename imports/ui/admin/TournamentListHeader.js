@@ -196,7 +196,7 @@ const showConfirmationAlert = (action, tournamentIds, text, css, color, publishe
 const showDeletionAlert = (tournamentIds) => {
   swal({
     titleText: 'Are you sure?',
-    html: '<div class="swal-modal-text">You\'re about to delete ' + tournamentIds.length + (tournamentIds.length > 1 ? ' tournaments.' : ' tournament.') + '</div>',
+    html: '<div class="swal-modal-text">You\'re about to delete ' + tournamentIds.length + (tournamentIds.length > 1 ? ' Tournaments.' : ' Tournament.') + '</div>',
     type: 'warning',
     showCancelButton: true,
     cancelButtonClass: 'modal-button button--cancel',

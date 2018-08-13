@@ -106,6 +106,7 @@ Meteor.methods({
       'roster.$.availableWrestlers.$': { type: Object },
       'roster.$.availableWrestlers.$._id': { type: String, min: 1 },
       'roster.$.availableWrestlers.$.name': { type: String },
+      published: { type: Boolean },
       year: { type: SimpleSchema.Integer },
       season: { type: String }
     }, { requiredByDefault: false }).validate({ _id, ...updates });

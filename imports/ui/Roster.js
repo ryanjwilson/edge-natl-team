@@ -8,8 +8,7 @@ export class Roster extends React.Component {
     super(props);
 
     this.state = {
-      team: props.team,
-      division: props.division
+      team: props.team
     };
   }
 
@@ -28,7 +27,7 @@ export class Roster extends React.Component {
           </tr>
         </thead>
         <tbody>
-          {this.state.team ?
+          {this.state.team.roster ?
             this.state.team.roster.map((position, index) => {
               return (
                 <tr key={index}>
@@ -49,12 +48,12 @@ export class Roster extends React.Component {
               );
             })
             :
-            this.state.division.weightClasses.map((weightClass, index) => {
+            this.state.team.division.weightClasses.map((weightClass, index) => {
               return (
                 <tr key={index}>
                   <td>{weightClass}</td>
                   <td></td>
-                  <td>OPEN</td>
+                  <td>Open</td>
                 </tr>
               );
             })
@@ -69,7 +68,6 @@ export class Roster extends React.Component {
 
 Roster.propTypes = {
   team: PropTypes.object,
-  division: PropTypes.object,
   isLastRoster: PropTypes.bool.isRequired
 };
 

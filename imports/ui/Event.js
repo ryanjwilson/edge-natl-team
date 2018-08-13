@@ -82,7 +82,7 @@ export class Event extends React.Component {
           </div>
 
           <div className="boxed-view__box-content">
-            <RosterList key={this.state.event._id} teams={this.state.teams} divisions={this.state.event.divisions}/>
+            <RosterList key={this.state.event._id} teams={this.state.teams}/>
           </div>
         </Modal>
 
@@ -95,7 +95,7 @@ export class Event extends React.Component {
           </div>
 
           <div className="event__roster-content">
-            <RosterList key={this.state.event._id} teams={this.state.teams} divisions={this.state.event.divisions}/>
+            <RosterList key={this.state.event._id} teams={this.state.teams}/>
           </div>
         </Modal>
 

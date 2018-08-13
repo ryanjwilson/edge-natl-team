@@ -49,13 +49,6 @@ export class Team extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     this.setState({ css: nextProps.team.selected || nextProps.team.multiselected ? 'item item--selected' : 'item', ...nextProps.team });
-    // if (this.props.team._id !== nextProps.team._id) this.setState({ team: nextProps.team });
-    //
-    // if (this.props.team.selected !== nextProps.team.selected || this.props.team.multiselected !== nextProps.team.multiselected) {
-    //   this.setState({ css: nextProps.team.selected || nextProps.team.multiselected ? 'item item--selected' : 'item' });
-    // }
-    //
-    // this.setState({ team: nextProps.team });
   }
 
   /**
@@ -105,7 +98,7 @@ export class Team extends React.Component {
           <h5 className="item__title">{this.state.name || 'Untitled Team'}</h5>
           <p className="item__subtitle">{this.state.tournament.name || 'Tournament'} &middot; {this.state.tournament.division.name || 'Division'}</p>
         </div>
-        {this.state.published ? <div className="item__status-icon"><img src="/images/confirm.png"/></div> : undefined}
+        {this.state.published ? <div className="item__status-icon"><img src="/images/published-icon.svg"/></div> : undefined}
       </div>
     );
   }

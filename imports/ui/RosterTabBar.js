@@ -39,7 +39,7 @@ export class RosterTabBar extends React.Component {
               this.setState({ selectedTab: index });
               this.props.callbackFromParent(index);
             }}>
-              {tab.name}
+              {tab.tournament.division.name}
             </div>
           );
         })}
