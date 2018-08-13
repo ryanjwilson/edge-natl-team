@@ -35,7 +35,7 @@ export class Roster extends React.Component {
                   <td>
                     {this.state.team.published
                       ? position.split._id ? position.wrestler.name + ' / ' + position.split.name : position.wrestler.name
-                      : ''
+                      : position.status === 'Pending' || position.status === 'Confirmed' ? 'Filled' : ''
                     }
                   </td>
                   <td>
