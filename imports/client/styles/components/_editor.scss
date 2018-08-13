@@ -233,3 +233,32 @@
   border: 1px solid red !important;
   box-shadow: 0 0 1px 1px red;
 }
+
+.editor__application-header {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.editor__application-header button {
+  background-color: $edge-gold;
+  border: 1px solid black;
+  border-radius: 4px;
+  color: black;
+  display: flex;
+  font-family: "Montserrat", sans-serif;
+  font-size: $base-font-size;
+  font-weight: bold;
+  line-height: 1;
+  margin-left: $default-space;
+  margin-right: $tiny-space;
+  outline: none;
+  padding: $input-space;
+  text-transform: uppercase;
+}
+
+.editor__application-header button:hover {
+  background-color: darken($edge-gold, 5);
+  cursor: pointer;
+}

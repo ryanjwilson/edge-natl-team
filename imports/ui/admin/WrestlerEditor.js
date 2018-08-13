@@ -21,7 +21,8 @@ export class WrestlerEditor extends React.Component {
       emails: [],
       phones: [],
       applications: [],
-      selectedApplication: undefined
+      selectedApplication: undefined,
+      isEditable: false
     };
 
     // bind field listeners to this context. remaining listeners are bound
@@ -35,6 +36,7 @@ export class WrestlerEditor extends React.Component {
     this.onAddEmail = this.onAddEmail.bind(this);
     this.onAddPhone = this.onAddPhone.bind(this);
     this.onApplicationSelect = this.onApplicationSelect.bind(this);
+    this.onToggleEditApplication = this.onToggleEditApplication.bind(this);
   }
 
   // TODO - why did mount versus will mount (which is what the tournament editor has)?
@@ -254,6 +256,14 @@ export class WrestlerEditor extends React.Component {
     this.props.call('wrestlers.update', this.props.wrestler._id, { phones });
   }
 
+  onToggleEditApplication() {
+    document.getElementById('application-age-division').disabled = this.state.isEditable;
+    document.getElementById('application-weight-class').disabled = this.state.isEditable;
+    document.getElementById('application-edit-button').innerHTML = (!this.state.isEditable ? 'Save' : 'Edit');
+
+    this.setState({ isEditable: !this.state.isEditable} );
+  }
+
   /**
    * Renders this component to the browser.
    *
@@ -262,6 +272,8 @@ export class WrestlerEditor extends React.Component {
 
   render() {
     if (this.props.wrestler) {
+      console.log(this.props.wrestler.applications[0]);
+      
       return (
         <div className="container">
           <div className="editor">
@@ -338,43 +350,46 @@ export class WrestlerEditor extends React.Component {
             <label className="editor__label editor__top-label">
               <p className="editor__dynamic-label">Applications</p>
               {this.state.applications.length > 0 ?
-                <select className={this.state.selectedApplication ? 'editor__dropdown-menu selected' : 'editor__dropdown-menu'} value={this.state.selectedApplication} onChange={this.onApplicationSelect}>
-                  <optgroup label="Open Applications">
-                    {this.state.applications.map((application, index, applications) => {
-                      if (application.open) {
-                        return (
-                          <option key={index} value={application.tournamentId}>{application.name}</option>
-                        );
-                      }
-                    })}
-                  </optgroup>
-                  <optgroup label="Past Applications">
-                    {this.state.applications.map((application, index, applications) => {
-                      if (!application.open) {
-                        return (
-                          <option key={index} value={application.tournamentId}>{application.name}</option>
-                        );
-                      }
-                    })}
-                  </optgroup>
-                </select> : <div className="editor__message editor__no-applications">No Applications to Display</div>
+                <div className="editor__application-header">
+                  <select className={this.state.selectedApplication ? 'editor__dropdown-menu selected' : 'editor__dropdown-menu'} value={this.state.selectedApplication} onChange={this.onApplicationSelect}>
+                    <optgroup label="Open Applications">
+                      {this.state.applications.map((application, index, applications) => {
+                        if (application.open) {
+                          return (
+                            <option key={index} value={application.tournamentId}>{application.name}</option>
+                          );
+                        }
+                      })}
+                    </optgroup>
+                    <optgroup label="Past Applications">
+                      {this.state.applications.map((application, index, applications) => {
+                        if (!application.open) {
+                          return (
+                            <option key={index} value={application.tournamentId}>{application.name}</option>
+                          );
+                        }
+                      })}
+                    </optgroup>
+                  </select>
+                  <button id="application-edit-button" onClick={this.onToggleEditApplication}>Edit</button>
+                </div> : <div className="editor__message editor__no-applications">No Applications to Display</div>
               }
             </label>
             {this.state.applications.map((application) => {
               if (application.tournamentId === this.state.selectedApplication) {
                 return (
                   <div key={application.tournamentId} className={'editor__dropdown-content ' + (application.open ? 'editor__open-application' : 'editor__past-application')}>
-                    <label className="editor__label">
+                    {/* <label className="editor__label">
                       <p>Tournament</p>
-                      <input id="tournament" name="tournament" className="editor__field" value={application.name} placeholder="Tournament" disabled/>
-                    </label>
+                      <input id="application-tournament" name="tournament" className="editor__field" value={application.name} placeholder="Tournament" disabled/>
+                    </label> */}
                     <label className="editor__label">
                       <p>Age Division</p>
-                      <input id="age-division" name="age-division" className="editor__field" value={application.division} placeholder="Age Division" disabled/>
+                      <input id="application-age-division" name="age-division" className="editor__field" value={application.division} placeholder="Age Division" disabled/>
                     </label>
                     <label className="editor__label">
                       <p>Weight Class</p>
-                      <input id="weight-classes" name="weight-classes" className={'editor__field' + (application.open ? ' editor__bottom-field' : '')} value={application.weightClass} placeholder="Weight Class" disabled/>
+                      <input id="application-weight-class" name="weight-class" className={'editor__field' + (application.open ? ' editor__bottom-field' : '')} value={application.weightClass} placeholder="Weight Class" disabled/>
                     </label>
                     {!application.open ?
                     <label className="editor__label">
