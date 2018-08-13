@@ -272,8 +272,6 @@ export class WrestlerEditor extends React.Component {
 
   render() {
     if (this.props.wrestler) {
-      console.log(this.props.wrestler.applications[0]);
-      
       return (
         <div className="container">
           <div className="editor">
@@ -379,10 +377,10 @@ export class WrestlerEditor extends React.Component {
               if (application.tournamentId === this.state.selectedApplication) {
                 return (
                   <div key={application.tournamentId} className={'editor__dropdown-content ' + (application.open ? 'editor__open-application' : 'editor__past-application')}>
-                    {/* <label className="editor__label">
+                    <label className="editor__label">
                       <p>Tournament</p>
                       <input id="application-tournament" name="tournament" className="editor__field" value={application.name} placeholder="Tournament" disabled/>
-                    </label> */}
+                    </label>
                     <label className="editor__label">
                       <p>Age Division</p>
                       <input id="application-age-division" name="age-division" className="editor__field" value={application.division} placeholder="Age Division" disabled/>

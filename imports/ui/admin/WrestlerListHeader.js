@@ -1,3 +1,4 @@
+import Modal from 'react-modal';
 import React from 'react';
 import { Meteor } from 'meteor/meteor';
 import { PropTypes } from 'prop-types';
@@ -8,23 +9,30 @@ import { browserHistory } from 'react-router';
 
 import WrestlerListFilters from './WrestlerListFilters';
 
-const WrestlerListHeader = (props) => {
-  const onAddWrestler = () => {
-    props.Session.set('multiselectedWrestlerIds', []);      // clear multiselect list
+export class WrestlerListHeader extends React.Component {
+  constructor(props) {
+    super(props);
 
-    props.meteorCall('wrestlers.insert', (err, res) => {
+    this.onAddWrestler = this.onAddWrestler.bind(this);
+    this.onDeleteWrestlers = this.onDeleteWrestlers.bind(this);
+  }
+
+  onAddWrestler() {
+    this.props.Session.set('multiselectedWrestlerIds', []);      // clear multiselect list
+
+    this.props.meteorCall('wrestlers.insert', (err, res) => {
       if (res) {
-        props.Session.set('selectedWrestlerId', res);
+        this.props.Session.set('selectedWrestlerId', res);
       }
     });
-  };
+  }
 
   /*
    * Deletes one or more wrestlers simultaneously based on multiselection.
    */
 
-  const onDeleteWrestlers = () => {
-    const wrestlerIds = props.Session.get('multiselectedWrestlerIds');
+  onDeleteWrestlers() {
+    const wrestlerIds = this.props.Session.get('multiselectedWrestlerIds');
 
     if (wrestlerIds.length === 0) {
       swal({
@@ -50,35 +58,35 @@ const WrestlerListHeader = (props) => {
       }).then((response) => {
         if (response && response.value) {
           wrestlerIds.forEach((wrestlerId) => {
-            props.meteorCall('wrestlers.remove', wrestlerId);
+            this.props.meteorCall('wrestlers.remove', wrestlerId);
           });
 
-          props.browserHistory.push('/wrestlers');
+          this.props.browserHistory.push('/wrestlers');
         }
       });
     }
-  };
+  }
 
   // TODO - add onMergeWrestlers function
 
-  return (
-    <div className="item-list__header">
-      <button className="button--add" onClick={onAddWrestler}>Add Wrestler</button>
-      <div className="multiselect-group two">
-        <button className="button button--unpublish" onClick={() => { }}>Merge</button>
-        <button className="button button--delete" onClick={onDeleteWrestlers}>Delete</button>
+  render() {
+    return (
+      <div className="item-list__header">
+        <button className="button--add" onClick={this.onAddWrestler}>Add Wrestler</button>
+        <div className="multiselect-group two">
+          <button className="button button--unpublish" onClick={() => { }}>Merge</button>
+          <button className="button button--delete" onClick={this.onDeleteWrestlers}>Delete</button>
+        </div>
+        <WrestlerListFilters/>
       </div>
-      <WrestlerListFilters/>
-    </div>
-  );
-};
+    );
+  }
+}
 
 WrestlerListHeader.propTypes = {
   meteorCall: PropTypes.func.isRequired,
   Session: PropTypes.object.isRequired
 };
-
-export { WrestlerListHeader };
 
 export default createContainer(() => {
   return {

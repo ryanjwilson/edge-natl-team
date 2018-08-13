@@ -106,17 +106,20 @@ Meteor.startup(() => {
 
   // setup session variables for list filtering
 
-  Session.set('showPublishedFilter', true);                      // tournament view, events shown on public calendar
-  Session.set('showUnpublishedFilter', true);                    // tournament view, events hidden on public calendar
+  Session.set('showPublishedFilter', true);                           // tournament view, events shown on public calendar
+  Session.set('showUnpublishedFilter', true);                         // tournament view, events hidden on public calendar
 
-  Session.set('selectedTournamentFilter', undefined);            // wrestler view, tournament selected from dropdown menu
-  Session.set('selectedDivisionFilter', undefined);              // wrestler view, division selected from dropdown menu
-  Session.set('selectedWeightClassFilter', undefined);           // wrestler view, weight class selected from dropdown menu
+  Session.set('selectedTournamentFilter', undefined);                 // wrestler view, tournament selected from dropdown menu
+  Session.set('selectedDivisionFilter', undefined);                   // wrestler view, division selected from dropdown menu
+  Session.set('selectedWeightClassFilter', undefined);                // wrestler view, weight class selected from dropdown menu
+  // Session.set('selectedWrestlerTournamentModalFilter', undefined);    // wrestler view, tournament selected from modal dropdown menu
+  // Session.set('selectedWrestlerDivisionModalFilter', undefined);      // wrestler view, division selected from the modal dropdown menu
+  // Session.set('selectedWrestlerWeightClassModalFilter', undefined);   // wrestler view, weight class selected from the modal dropdown menu
 
-  Session.set('selectedTeamTournamentFilter', undefined);        // team view, tournament selected from dropdown menu
-  Session.set('selectedTeamDivisionFilter', undefined);          // team view, division selected from dropdown menu
-  Session.set('selectedTeamTournamentModalFilter', undefined);   // team view, tournament selected from the modal dropdown menu
-  Session.set('selectedTeamDivisionNidakFilter', undefined);     // team view, division selected from the modal dropdown menu
+  Session.set('selectedTeamTournamentFilter', undefined);             // team view, tournament selected from dropdown menu
+  Session.set('selectedTeamDivisionFilter', undefined);               // team view, division selected from dropdown menu
+  Session.set('selectedTeamTournamentModalFilter', undefined);        // team view, tournament selected from the modal dropdown menu
+  Session.set('selectedTeamDivisionNidakFilter', undefined);          // team view, division selected from the modal dropdown menu
 
   ReactDOM.render(routes, document.getElementById('app'));
 });
