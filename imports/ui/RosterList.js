@@ -36,6 +36,8 @@ export class RosterList extends React.Component {
   }
 
   render() {
+    console.log('roster list teams', this.state.teams);
+
     return (
       <div className="event__roster-list">
         {this.state.teams.length === 0 ? <p className="empty-item">There are no Rosters to display.</p> : undefined}

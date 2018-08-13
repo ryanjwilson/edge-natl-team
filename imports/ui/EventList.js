@@ -51,13 +51,12 @@ export class EventList extends React.Component {
   }
 
   scrollToApplication() {
-    document.querySelector('#wrestler-application').scrollIntoView({
-      //alignTop: true,
-      behavior: 'smooth'
-    });
+    document.querySelector('#wrestler-application').scrollIntoView({ behavior: 'smooth' });
   }
 
   render() {
+    console.log('event list teams', this.state.teams);
+    
     return (
       <div className="container container__schedule">
         <div className="container__header">
@@ -83,9 +82,6 @@ export class EventList extends React.Component {
 EventList.propTypes = {
   tournaments: PropTypes.array.isRequired,
   teams: PropTypes.array.isRequired
-  // selectedTournamentId: PropTypes.string,
-  // call: PropTypes.func.isRequired,
-  // browserHistory: PropTypes.object.isRequired
 };
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -94,14 +90,15 @@ export default createContainer(() => {
   Meteor.subscribe('tournaments');
   Meteor.subscribe('teams');
 
-  // const selectedTournamentId = Session.get('selectedTournamentId');
+  const tournaments = Tournaments.find({ published: true }).fetch().map((tournament) => {
+    return { ...tournament };
+  });
+  const teams = Teams.find().fetch().map((team) => {
+    return { ...team };
+  });
 
   return {
-    tournaments: Tournaments.find({ published: true }).fetch().map((tournament) => {
-      return { ...tournament };
-    }),
-    teams: Teams.find().fetch().map((team) => {
-      return { ...team };
-    })
+    tournaments,
+    teams
   };
 }, EventList);

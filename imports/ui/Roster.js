@@ -17,6 +17,8 @@ export class Roster extends React.Component {
   }
 
   render() {
+    console.log('roster', this.state.team);
+    
     return (
       <table className="event__roster-table" border="1">
         <thead>
