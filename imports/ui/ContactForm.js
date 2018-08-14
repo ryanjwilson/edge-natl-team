@@ -53,7 +53,7 @@ export class ContactForm extends React.Component {
   }
 
   onSubmitForm() {
-    console.log(this.state);
+    // TODO
   }
 
   render() {

@@ -80,10 +80,8 @@ export class Header extends React.Component {
     }
 
     if (this.state.isMenuOpen) {
-      console.log('closing menu');
       Session.set('isMenuOpen', false);
     } else {
-      console.log('opening menu');
       Session.set('isMenuOpen', true);
     }
   }

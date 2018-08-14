@@ -28,7 +28,18 @@ export class Event extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
+    if (this.props.event._id !== nextProps.event._id) this.setState({ event: nextProps.event });
+    if (this.props.teams.length !== nextProps.teams.length) {
+      this.setState({ teams: nextProps.teams });
+    } else {
+      this.props.teams.some((team, index) => {
+        if (team._id !== nextProps.teams[index]._id) {
+          this.setState({ teams: nextProps.teams });
 
+          return true;
+        }
+      });
+    }
   }
 
   onApplyNow() {
@@ -48,7 +59,6 @@ export class Event extends React.Component {
   }
 
   showRoster() {
-    console.log('showRoster', this.state.event.name);
     Session.set('isRosterOpen', true);
     this.setState({ isRosterOpen: true });
   }
@@ -60,7 +70,7 @@ export class Event extends React.Component {
 
   render() {
     console.log('event', this.state.teams);
-    
+
     return (
       <div className={this.state.isLastEvent ? 'event event__bottom' : 'event'}>
         <div className="event__header">
@@ -133,7 +143,14 @@ Event.propTypes = {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 export default createContainer(() => {
+  // Meteor.subscribe('teams');
+  //
+  // const teams = Teams.find().fetch().map((team) => {
+  //   return { ...team };
+  // });
+
   return {
+    //teams,
     isSidebarOpen: Session.get('isSidebarOpen')
   };
 }, Event);

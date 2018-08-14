@@ -338,8 +338,6 @@ export class Application extends React.Component {
     if (this.isValidApplication(wrestler)) {
       Meteor.call('wrestlers.submit', { ...wrestler }, (error, result) => {
         if (result) {
-          console.log('result of wrestlers.submit');
-
           wrestler.applications.forEach((application) => {
             const team = Teams.findOne({ _id: application.teamId });
 
@@ -351,9 +349,9 @@ export class Application extends React.Component {
 
               Meteor.call('teams.update', team._id, { roster }, (error, result) => {
                 if (result) {
-                  console.log('result of teams.update', result);
+
                 } else if (error) {
-                  console.log('error during teams.update', error);
+
                 }
               });
             }
@@ -361,7 +359,7 @@ export class Application extends React.Component {
 
           this.onShowConfirmationModal();
         } else if (error) {
-          console.log('error during wrestlers.submit', error);
+
         }
       });
     } else {
@@ -424,7 +422,7 @@ export class Application extends React.Component {
       document.querySelector('#grade-field').classList.add('validation-error');
     }
     if (validator.isEmpty(wrestler.weight) || wrestler.weight < 0 || wrestler.weight > 285) {
-      console.log('validation error stemming from computed weight value');
+      // TODO - log error?
     }
     if (!wrestler.parents.every((parent) => !validator.isEmpty(parent.name))) {
       wrestler.parents.forEach((parent, index) => document.querySelector('#parent-field-' + index).classList.add('validation-error'));

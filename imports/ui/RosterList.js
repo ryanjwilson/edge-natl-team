@@ -19,7 +19,7 @@ export class RosterList extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     if (this.props.teams.length !== nextProps.teams.length) {
-      this.setState({ tams: nextProps.teams });
+      this.setState({ teams: nextProps.teams });
     } else {
       this.props.teams.some((team, index) => {
         if (team._id !== nextProps.teams[index]._id) {
@@ -36,8 +36,6 @@ export class RosterList extends React.Component {
   }
 
   render() {
-    console.log('roster list teams', this.state.teams);
-
     return (
       <div className="event__roster-list">
         {this.state.teams.length === 0 ? <p className="empty-item">There are no Rosters to display.</p> : undefined}

@@ -13,12 +13,10 @@ export class Roster extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-
+    if (this.props.team._id !== nextProps.team._id) this.setState({ team: nextProps.team });
   }
 
   render() {
-    console.log('roster', this.state.team);
-    
     return (
       <table className="event__roster-table" border="1">
         <thead>

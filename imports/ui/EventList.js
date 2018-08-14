@@ -54,9 +54,7 @@ export class EventList extends React.Component {
     document.querySelector('#wrestler-application').scrollIntoView({ behavior: 'smooth' });
   }
 
-  render() {
-    console.log('event list teams', this.state.teams);
-    
+  render() {    
     return (
       <div className="container container__schedule">
         <div className="container__header">
