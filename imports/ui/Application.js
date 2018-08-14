@@ -266,8 +266,7 @@ export class Application extends React.Component {
           divisions: this.state.tournaments.find((tournament) => tournament._id === options[i].value).divisions,
           weightClasses: this.state.tournaments.find((tournament) => tournament._id === options[i].value).divisions[0].weightClasses,
           selectedDivision: this.state.tournaments.find((tournament) => tournament._id === options[i].value).divisions[0].name,
-          selectedWeightClass: this.state.tournaments.find((tournament) => tournament._id === options[i].value).divisions[0].weightClasses[0],
-          teamId: this.state.tournaments.find((tournament) => tournament._id === options[i].value).divisions[0].teamId
+          selectedWeightClass: this.state.tournaments.find((tournament) => tournament._id === options[i].value).divisions[0].weightClasses[0]
         });
       }
     }
@@ -293,7 +292,6 @@ export class Application extends React.Component {
         selectedTournaments[i].selectedDivision = e.target.value;
         selectedTournaments[i].weightClasses = selectedTournament.divisions.find((division) => division.name === e.target.value).weightClasses;
         selectedTournaments[i].selectedWeightClass = selectedTournament.divisions.find((division) => division.name === e.target.value).weightClasses[0];
-        selectedTournaments[i].teamId = selectedTournament.divisions.find((division) => division.name === e.target.value).teamId;
       }
     }
 
@@ -323,15 +321,14 @@ export class Application extends React.Component {
       parents: this.state.parents,
       emails: this.state.emails,
       phones: this.state.phones,
-      applications: this.state.selectedTournaments.map((selectedTournament) => {        
+      applications: this.state.selectedTournaments.map((selectedTournament) => {
         return {
           tournamentId: selectedTournament.tournamentId,
           name: selectedTournament.tournamentName,
           division: selectedTournament.selectedDivision,
           weightClass: selectedTournament.selectedWeightClass,
           open: true,
-          status: '',
-          teamId: selectedTournament.teamId
+          status: ''
         };
       })
     };
@@ -339,37 +336,9 @@ export class Application extends React.Component {
     if (this.isValidApplication(wrestler)) {
       Meteor.call('wrestlers.submit', { ...wrestler }, (error, result) => {
         if (result) {
-          console.log('result from wrestlers.submit', result);
-
-          wrestler.applications.forEach((application) => {
-            console.log('application', application);
-
-            const team = Teams.findOne({ _id: application.teamId });
-
-            if (team) {
-              console.log('team', team);
-              const roster = team.roster;
-              console.log('roster', roster);
-              const index = team.roster.findIndex((position) => position.weightClass === application.weightClass);
-              console.log('index', index);
-              roster[index].availableWrestlers.push({ _id: result, name: wrestler.name });
-              console.log('updated roster', roster);
-
-              Meteor.call('teams.update', team._id, { roster }, (error, result) => {
-                if (result) {
-                  console.log('result of teams.update', result);
-                } else if (error) {
-                  console.log('error from teams.update', error);
-                }
-              });
-            } else {
-              console.log('team is null or undefined', team);
-            }
-          });
-
           this.onShowConfirmationModal();
         } else if (error) {
-          console.log('error from wrestlers.submit', error);
+
         }
       });
     } else {
@@ -451,7 +420,6 @@ export class Application extends React.Component {
   }
 
   render() {
-    console.log(this.state.tournaments);
     return (
       <div id="wrestler-application" className="container container__application">
         <div className="container__header">
@@ -624,15 +592,6 @@ export default createContainer(() => {
   Meteor.subscribe('teams');
 
   const tournaments = Tournaments.find({ published: true }).fetch().map((tournament) => {
-    tournament.divisions = tournament.divisions.map((division) => {
-      const team = Teams.findOne({ 'tournament._id': tournament._id, 'tournament.division.name': division.name }, { fields: { _id: 1 }});
-
-      return {
-        ...division,
-        teamId: (team ? team._id : undefined)
-      };
-    });
-
     return {
       ...tournament,
       selected: false

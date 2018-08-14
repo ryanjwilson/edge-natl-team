@@ -194,12 +194,12 @@
   background-color: $gray;
 }
 
-.editor__table select {
+.editor__table select, .editor__table input {
   background: white;
   font-family: "Montserrat", sans-serif;
   font-size: $base-font-size;
   height: 3rem;
-  margin-bottom: $small-space;
+  margin-bottom: $tiny-space !important;
   margin-top: $tiny-space;
   outline: none;
   width: 100%;
@@ -213,16 +213,16 @@
   justify-content: space-between;
 }
 
-.editor__split-weight select {
+.editor__split-weight input {
   width: 50%;
 }
 
-.editor__split-weight select:first-child {
-  margin-right: $small-space;
+.editor__split-weight input:first-child {
+  margin-right: $tiny-space;
 }
 
-.editor__split-weight select:last-child {
-  margin-left: $small-space;
+.editor__split-weight input:last-child {
+  margin-left: $tiny-space;
 }
 
 .editor__modal-filters {

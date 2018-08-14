@@ -94,18 +94,10 @@ Meteor.methods({
       roster: { type: Array, minCount: 1 },
       'roster.$': { type: Object },
       'roster.$.weightClass': { type: Number },
-      'roster.$.wrestler': { type: Object },
-      'roster.$.wrestler._id': { type: String },
-      'roster.$.wrestler.name': { type: String },
-      'roster.$.split': { type: Object },
-      'roster.$.split._id': { type: String },
-      'roster.$.split.name': { type: String },
+      'roster.$.wrestler1': { type: String },
+      'roster.$.wrestler2': { type: String },
       'roster.$.role': { type: String },
       'roster.$.status': { type: String },
-      'roster.$.availableWrestlers': { type: Array },
-      'roster.$.availableWrestlers.$': { type: Object },
-      'roster.$.availableWrestlers.$._id': { type: String, min: 1 },
-      'roster.$.availableWrestlers.$.name': { type: String },
       published: { type: Boolean },
       year: { type: SimpleSchema.Integer },
       season: { type: String }
@@ -127,23 +119,12 @@ const getDivision = (tournament, divisionName) => {
 
 const getRoster = (division, tournamentId) => {
   return division.weightClasses.map((weightClass) => {
-    const availableWrestlers = Wrestlers.find({
-      'applications.tournamentId': tournamentId, 'applications.division': division.name, 'applications.weightClass': weightClass
-    }, { fields: { name: 1 }}).fetch();
-
     return {
       weightClass,
-      wrestler: {
-        _id: '',
-        name: ''
-      },
-      split: {
-        _id: '',
-        name: ''
-      },
+      wrestler1: '',
+      wrestler2: '',
       role: '',
-      status: 'Open',
-      availableWrestlers
+      status: 'Open'
     };
   });
 }

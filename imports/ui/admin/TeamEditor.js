@@ -93,15 +93,14 @@ export class TeamEditor extends React.Component {
     this.props.call('teams.update', this.props.team._id, { name });
   }
 
-  onWrestlerSelection(weight, split, e) {
-    const options = e.target.options;
+  onWrestlerChange(weight, split, e) {
     const roster = this.state.roster;
     const index = roster.findIndex((position) => position.weightClass === weight);
 
-    if (split) {
-      roster[index].split = { _id: e.target.value, name: options[options.selectedIndex].text };
+    if (!split) {
+      roster[index].wrestler1 = e.target.value;
     } else {
-      roster[index].wrestler = { _id: e.target.value, name: options[options.selectedIndex].text };
+      roster[index].wrestler2 = e.target.value;
     }
 
     this.setState({ roster });
@@ -111,7 +110,7 @@ export class TeamEditor extends React.Component {
   onRoleSelection(weight, e) {
     const options = e.target.options;
     const roster = this.state.roster;
-
+    
     const index = roster.findIndex((position) => position.weightClass === weight);
     roster[index].role = e.target.value;
 
@@ -159,25 +158,10 @@ export class TeamEditor extends React.Component {
                     <tr key={index}>
                       <td>{position.weightClass}</td>
                       <td className={position.role === 'Split' ? 'editor__split-weight' : ''}>
-                        <select value={position.wrestler._id} onChange={this.onWrestlerSelection.bind(this, position.weightClass, false)}>
-                          <option key="-1" value=""></option>
-                          {position.availableWrestlers.map((availableWrestler) => {
-                            return (
-                              <option key={availableWrestler._id} value={availableWrestler._id}>{availableWrestler.name}</option>
-                            );
-                          })}
-                        </select>
-                        {position.role === 'Split' ?
-                          <select value={position.split._id} onChange={this.onWrestlerSelection.bind(this, position.weightClass, true)}>
-                            <option key="-1" value=""></option>
-                            {position.availableWrestlers.map((availableWrestler) => {
-                              return (
-                                <option key={availableWrestler._id} value={availableWrestler._id}>{availableWrestler.name}</option>
-                              );
-                            })}
-                          </select>
-                          :
-                          undefined
+                        <input id="wrestler-name" name="wrestler-name" className="editor__field" value={position.wrestler1} placeholder="Wrestler" onChange={this.onWrestlerChange.bind(this, position.weightClass, false)}/>
+                        {position.role === 'Split'
+                          ? <input id="wrestler-name" name="wrestler-name" className="editor__field" value={position.wrestler2} placeholder="Wrestler" onChange={this.onWrestlerChange.bind(this, position.weightClass, true)}/>
+                          : undefined
                         }
                       </td>
                       <td>
