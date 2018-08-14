@@ -163,7 +163,9 @@ export default createContainer(() => {
 
   if (showPublished && showUnpublished) {
     return {
-      tournaments: Tournaments.find().fetch().map((tournament) => {   // show all tournaments
+      tournaments: Tournaments.find({}, {
+        sort: { order: 1 }
+      }).fetch().map((tournament) => {   // show all tournaments
         return {
           ...tournament,
           selected: tournament._id === selectedTournamentId,
@@ -175,6 +177,8 @@ export default createContainer(() => {
     return {
       tournaments: Tournaments.find({
         published: showPublished
+      },{
+        sort: { order: 1 }
       }).fetch().map((tournament) => {    // show only published or unpublished tournaments
         return {
           ...tournament,

@@ -54,7 +54,7 @@ export class EventList extends React.Component {
     document.querySelector('#wrestler-application').scrollIntoView({ behavior: 'smooth' });
   }
 
-  render() {    
+  render() {
     return (
       <div className="container container__schedule">
         <div className="container__header">
@@ -88,9 +88,14 @@ export default createContainer(() => {
   Meteor.subscribe('tournaments');
   Meteor.subscribe('teams');
 
-  const tournaments = Tournaments.find({ published: true }).fetch().map((tournament) => {
+  const tournaments = Tournaments.find({
+    published: true
+  }, {
+    sort: { order: 1 }
+  }).fetch().map((tournament) => {
     return { ...tournament };
   });
+
   const teams = Teams.find().fetch().map((team) => {
     return { ...team };
   });
