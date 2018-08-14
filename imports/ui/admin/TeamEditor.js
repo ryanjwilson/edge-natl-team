@@ -37,7 +37,7 @@ export class TeamEditor extends React.Component {
       },
       roster: props.team ? props.team.roster : [],
       roles: [ 'Starter', 'Split' ],
-      statuses: [ 'Open', 'Pending', 'Confirmed' ],
+      statuses: [ 'Open', 'Confirmed' ],
       published: props.team ? props.team.published : false
     };
 
@@ -110,7 +110,7 @@ export class TeamEditor extends React.Component {
   onRoleSelection(weight, e) {
     const options = e.target.options;
     const roster = this.state.roster;
-    
+
     const index = roster.findIndex((position) => position.weightClass === weight);
     roster[index].role = e.target.value;
 
