@@ -267,7 +267,7 @@ export class Application extends React.Component {
           weightClasses: this.state.tournaments.find((tournament) => tournament._id === options[i].value).divisions[0].weightClasses,
           selectedDivision: this.state.tournaments.find((tournament) => tournament._id === options[i].value).divisions[0].name,
           selectedWeightClass: this.state.tournaments.find((tournament) => tournament._id === options[i].value).divisions[0].weightClasses[0],
-          teamId: this.state.tournaments.find((tournament) => tournament._id === options[i].value).teamId
+          teamId: this.state.tournaments.find((tournament) => tournament._id === options[i].value).divisions[0].teamId
         });
       }
     }
@@ -293,6 +293,7 @@ export class Application extends React.Component {
         selectedTournaments[i].selectedDivision = e.target.value;
         selectedTournaments[i].weightClasses = selectedTournament.divisions.find((division) => division.name === e.target.value).weightClasses;
         selectedTournaments[i].selectedWeightClass = selectedTournament.divisions.find((division) => division.name === e.target.value).weightClasses[0];
+        selectedTournaments[i].teamId = selectedTournament.divisions.find((division) => division.name === e.target.value).teamId;
       }
     }
 
@@ -344,7 +345,6 @@ export class Application extends React.Component {
             if (team) {
               const roster = team.roster;
               const index = team.roster.findIndex((position) => position.weightClass === application.weightClass);
-
               roster[index].availableWrestlers.push({ _id: result, name: wrestler.name });
 
               Meteor.call('teams.update', team._id, { roster }, (error, result) => {
@@ -538,7 +538,7 @@ export class Application extends React.Component {
           <label className="bordered">
             <p className="dynamic-label">Tournaments</p>
             <select id="tournaments-field" name="tournament" className="multi" size={this.state.tournaments.length} value={this.state.selectedTournaments.map((selectedTournament) => selectedTournament.tournamentId)} onChange={this.onTournamentSelection} multiple>
-              {this.state.tournaments.map((tournament) => {
+              {this.state.tournaments.map((tournament, index) => {
                 return (
                   <option key={tournament._id} value={tournament._id}>{tournament.name}</option>
                 );
@@ -613,11 +613,17 @@ export default createContainer(() => {
   Meteor.subscribe('teams');
 
   const tournaments = Tournaments.find({ published: true }).fetch().map((tournament) => {
-    const team = Teams.findOne({ 'tournament._id': tournament._id }, { fields: { _id: 1 }});
+    tournament.divisions = tournament.divisions.map((division) => {
+      const team = Teams.findOne({ 'tournament._id': tournament._id, 'tournament.division.name': division.name }, { fields: { _id: 1 }});
+
+      return {
+        ...division,
+        teamId: (team ? team._id : undefined)
+      };
+    });
 
     return {
       ...tournament,
-      teamId: (team ? team._id : undefined),
       selected: false
     };
   });
