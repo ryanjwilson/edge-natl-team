@@ -69,8 +69,6 @@ export class Event extends React.Component {
   }
 
   render() {
-    console.log('event', this.state.teams);
-
     return (
       <div className={this.state.isLastEvent ? 'event event__bottom' : 'event'}>
         <div className="event__header">
