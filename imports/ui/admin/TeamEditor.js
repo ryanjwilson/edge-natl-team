@@ -93,15 +93,10 @@ export class TeamEditor extends React.Component {
     this.props.call('teams.update', this.props.team._id, { name });
   }
 
-  onWrestlerChange(weight, split, e) {
+  onWrestlerChange(weight, e) {
     const roster = this.state.roster;
     const index = roster.findIndex((position) => position.weightClass === weight);
-
-    if (!split) {
-      roster[index].wrestler1 = e.target.value;
-    } else {
-      roster[index].wrestler2 = e.target.value;
-    }
+    roster[index].wrestler = e.target.value;
 
     this.setState({ roster });
     this.props.call('teams.update', this.props.team._id, { roster });
