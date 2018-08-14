@@ -157,12 +157,8 @@ export class TeamEditor extends React.Component {
                   return (
                     <tr key={index}>
                       <td>{position.weightClass}</td>
-                      <td className={position.role === 'Split' ? 'editor__split-weight' : ''}>
-                        <input id="wrestler-name" name="wrestler-name" className="editor__field" value={position.wrestler1} placeholder="Wrestler" onChange={this.onWrestlerChange.bind(this, position.weightClass, false)}/>
-                        {position.role === 'Split'
-                          ? <input id="wrestler-name" name="wrestler-name" className="editor__field" value={position.wrestler2} placeholder="Wrestler" onChange={this.onWrestlerChange.bind(this, position.weightClass, true)}/>
-                          : undefined
-                        }
+                      <td>
+                        <input id="wrestler-name" name="wrestler-name" className="editor__field" value={position.wrestler} placeholder="Wrestler" onChange={this.onWrestlerChange.bind(this, position.weightClass)}/>
                       </td>
                       <td>
                         <select value={position.role} onChange={this.onRoleSelection.bind(this, position.weightClass)}>

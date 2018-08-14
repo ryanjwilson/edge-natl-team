@@ -94,8 +94,7 @@ Meteor.methods({
       roster: { type: Array, minCount: 1 },
       'roster.$': { type: Object },
       'roster.$.weightClass': { type: Number },
-      'roster.$.wrestler1': { type: String },
-      'roster.$.wrestler2': { type: String },
+      'roster.$.wrestler': { type: String },
       'roster.$.role': { type: String },
       'roster.$.status': { type: String },
       published: { type: Boolean },
@@ -121,8 +120,7 @@ const getRoster = (division, tournamentId) => {
   return division.weightClasses.map((weightClass) => {
     return {
       weightClass,
-      wrestler1: '',
-      wrestler2: '',
+      wrestler: '',
       role: '',
       status: 'Open'
     };
