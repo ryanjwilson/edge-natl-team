@@ -68,7 +68,7 @@ export class Team extends React.Component {
 
     if (e.metaKey) {
       if (!ids.includes(this.state._id)) {
-        ids.push(this.state.team._id);
+        ids.push(this.state._id);
       }
 
       if (ids.length === 1) {
