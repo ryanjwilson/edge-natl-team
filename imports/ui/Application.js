@@ -323,7 +323,7 @@ export class Application extends React.Component {
       parents: this.state.parents,
       emails: this.state.emails,
       phones: this.state.phones,
-      applications: this.state.selectedTournaments.map((selectedTournament) => {
+      applications: this.state.selectedTournaments.map((selectedTournament) => {        
         return {
           tournamentId: selectedTournament.tournamentId,
           name: selectedTournament.tournamentName,
@@ -342,8 +342,8 @@ export class Application extends React.Component {
           console.log('result from wrestlers.submit', result);
 
           wrestler.applications.forEach((application) => {
-            console.log('application', applicaiton);
-            
+            console.log('application', application);
+
             const team = Teams.findOne({ _id: application.teamId });
 
             if (team) {
@@ -451,6 +451,7 @@ export class Application extends React.Component {
   }
 
   render() {
+    console.log(this.state.tournaments);
     return (
       <div id="wrestler-application" className="container container__application">
         <div className="container__header">
