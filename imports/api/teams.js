@@ -48,6 +48,7 @@ Meteor.methods({
       published: false,
       year: '',                   // TODO - if we make this an integer, what should the default value be?
       season: '',
+      order: '',
       userId: this.userId,
       updatedAt: moment().valueOf()
     });
@@ -99,7 +100,8 @@ Meteor.methods({
       'roster.$.status': { type: String },
       published: { type: Boolean },
       year: { type: SimpleSchema.Integer },
-      season: { type: String }
+      season: { type: String },
+      order: { type: SimpleSchema.Integer }
     }, { requiredByDefault: false }).validate({ _id, ...updates });
 
     Teams.update({ _id, userId: this.userId }, {

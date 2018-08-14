@@ -160,7 +160,9 @@ export default createContainer(() => {
   // selections made by the user.
 
   return {
-    teams: Teams.find().fetch().map((team) => {   // show all tournaments
+    teams: Teams.find({}, {
+      sort: { order: 1 }
+    }).fetch().map((team) => {   // show all tournaments
       return {
         ...team,
         selected: team._id === selectedTeamId,

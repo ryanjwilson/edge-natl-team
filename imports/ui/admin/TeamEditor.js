@@ -38,13 +38,15 @@ export class TeamEditor extends React.Component {
       roster: props.team ? props.team.roster : [],
       roles: [ 'Starter', 'Split' ],
       statuses: [ 'Open', 'Confirmed' ],
-      published: props.team ? props.team.published : false
+      published: props.team ? props.team.published : false,
+      order: props.team ? props.team.order : ''
     };
 
     // bind field listeners to this context. remaining listeners are bound
     // manually, as they take additional parameters.
 
     this.onNameChange = this.onNameChange.bind(this);
+    this.onOrderChange = this.onOrderChange.bind(this);
   }
 
   componentDidMount() {
@@ -93,6 +95,13 @@ export class TeamEditor extends React.Component {
     this.props.call('teams.update', this.props.team._id, { name });
   }
 
+  onOrderChange(e) {
+    const order = Number(e.target.value);
+
+    this.setState({ order });
+    this.props.call('teams.update', this.props.team._id, { order });
+  }
+
   onWrestlerChange(weight, e) {
     const roster = this.state.roster;
     const index = roster.findIndex((position) => position.weightClass === weight);
@@ -138,6 +147,10 @@ export class TeamEditor extends React.Component {
         <div className="container">
           <div className="editor">
             <input id="name" className="editor__title" value={this.state.name} placeholder="Untitled Team" onChange={this.onNameChange}/>
+            <label className="editor__label">
+              <p>Display Order</p>
+              <input id="displayOrder" name="displayOrder" type="number" min="1" className="editor__field" value={this.state.order} placeholder="Display Order" onChange={this.onOrderChange}/>
+            </label>
             <table border="1" className="editor__table">
               <thead>
                 <tr>
