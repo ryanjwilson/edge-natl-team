@@ -96,7 +96,9 @@ export default createContainer(() => {
     return { ...tournament };
   });
 
-  const teams = Teams.find().fetch().map((team) => {
+  const teams = Teams.find({}, {
+    sort: { order: 1 }
+  }).fetch().map((team) => {
     return { ...team };
   });
 
