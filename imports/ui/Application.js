@@ -339,7 +339,11 @@ export class Application extends React.Component {
     if (this.isValidApplication(wrestler)) {
       Meteor.call('wrestlers.submit', { ...wrestler }, (error, result) => {
         if (result) {
+          console.log('result from wrestlers.submit', result);
+
           wrestler.applications.forEach((application) => {
+            console.log('application', applicaiton);
+            
             const team = Teams.findOne({ _id: application.teamId });
 
             if (team) {
@@ -358,12 +362,14 @@ export class Application extends React.Component {
                   console.log('error from teams.update', error);
                 }
               });
+            } else {
+              console.log('team is null or undefined', team);
             }
           });
 
           this.onShowConfirmationModal();
         } else if (error) {
-
+          console.log('error from wrestlers.submit', error);
         }
       });
     } else {
