@@ -343,15 +343,19 @@ export class Application extends React.Component {
             const team = Teams.findOne({ _id: application.teamId });
 
             if (team) {
+              console.log('team', team);
               const roster = team.roster;
+              console.log('roster', roster);
               const index = team.roster.findIndex((position) => position.weightClass === application.weightClass);
+              console.log('index', index);
               roster[index].availableWrestlers.push({ _id: result, name: wrestler.name });
+              console.log('updated roster', roster);
 
               Meteor.call('teams.update', team._id, { roster }, (error, result) => {
                 if (result) {
-
+                  console.log('result of teams.update', result);
                 } else if (error) {
-
+                  console.log('error from teams.update', error);
                 }
               });
             }
