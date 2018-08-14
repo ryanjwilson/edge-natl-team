@@ -42,7 +42,8 @@ export class TournamentEditor extends React.Component {
       publishClass: 'button--unpublish',    // TODO - can this be removed?
       publishText: 'Unpublish',             // TODO - can this be removed?
       year: '',
-      season: ''
+      season: '',
+      order: ''
     };
 
     // bind field listeners to this context. remaining listeners are bound
@@ -54,6 +55,7 @@ export class TournamentEditor extends React.Component {
     this.onEndDateChange = this.onEndDateChange.bind(this);
     this.onWeighinsChange = this.onWeighinsChange.bind(this);
     this.onAlternateWeighinsChange = this.onAlternateWeighinsChange.bind(this);
+    this.onOrderChange = this.onOrderChange.bind(this);
   }
 
   /**
@@ -199,6 +201,13 @@ export class TournamentEditor extends React.Component {
     this.props.call('tournaments.update', this.props.tournament._id, { alternateWeighins });
   }
 
+  onOrderChange(e) {
+    const order = Number(e.target.value);
+
+    this.setState({ order });
+    this.props.call('tournaments.update', this.props.tournament._id, { order });
+  }
+
   /**
    * Updates a division name for this tournament.
    *
@@ -295,6 +304,10 @@ export class TournamentEditor extends React.Component {
             <label className="editor__label">
               <p>Alternate Weigh-ins</p>
               <input id="alternateWeighins" name="alternateWeighins" className="editor__field" value={this.state.alternateWeighins} placeholder="Alternate Weigh-ins" onChange={this.onAlternateWeighinsChange}/>
+            </label>
+            <label className="editor__label">
+              <p>Display Order</p>
+              <input id="displayOrder" name="displayOrder" type="number" min="1" className="editor__field" value={this.state.order} placeholder="Display Order" onChange={this.onOrderChange}/>
             </label>
             {this.state.divisions.map((division, index, divisions) => {
               return (
