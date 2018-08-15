@@ -35,7 +35,8 @@ export class Application extends React.Component {
       }],
       tournaments: props.tournaments,
       selectedTournaments: [],
-      isConfirmationModalOpen: false
+      isConfirmationModalOpen: false,
+      isDateSupported: this.isDateSupported()
     };
 
     // bind field listeners to this context. remaining listeners are bound
@@ -52,6 +53,7 @@ export class Application extends React.Component {
     this.onGoBack = this.onGoBack.bind(this);
     this.onShowConfirmationModal = this.onShowConfirmationModal.bind(this);
     this.onCloseConfirmationModal = this.onCloseConfirmationModal.bind(this);
+    this.isDateSupported = this.isDateSupported.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -378,6 +380,10 @@ export class Application extends React.Component {
   }
 
   isValidApplication(wrestler) {
+    console.log('wrestler dob', wrestler.dob);
+    console.log('valid date?', validator.isISO8601(wrestler.dob));
+    console.log('length', wrestler.dob.length);
+
     if (validator.isEmpty(wrestler.name)) return false;
     if (!validator.isISO8601(wrestler.dob) || wrestler.dob.length !== 10) return false;
     if (validator.isEmpty(wrestler.grade) || wrestler.grade < 0 || wrestler.grade > 12) return false;
@@ -387,7 +393,7 @@ export class Application extends React.Component {
     if (!wrestler.phones.every((phone) => validator.isMobilePhone(phone.number, 'en-US'))) return false;
     if (wrestler.applications.length === 0) return false;
 
-    return true;
+    return false;
   }
 
   showValidationErrors(wrestler) {
@@ -419,6 +425,17 @@ export class Application extends React.Component {
     document.querySelector('#name-field').scrollIntoView(true);
   }
 
+  isDateSupported() {
+    const element = document.createElement('input');
+    element.type = 'date';
+
+    if (element.type === 'text') {
+      return false;
+    }
+
+    return true;
+  }
+
   render() {
     return (
       <div id="wrestler-application" className="container container__application">
@@ -432,7 +449,10 @@ export class Application extends React.Component {
             <input id="name-field" name="name" value={this.state.name} placeholder="Name" onChange={this.onNameChange}/>
           </label>
           <label>
-            <p>Date of Birth</p>
+            {this.state.isDateSupported
+              ? <p>Date of Birth</p>
+              : <p>Date of Birth <span>(formatted as: YYYY-MM-DD)</span></p>
+            }
             <input id="dob-field" name="dob" type="date" pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}" value={this.state.dob} placeholder="Date of Birth" onChange={this.onDobChange}/>
           </label>
           <label>
@@ -552,7 +572,7 @@ export class Application extends React.Component {
               </fieldset>
             );
           })}
-          <button onClick={this.onSubmitApplication}>Submit Application</button>
+          <button className="submit-button" onClick={this.onSubmitApplication}>Submit Application</button>
 
           <Modal appElement={document.getElementById('app')} isOpen={this.state.isConfirmationModalOpen} contentLabel="Submit Application" className="boxed-view__box unbounded-height" overlayClassName="boxed-view boxed-view--modal">
             <div className="boxed-view__header">
