@@ -380,10 +380,6 @@ export class Application extends React.Component {
   }
 
   isValidApplication(wrestler) {
-    console.log('wrestler dob', wrestler.dob);
-    console.log('valid date?', validator.isISO8601(wrestler.dob));
-    console.log('length', wrestler.dob.length);
-
     if (validator.isEmpty(wrestler.name)) return false;
     if (!validator.isISO8601(wrestler.dob) || wrestler.dob.length !== 10) return false;
     if (validator.isEmpty(wrestler.grade) || wrestler.grade < 0 || wrestler.grade > 12) return false;
@@ -393,7 +389,7 @@ export class Application extends React.Component {
     if (!wrestler.phones.every((phone) => validator.isMobilePhone(phone.number, 'en-US'))) return false;
     if (wrestler.applications.length === 0) return false;
 
-    return false;
+    return true;
   }
 
   showValidationErrors(wrestler) {
