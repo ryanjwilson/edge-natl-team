@@ -20,8 +20,8 @@
     "validator": "^10.5.0"
   },
   "devDependencies": {
-    "enzyme": "^3.3.0",
-    "enzyme-adapter-react-16": "^1.1.1",
+    "enzyme": "3.10.0",
+    "enzyme-adapter-react-16": "1.14.0",
     "expect": "^1.20.2"
   },
   "engines": {
