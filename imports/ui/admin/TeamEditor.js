@@ -2,13 +2,10 @@ import { Meteor } from "meteor/meteor";
 import React from "react";
 import { browserHistory } from "react-router";
 import { createContainer } from "meteor/react-meteor-data";
-import moment from "moment";
 import { PropTypes } from "prop-types";
 import { Session } from "meteor/session";
-import swal from "sweetalert2";
 
 import { Teams } from "../../api/teams";
-import { Wrestlers } from "../../api/wrestlers";
 
 /**
  * A component provides fields to enter tournament details to be later displayed on the public Schedule.

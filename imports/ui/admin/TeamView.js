@@ -1,5 +1,4 @@
 import React from "react";
-import { Accounts } from "meteor/accounts-base";
 
 import Footer from "../Footer";
 import Header from "../Header";

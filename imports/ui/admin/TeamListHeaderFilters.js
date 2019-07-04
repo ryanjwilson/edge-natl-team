@@ -3,7 +3,6 @@ import React from "react";
 import { createContainer } from "meteor/react-meteor-data";
 import { PropTypes } from "prop-types";
 import { Session } from "meteor/session";
-import { Tracker } from "meteor/tracker";
 
 import { Tournaments } from "../../api/tournaments";
 

@@ -1,4 +1,3 @@
-import { Meteor } from "meteor/meteor";
 import React from "react";
 import { browserHistory, Route, Router } from "react-router";
 import { Session } from "meteor/session";

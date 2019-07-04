@@ -1,7 +1,5 @@
 import React from "react";
-import { Accounts } from "meteor/accounts-base";
 import { createContainer } from "meteor/react-meteor-data";
-import { Link } from "react-router";
 
 /**
  * A component that represents a header bar for the public and private sections of this application.

@@ -2,7 +2,6 @@ import { Meteor } from "meteor/meteor";
 import React from "react";
 import { browserHistory } from "react-router";
 import { createContainer } from "meteor/react-meteor-data";
-import Modal from "react-modal";
 import { PropTypes } from "prop-types";
 import { Session } from "meteor/session";
 import swal from "sweetalert2";

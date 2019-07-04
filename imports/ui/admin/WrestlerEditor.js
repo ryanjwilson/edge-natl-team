@@ -4,7 +4,6 @@ import { browserHistory } from "react-router";
 import { createContainer } from "meteor/react-meteor-data";
 import { PropTypes } from "prop-types";
 import { Session } from "meteor/session";
-import swal from "sweetalert2";
 
 import { Wrestlers } from "../../api/wrestlers";
 
