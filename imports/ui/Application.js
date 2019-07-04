@@ -1,36 +1,38 @@
-import Modal from 'react-modal';
-import React from 'react';
-import validator from 'validator';
-import { createContainer } from 'meteor/react-meteor-data';
-import { Meteor } from 'meteor/meteor';
-import { PropTypes } from 'prop-types';
-import { Session } from 'meteor/session';
+import { Meteor } from "meteor/meteor";
+import React from "react";
+import { createContainer } from "meteor/react-meteor-data";
+import Modal from "react-modal";
+import { Session } from "meteor/session";
+import validator from "validator";
 
-import { Tournaments } from '../api/tournaments';
-import { Teams } from '../api/teams';
+import { Tournaments } from "../api/tournaments";
+
+/**
+ * A component that represents a Tournament application to be filled out for a Wrestler.
+ */
 
 export class Application extends React.Component {
 	constructor(props) {
 		super(props);
 
 		this.state = {
-			name: '',
+			name: "",
 			isNameValid: false,
-			dob: '',
+			dob: "",
 			isDobValid: false,
-			grade: '',
+			grade: "",
 			isGradeValid: false,
-			selectedGrade: '',
+			selectedGrade: "",
 			parents: [{
-				name: '',
+				name: "",
 				valid: false
 			}],
 			emails: [{
-				text: '',
+				text: "",
 				valid: false
 			}],
 			phones: [{
-				number: '',
+				number: "",
 				valid: false
 			}],
 			tournaments: props.tournaments,
@@ -38,9 +40,6 @@ export class Application extends React.Component {
 			isConfirmationModalOpen: false,
 			isDateSupported: this.isDateSupported()
 		};
-
-		// bind field listeners to this context. remaining listeners are bound
-		// manually, as they take additional parameters.
 
 		this.onAddParent = this.onAddParent.bind(this);
 		this.onAddEmail = this.onAddEmail.bind(this);
@@ -77,21 +76,21 @@ export class Application extends React.Component {
 	onAddParent() {
 		const parents = this.state.parents;
 
-		parents.push({ text: '', valid: false });
+		parents.push({ text: "", valid: false });
 		this.setState({ parents });
 	}
 
 	onAddEmail() {
 		const emails = this.state.emails;
 
-		emails.push({ text: '', valid: false });
+		emails.push({ text: "", valid: false });
 		this.setState({ emails });
 	}
 
 	onAddPhone() {
 		const phones = this.state.phones;
 
-		phones.push({ number: '', valid: false });
+		phones.push({ number: "", valid: false });
 		this.setState({ phones });
 	}
 
@@ -118,16 +117,16 @@ export class Application extends React.Component {
 
 	onNameChange(e) {
 		const name = e.target.value;
-		const field = document.querySelector('#name-field');
+		const field = document.querySelector("#name-field");
 
 		if (validator.isEmpty(name)) {
-			if (!field.classList.contains('validation-error')) {
-				field.classList.add('validation-error');
+			if (!field.classList.contains("validation-error")) {
+				field.classList.add("validation-error");
 				this.setState({ isValidApplication: false });
 			}
 		} else {
-			if (field.classList.contains('validation-error')) {
-				field.classList.remove('validation-error');
+			if (field.classList.contains("validation-error")) {
+				field.classList.remove("validation-error");
 				this.setState({ isValidApplication: true });
 			}
 		}
@@ -138,19 +137,19 @@ export class Application extends React.Component {
 	onParentChange(index, e) {
 		const parent = e.target.value;
 		const parents = this.state.parents;
-		const field = document.querySelector('#parent-field-' + index);
+		const field = document.querySelector("#parent-field-" + index);
 
 		if (validator.isEmpty(parent)) {
 			parents[index] = { name: parent, valid: false };
 
-			if (!field.classList.contains('validation-error')) {
-				field.classList.add('validation-error');
+			if (!field.classList.contains("validation-error")) {
+				field.classList.add("validation-error");
 			}
 		} else {
 			parents[index] = { name: parent, valid: true };
 
-			if (field.classList.contains('validation-error')) {
-				field.classList.remove('validation-error');
+			if (field.classList.contains("validation-error")) {
+				field.classList.remove("validation-error");
 			}
 		}
 
@@ -160,21 +159,21 @@ export class Application extends React.Component {
 	onEmailChange(index, e) {
 		const email = e.target.value;
 		const emails = this.state.emails;
-		const field = document.querySelector('#email-field-' + index);
+		const field = document.querySelector("#email-field-" + index);
 
 		if (validator.isEmail(email)) {
 			emails[index] = { text: email, valid: true };
 
-			if (field.classList.contains('validation-error')) {
-				field.classList.remove('validation-error');
+			if (field.classList.contains("validation-error")) {
+				field.classList.remove("validation-error");
 			}
 		} else {
 			emails[index] = { text: email, valid: false };
 
-			if (!field.classList.contains('validation-error') && email.length > 0) {
-				field.classList.add('validation-error');
+			if (!field.classList.contains("validation-error") && email.length > 0) {
+				field.classList.add("validation-error");
 			} else if (email.length === 0) {
-				field.classList.remove('validation-error');
+				field.classList.remove("validation-error");
 			}
 		}
 
@@ -183,21 +182,21 @@ export class Application extends React.Component {
 
 	onPhoneChange(index, e) {
 		const phones = this.state.phones;
-		const field = document.querySelector('#phone-field-' + index);
+		const field = document.querySelector("#phone-field-" + index);
 
-		if (validator.isMobilePhone(e.target.value, 'en-US')) {
+		if (validator.isMobilePhone(e.target.value, "en-US")) {
 			phones[index] = { number: e.target.value, valid: true };
 
-			if (field.classList.contains('validation-error')) {
-				field.classList.remove('validation-error');
+			if (field.classList.contains("validation-error")) {
+				field.classList.remove("validation-error");
 			}
 		} else {
 			phones[index] = { number: e.target.value, valid: false };
 
-			if (!field.classList.contains('validation-error') && e.target.value.length > 0) {
-				field.classList.add('validation-error');
+			if (!field.classList.contains("validation-error") && e.target.value.length > 0) {
+				field.classList.add("validation-error");
 			} else if (e.target.value.length === 0) {
-				field.classList.remove('validation-error');
+				field.classList.remove("validation-error");
 			}
 		}
 
@@ -206,24 +205,24 @@ export class Application extends React.Component {
 
 	onDobChange(e) {
 		const dob = e.target.value;
-		const field = document.querySelector('#dob-field');
+		const field = document.querySelector("#dob-field");
 
 		if (validator.isISO8601(dob) && dob.length === 10) {
 			if (Number(dob.substring(0, 4)) > 999 &&
 				Number(dob.substring(5, 7)) > 0 && Number(dob.substring(5, 7)) < 13 &&
 				Number(dob.substring(8)) > 0 && Number(dob.substring(8)) < 32) {
 
-				if (field.classList.contains('validation-error')) {
-					field.classList.remove('validation-error');
+				if (field.classList.contains("validation-error")) {
+					field.classList.remove("validation-error");
 				}
 			} else {
-				if (!field.classList.contains('validation-error')) {
-					field.classList.add('validation-error');
+				if (!field.classList.contains("validation-error")) {
+					field.classList.add("validation-error");
 				}
 			}
 		} else {
-			if (!field.classList.contains('validation-error')) {
-				field.classList.add('validation-error');
+			if (!field.classList.contains("validation-error")) {
+				field.classList.add("validation-error");
 			}
 		}
 
@@ -232,20 +231,20 @@ export class Application extends React.Component {
 
 	onGradeChange(e) {
 		const grade = e.target.value;
-		const field = document.querySelector('#grade-field');
+		const field = document.querySelector("#grade-field");
 
 		if (validator.isEmpty(grade)) {
-			if (!field.classList.contains('validation-error')) {
-				field.classList.add('validation-error');
+			if (!field.classList.contains("validation-error")) {
+				field.classList.add("validation-error");
 			}
 		} else {
 			if (grade >= 0 && grade <= 12) {
-				if (field.classList.contains('validation-error')) {
-					field.classList.remove('validation-error');
+				if (field.classList.contains("validation-error")) {
+					field.classList.remove("validation-error");
 				}
 			} else {
-				if (!field.classList.contains('validation-error')) {
-					field.classList.add('validation-error');
+				if (!field.classList.contains("validation-error")) {
+					field.classList.add("validation-error");
 				}
 			}
 		}
@@ -254,7 +253,7 @@ export class Application extends React.Component {
 	}
 
 	onTournamentSelection(e) {
-		document.querySelector('#tournaments-field').classList.remove('validation-error');
+		document.querySelector("#tournaments-field").classList.remove("validation-error");
 
 		const selectedTournaments = [];
 		const prevSelections = this.state.selectedTournaments;
@@ -330,13 +329,13 @@ export class Application extends React.Component {
 					division: selectedTournament.selectedDivision,
 					weightClass: selectedTournament.selectedWeightClass,
 					open: true,
-					status: ''
+					status: ""
 				};
 			})
 		};
 
 		if (this.isValidApplication(wrestler)) {
-			Meteor.call('wrestlers.submit', { ...wrestler }, (error, result) => {
+			Meteor.call("wrestlers.submit", { ...wrestler }, (error, result) => {
 				if (result) {
 					this.onShowConfirmationModal();
 				} else if (error) {
@@ -349,7 +348,7 @@ export class Application extends React.Component {
 	}
 
 	onGoBack() {
-		Session.set('isApplicationOpen', false);
+		Session.set("isApplicationOpen", false);
 	}
 
 	onShowConfirmationModal() {
@@ -358,20 +357,20 @@ export class Application extends React.Component {
 
 	onCloseConfirmationModal() {
 		this.setState({
-			name: '',
-			dob: '',
-			grade: '',
-			selectedGrade: '',
+			name: "",
+			dob: "",
+			grade: "",
+			selectedGrade: "",
 			parents: [{
-				name: '',
+				name: "",
 				valid: false
 			}],
 			emails: [{
-				text: '',
+				text: "",
 				valid: false
 			}],
 			phones: [{
-				number: '',
+				number: "",
 				valid: false
 			}],
 			selectedTournaments: [],
@@ -386,7 +385,7 @@ export class Application extends React.Component {
 		if (validator.isEmpty(wrestler.weight) || wrestler.weight < 0 || wrestler.weight > 285) return false;
 		if (!wrestler.parents.every((parent) => !validator.isEmpty(parent.name))) return false;
 		if (!wrestler.emails.every((email) => validator.isEmail(email.text))) return false;
-		if (!wrestler.phones.every((phone) => validator.isMobilePhone(phone.number, 'en-US'))) return false;
+		if (!wrestler.phones.every((phone) => validator.isMobilePhone(phone.number, "en-US"))) return false;
 		if (wrestler.applications.length === 0) return false;
 
 		return true;
@@ -394,38 +393,38 @@ export class Application extends React.Component {
 
 	showValidationErrors(wrestler) {
 		if (validator.isEmpty(wrestler.name)) {
-			document.querySelector('#name-field').classList.add('validation-error');
+			document.querySelector("#name-field").classList.add("validation-error");
 		}
 		if (!validator.isISO8601(wrestler.dob) || wrestler.dob.length !== 10) {
-			document.querySelector('#dob-field').classList.add('validation-error');
+			document.querySelector("#dob-field").classList.add("validation-error");
 		}
 		if (validator.isEmpty(wrestler.grade) || wrestler.grade < 0 || wrestler.grade > 12) {
-			document.querySelector('#grade-field').classList.add('validation-error');
+			document.querySelector("#grade-field").classList.add("validation-error");
 		}
 		if (validator.isEmpty(wrestler.weight) || wrestler.weight < 0 || wrestler.weight > 285) {
-			// TODO - log error?
+			/** @todo log error? */
 		}
 		if (!wrestler.parents.every((parent) => !validator.isEmpty(parent.name))) {
-			wrestler.parents.forEach((parent, index) => document.querySelector('#parent-field-' + index).classList.add('validation-error'));
+			wrestler.parents.forEach((parent, index) => document.querySelector("#parent-field-" + index).classList.add("validation-error"));
 		}
 		if (!wrestler.emails.every((email) => validator.isEmail(email.text))) {
-			wrestler.emails.forEach((email, index) => document.querySelector('#email-field-' + index).classList.add('validation-error'));
+			wrestler.emails.forEach((email, index) => document.querySelector("#email-field-" + index).classList.add("validation-error"));
 		}
-		if (!wrestler.phones.every((phone) => validator.isMobilePhone(phone.number, 'en-US'))) {
-			wrestler.parents.forEach((phone, index) => document.querySelector('#phone-field-' + index).classList.add('validation-error'));
+		if (!wrestler.phones.every((phone) => validator.isMobilePhone(phone.number, "en-US"))) {
+			wrestler.parents.forEach((phone, index) => document.querySelector("#phone-field-" + index).classList.add("validation-error"));
 		}
 		if (wrestler.applications.length === 0) {
-			document.querySelector('#tournaments-field').classList.add('validation-error');
+			document.querySelector("#tournaments-field").classList.add("validation-error");
 		}
 
-		document.querySelector('#name-field').scrollIntoView(true);
+		document.querySelector("#name-field").scrollIntoView(true);
 	}
 
 	isDateSupported() {
-		const element = document.createElement('input');
-		element.type = 'date';
+		const element = document.createElement("input");
+		element.type = "date";
 
-		if (element.type === 'text') {
+		if (element.type === "text") {
 			return false;
 		}
 
@@ -476,14 +475,14 @@ export class Application extends React.Component {
 							if (index === 0) {
 								return (
 									<div key={index} className="dynamic-field">
-										<input id={'parent-field-' + index} name="parent" value={this.state.parents[index].text} placeholder="Parent" onChange={this.onParentChange.bind(this, index)} />
+										<input id={"parent-field-" + index} name="parent" value={this.state.parents[index].text} placeholder="Parent" onChange={this.onParentChange.bind(this, index)} />
 										<img src="/images/add-button.svg" onClick={this.onAddParent} />
 									</div>
 								);
 							} else {
 								return (
 									<div key={index} className="dynamic-field">
-										<input id={'parent-field-' + index} name="parent" value={this.state.parents[index].text} placeholder="Parent" onChange={this.onParentChange.bind(this, index)} />
+										<input id={"parent-field-" + index} name="parent" value={this.state.parents[index].text} placeholder="Parent" onChange={this.onParentChange.bind(this, index)} />
 										<img src="/images/remove-button.svg" onClick={this.onDeleteParent.bind(this, index)} />
 									</div>
 								);
@@ -496,14 +495,14 @@ export class Application extends React.Component {
 							if (index === 0) {
 								return (
 									<div key={index} className="dynamic-field">
-										<input id={'email-field-' + index} name={'email-' + index} type="email" value={this.state.emails[index].text} placeholder="Email" onChange={this.onEmailChange.bind(this, index)} />
+										<input id={"email-field-" + index} name={"email-" + index} type="email" value={this.state.emails[index].text} placeholder="Email" onChange={this.onEmailChange.bind(this, index)} />
 										<img src="/images/add-button.svg" onClick={this.onAddEmail} />
 									</div>
 								);
 							} else {
 								return (
 									<div key={index} className="dynamic-field">
-										<input id={'email-field-' + index} name={'email-' + index} type="email" value={this.state.emails[index].text} placeholder="Email" onChange={this.onEmailChange.bind(this, index)} />
+										<input id={"email-field-" + index} name={"email-" + index} type="email" value={this.state.emails[index].text} placeholder="Email" onChange={this.onEmailChange.bind(this, index)} />
 										<img src="/images/remove-button.svg" onClick={this.onDeleteEmail.bind(this, index)} />
 									</div>
 								);
@@ -516,14 +515,14 @@ export class Application extends React.Component {
 							if (index === 0) {
 								return (
 									<div key={index} className="dynamic-field">
-										<input id={'phone-field-' + index} name="phone" type="tel" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" value={this.state.phones[index].number} placeholder="Phone" onChange={this.onPhoneChange.bind(this, index)} />
+										<input id={"phone-field-" + index} name="phone" type="tel" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" value={this.state.phones[index].number} placeholder="Phone" onChange={this.onPhoneChange.bind(this, index)} />
 										<img src="/images/add-button.svg" onClick={this.onAddPhone} />
 									</div>
 								);
 							} else {
 								return (
 									<div key={index} className="dynamic-field">
-										<input id={'phone-field-' + index} name="phone" type="tel" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" value={this.state.phones[index].number} placeholder="Phone" onChange={this.onPhoneChange.bind(this, index)} />
+										<input id={"phone-field-" + index} name="phone" type="tel" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" value={this.state.phones[index].number} placeholder="Phone" onChange={this.onPhoneChange.bind(this, index)} />
 										<img src="/images/remove-button.svg" onClick={this.onDeletePhone.bind(this, index)} />
 									</div>
 								);
@@ -570,7 +569,7 @@ export class Application extends React.Component {
 					})}
 					<button className="submit-button" onClick={this.onSubmitApplication}>Submit Application</button>
 
-					<Modal appElement={document.getElementById('app')} isOpen={this.state.isConfirmationModalOpen} contentLabel="Submit Application" className="boxed-view__box unbounded-height" overlayClassName="boxed-view boxed-view--modal">
+					<Modal appElement={document.getElementById("app")} isOpen={this.state.isConfirmationModalOpen} contentLabel="Submit Application" className="boxed-view__box unbounded-height" overlayClassName="boxed-view boxed-view--modal">
 						<div className="boxed-view__header">
 							<h5 className="boxed-view__title">Confirmation</h5>
 						</div>
@@ -595,17 +594,13 @@ export class Application extends React.Component {
 	}
 }
 
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-Application.propTypes = {
-
-};
-
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/**
+ * Containerizes this component.
+ */
 
 export default createContainer(() => {
-	Meteor.subscribe('tournaments');
-	Meteor.subscribe('teams');
+	Meteor.subscribe("tournaments");
+	Meteor.subscribe("teams");
 
 	const tournaments = Tournaments.find({ published: true }).fetch().map((tournament) => {
 		return {
@@ -616,6 +611,6 @@ export default createContainer(() => {
 
 	return {
 		tournaments,
-		isSidebarOpen: Session.get('isSidebarOpen')
+		isSidebarOpen: Session.get("isSidebarOpen")
 	};
 }, Application);

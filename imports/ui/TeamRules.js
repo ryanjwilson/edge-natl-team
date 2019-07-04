@@ -1,8 +1,12 @@
-import React from 'react';
+import React from "react";
 
-import Footer from './Footer';
-import Header from './Header';
-import Rules from './Rules';
+import Footer from "./Footer";
+import Header from "./Header";
+import Rules from "./Rules";
+
+/**
+ * A component that renders the team rules.
+ */
 
 export default class TeamRules extends React.Component {
 	render() {

@@ -1,7 +1,11 @@
-import React from 'react';
-import { createContainer } from 'meteor/react-meteor-data';
-import { PropTypes } from 'prop-types';
-import { Session } from 'meteor/session';
+import React from "react";
+import { createContainer } from "meteor/react-meteor-data";
+import { PropTypes } from "prop-types";
+import { Session } from "meteor/session";
+
+/**
+ * A component that renders a Roster.
+ */
 
 export class Roster extends React.Component {
 	constructor(props) {
@@ -35,13 +39,13 @@ export class Roster extends React.Component {
 									<td>
 										{this.state.team.published
 											? position.wrestler
-											: position.status === 'Pending' || position.status === 'Confirmed' ? 'Filled' : ''
+											: position.status === "Pending" || position.status === "Confirmed" ? "Filled" : ""
 										}
 									</td>
 									<td>
 										{this.state.team.published
 											? position.status
-											: position.status === 'Pending' || position.status === 'Confirmed' ? 'Filled' : 'Open'
+											: position.status === "Pending" || position.status === "Confirmed" ? "Filled" : "Open"
 										}
 									</td>
 								</tr>
@@ -64,17 +68,21 @@ export class Roster extends React.Component {
 	}
 }
 
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/**
+ * Property types for this component.
+ */
 
 Roster.propTypes = {
 	team: PropTypes.object,
 	isLastRoster: PropTypes.bool.isRequired
 };
 
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/**
+ * Containerizes this component.
+ */
 
 export default createContainer(() => {
 	return {
-		isSidebarOpen: Session.get('isSidebarOpen')
+		isSidebarOpen: Session.get("isSidebarOpen")
 	};
 }, Roster);

@@ -1,23 +1,11 @@
-import React from 'react';
-import { createContainer } from 'meteor/react-meteor-data';
-import { Link } from 'react-router';
-import { Meteor } from 'meteor/meteor';
-import { PropTypes } from 'prop-types';
+import { Meteor } from "meteor/meteor";
+import React from "react";
+import { createContainer } from "meteor/react-meteor-data";
+import { Link } from "react-router";
 
 export class Rules extends React.Component {
 	constructor(props) {
 		super(props);
-
-		this.state = {
-
-		};
-
-		// bind field listeners to this context. remaining listeners are bound
-		// manually, as they take additional parameters.
-	}
-
-	componentWillReceiveProps(nextProps) {
-
 	}
 
 	render() {
@@ -26,7 +14,7 @@ export class Rules extends React.Component {
 				<h5 className="container__title">Team Rules &amp; Wrestle-offs</h5>
 
 				<div className="container__content">
-					<p className="container__subtitle">If you wish you compete on our team, you'll be expected to follow our rules. Please familiarize yourself with these before <Link className="container__link" to="/">applying for an event</Link>.</p>
+					<p className="container__subtitle">If you wish you compete on our team, you"ll be expected to follow our rules. Please familiarize yourself with these before <Link className="container__link" to="/">applying for an event</Link>.</p>
 					<hr />
 
 					<ol className="team-rules">
@@ -100,13 +88,9 @@ export class Rules extends React.Component {
 	}
 }
 
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-Rules.propTypes = {
-
-};
-
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/**
+ * Containerizes this component.
+ */
 
 export default createContainer(() => {
 	return {

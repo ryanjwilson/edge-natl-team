@@ -1,10 +1,14 @@
-import React from 'react';
-import { createContainer } from 'meteor/react-meteor-data';
-import { PropTypes } from 'prop-types';
-import { Session } from 'meteor/session';
+import React from "react";
+import { createContainer } from "meteor/react-meteor-data";
+import { PropTypes } from "prop-types";
+import { Session } from "meteor/session";
 
-import { Roster } from './Roster';
-import { RosterTabBar } from './RosterTabBar';
+import { Roster } from "./Roster";
+import { RosterTabBar } from "./RosterTabBar";
+
+/**
+ * A list component that renders one or more Rosters.
+ */
 
 export class RosterList extends React.Component {
 	constructor(props) {
@@ -51,13 +55,17 @@ export class RosterList extends React.Component {
 	}
 }
 
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/**
+ * Property types for this component.
+ */
 
 RosterList.propTypes = {
 	teams: PropTypes.array.isRequired
 };
 
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/**
+ * Containerizes this component.
+ */
 
 export default createContainer(() => {
 	return {

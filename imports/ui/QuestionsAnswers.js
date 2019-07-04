@@ -1,23 +1,15 @@
-import React from 'react';
-import { createContainer } from 'meteor/react-meteor-data';
-import { Link } from 'react-router';
-import { Meteor } from 'meteor/meteor';
-import { PropTypes } from 'prop-types';
+import { Meteor } from "meteor/meteor";
+import React from "react";
+import { createContainer } from "meteor/react-meteor-data";
+import { Link } from "react-router";
+
+/**
+ * A component that renders the Q&A section of the FAQs component.
+ */
 
 export class QuestionsAnswers extends React.Component {
 	constructor(props) {
 		super(props);
-
-		this.state = {
-
-		};
-
-		// bind field listeners to this context. remaining listeners are bound
-		// manually, as they take additional parameters.
-	}
-
-	componentWillReceiveProps(nextProps) {
-
 	}
 
 	render() {
@@ -85,13 +77,9 @@ export class QuestionsAnswers extends React.Component {
 	}
 }
 
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-QuestionsAnswers.propTypes = {
-
-};
-
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/**
+ * Containerizes this component.
+ */
 
 export default createContainer(() => {
 	return {

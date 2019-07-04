@@ -1,31 +1,26 @@
-import React from 'react';
-import { createContainer } from 'meteor/react-meteor-data';
-import { Meteor } from 'meteor/meteor';
-import { PropTypes } from 'prop-types';
+import React from "react";
+import { createContainer } from "meteor/react-meteor-data";
+
+/**
+ * A component that renders a contact form.
+ */
 
 export class ContactForm extends React.Component {
 	constructor(props) {
 		super(props);
 
 		this.state = {
-			name: '',
-			email: '',
-			phone: '',
-			message: ''
+			name: "",
+			email: "",
+			phone: "",
+			message: ""
 		};
-
-		// bind field listeners to this context. remaining listeners are bound
-		// manually, as they take additional parameters.
 
 		this.onNameChange = this.onNameChange.bind(this);
 		this.onEmailChange = this.onEmailChange.bind(this);
 		this.onPhoneChange = this.onPhoneChange.bind(this);
 		this.onMessageChange = this.onMessageChange.bind(this);
 		this.onSubmitForm = this.onSubmitForm.bind(this);
-	}
-
-	componentWillReceiveProps(nextProps) {
-
 	}
 
 	onNameChange(e) {
@@ -35,13 +30,13 @@ export class ContactForm extends React.Component {
 	}
 
 	onEmailChange(e) {
-		const email = e.target.value;   // TODO - validate email
+		const email = e.target.value;
 
 		this.setState({ email });
 	}
 
 	onPhoneChange(e) {
-		const phone = e.target.value;   // TODO - validate phone
+		const phone = e.target.value;
 
 		this.setState({ phone });
 	}
@@ -53,7 +48,7 @@ export class ContactForm extends React.Component {
 	}
 
 	onSubmitForm() {
-		// TODO
+		/** @todo */
 	}
 
 	render() {
@@ -88,13 +83,9 @@ export class ContactForm extends React.Component {
 	}
 }
 
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-ContactForm.propTypes = {
-
-};
-
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/**
+ * Containerizes this component.
+ */
 
 export default createContainer(() => {
 	return {

@@ -1,8 +1,11 @@
-import React from 'react';
-import { Accounts } from 'meteor/accounts-base';
-import PropTypes from 'prop-types';
-import { createContainer } from 'meteor/react-meteor-data';
-import { Link } from 'react-router';
+import React from "react";
+import { Accounts } from "meteor/accounts-base";
+import { createContainer } from "meteor/react-meteor-data";
+import { Link } from "react-router";
+
+/**
+ * A component that represents a header bar for the public and private sections of this application.
+ */
 
 export class Footer extends React.Component {
 	constructor(props) {
@@ -24,9 +27,9 @@ export class Footer extends React.Component {
 
 	onMouseOver(e) {
 		const src = e.target.src;
-		const facebook = 'facebook';
-		const twitter = 'twitter';
-		const instagram = 'instagram';
+		const facebook = "facebook";
+		const twitter = "twitter";
+		const instagram = "instagram";
 
 		if (src.includes(facebook)) {
 			this.setState({ hover: [true, false, false] });
@@ -63,17 +66,17 @@ export class Footer extends React.Component {
 	}
 }
 
-Footer.propTypes = {
-
-};
+/**
+ * Containerizes this component.
+ */
 
 export default createContainer(() => {
 	return {
-		facebook: '/images/social-media/facebook-icon.svg',
-		twitter: '/images/social-media/twitter-icon.svg',
-		instagram: '/images/social-media/instagram-icon.svg',
-		facebookHover: '/images/social-media/facebook-hover-icon.svg',
-		twitterHover: '/images/social-media/twitter-hover-icon.svg',
-		instagramHover: '/images/social-media/instagram-hover-icon.svg'
+		facebook: "/images/social-media/facebook-icon.svg",
+		twitter: "/images/social-media/twitter-icon.svg",
+		instagram: "/images/social-media/instagram-icon.svg",
+		facebookHover: "/images/social-media/facebook-hover-icon.svg",
+		twitterHover: "/images/social-media/twitter-hover-icon.svg",
+		instagramHover: "/images/social-media/instagram-hover-icon.svg"
 	};
 }, Footer);

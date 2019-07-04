@@ -1,27 +1,18 @@
-import PropTypes from 'prop-types';
-import React from 'react';
-import { Accounts } from 'meteor/accounts-base';
-import { createContainer } from 'meteor/react-meteor-data';
-import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock';
-import { Link } from 'react-router';
-import { Session } from 'meteor/session';
+import React from "react";
+import { Accounts } from "meteor/accounts-base";
+import { createContainer } from "meteor/react-meteor-data";
+import { disableBodyScroll, enableBodyScroll } from "body-scroll-lock";
+import { Link } from "react-router";
+import { Session } from "meteor/session";
 
-import IconLink from './admin/IconLink';
+import IconLink from "./admin/IconLink";
 
 /**
- * A Header component represents a header bar for the public and private
- * sections of this application. It includes conditional navigation depending
- * whether or not a user is logged in.
+ * A component that represents a header bar for the public and private sections of this application.
+ * It includes conditional navigation depending whether or not a user is logged in.
  */
 
 export class Header extends React.Component {
-
-	/**
-	 * Initializes a Header component.
-	 *
-	 * @param props - the properties with which this component is initialized
-	 */
-
 	constructor(props) {
 		super(props);
 
@@ -31,18 +22,9 @@ export class Header extends React.Component {
 			isMenuOpen: props.isMenuOpen
 		};
 
-		// bind field listeners to this context. remaining listeners are bound
-		// manually, as they take additional parameters.
-
 		this.toggleNavigation = this.toggleNavigation.bind(this);
 		this.toggleMenu = this.toggleMenu.bind(this);
 	}
-
-	/**
-	 * Updates the component state when new properties are received.
-	 *
-	 * @param nextProps - the new properties with which to update the state
-	 */
 
 	componentWillReceiveProps(nextProps) {
 		if (this.props.isLoggedIn !== nextProps.isLoggedIn) this.setState({ isLoggedIn: nextProps.isLoggedIn });
@@ -50,59 +32,41 @@ export class Header extends React.Component {
 		if (this.props.isMenuOpen !== nextProps.isMenuOpen) this.setState({ isMenuOpen: nextProps.isMenuOpen });
 	}
 
-	/**
-	 * Toggles the state of the navigation menu.
-	 */
-
 	toggleNavigation() {
 		if (!this.state.isNavigationOpen) {
-			disableBodyScroll(document.querySelector('.header__mobile-navigation-menu'));
+			disableBodyScroll(document.querySelector(".header__mobile-navigation-menu"));
 		} else {
-			enableBodyScroll(document.querySelector('.header__mobile-navigation-menu'));
+			enableBodyScroll(document.querySelector(".header__mobile-navigation-menu"));
 		}
 
 		if (this.state.isNavigationOpen) {
-			Session.set('isNavigationOpen', false);
+			Session.set("isNavigationOpen", false);
 		} else {
-			Session.set('isNavigationOpen', true);
+			Session.set("isNavigationOpen", true);
 		}
 	}
-
-	/**
-	 * Toggles the state of the admin menu.
-	 */
 
 	toggleMenu() {
 		if (!this.state.isMenuOpen) {
-			disableBodyScroll(document.querySelector('.header__mobile-admin-menu'));
+			disableBodyScroll(document.querySelector(".header__mobile-admin-menu"));
 		} else {
-			enableBodyScroll(document.querySelector('.header__mobile-admin-menu'));
+			enableBodyScroll(document.querySelector(".header__mobile-admin-menu"));
 		}
 
 		if (this.state.isMenuOpen) {
-			Session.set('isMenuOpen', false);
+			Session.set("isMenuOpen", false);
 		} else {
-			Session.set('isMenuOpen', true);
+			Session.set("isMenuOpen", true);
 		}
 	}
-
-	/**
-	 * Logs the user out of the application.
-	 */
 
 	logout() {
 		Accounts.logout();
 	}
 
-	/**
-	 * Renders this component to the page.
-	 *
-	 * @return the JSX for this component
-	 */
-
 	render() {
-		const navIconSrc = (this.state.isNavigationOpen ? '/images/navigation/menu-close-button.svg' : '/images/navigation/navigation-menu-button.svg');
-		const menuIconSrc = (this.state.isMenuOpen ? '/images/navigation/menu-close-button.svg' : '/images/navigation/admin-menu-button.svg');
+		const navIconSrc = (this.state.isNavigationOpen ? "/images/navigation/menu-close-button.svg" : "/images/navigation/navigation-menu-button.svg");
+		const menuIconSrc = (this.state.isMenuOpen ? "/images/navigation/menu-close-button.svg" : "/images/navigation/admin-menu-button.svg");
 
 		return (
 			<div className="header">
@@ -172,19 +136,15 @@ export class Header extends React.Component {
 	}
 }
 
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-Header.propTypes = {
-
-};
-
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/**
+ * Containerizes this component.
+ */
 
 export default createContainer(() => {
 	return {
 		isLoggedIn: Meteor.userId(),
-		isNavigationOpen: Session.get('isNavigationOpen'),
-		isMenuOpen: Session.get('isMenuOpen'),
-		isRosterOpen: Session.get('isRosterOpen')
+		isNavigationOpen: Session.get("isNavigationOpen"),
+		isMenuOpen: Session.get("isMenuOpen"),
+		isRosterOpen: Session.get("isRosterOpen")
 	};
 }, Header);

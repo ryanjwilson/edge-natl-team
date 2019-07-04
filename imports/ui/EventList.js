@@ -1,11 +1,15 @@
-import React from 'react';
-import { createContainer } from 'meteor/react-meteor-data';
-import { PropTypes } from 'prop-types';
-import { Session } from 'meteor/session';
+import React from "react";
+import { createContainer } from "meteor/react-meteor-data";
+import { PropTypes } from "prop-types";
+import { Session } from "meteor/session";
 
-import { Event } from './Event';
-import { Teams } from '../api/teams';
-import { Tournaments } from '../api/tournaments';
+import { Event } from "./Event";
+import { Teams } from "../api/teams";
+import { Tournaments } from "../api/tournaments";
+
+/**
+ * A component that renders a list of Events.
+ */
 
 export class EventList extends React.Component {
 	constructor(props) {
@@ -47,11 +51,11 @@ export class EventList extends React.Component {
 	}
 
 	onApplyNow() {
-		Session.set('isApplicationOpen', true);
+		Session.set("isApplicationOpen", true);
 	}
 
 	scrollToApplication() {
-		document.querySelector('#wrestler-application').scrollIntoView({ behavior: 'smooth' });
+		document.querySelector("#wrestler-application").scrollIntoView({ behavior: "smooth" });
 	}
 
 	render() {
@@ -75,18 +79,22 @@ export class EventList extends React.Component {
 	}
 }
 
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/**
+ * Property types for this component.
+ */
 
 EventList.propTypes = {
 	tournaments: PropTypes.array.isRequired,
 	teams: PropTypes.array.isRequired
 };
 
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/**
+ * Containerizes this component.
+ */
 
 export default createContainer(() => {
-	Meteor.subscribe('tournaments');
-	Meteor.subscribe('teams');
+	Meteor.subscribe("tournaments");
+	Meteor.subscribe("teams");
 
 	const tournaments = Tournaments.find({
 		published: true

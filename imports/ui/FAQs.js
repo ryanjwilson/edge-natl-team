@@ -1,8 +1,12 @@
-import React from 'react';
+import React from "react";
 
-import Footer from './Footer';
-import Header from './Header';
-import QuestionsAnswers from './QuestionsAnswers';
+import Footer from "./Footer";
+import Header from "./Header";
+import QuestionsAnswers from "./QuestionsAnswers";
+
+/**
+ * A component that renders the FAQs section.
+ */
 
 export default class FAQs extends React.Component {
 	render() {

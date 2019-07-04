@@ -1,8 +1,12 @@
-import React from 'react';
+import React from "react";
 
-import Footer from './Footer';
-import Header from './Header';
-import ContactForm from './ContactForm';
+import Footer from "./Footer";
+import Header from "./Header";
+import ContactForm from "./ContactForm";
+
+/**
+ * A component that houses the ContactForm.
+ */
 
 export default class Contact extends React.Component {
 	render() {

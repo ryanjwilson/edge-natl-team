@@ -1,12 +1,15 @@
-import Modal from 'react-modal';
-import React from 'react';
-import { createContainer } from 'meteor/react-meteor-data';
-import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock';
-import { PropTypes } from 'prop-types';
-import { Session } from 'meteor/session';
+import React from "react";
+import { createContainer } from "meteor/react-meteor-data";
+import { disableBodyScroll, enableBodyScroll } from "body-scroll-lock";
+import Modal from "react-modal";
+import { PropTypes } from "prop-types";
+import { Session } from "meteor/session";
 
-import { RosterList } from './RosterList';
-import { Teams } from '../api/teams';
+import { RosterList } from "./RosterList";
+
+/**
+ * A component that represents a single Event rendered in the Schedule.
+ */
 
 export class Event extends React.Component {
 	constructor(props) {
@@ -43,34 +46,34 @@ export class Event extends React.Component {
 	}
 
 	onApplyNow() {
-		Session.set('isApplicationOpen', true);
+		Session.set("isApplicationOpen", true);
 	}
 
 	showRosterModal() {
 		this.setState({ isRosterModalOpen: true });
-		disableBodyScroll(document.querySelector('.boxed-view--modal'));
-		disableBodyScroll(document.querySelector('.event__mobile-roster'));
+		disableBodyScroll(document.querySelector(".boxed-view--modal"));
+		disableBodyScroll(document.querySelector(".event__mobile-roster"));
 	}
 
 	closeRosterModal() {
 		this.setState({ isRosterModalOpen: false });
-		enableBodyScroll(document.querySelector('.boxed-view--modal'));
-		enableBodyScroll(document.querySelector('.event__mobile-roster'));
+		enableBodyScroll(document.querySelector(".boxed-view--modal"));
+		enableBodyScroll(document.querySelector(".event__mobile-roster"));
 	}
 
 	showRoster() {
-		Session.set('isRosterOpen', true);
+		Session.set("isRosterOpen", true);
 		this.setState({ isRosterOpen: true });
 	}
 
 	hideRoster() {
-		Session.set('isRosterOpen', false);
-		this.setState({ 'isRosterOpen': false });
+		Session.set("isRosterOpen", false);
+		this.setState({ "isRosterOpen": false });
 	}
 
 	render() {
 		return (
-			<div className={this.state.isLastEvent ? 'event event__bottom' : 'event'}>
+			<div className={this.state.isLastEvent ? "event event__bottom" : "event"}>
 				<div className="event__header">
 					<h5 className="event__title">{this.state.event.name}</h5>
 					<div className="event__desktop-roster-icon" onClick={this.showRosterModal}>
@@ -85,7 +88,7 @@ export class Event extends React.Component {
 
 				{/* desktop roster modal */}
 
-				<Modal appElement={document.getElementById('app')} isOpen={this.state.isRosterModalOpen} contentLabel="View Roster" onRequestClose={this.closeRosterModal} className="boxed-view__box event__desktop-roster" overlayClassName="boxed-view boxed-view--modal">
+				<Modal appElement={document.getElementById("app")} isOpen={this.state.isRosterModalOpen} contentLabel="View Roster" onRequestClose={this.closeRosterModal} className="boxed-view__box event__desktop-roster" overlayClassName="boxed-view boxed-view--modal">
 					<div className="boxed-view__header">
 						<h5 className="boxed-view__title">{this.state.event.name}</h5>
 						<img src="/images/navigation/menu-close-button.svg" onClick={this.closeRosterModal} />
@@ -98,7 +101,7 @@ export class Event extends React.Component {
 
 				{/* mobile roster modal */}
 
-				<Modal appElement={document.getElementById('app')} isOpen={this.state.isRosterOpen} contentLabel="View Roster" onRequestClose={this.hideRoster} className="event__mobile-roster" closeTimeoutMS={700} style={{ overlay: { background: null } }}>
+				<Modal appElement={document.getElementById("app")} isOpen={this.state.isRosterOpen} contentLabel="View Roster" onRequestClose={this.hideRoster} className="event__mobile-roster" closeTimeoutMS={700} style={{ overlay: { background: null } }}>
 					<div className="event__mobile-roster-header">
 						<h5 className="event__mobile-roster-title">{this.state.event.name}</h5>
 						<img src="/images/navigation/menu-close-button.svg" onClick={this.hideRoster} />
@@ -120,7 +123,7 @@ export class Event extends React.Component {
 						<ul key={index} className="event__detail-list-header">
 							<li className="event__detail-list-item">{division.name} -- {division.weightClasses.map((weightClass, index, weightClasses) => {
 								return (
-									(index === weightClasses.length - 1 ? weightClass + ' (+' + division.allowance + ')' : weightClass + ', ')
+									(index === weightClasses.length - 1 ? weightClass + " (+" + division.allowance + ")" : weightClass + ", ")
 								);
 							})}</li>
 						</ul>
@@ -131,24 +134,21 @@ export class Event extends React.Component {
 	}
 }
 
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/**
+ * Property types for this component.
+ */
 
 Event.propTypes = {
 	event: PropTypes.object.isRequired,
 	isLastEvent: PropTypes.bool.isRequired
 };
 
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/**
+ * Containerizes this component.
+ */
 
 export default createContainer(() => {
-	// Meteor.subscribe('teams');
-	//
-	// const teams = Teams.find().fetch().map((team) => {
-	//   return { ...team };
-	// });
-
 	return {
-		//teams,
-		isSidebarOpen: Session.get('isSidebarOpen')
+		isSidebarOpen: Session.get("isSidebarOpen")
 	};
 }, Event);

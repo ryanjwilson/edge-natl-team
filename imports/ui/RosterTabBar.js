@@ -1,7 +1,11 @@
-import React from 'react';
-import { createContainer } from 'meteor/react-meteor-data';
-import { PropTypes } from 'prop-types';
-import { Session } from 'meteor/session';
+import React from "react";
+import { createContainer } from "meteor/react-meteor-data";
+import { PropTypes } from "prop-types";
+import { Session } from "meteor/session";
+
+/**
+ * A tabbed header component for dual rosters.
+ */
 
 export class RosterTabBar extends React.Component {
 	constructor(props) {
@@ -31,8 +35,8 @@ export class RosterTabBar extends React.Component {
 		return (
 			<div className="event__roster-tabs">
 				{this.state.tabs.map((tab, index, tabs) => {
-					const css = 'event__roster-tab' + (this.state.selectedTab === index ? ' event__roster-tab--selected' : '')
-						+ (index === 0 ? ' event__roster-left-tab' : '') + (index === tabs.length - 1 && tabs.length !== 1 ? ' event__roster-right-tab' : '');
+					const css = "event__roster-tab" + (this.state.selectedTab === index ? " event__roster-tab--selected" : "")
+						+ (index === 0 ? " event__roster-left-tab" : "") + (index === tabs.length - 1 && tabs.length !== 1 ? " event__roster-right-tab" : "");
 
 					return (
 						<div key={index} className={css} onClick={() => {
@@ -48,17 +52,21 @@ export class RosterTabBar extends React.Component {
 	}
 }
 
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/**
+ * Property types for this component.
+ */
 
 RosterTabBar.propTypes = {
 	tabs: PropTypes.array.isRequired,
 	selectedTab: PropTypes.number
 };
 
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/**
+ * Containerizes this component.
+ */
 
 export default createContainer(() => {
 	return {
-		isSidebarOpen: Session.get('isSidebarOpen')
+		isSidebarOpen: Session.get("isSidebarOpen")
 	};
 }, RosterTabBar);

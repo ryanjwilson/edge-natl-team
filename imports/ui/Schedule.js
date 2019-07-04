@@ -1,9 +1,13 @@
-import React from 'react';
+import React from "react";
 
-import Application from './Application';
-import Header from './Header';
-import Footer from './Footer';
-import EventList from './EventList';
+import Application from "./Application";
+import Header from "./Header";
+import Footer from "./Footer";
+import EventList from "./EventList";
+
+/**
+ * A component that renders the team schedule.
+ */
 
 export default Schedule = () => {
 	return (

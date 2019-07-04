@@ -1,23 +1,13 @@
-import React from 'react';
-import { createContainer } from 'meteor/react-meteor-data';
-import { Link } from 'react-router';
-import { Meteor } from 'meteor/meteor';
-import { PropTypes } from 'prop-types';
+import React from "react";
+import { createContainer } from "meteor/react-meteor-data";
+
+/**
+ * A component that renders image galleries from past events.
+ */
 
 export class EventPictures extends React.Component {
 	constructor(props) {
 		super(props);
-
-		this.state = {
-
-		};
-
-		// bind field listeners to this context. remaining listeners are bound
-		// manually, as they take additional parameters.
-	}
-
-	componentWillReceiveProps(nextProps) {
-
 	}
 
 	render() {
@@ -38,13 +28,9 @@ export class EventPictures extends React.Component {
 	}
 }
 
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-EventPictures.propTypes = {
-
-};
-
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/**
+ * Containerizes this component.
+ */
 
 export default createContainer(() => {
 	return {
