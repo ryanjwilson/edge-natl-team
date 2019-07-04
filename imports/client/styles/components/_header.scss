@@ -1,248 +1,252 @@
 .header {
-  background-color: $header-bg;
-  color: $header-color;
-  height: $header-height;
-  transition: background-color 0.7s ease;
-  z-index: 10;
+	background-color: $header-bg;
+	color: $header-color;
+	height: $header-height;
+	transition: background-color 0.7s ease;
+	z-index: 10;
 
-  position: fixed;
-  left: 0;
-  right: 0;
-  top: 0;
+	position: fixed;
+	left: 0;
+	right: 0;
+	top: 0;
 }
 
-.is-navigation-open .header, .is-menu-open .header, .is-roster-open .header {
-  background: black;
+.is-navigation-open .header,
+.is-menu-open .header,
+.is-roster-open .header {
+	background: black;
 }
 
 .header__content {
-  align-items: center;
-  display: flex;
-  height: $header-height;
-  justify-content: space-between;
-  margin: 0 auto;
-  max-width: $site-max-width;
-  padding-left: $default-space;
-  padding-right: $default-space;
+	align-items: center;
+	display: flex;
+	height: $header-height;
+	justify-content: space-between;
+	margin: 0 auto;
+	max-width: $site-max-width;
+	padding-left: $default-space;
+	padding-right: $default-space;
 }
 
 .header__content-left {
-  align-items: center;
-  display: flex;
-  flex-direction: row;
+	align-items: center;
+	display: flex;
+	flex-direction: row;
 }
 
 .header__content-center {
-  display: none;
+	display: none;
 
-  @include mobile {
-    display: flex;
-  }
+	@include mobile {
+		display: flex;
+	}
 }
 
 .header__content-right {
-  align-items: center;
-  display: flex;
-  flex-direction: row;
+	align-items: center;
+	display: flex;
+	flex-direction: row;
 }
 
 .header__logo-desktop {
-  height: 5rem;
-  padding-right: $small-space;
+	height: 5rem;
+	padding-right: $small-space;
 
-  @include mobile {
-    display: none;
-  }
+	@include mobile {
+		display: none;
+	}
 }
 
 .header__logo-mobile {
-  display: none;
+	display: none;
 
-  @include mobile {
-    display: flex;
-    height: 5rem;
-  }
+	@include mobile {
+		display: flex;
+		height: 5rem;
+	}
 }
 
 .header__nav-item {
-  color: $header-color;
-  font-family: "Montserrat", sans-serif;
-  font-size: 1.7rem;
-  font-weight: 500;
-  height: $header-height;
-  padding-left: $default-space;
-  padding-right: $default-space;
-  text-decoration: none;
+	color: $header-color;
+	font-family: "Montserrat", sans-serif;
+	font-size: 1.7rem;
+	font-weight: 500;
+	height: $header-height;
+	padding-left: $default-space;
+	padding-right: $default-space;
+	text-decoration: none;
 
-  @include mobile {
-    display: none;
-  }
+	@include mobile {
+		display: none;
+	}
 }
 
 .header__nav-item:hover {
-  color: $edge-gold;
+	color: $edge-gold;
 }
 
 .header__admin-icon-group {
-  align-items: center;
-  display: flex;
-  flex-direction: column;
-  margin-left: $medium-space;
+	align-items: center;
+	display: flex;
+	flex-direction: column;
+	margin-left: $medium-space;
 
-  @include mobile {
-    display: none;
-  }
+	@include mobile {
+		display: none;
+	}
 }
 
 .header__admin-icon-group:hover {
-  cursor: pointer;
+	cursor: pointer;
 }
 
 .header__admin-icon-group:nth-child(5) {
-  border-right: 1px solid #E5C100;
-  margin-right: 0;
-  padding-right: $medium-space;
+	border-right: 1px solid #e5c100;
+	margin-right: 0;
+	padding-right: $medium-space;
 }
 
 .header__admin-icon-group:nth-child(6) {
-  margin-left: 0;
-  padding-left: $medium-space;
+	margin-left: 0;
+	padding-left: $medium-space;
 }
 
 .header__admin-icon-group img {
-  height: 3rem;
-  width: 3rem;
+	height: 3rem;
+	width: 3rem;
 }
 
 .header__admin-icon-group span {
-  color: $header-color;
-  font-family: "Montserrat", sans-serif;
-  font-size: 1.2rem;
-  font-weight: 500;
+	color: $header-color;
+	font-family: "Montserrat", sans-serif;
+	font-size: 1.2rem;
+	font-weight: 500;
 }
 
 .header__navigation-menu-icon {
-  display: none;
+	display: none;
 
-  @include mobile {
-    cursor: pointer;
-    display: flex;
-    height: 3rem;
-    padding: 0 !important;
-    width: 3rem;
-  }
+	@include mobile {
+		cursor: pointer;
+		display: flex;
+		height: 3rem;
+		padding: 0 !important;
+		width: 3rem;
+	}
 }
 
 .header__admin-menu-icon {
-  display: none;
+	display: none;
 
-  @include mobile {
-    cursor: pointer;
-    display: flex;
-    height: 3rem;
-    padding: 0 !important;
-    width: 3rem;
-  }
+	@include mobile {
+		cursor: pointer;
+		display: flex;
+		height: 3rem;
+		padding: 0 !important;
+		width: 3rem;
+	}
 }
 
-.header__mobile-navigation-menu, .header__mobile-admin-menu {
-  display: none;
+.header__mobile-navigation-menu,
+.header__mobile-admin-menu {
+	display: none;
 
-  @include mobile {
-    animation-direction: reverse;
-    background-color: $header-bg;
-    color: white;
-    display: flex;
-    flex-direction: column;
-    height: 0;
-    opacity: 0;
-    overflow-y: scroll;
-    padding: $large-space;
-    padding-bottom: $large-space * 3;
-    padding-top: $medium-space * 2;
-    transition: height 0.7s linear, background-color 0.7s linear, visibility 0.7s linear, opacity 0.7s linear;
-    visibility: hidden;
-    width: 100vw;
-    z-index: 10;
+	@include mobile {
+		animation-direction: reverse;
+		background-color: $header-bg;
+		color: white;
+		display: flex;
+		flex-direction: column;
+		height: 0;
+		opacity: 0;
+		overflow-y: scroll;
+		padding: $large-space;
+		padding-bottom: $large-space * 3;
+		padding-top: $medium-space * 2;
+		transition: height 0.7s linear, background-color 0.7s linear, visibility 0.7s linear, opacity 0.7s linear;
+		visibility: hidden;
+		width: 100vw;
+		z-index: 10;
 
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    top: $header-height;
+		position: fixed;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		top: $header-height;
 
-    -webkit-overflow-scrolling: touch;    // TODO - are there any other mobile-specific styles?
-  }
+		-webkit-overflow-scrolling: touch; // TODO - are there any other mobile-specific styles?
+	}
 }
 
 .header__mobile-menu-item {
-  color: white;
-  border-bottom: 1px solid $edge-gold;
-  font-family: "Montserrat", sans-serif;
-  font-size: 1.8rem;
-  font-weight: 500;
-  margin-left: $default-space;
-  margin-right: $default-space;
-  margin-top: $large-space;
-  padding-bottom: $large-space;
-  text-decoration: none;
+	color: white;
+	border-bottom: 1px solid $edge-gold;
+	font-family: "Montserrat", sans-serif;
+	font-size: 1.8rem;
+	font-weight: 500;
+	margin-left: $default-space;
+	margin-right: $default-space;
+	margin-top: $large-space;
+	padding-bottom: $large-space;
+	text-decoration: none;
 }
 
 .header__mobile-menu-item:hover {
-  color: $edge-gold;
+	color: $edge-gold;
 }
 
 .header__mobile-menu-item:last-child {
-  border-bottom: none;
+	border-bottom: none;
 }
 
 .is-navigation-open .header__mobile-navigation-menu {
-  display: none;
+	display: none;
 
-  @include mobile {
-    background-color: black;
-    color: white;
-    display: flex;
-    height: 100%;
-    opacity: 1;
-    visibility: visible;
-    width: 100vw;
-    z-index: 10;
+	@include mobile {
+		background-color: black;
+		color: white;
+		display: flex;
+		height: 100%;
+		opacity: 1;
+		visibility: visible;
+		width: 100vw;
+		z-index: 10;
 
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    top: $header-height;
-  }
+		position: fixed;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		top: $header-height;
+	}
 }
 
 .is-menu-open .header__mobile-admin-menu {
-  display: none;
+	display: none;
 
-  @include mobile {
-    background-color: black;
-    color: white;
-    display: flex;
-    height: 100%;
-    opacity: 1;
-    visibility: visible;
-    width: 100vw;
-    z-index: 10;
+	@include mobile {
+		background-color: black;
+		color: white;
+		display: flex;
+		height: 100%;
+		opacity: 1;
+		visibility: visible;
+		width: 100vw;
+		z-index: 10;
 
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    top: $header-height;
-  }
+		position: fixed;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		top: $header-height;
+	}
 }
 
-.is-navigation-open .header__admin-menu-icon, .is-menu-open .header__navigation-menu-icon {
-  visibility: hidden;
+.is-navigation-open .header__admin-menu-icon,
+.is-menu-open .header__navigation-menu-icon {
+	visibility: hidden;
 }
 
 .no-scroll {
-  overflow: hidden !important;
-  position: fixed;
+	overflow: hidden !important;
+	position: fixed;
 }

@@ -3,15 +3,15 @@
  */
 
 .button {
-  background-color: $button-bg-color;
-  border: none;
-  color: $button-color;
-  cursor: pointer;
-  font-size: $base-font-size;
-  line-height: 1.4;
-  margin-bottom: $default-space;
-  outline: none;
-  padding: $input-space;
+	background-color: $button-bg-color;
+	border: none;
+	color: $button-color;
+	cursor: pointer;
+	font-size: $base-font-size;
+	line-height: 1.4;
+	margin-bottom: $default-space;
+	outline: none;
+	padding: $input-space;
 }
 
 /*
@@ -22,16 +22,16 @@
  */
 
 .button--add {
-  background-color: $button-bg-color;
-  border: none;
-  color: $button-color;
-  cursor: pointer;
-  font-size: $base-font-size;
-  line-height: 1.4;
-  margin-bottom: $default-space;
-  outline: none;
-  padding: $input-space;
-  text-transform: uppercase;
+	background-color: $button-bg-color;
+	border: none;
+	color: $button-color;
+	cursor: pointer;
+	font-size: $base-font-size;
+	line-height: 1.4;
+	margin-bottom: $default-space;
+	outline: none;
+	padding: $input-space;
+	text-transform: uppercase;
 }
 
 /*
@@ -39,11 +39,11 @@
  */
 
 .button--link {
-  background: none;
-  margin: 0;
-  padding: 0;
-  text-decoration: underline;
-  text-transform: none;
+	background: none;
+	margin: 0;
+	padding: 0;
+	text-decoration: underline;
+	text-transform: none;
 }
 
 /*
@@ -55,19 +55,19 @@
  */
 
 .button--editor {
-  background-color: $gray;
-  border: none;
-  border-radius: 5px;
-  box-shadow: none;
-  color: #ffffff;
-  cursor: pointer;
-  font-size: $base-font-size;
-  font-weight: bold;
-  margin: 0;
-  margin-bottom: $large-space;
-  outline: none;
-  padding: $input-space;
-  width: 25%;
+	background-color: $gray;
+	border: none;
+	border-radius: 5px;
+	box-shadow: none;
+	color: #ffffff;
+	cursor: pointer;
+	font-size: $base-font-size;
+	font-weight: bold;
+	margin: 0;
+	margin-bottom: $large-space;
+	outline: none;
+	padding: $input-space;
+	width: 25%;
 }
 
 /*
@@ -76,11 +76,11 @@
  */
 
 .action-group {
-  align-items: center;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  margin-top: $medium-space * 2;
+	align-items: center;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	margin-top: $medium-space * 2;
 }
 
 /*
@@ -88,37 +88,57 @@
  */
 
 .action-group.single-item {
-  justify-content: space-around;
+	justify-content: space-around;
 }
 
 /*
  * Background color changes for Publish, Unpublish, Cancel, and Delete buttons.
  */
 
-.button--publish, .button--save { background-color: $dark-green; }
-.button--unpublish { background-color: $medium-dark-gray; }
-.button--cancel { background-color: $medium-gray; }
-.button--delete { background-color: $dark-red; }
+.button--publish,
+.button--save {
+	background-color: $dark-green;
+}
+.button--unpublish {
+	background-color: $medium-dark-gray;
+}
+.button--cancel {
+	background-color: $medium-gray;
+}
+.button--delete {
+	background-color: $dark-red;
+}
 
 /*
  * Hover effects for Add, Publish, Unpublish, Cancel, and Delete buttons.
  */
 
-.button--add:hover { background-color: darken($button-bg-color, 5); }
-.button--publish:hover, .button--save:hover { background-color: darken($dark-green, 5); }
-.button--unpublish:hover { background-color: darken($medium-dark-gray, 5); }
-.button--cancel:hover { background-color: darken($medium-gray, 5); }
-.button--delete:hover { background-color: darken($dark-red, 5); }
+.button--add:hover {
+	background-color: darken($button-bg-color, 5);
+}
+.button--publish:hover,
+.button--save:hover {
+	background-color: darken($dark-green, 5);
+}
+.button--unpublish:hover {
+	background-color: darken($medium-dark-gray, 5);
+}
+.button--cancel:hover {
+	background-color: darken($medium-gray, 5);
+}
+.button--delete:hover {
+	background-color: darken($dark-red, 5);
+}
 
 /*
  * Default styles for SweetAlert2 modals.
  */
 
 .modal-button {
-  font-size: $base-font-size !important;
-  margin-bottom: $default-space !important;
-  margin-top: $default-space !important;
-  padding: $default-space !important;
+	font-size: $base-font-size !important;
+	margin-bottom: $default-space !important;
+	margin-top: $default-space !important;
+	padding: $default-space !important;
 }
 
 /*
@@ -126,42 +146,42 @@
  */
 
 .multiselect-group.three {
-  display: flex;
-  flex-direction: row;
+	display: flex;
+	flex-direction: row;
 
-  button {
-    text-transform: uppercase;
-    width: 30%;
-  }
+	button {
+		text-transform: uppercase;
+		width: 30%;
+	}
 
-  :first-child {
-    margin-right: 2.5%;
-  }
+	:first-child {
+		margin-right: 2.5%;
+	}
 
-  :last-child {
-    margin-left: 2.5%;
-  }
+	:last-child {
+		margin-left: 2.5%;
+	}
 
-  :nth-child(2) {
-    margin-left: 2.5%;
-    margin-right: 2.5%;
-  }
+	:nth-child(2) {
+		margin-left: 2.5%;
+		margin-right: 2.5%;
+	}
 }
 
 .multiselect-group.two {
-  display: flex;
-  flex-direction: row;
+	display: flex;
+	flex-direction: row;
 
-  button {
-    text-transform: uppercase;
-    width: 47.5%;
-  }
+	button {
+		text-transform: uppercase;
+		width: 47.5%;
+	}
 
-  :first-child {
-    margin-right: 2.5%;
-  }
+	:first-child {
+		margin-right: 2.5%;
+	}
 
-  :last-child {
-    margin-left: 2.5%;
-  }
+	:last-child {
+		margin-left: 2.5%;
+	}
 }

@@ -1,278 +1,285 @@
 .event {
-  background: white;
-  border: 1px solid $edge-red;
-  border-radius: 0.7rem;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 2px 0 rgba(0, 0, 0, 0.2);
-  color: black;
-  margin: $default-space;
-  margin-bottom: $small-space;
-  padding: $default-space;
+	background: white;
+	border: 1px solid $edge-red;
+	border-radius: 0.7rem;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 2px 0 rgba(0, 0, 0, 0.2);
+	color: black;
+	margin: $default-space;
+	margin-bottom: $small-space;
+	padding: $default-space;
 }
 
 .event__bottom {
-  margin-bottom: $medium-space;
+	margin-bottom: $medium-space;
 }
 
 .event__header {
-  align-items: center;
-  border-bottom: 2px solid $edge-red;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
+	align-items: center;
+	border-bottom: 2px solid $edge-red;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
 }
 
 .event__desktop-roster-icon {
-  align-items: center;
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 0.75rem;
+	align-items: center;
+	display: flex;
+	flex-direction: column;
+	margin-bottom: 0.75rem;
 
-  @include mobile {
-    display: none;
-  }
+	@include mobile {
+		display: none;
+	}
 }
 
 .event__mobile-roster-icon {
-  display: none;
+	display: none;
 
-  @include mobile {
-    align-items: center;
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 0.75rem;
-  }
+	@include mobile {
+		align-items: center;
+		display: flex;
+		flex-direction: column;
+		margin-bottom: 0.75rem;
+	}
 }
 
-.event__desktop-roster-icon:hover, .event__mobile-roster-icon:hover {
-  cursor: pointer;
+.event__desktop-roster-icon:hover,
+.event__mobile-roster-icon:hover {
+	cursor: pointer;
 }
 
-.event__desktop-roster-icon img, .event__mobile-roster-icon img {
-  height: 2.5rem;
-  margin-bottom: 1rem;
-  width: 2.5rem;
+.event__desktop-roster-icon img,
+.event__mobile-roster-icon img {
+	height: 2.5rem;
+	margin-bottom: 1rem;
+	width: 2.5rem;
 }
 
-.event__desktop-roster-icon span, .event__mobile-roster-icon span {
-  color: $edge-red;
-  font-family: "Montserrat", sans-serif;
-  font-size: 1rem;
-  font-weight: bold;
-  margin-top: -0.75rem;
+.event__desktop-roster-icon span,
+.event__mobile-roster-icon span {
+	color: $edge-red;
+	font-family: "Montserrat", sans-serif;
+	font-size: 1rem;
+	font-weight: bold;
+	margin-top: -0.75rem;
 }
 
 .event__title {
-  color: black;
-  font-family: "Montserrat", sans-serif;
-  font-size: 1.6rem;
-  padding-bottom: $small-space;
-  padding-left: 0 !important;
+	color: black;
+	font-family: "Montserrat", sans-serif;
+	font-size: 1.6rem;
+	padding-bottom: $small-space;
+	padding-left: 0 !important;
 }
 
 .event__detail-header {
-  font-family: "Montserrat", sans-serif;
-  font-size: 1.4rem;
-  padding-bottom: $tiny-space;
-  padding-top: $default-space;
+	font-family: "Montserrat", sans-serif;
+	font-size: 1.4rem;
+	padding-bottom: $tiny-space;
+	padding-top: $default-space;
 }
 
 .event__detail {
-  font-family: "Montserrat", sans-serif;
-  font-size: 1.4rem;
-  margin-bottom: 0;
-  padding-top: 0.25rem;
+	font-family: "Montserrat", sans-serif;
+	font-size: 1.4rem;
+	margin-bottom: 0;
+	padding-top: 0.25rem;
 }
 
 .event__detail span {
-  font-style: italic;
-  font-weight: bold;
+	font-style: italic;
+	font-weight: bold;
 }
 
 .event__detail-list-header {
-  padding-left: 2rem;
+	padding-left: 2rem;
 }
 
 .event__detail-list-item {
-  font-family: "Montserrat", sans-serif;
-  font-size: $base-font-size;
-  padding-bottom: 0.25rem;
-  padding-top: 0.25rem;
+	font-family: "Montserrat", sans-serif;
+	font-size: $base-font-size;
+	padding-bottom: 0.25rem;
+	padding-top: 0.25rem;
 }
 
 .event__desktop-roster {
-  @include mobile {
-    display: none;
-  }
+	@include mobile {
+		display: none;
+	}
 }
 
 .event__mobile-roster {
-  display: none;
+	display: none;
 
-  @include mobile {
-    animation-direction: reverse;
-    background-color: $header-bg;
-    color: white;
-    display: flex;
-    flex-direction: column;
-    height: 0;
-    opacity: 0;
-    overflow-y: scroll;
-    padding: $large-space;
-    padding-bottom: $large-space * 3;
-    padding-top: $medium-space * 2;
-    transition: height 0.7s linear, background-color 0.7s linear, visibility 0.7s linear, opacity 0.7s linear;
-    visibility: hidden;
-    width: 100vw;
-    z-index: 10;
+	@include mobile {
+		animation-direction: reverse;
+		background-color: $header-bg;
+		color: white;
+		display: flex;
+		flex-direction: column;
+		height: 0;
+		opacity: 0;
+		overflow-y: scroll;
+		padding: $large-space;
+		padding-bottom: $large-space * 3;
+		padding-top: $medium-space * 2;
+		transition: height 0.7s linear, background-color 0.7s linear, visibility 0.7s linear, opacity 0.7s linear;
+		visibility: hidden;
+		width: 100vw;
+		z-index: 10;
 
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    top: $header-height;
+		position: fixed;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		top: $header-height;
 
-    -webkit-overflow-scrolling: touch;    // TODO - are there any other mobile-specific styles?
-  }
+		-webkit-overflow-scrolling: touch; // TODO - are there any other mobile-specific styles?
+	}
 }
 
 .event__mobile-roster-header {
-  align-items: center;
-  border-bottom: 3px solid $edge-red;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  margin-bottom: $large-space;
-  padding-bottom: $large-space;
+	align-items: center;
+	border-bottom: 3px solid $edge-red;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	margin-bottom: $large-space;
+	padding-bottom: $large-space;
 }
 
 .event__mobile-roster-title {
-  color: $edge-gold;
-  font-family: "Montserrat", sans-serif;
-  font-size: 1.8rem;
-  padding-left: 0 !important;
+	color: $edge-gold;
+	font-family: "Montserrat", sans-serif;
+	font-size: 1.8rem;
+	padding-left: 0 !important;
 }
 
 .event__mobile-roster-header img {
-  display: flex;
-  height: 3rem;
-  padding: 0 !important;
-  width: 3rem;
+	display: flex;
+	height: 3rem;
+	padding: 0 !important;
+	width: 3rem;
 }
 
 .event__mobile-roster-header img:hover {
-  cursor: pointer;
+	cursor: pointer;
 }
 
 .is-roster-open .event__mobile-roster {
-  display: none;
+	display: none;
 
-  @include mobile {
-    background-color: black;
-    color: white;
-    display: flex;
-    height: 100%;
-    opacity: 1;
-    visibility: visible;
-    width: 100vw;
-    z-index: 10;
+	@include mobile {
+		background-color: black;
+		color: white;
+		display: flex;
+		height: 100%;
+		opacity: 1;
+		visibility: visible;
+		width: 100vw;
+		z-index: 10;
 
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    top: $header-height;
-  }
+		position: fixed;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		top: $header-height;
+	}
 }
 
-.is-roster-open .header__admin-menu-icon, .is-roster-open .header__navigation-menu-icon {
-  visibility: hidden;
+.is-roster-open .header__admin-menu-icon,
+.is-roster-open .header__navigation-menu-icon {
+	visibility: hidden;
 }
 
 .event__roster-table {
-  border: 1px solid black;
-  border-collapse: collapse;
-  margin-top: $input-space;
-  width: 100%;
+	border: 1px solid black;
+	border-collapse: collapse;
+	margin-top: $input-space;
+	width: 100%;
 
-  @include mobile {
-    border: 1px solid white;
-  }
+	@include mobile {
+		border: 1px solid white;
+	}
 }
 
-.event__roster-table th, .event__roster-table td {
-  padding: $input-space;
+.event__roster-table th,
+.event__roster-table td {
+	padding: $input-space;
 }
 
-.event__roster-table th:first-child, .event__roster-table th:last-child,
-.event__roster-table td:first-child, .event__roster-table td:last-child {
-  text-align: center;
-  width: 15%;
+.event__roster-table th:first-child,
+.event__roster-table th:last-child,
+.event__roster-table td:first-child,
+.event__roster-table td:last-child {
+	text-align: center;
+	width: 15%;
 }
 
 .event__roster-table th {
-  background-color: $edge-gold;
-  color: black;
+	background-color: $edge-gold;
+	color: black;
 }
 
 .event__roster-table tbody tr:nth-child(even) {
-  background-color: $gray;
+	background-color: $gray;
 
-  @include mobile {
-    background-color: $edge-red;
-  }
+	@include mobile {
+		background-color: $edge-red;
+	}
 }
 
 .event__roster-tabs {
-  align-items: center;
-  background-color: $gray;
-  border: 1px solid black;
-  border-radius: 4px;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  margin: 0 auto;
-  margin-bottom: $default-space + $small-space;
-  margin-top: $input-space;
-  width: 90%;
+	align-items: center;
+	background-color: $gray;
+	border: 1px solid black;
+	border-radius: 4px;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+	margin: 0 auto;
+	margin-bottom: $default-space + $small-space;
+	margin-top: $input-space;
+	width: 90%;
 }
 
 .event__roster-tab {
-  color: black;
-  padding: $input-space;
-  text-align: center;
-  width: 100%;
+	color: black;
+	padding: $input-space;
+	text-align: center;
+	width: 100%;
 }
 
 .event__roster-tab:hover {
-  cursor: pointer;
+	cursor: pointer;
 }
 
 .event__roster-tab-content {
-  align-items: center;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+	align-items: center;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
 }
 
 .event__roster-left-tab {
-  border-right: 1px solid black;
-  border-top-left-radius: 4px;
-  border-bottom-left-radius: 4px;
+	border-right: 1px solid black;
+	border-top-left-radius: 4px;
+	border-bottom-left-radius: 4px;
 }
 
 .event__roster-right-tab {
-  border-left: 1px solid black;
-  border-top-right-radius: 4px;
-  border-bottom-right-radius: 4px;
+	border-left: 1px solid black;
+	border-top-right-radius: 4px;
+	border-bottom-right-radius: 4px;
 }
 
 .event__roster-inner-tab {
-  border-left: 1px solid black;
-  border-right: 1px solid black;
+	border-left: 1px solid black;
+	border-right: 1px solid black;
 }
 
 .event__roster-tab--selected {
-  color: white;
-  background-color: $dark-gray;
-  font-weight: bold;
+	color: white;
+	background-color: $dark-gray;
+	font-weight: bold;
 }

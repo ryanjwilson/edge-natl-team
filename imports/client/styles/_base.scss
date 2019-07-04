@@ -1,47 +1,51 @@
 * {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
 }
 
 html {
-  font-size: 62.5%;
+	font-size: 62.5%;
 }
 
 body {
-  background-color: black;
-  color: black;
-  font-family: "Montserrat", sans-serif;
-  font-size: $base-font-size;
+	background-color: black;
+	color: black;
+	font-family: "Montserrat", sans-serif;
+	font-size: $base-font-size;
 
-  @include mobile {
-    position: relative;
-  }
+	@include mobile {
+		position: relative;
+	}
 }
 
 h1 {
-  font-weight: 300;
-  margin-bottom: $default-space;
+	font-weight: 300;
+	margin-bottom: $default-space;
 }
 
 h2 {
-  font-size: $large-font-size;
-  margin-bottom: $default-space;
+	font-size: $large-font-size;
+	margin-bottom: $default-space;
 }
 
 p {
-  margin-bottom: $default-space;
+	margin-bottom: $default-space;
 }
 
 a {
-  color: black;
+	color: black;
 }
 
-input[type=text], input[type=email], input[type=password], input[type=tel], textarea {
-  border: 1px solid $input-border-color;
-  color: black;
-  font-size: $base-font-size;
-  font-family: "Montserrat", sans-serif;
-  margin-bottom: $default-space;
-  padding: $input-space;
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="tel"],
+textarea {
+	border: 1px solid $input-border-color;
+	color: black;
+	font-size: $base-font-size;
+	font-family: "Montserrat", sans-serif;
+	margin-bottom: $default-space;
+	padding: $input-space;
 }

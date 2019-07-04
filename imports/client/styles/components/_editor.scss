@@ -7,13 +7,13 @@
  */
 
 .editor {
-  display: flex;
-  flex-direction: column;
-  overflow-y: scroll;
-  padding: $large-space;
-  width: 100%;
+	display: flex;
+	flex-direction: column;
+	overflow-y: scroll;
+	padding: $large-space;
+	width: 100%;
 
-  -webkit-overflow-scrolling: touch;    // TODO - are there more mobile-specific styles?
+	-webkit-overflow-scrolling: touch; // TODO - are there more mobile-specific styles?
 }
 
 /*
@@ -24,14 +24,14 @@
  */
 
 .editor__title {
-  background-color: transparent;
-  border: none;
-  border-bottom: 3px solid $edge-red;
-  font-family: "Montserrat", sans-serif;
-  font-size: $large-font-size;
-  margin-bottom: $large-space;
-  outline: none;
-  padding: $input-space;
+	background-color: transparent;
+	border: none;
+	border-bottom: 3px solid $edge-red;
+	font-family: "Montserrat", sans-serif;
+	font-size: $large-font-size;
+	margin-bottom: $large-space;
+	outline: none;
+	padding: $input-space;
 }
 
 /*
@@ -43,10 +43,10 @@
  */
 
 .editor__label {
-  flex-grow: 1;
-  font-weight: bold;
-  outline: none;
-  text-align: left;
+	flex-grow: 1;
+	font-weight: bold;
+	outline: none;
+	text-align: left;
 }
 
 /*
@@ -58,7 +58,7 @@
  */
 
 .editor__label p {
-  margin-bottom: 1rem;
+	margin-bottom: 1rem;
 }
 
 /*
@@ -70,16 +70,16 @@
  */
 
 .editor__field {
-  font-weight: 300;
-  margin-bottom: $large-space !important;
-  outline: none;
-  padding: $input-space;
-  resize: none;
-  width: 100%;
+	font-weight: 300;
+	margin-bottom: $large-space !important;
+	outline: none;
+	padding: $input-space;
+	resize: none;
+	width: 100%;
 }
 
 .editor__bottom-field {
-  margin-bottom: 0 !important;
+	margin-bottom: 0 !important;
 }
 
 /*
@@ -90,175 +90,181 @@
  */
 
 .editor__message {
-  font-style: italic;
-  margin: $large-space * 2;
-  text-align: center;
+	font-style: italic;
+	margin: $large-space * 2;
+	text-align: center;
 }
 
 .editor__top-label {
-  border-top: 2px solid $edge-red;
-  padding-top: $default-space;
+	border-top: 2px solid $edge-red;
+	padding-top: $default-space;
 }
 
 .editor__dynamic-label {
-  align-items: center;
-  display: flex;
+	align-items: center;
+	display: flex;
 }
 
 .editor__dynamic-field {
-  display: flex;
-  flex-direction: row;
+	display: flex;
+	flex-direction: row;
 }
 
-.editor__add, .editor__delete {
-  cursor: pointer;
-  height: 2.5rem;
-  width: 2.5rem;
+.editor__add,
+.editor__delete {
+	cursor: pointer;
+	height: 2.5rem;
+	width: 2.5rem;
 
-  margin-left: 1rem;
+	margin-left: 1rem;
 }
 
 .editor__no-applications {
-  font-weight: normal;
-  margin: 0;
+	font-weight: normal;
+	margin: 0;
 }
 
 .editor__dropdown-filter-group {
-  align-items: center;
-  border-bottom: 1px solid $gray;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  padding-bottom: $default-space;
+	align-items: center;
+	border-bottom: 1px solid $gray;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+	padding-bottom: $default-space;
 }
 
 .editor__dropdown-menu {
-  height: 3rem;
-  width: 100%;
+	height: 3rem;
+	width: 100%;
 
-  font-size: $base-font-size;
-  margin-top: $tiny-space;
-  outline: none;
+	font-size: $base-font-size;
+	margin-top: $tiny-space;
+	outline: none;
 }
 
 .editor__dropdown-content {
-  border-left: $item-border-width solid $edge-gray;
-  padding-left: $large-space;
-  margin-top: $default-space;
-  margin-left: -$large-space;
+	border-left: $item-border-width solid $edge-gray;
+	padding-left: $large-space;
+	margin-top: $default-space;
+	margin-left: -$large-space;
 }
 
 .editor__open-application {
-  border-left: $item-border-width solid $edge-gray;
+	border-left: $item-border-width solid $edge-gray;
 }
 
 .editor__past-application {
-  border-left: $item-border-width solid $gray;
+	border-left: $item-border-width solid $gray;
 }
 
 .application-label {
-  border-top: 2px solid $gray;
-  margin-top: $large-space;
-  padding-top: $default-space;
+	border-top: 2px solid $gray;
+	margin-top: $large-space;
+	padding-top: $default-space;
 }
 
 .editor__table {
-  border: 1px solid black;
-  border-collapse: collapse;
-  overflow-y: scroll;
-  width: 100%;
+	border: 1px solid black;
+	border-collapse: collapse;
+	overflow-y: scroll;
+	width: 100%;
 
-  -webkit-overflow-scrolling: touch;    // TODO - are there any other mobile-specific styles?
+	-webkit-overflow-scrolling: touch; // TODO - are there any other mobile-specific styles?
 }
 
-.editor__table th, .editor__table td {
-  padding: $input-space;
+.editor__table th,
+.editor__table td {
+	padding: $input-space;
 }
 
-.editor__table th:first-child, .editor__table td:first-child {
-  text-align: center;
-  width: 10%;
+.editor__table th:first-child,
+.editor__table td:first-child {
+	text-align: center;
+	width: 10%;
 }
 
-.editor__table th:last-child, .editor__table td:last-child,
-.editor__table th:nth-child(3), .editor__table td:nth-child(3) {
-  text-align: center;
-  width: 20%;
+.editor__table th:last-child,
+.editor__table td:last-child,
+.editor__table th:nth-child(3),
+.editor__table td:nth-child(3) {
+	text-align: center;
+	width: 20%;
 }
 
 .editor__table th {
-  background-color: $edge-gold;
+	background-color: $edge-gold;
 }
 
 .editor__table tbody tr:nth-child(even) {
-  background-color: $gray;
+	background-color: $gray;
 }
 
-.editor__table select, .editor__table input {
-  background: white;
-  font-family: "Montserrat", sans-serif;
-  font-size: $base-font-size;
-  height: 3rem;
-  margin-bottom: $tiny-space !important;
-  margin-top: $tiny-space;
-  outline: none;
-  width: 100%;
+.editor__table select,
+.editor__table input {
+	background: white;
+	font-family: "Montserrat", sans-serif;
+	font-size: $base-font-size;
+	height: 3rem;
+	margin-bottom: $tiny-space !important;
+	margin-top: $tiny-space;
+	outline: none;
+	width: 100%;
 }
 
 .editor__split-weight {
-  align-items: center;
-  //border: none !important;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
+	align-items: center;
+	//border: none !important;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
 }
 
 .editor__split-weight input {
-  width: 50%;
+	width: 50%;
 }
 
 .editor__split-weight input:first-child {
-  margin-right: $tiny-space;
+	margin-right: $tiny-space;
 }
 
 .editor__split-weight input:last-child {
-  margin-left: $tiny-space;
+	margin-left: $tiny-space;
 }
 
 .editor__modal-filters {
-  padding: $default-space;
+	padding: $default-space;
 }
 
 .validation-error {
-  border: 1px solid red !important;
-  box-shadow: 0 0 1px 1px red;
+	border: 1px solid red !important;
+	box-shadow: 0 0 1px 1px red;
 }
 
 .editor__application-header {
-  align-items: center;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
+	align-items: center;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
 }
 
 .editor__application-header button {
-  background-color: $edge-gold;
-  border: 1px solid black;
-  border-radius: 4px;
-  color: black;
-  display: flex;
-  font-family: "Montserrat", sans-serif;
-  font-size: $base-font-size;
-  font-weight: bold;
-  line-height: 1;
-  margin-left: $default-space;
-  margin-right: $tiny-space;
-  outline: none;
-  padding: $input-space;
-  text-transform: uppercase;
+	background-color: $edge-gold;
+	border: 1px solid black;
+	border-radius: 4px;
+	color: black;
+	display: flex;
+	font-family: "Montserrat", sans-serif;
+	font-size: $base-font-size;
+	font-weight: bold;
+	line-height: 1;
+	margin-left: $default-space;
+	margin-right: $tiny-space;
+	outline: none;
+	padding: $input-space;
+	text-transform: uppercase;
 }
 
 .editor__application-header button:hover {
-  background-color: darken($edge-gold, 5);
-  cursor: pointer;
+	background-color: darken($edge-gold, 5);
+	cursor: pointer;
 }

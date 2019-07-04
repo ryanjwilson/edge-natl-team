@@ -1,160 +1,161 @@
 .boxed-view {
-  align-items: center;
-  background: black;
-  display: flex;
-  justify-content: center;
-  height: 100vh;
-  width: 100vw;
+	align-items: center;
+	background: black;
+	display: flex;
+	justify-content: center;
+	height: 100vh;
+	width: 100vw;
 }
 
 .boxed-view--modal {
-  background: fade-out(black, 0.1);
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
+	background: fade-out(black, 0.1);
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
 }
 
 .boxed-view__box {
-  background: $light-gray;
-  border: 2px solid $edge-red;
-  border-top: $container-top-border solid $edge-red;
-  border-radius: 7px;
-  display: flex;
-  flex-direction: column;
-  height: 50vh;
-  outline: none;
-  padding: $default-space;
-  width: 76.8rem;
+	background: $light-gray;
+	border: 2px solid $edge-red;
+	border-top: $container-top-border solid $edge-red;
+	border-radius: 7px;
+	display: flex;
+	flex-direction: column;
+	height: 50vh;
+	outline: none;
+	padding: $default-space;
+	width: 76.8rem;
 }
 
 .unbounded-height {
-  height: auto !important;
+	height: auto !important;
 }
 
 .login-modal {
-  width: 56.8rem;
+	width: 56.8rem;
 }
 
 .login-error {
-  color: red;
-  font-family: "Montserrat", sans-serif;
-  font-size: $base-font-size;
-  margin: 0 auto;
-  margin-top: $small-space;
+	color: red;
+	font-family: "Montserrat", sans-serif;
+	font-size: $base-font-size;
+	margin: 0 auto;
+	margin-top: $small-space;
 }
 
 .boxed-view__box-content {
-  display: flex;
-  flex-direction: column;
-  overflow-y: scroll;
+	display: flex;
+	flex-direction: column;
+	overflow-y: scroll;
 
-  -webkit-overflow-scrolling: touch;    // TODO - are there any other mobile-specific styles?
+	-webkit-overflow-scrolling: touch; // TODO - are there any other mobile-specific styles?
 }
 
 .boxed-view__box-content button {
-  color: black;
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: $default-space;
-  width: 95%;
+	color: black;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: $default-space;
+	width: 95%;
 }
 
 .boxed-view__header {
-  align-items: center;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  margin-top: -$small-space;
+	align-items: center;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	margin-top: -$small-space;
 }
 
 .boxed-view__header img {
-  cursor: pointer;
-  display: flex;
-  height: 3rem;
-  margin-bottom: 0.25rem;
-  margin-top: -($large-space + $container-top-border - 1.6rem);
-  width: 3rem;
+	cursor: pointer;
+	display: flex;
+	height: 3rem;
+	margin-bottom: 0.25rem;
+	margin-top: -($large-space + $container-top-border - 1.6rem);
+	width: 3rem;
 }
 
 .boxed-view__title {
-  color: $light-gray;
-  font-family: "Montserrat", sans-serif;
-  font-size: 1.8rem;
-  line-height: 5rem;
-  margin-top: -($large-space + $container-top-border - 1.6rem);
+	color: $light-gray;
+	font-family: "Montserrat", sans-serif;
+	font-size: 1.8rem;
+	line-height: 5rem;
+	margin-top: -($large-space + $container-top-border - 1.6rem);
 }
 
 .boxed-view__form {
-  display: flex;
-  flex-direction: column;
+	display: flex;
+	flex-direction: column;
 }
 
 .boxed-view__form img {
-  height: 9rem;
-  width: 9rem;
+	height: 9rem;
+	width: 9rem;
 
-  margin: 0 auto;
-  margin-bottom: $default-space;
-  margin-top: $large-space;
+	margin: 0 auto;
+	margin-bottom: $default-space;
+	margin-top: $large-space;
 }
 
 .boxed-view__form button {
-  border: 1px solid $edge-red;
-  border-radius: 7px;
-  color: black;
-  font-family: "Montserrat", sans-serif;
-  font-size: $base-font-size;
-  font-weight: bold;
-  margin: 0 auto;
-  margin-bottom: $large-space;
-  margin-top: $large-space;
-  width: 80%;
+	border: 1px solid $edge-red;
+	border-radius: 7px;
+	color: black;
+	font-family: "Montserrat", sans-serif;
+	font-size: $base-font-size;
+	font-weight: bold;
+	margin: 0 auto;
+	margin-bottom: $large-space;
+	margin-top: $large-space;
+	width: 80%;
 }
 
 .boxed-view__form button:hover {
-  background-color: darken($edge-gold, 5);
+	background-color: darken($edge-gold, 5);
 }
 
-.boxed-view__form .username, .boxed-view__form .password {
-  margin: 0 auto;
-  margin-top: $default-space;
-  width: 80%;
+.boxed-view__form .username,
+.boxed-view__form .password {
+	margin: 0 auto;
+	margin-top: $default-space;
+	width: 80%;
 }
 
 .boxed-view__box-content p {
-  margin-top: $default-space;
+	margin-top: $default-space;
 }
 
 .boxed-view__box-content ul {
-  margin-bottom: $default-space;
-  padding: $default-space;
-  padding-bottom: 0;
-  padding-left: $large-space;
+	margin-bottom: $default-space;
+	padding: $default-space;
+	padding-bottom: 0;
+	padding-left: $large-space;
 }
 
 .boxed-view__box-content ul li {
-  font-family: "Montserrat", sans-serif;
-  font-size: $base-font-size;
+	font-family: "Montserrat", sans-serif;
+	font-size: $base-font-size;
 }
 
 .boxed-view__button-confirmation {
-  background-color: $edge-gold !important;
-  border: 1px solid $edge-red !important;
-  border-radius: 4px !important;
-  color: black !important;
-  font-size: $base-font-size !important;
-  font-weight: bold !important;
-  line-height: 1.4 !important;
-  margin-bottom: $default-space !important;
-  margin-top: $medium-space !important;
-  min-height: 4rem !important;
-  outline: none !important;
-  padding: $input-space !important;
-  text-transform: uppercase !important;
+	background-color: $edge-gold !important;
+	border: 1px solid $edge-red !important;
+	border-radius: 4px !important;
+	color: black !important;
+	font-size: $base-font-size !important;
+	font-weight: bold !important;
+	line-height: 1.4 !important;
+	margin-bottom: $default-space !important;
+	margin-top: $medium-space !important;
+	min-height: 4rem !important;
+	outline: none !important;
+	padding: $input-space !important;
+	text-transform: uppercase !important;
 }
 
 .boxed-view__button-confirmation:hover {
-  background-color: darken($edge-gold, 5) !important;
+	background-color: darken($edge-gold, 5) !important;
 }

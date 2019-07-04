@@ -2,22 +2,23 @@
  * Application container, including sidebar and main content panels. This is specific to the public sections of the application.
  */
 
-.public-page-content, .private-page-content {
-  display: flex;
-  height: $page-content-height;
-  margin: 0 auto;
-  max-width: $site-max-width;
-  padding-left: $default-space;
-  padding-right: $default-space;
-  transition: margin-right 0.5s;
+.public-page-content,
+.private-page-content {
+	display: flex;
+	height: $page-content-height;
+	margin: 0 auto;
+	max-width: $site-max-width;
+	padding-left: $default-space;
+	padding-right: $default-space;
+	transition: margin-right 0.5s;
 
-  @include mobile {
-    flex-direction: column;
-    height: auto;
-    padding-bottom: $footer-height;
-    padding-left: $small-space;
-    padding-right: $small-space;
-  }
+	@include mobile {
+		flex-direction: column;
+		height: auto;
+		padding-bottom: $footer-height;
+		padding-left: $small-space;
+		padding-right: $small-space;
+	}
 }
 
 /*
@@ -25,36 +26,36 @@
  */
 
 .private-page-content__sidebar {
-  // display: flex;
-  // padding-right: $large-space;
-  // position: static;
-  // min-width: $sidebar-min-width;
-  // width: $sidebar-width;
-  //
-  // @include mobile {
-  //   display: flex;
-  //   transition: left 0.7s ease;
-  //   width: 100vw;
-  //
-  //   position: fixed;
-  //   top: $header-height;
-  //   left: -100vw;
-  //   bottom: 0;
-  //   z-index: 1;
-  // }
-  display: flex;
-  margin-right: $small-space;
-  width: 35%;
+	// display: flex;
+	// padding-right: $large-space;
+	// position: static;
+	// min-width: $sidebar-min-width;
+	// width: $sidebar-width;
+	//
+	// @include mobile {
+	//   display: flex;
+	//   transition: left 0.7s ease;
+	//   width: 100vw;
+	//
+	//   position: fixed;
+	//   top: $header-height;
+	//   left: -100vw;
+	//   bottom: 0;
+	//   z-index: 1;
+	// }
+	display: flex;
+	margin-right: $small-space;
+	width: 35%;
 
-  @include mobile {
-    animation-direction: reverse;
-    display: flex;
-    height: auto;
-    margin-top: $header-height;
-    transition: visibility 0.7s ease;
-    visibility: visible;
-    width: 100%;
-  }
+	@include mobile {
+		animation-direction: reverse;
+		display: flex;
+		height: auto;
+		margin-top: $header-height;
+		transition: visibility 0.7s ease;
+		visibility: visible;
+		width: 100%;
+	}
 }
 
 /*
@@ -62,9 +63,9 @@
  */
 
 .is-sidebar-open .private-page-content__sidebar {
-  @include mobile {
-    left: 0;
-  }
+	@include mobile {
+		left: 0;
+	}
 }
 
 /*
@@ -72,17 +73,17 @@
  */
 
 .private-page-content__main {
-  display: flex;
-  margin-left: $small-space;
-  width: 65%;
+	display: flex;
+	margin-left: $small-space;
+	width: 65%;
 
-  @include mobile {
-    display: flex;
-    height: auto;
-    margin-left: 0;
-    margin-top: 0;
-    width: 100%;
-  }
+	@include mobile {
+		display: flex;
+		height: auto;
+		margin-left: 0;
+		margin-top: 0;
+		width: 100%;
+	}
 }
 
 /*
@@ -90,19 +91,19 @@
  */
 
 .public-page-content__tournaments {
-  display: flex;
-  margin-right: $small-space;
-  width: 35%;
+	display: flex;
+	margin-right: $small-space;
+	width: 35%;
 
-  @include mobile {
-    animation-direction: reverse;
-    display: flex;
-    height: auto;
-    margin-top: $header-height;
-    transition: visibility 0.7s ease;
-    visibility: visible;
-    width: 100%;
-  }
+	@include mobile {
+		animation-direction: reverse;
+		display: flex;
+		height: auto;
+		margin-top: $header-height;
+		transition: visibility 0.7s ease;
+		visibility: visible;
+		width: 100%;
+	}
 }
 
 /*
@@ -111,17 +112,17 @@
  */
 
 .public-page-content__application {
-  display: flex;
-  margin-left: $small-space;
-  width: 65%;
+	display: flex;
+	margin-left: $small-space;
+	width: 65%;
 
-  @include mobile {
-    display: flex;
-    height: auto;
-    margin-left: 0;
-    margin-top: 0;
-    width: 100%;
-  }
+	@include mobile {
+		display: flex;
+		height: auto;
+		margin-left: 0;
+		margin-top: 0;
+		width: 100%;
+	}
 }
 
 /*
@@ -130,15 +131,15 @@
  */
 
 .is-application-open .public-page-content__application {
-  @include mobile {
-    left: 0;
-  }
+	@include mobile {
+		left: 0;
+	}
 }
 
 .is-application-open .public-page-content__tournaments {
-  @include mobile {
-    visibility: hidden;
-  }
+	@include mobile {
+		visibility: hidden;
+	}
 }
 
 /*
@@ -150,10 +151,10 @@
 .public-page-content__faq,
 .public-page-content__past-events,
 .public-page-content__contact {
-  display: flex;
-  width: 100%;
+	display: flex;
+	width: 100%;
 
-  @include mobile {
-    margin-top: $header-height;
-  }
+	@include mobile {
+		margin-top: $header-height;
+	}
 }
