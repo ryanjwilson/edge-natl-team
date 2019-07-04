@@ -1,21 +1,19 @@
-import { Mongo } from 'meteor/mongo';
-import { Meteor } from 'meteor/meteor';
-import moment from 'moment';
-import SimpleSchema from 'simpl-schema';
+import { Meteor } from "meteor/meteor";
+import moment from "moment";
+import { Mongo } from "meteor/mongo";
+import SimpleSchema from "simpl-schema";
 
-// import { Applications } from './applications';
-
-export const Wrestlers = new Mongo.Collection('wrestlers');
+export const Wrestlers = new Mongo.Collection("wrestlers");
 
 if (Meteor.isServer) {
-	Meteor.publish('wrestlers', () => {
+	Meteor.publish("wrestlers", () => {
 		return Wrestlers.find({});
 	});
 }
 
 /**
- * An API for inserting, removing, and updating a Wrestler, as well as
- * submitting an application for one or more Tournaments for a Wrestler.
+ * An API for inserting, removing, and updating a Wrestler, as well as submitting an application for one or more
+ * Tournaments for a Wrestler.
  */
 
 Meteor.methods({
@@ -23,29 +21,29 @@ Meteor.methods({
 	/**
 	 * Inserts a new Wrestler into the Collection.
 	 *
-	 * @return the unqiue _id of the inserted document
+	 * @return the unqiue identifier of the inserted document
 	 */
 
-	'wrestlers.insert'() {
+	"wrestlers.insert"() {
 		if (!this.userId) {
-			throw new Meteor.Error('not-authorized');
+			throw new Meteor.Error("not-authorized");
 		}
 
 		return Wrestlers.insert({
-			name: '',
-			dob: '',
-			grade: '',
-			weight: '',
+			name: "",
+			dob: "",
+			grade: "",
+			weight: "",
 			parents: [{
-				name: '',
+				name: "",
 				valid: false
 			}],
 			emails: [{
-				text: '',
+				text: "",
 				valid: false
 			}],
 			phones: [{
-				number: '',
+				number: "",
 				valid: false
 			}],
 			applications: [],
@@ -56,37 +54,37 @@ Meteor.methods({
 	/**
 	 * Inserts a new Wrestler into the Collection.
 	 *
-	 * @param values - the values submitted through the application
-	 * @return the unqiue _id of the inserted document
+	 * @param values the values submitted through the application
+	 * @returns the unqiue identifier of the inserted document
 	 */
 
-	'wrestlers.submit'(values) {
+	"wrestlers.submit"(values) {
 		new SimpleSchema({
 			name: { type: String, min: 1 },
 			dob: { type: String },
 			grade: { type: String },
 			weight: { type: String },
 			parents: { type: Array },
-			'parents.$': { type: Object },
-			'parents.$.name': { type: String, min: 1 },
-			'parents.$.valid': { type: Boolean },
+			"parents.$": { type: Object },
+			"parents.$.name": { type: String, min: 1 },
+			"parents.$.valid": { type: Boolean },
 			emails: { type: Array },
-			'emails.$': { type: Object },
-			'emails.$.text': { type: String, regEx: SimpleSchema.RegEx.EmailWithTLD },
-			'emails.$.valid': { type: Boolean },
+			"emails.$": { type: Object },
+			"emails.$.text": { type: String, regEx: SimpleSchema.RegEx.EmailWithTLD },
+			"emails.$.valid": { type: Boolean },
 			phones: { type: Array },
-			'phones.$': { type: Object },
-			'phones.$.number': { type: String, regEx: SimpleSchema.RegEx.Phone },
-			'phones.$.valid': { type: Boolean },
+			"phones.$": { type: Object },
+			"phones.$.number": { type: String, regEx: SimpleSchema.RegEx.Phone },
+			"phones.$.valid": { type: Boolean },
 			applications: { type: Array, minCount: 1 },
-			'applications.$': { type: Object },
-			'applications.$.tournamentId': { type: String, min: 1 },
-			'applications.$.name': { type: String },
-			'applications.$.division': { type: String },
-			'applications.$.weightClass': { type: Number },
-			'applications.$.open': { type: Boolean, defaultValue: true },
-			'applications.$.status': { type: String, defaultValue: '' },
-			'applications.$.teamId': { type: String }
+			"applications.$": { type: Object },
+			"applications.$.tournamentId": { type: String, min: 1 },
+			"applications.$.name": { type: String },
+			"applications.$.division": { type: String },
+			"applications.$.weightClass": { type: Number },
+			"applications.$.open": { type: Boolean, defaultValue: true },
+			"applications.$.status": { type: String, defaultValue: "" },
+			"applications.$.teamId": { type: String }
 		}, { requiredByDefault: false }).validate({ ...values });
 
 		return Wrestlers.insert({
@@ -105,12 +103,12 @@ Meteor.methods({
 	/**
 	 * Removes a Wrestler from the Collection.
 	 *
-	 * @param _id - the unique _id of the Wrestler to be removed
+	 * @param _id the unique identifier of the Wrestler to be removed
 	 */
 
-	'wrestlers.remove'(_id) {
+	"wrestlers.remove"(_id) {
 		if (!this.userId) {
-			throw new Meteor.Error('not-authorized');
+			throw new Meteor.Error("not-authorized");
 		}
 
 		new SimpleSchema({
@@ -123,13 +121,13 @@ Meteor.methods({
 	/**
 	 * Updates a Wrestler in the Collection.
 	 *
-	 * @param _id - the unique _id of the Wrestler to update
-	 * @param updates - the updates to be applied to the Wrestler
+	 * @param _id the unique identifier of the Wrestler to update
+	 * @param updates the updates to be applied to the Wrestler
 	 */
 
-	'wrestlers.update'(_id, updates) {
+	"wrestlers.update"(_id, updates) {
 		if (!this.userId) {
-			throw new Meteor.Error('not-authorized');
+			throw new Meteor.Error("not-authorized");
 		}
 
 		new SimpleSchema({
@@ -139,23 +137,23 @@ Meteor.methods({
 			grade: { type: String },
 			weight: { type: String },
 			parents: { type: Array },
-			'parents.$': { type: Object },
-			'parents.$.name': { type: String, min: 1 },
-			'parents.$.valid': { type: Boolean },
+			"parents.$": { type: Object },
+			"parents.$.name": { type: String, min: 1 },
+			"parents.$.valid": { type: Boolean },
 			emails: { type: Array },
-			'emails.$': { type: Object },
-			'emails.$.text': { type: String, regEx: SimpleSchema.RegEx.EmailWithTLD },
-			'emails.$.valid': { type: Boolean },
+			"emails.$": { type: Object },
+			"emails.$.text": { type: String, regEx: SimpleSchema.RegEx.EmailWithTLD },
+			"emails.$.valid": { type: Boolean },
 			phones: { type: Array },
-			'phones.$': { type: Object },
-			'phones.$.number': { type: String, regEx: SimpleSchema.RegEx.Phone },
-			'phones.$.valid': { type: Boolean },
+			"phones.$": { type: Object },
+			"phones.$.number": { type: String, regEx: SimpleSchema.RegEx.Phone },
+			"phones.$.valid": { type: Boolean },
 			applications: { type: Array, minCount: 1 },
-			'applications.$': { type: Object },
-			'applications.$.tournamentId': { type: String, min: 1 },
-			'applications.$.name': { type: String },
-			'applications.$.division': { type: String },
-			'applications.$.weightClass': { type: Number },
+			"applications.$": { type: Object },
+			"applications.$.tournamentId": { type: String, min: 1 },
+			"applications.$.name": { type: String },
+			"applications.$.division": { type: String },
+			"applications.$.weightClass": { type: Number },
 		}, { requiredByDefault: false }).validate({ _id, ...updates });
 
 		Wrestlers.update({ _id }, {

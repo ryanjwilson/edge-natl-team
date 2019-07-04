@@ -1,12 +1,12 @@
-import { Mongo } from 'meteor/mongo';
-import { Meteor } from 'meteor/meteor';
-import moment from 'moment';
-import SimpleSchema from 'simpl-schema';
+import { Meteor } from "meteor/meteor";
+import moment from "moment";
+import { Mongo } from "meteor/mongo";
+import SimpleSchema from "simpl-schema";
 
-export const Tournaments = new Mongo.Collection('tournaments');
+export const Tournaments = new Mongo.Collection("tournaments");
 
 if (Meteor.isServer) {
-	Meteor.publish('tournaments', () => {
+	Meteor.publish("tournaments", () => {
 		return Tournaments.find({});
 	});
 }
@@ -20,31 +20,31 @@ Meteor.methods({
 	/**
 	 * Inserts a new Tournament into the Collection.
 	 *
-	 * @return the unqiue _id of the inserted document
+	 * @returns the unqiue identifier of the inserted document
 	 */
 
-	'tournaments.insert'() {
+	"tournaments.insert"() {
 		if (!this.userId) {
-			throw new Meteor.Error('not-authorized');
+			throw new Meteor.Error("not-authorized");
 		}
 
 		return Tournaments.insert({
-			name: '',
-			location: '',
-			startDate: '',              // TODO - default date object rather than empty string.
-			endDate: '',                // TODO - but what should the default date be?
-			weighins: '',
-			alternateWeighins: '',
+			name: "",
+			location: "",
+			startDate: "",
+			endDate: "",
+			weighins: "",
+			alternateWeighins: "",
 			divisions: [{
-				name: '',
+				name: "",
 				weightClasses: [],
 				allowance: 0,
 				teams: 1
 			}],
 			published: false,
-			year: '',                   // TODO - if we make this an integer, what should the default value be?
-			season: '',
-			order: '',
+			year: "", 
+			season: "",
+			order: "",
 			userId: this.userId,
 			updatedAt: moment().valueOf()
 		});
@@ -53,12 +53,12 @@ Meteor.methods({
 	/**
 	 * Removes a Tournament from the Collection.
 	 *
-	 * @param _id - the unique _id of the Tournament to be removed
+	 * @param _id the unique identifier of the Tournament to be removed
 	 */
 
-	'tournaments.remove'(_id) {
+	"tournaments.remove"(_id) {
 		if (!this.userId) {
-			throw new Meteor.Error('not-authorized');
+			throw new Meteor.Error("not-authorized");
 		}
 
 		new SimpleSchema({
@@ -71,30 +71,30 @@ Meteor.methods({
 	/**
 	 * Updates a Tournament in the Collection.
 	 *
-	 * @param _id - the unique _id of the Tournament to update
-	 * @param updates - the updates to be applied to the Tournament
+	 * @param _id the unique identifier of the Tournament to update
+	 * @param updates the updates to be applied to the Tournament
 	 */
 
-	'tournaments.update'(_id, updates) {
+	"tournaments.update"(_id, updates) {
 		if (!this.userId) {
-			throw new Meteor.Error('not-authorized');
+			throw new Meteor.Error("not-authorized");
 		}
 
 		new SimpleSchema({
 			_id: { type: String, min: 1, required: true },
 			name: { type: String },
 			location: { type: String },
-			startDate: { type: String },                          // TODO - convert to DateTime
-			endDate: { type: String },                            // TODO - convert to DateTime
-			weighins: { type: String },                           // TODO - convert to DateTime
-			alternateWeighins: { type: String },                  // TODO - convert to DateTime
+			startDate: { type: String },
+			endDate: { type: String },
+			weighins: { type: String },
+			alternateWeighins: { type: String },
 			divisions: { type: Array, minCount: 1 },
-			'divisions.$': { type: Object },
-			'divisions.$.name': { type: String },
-			'divisions.$.weightClasses': { type: Array },
-			'divisions.$.weightClasses.$': { type: Number },
-			'divisions.$.allowance': { type: Number, min: 0 },
-			'divisions.$.teams': { type: SimpleSchema.Integer, min: 1 },
+			"divisions.$": { type: Object },
+			"divisions.$.name": { type: String },
+			"divisions.$.weightClasses": { type: Array },
+			"divisions.$.weightClasses.$": { type: Number },
+			"divisions.$.allowance": { type: Number, min: 0 },
+			"divisions.$.teams": { type: SimpleSchema.Integer, min: 1 },
 			published: { type: Boolean, defaultValue: false },
 			year: { type: SimpleSchema.Integer },
 			season: { type: String },
