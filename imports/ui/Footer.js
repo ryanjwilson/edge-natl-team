@@ -46,7 +46,7 @@ export class Footer extends React.Component {
 		return (
 			<div className="footer">
 				<div className="footer__content">
-					<div>Copyright &copy; 2018 <a className="footer__link" href="https://www.edgewrestling.com" target="_blank">Edge Wrestling</a>. All rights reserved.</div>
+					<div>Copyright &copy; 2019 <a className="footer__link" href="https://www.edgewrestling.com" target="_blank">Edge Wrestling</a>. All rights reserved.</div>
 					<div className="footer__social-media-icons">
 						<a href="https://www.facebook.com/EdgeWrestlingSchool" target="_blank">
 							<img src={this.state.hover[0] ? this.state.facebookHover : this.state.facebook} onMouseOver={this.onMouseOver} onMouseOut={this.onMouseOut} />
