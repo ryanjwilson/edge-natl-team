@@ -1,10 +1,15 @@
-import React from 'react';
-import { Meteor } from 'meteor/meteor';
-import { PropTypes } from 'prop-types';
-import { Session } from 'meteor/session';
-import { Tracker } from 'meteor/tracker';
-import { createContainer } from 'meteor/react-meteor-data';
-import { Tournaments } from '../../api/tournaments';
+import { Meteor } from "meteor/meteor";
+import React from "react";
+import { createContainer } from "meteor/react-meteor-data";
+import { PropTypes } from "prop-types";
+import { Session } from "meteor/session";
+import { Tracker } from "meteor/tracker";
+
+import { Tournaments } from "../../api/tournaments";
+
+/**
+ * A component that represnts filter options for a TeamList in the add modal.
+ */
 
 export class TeamListHeaderFilters extends React.Component {
 	constructor(props) {
@@ -13,19 +18,13 @@ export class TeamListHeaderFilters extends React.Component {
 		this.state = {
 			tournaments: props.tournaments,
 			divisions: props.divisions,
-			selectedTournament: '',
-			selectedDivision: ''
+			selectedTournament: "",
+			selectedDivision: ""
 		};
-
-		// bind field listeners to this context. remaining listeners are bound
-		// manually, as they take additional parameters.
 
 		this.onTournamentSelect = this.onTournamentSelect.bind(this);
 		this.onDivisionSelect = this.onDivisionSelect.bind(this);
 	}
-
-	// TODO - can this be better used in other components, rather than hacking together did/will mount/update?
-	// TODO - will be depreciated. refactor?
 
 	componentWillReceiveProps(nextProps) {
 		if (this.props.selectedTournament !== nextProps.selectedTournament) this.setState({ selectedTournament: nextProps.selectedTournament });
@@ -67,15 +66,15 @@ export class TeamListHeaderFilters extends React.Component {
 		const selectedTournament = (e.target.value.length > 0 ? e.target.value : undefined);
 		const divisions = getDivisions(this.state.tournaments, selectedTournament);
 
-		this.setState({ divisions, selectedTournament, selectedDivision: '', selectedWeightClass: '' });
-		this.props.Session.set('selectedTeamTournamentModalFilter', selectedTournament);
+		this.setState({ divisions, selectedTournament, selectedDivision: "", selectedWeightClass: "" });
+		this.props.Session.set("selectedTeamTournamentModalFilter", selectedTournament);
 	}
 
 	onDivisionSelect(e) {
 		const selectedDivision = (e.target.value.length > 0 ? e.target.value : undefined);
 
 		this.setState({ selectedDivision });
-		this.props.Session.set('selectedTeamDivisionModalFilter', selectedDivision);
+		this.props.Session.set("selectedTeamDivisionModalFilter", selectedDivision);
 	}
 
 	render() {
@@ -83,9 +82,6 @@ export class TeamListHeaderFilters extends React.Component {
 			<div className="editor__dropdown-filter-group editor__modal-filters">
 				<select className="editor__dropdown-menu" value={this.state.selectedTournament} onChange={this.onTournamentSelect}>
 					<option key="-1" value="">--Tournament--</option>
-
-					{/* TODO - allow for upcoming v. past tournament optgroups */}
-					{/* TODO - allow for multi-select (would need to make selectedTournament(s) -- here and Session variable in main.js -- into an array) */}
 
 					{this.state.tournaments.map((tournament, index) => {
 						return (
@@ -95,8 +91,6 @@ export class TeamListHeaderFilters extends React.Component {
 				</select>
 				<select className="editor__dropdown-menu" value={this.state.selectedDivision} onChange={this.onDivisionSelect}>
 					<option key="-1" value="">--Division--</option>
-
-					{/* TODO - allow for multi-select (would need to make selectedDivision(s) -- here and Session variable in main.js -- into an array) */}
 
 					{this.state.divisions.map((division, index) => {
 						return (
@@ -109,13 +103,25 @@ export class TeamListHeaderFilters extends React.Component {
 	}
 }
 
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/**
+ * Retrieves a list of published tournaments.
+ * 
+ * @returns a list of tournaments
+ */
 
 const getTournaments = () => {
 	return Tournaments.find({ published: true }).fetch().map((tournament) => {
 		return { ...tournament };
 	});
 };
+
+/**
+ * Retrieves a list of divisions for a specific tournament.
+ * 
+ * @param {Array} tournaments a list of tournaments
+ * @param {string} selectedTournament the unique identifier of the selected tournament
+ * @returns a list of divisions
+ */
 
 const getDivisions = (tournaments, selectedTournament) => {
 	const divisions = [];
@@ -139,15 +145,9 @@ const getDivisions = (tournaments, selectedTournament) => {
 	return divisions;
 };
 
-const isUnique = (value, index, self) => {
-	return self.indexOf(value) === index;
-};
-
-const sortAscending = (a, b) => {
-	return a - b;
-};
-
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/**
+ * Property types for this component.
+ */
 
 TeamListHeaderFilters.propTypes = {
 	tournaments: PropTypes.array.isRequired,
@@ -157,15 +157,17 @@ TeamListHeaderFilters.propTypes = {
 	Session: PropTypes.object.isRequired
 };
 
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/**
+ * Containerizes this component.
+ */
 
 export default createContainer(() => {
-	Meteor.subscribe('tournaments');
+	Meteor.subscribe("tournaments");
 
 	const tournaments = getTournaments();
 	const divisions = getDivisions(tournaments, undefined);
-	const selectedTournament = Session.get('selectedTeamTournamentModalFilter');
-	const selectedDivision = Session.get('selectedTeamDivisionModalFilter');
+	const selectedTournament = Session.get("selectedTeamTournamentModalFilter");
+	const selectedDivision = Session.get("selectedTeamDivisionModalFilter");
 
 	return {
 		tournaments,

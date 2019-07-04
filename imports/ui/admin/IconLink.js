@@ -1,7 +1,11 @@
-import React from 'react';
-import { createContainer } from 'meteor/react-meteor-data';
-import { Link } from 'react-router';
-import { PropTypes } from 'prop-types';
+import React from "react";
+import { createContainer } from "meteor/react-meteor-data";
+import { Link } from "react-router";
+import { PropTypes } from "prop-types";
+
+/**
+ * An icon component that serves as a hyperlink.
+ */
 
 export class IconLink extends React.Component {
 	constructor(props) {
@@ -27,12 +31,6 @@ export class IconLink extends React.Component {
 		this.setState({ isHovering: !this.state.isHovering });
 	}
 
-	/**
-	 * Renders this component to the page.
-	 *
-	 * @return the JSX for this component
-	 */
-
 	render() {
 		return (
 			<Link to={this.state.destination} className="header__admin-icon-group" onClick={this.state.action}>
@@ -42,7 +40,9 @@ export class IconLink extends React.Component {
 	}
 }
 
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/**
+ * Property types for this component.
+ */
 
 IconLink.propTypes = {
 	action: PropTypes.func,
@@ -52,7 +52,9 @@ IconLink.propTypes = {
 	isHovering: PropTypes.bool.isRequired
 };
 
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/**
+ * Containerizes this component.
+ */
 
 export default createContainer(() => {
 	return {

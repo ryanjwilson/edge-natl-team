@@ -1,26 +1,19 @@
-import React from 'react';
-import { createContainer } from 'meteor/react-meteor-data';
-import { Meteor } from 'meteor/meteor';
-import { PropTypes } from 'prop-types';
-import { Session } from 'meteor/session';
+import { Meteor } from "meteor/meteor";
+import React from "react";
+import { createContainer } from "meteor/react-meteor-data";
+import { PropTypes } from "prop-types";
+import { Session } from "meteor/session";
 
-import EmptyItem from './EmptyItem';
-import Tournament from './Tournament';
-import TournamentListHeader from './TournamentListHeader';
-import { Tournaments } from '../../api/tournaments';
+import EmptyItem from "./EmptyItem";
+import Tournament from "./Tournament";
+import TournamentListHeader from "./TournamentListHeader";
+import { Tournaments } from "../../api/tournaments";
 
 /**
- * A TournamentList component renders a list of Tournament components.
+ * A component that renders a list of Tournaments.
  */
 
 export class TournamentList extends React.Component {
-
-	/**
-	 * Initializes a TournamentList component.
-	 *
-	 * @param props - the properties with which this component is initialized
-	 */
-
 	constructor(props) {
 		super(props);
 
@@ -30,12 +23,6 @@ export class TournamentList extends React.Component {
 
 		refreshTournamentIds(props.tournaments);
 	}
-
-	/**
-	 * Updates the component state when new properties are received.
-	 *
-	 * @param nextProps - the new properties with which to update the state
-	 */
 
 	componentWillReceiveProps(nextProps) {
 		if (this.props.tournaments.length !== nextProps.tournaments.length) {
@@ -51,12 +38,6 @@ export class TournamentList extends React.Component {
 
 		refreshTournamentIds(nextProps.tournaments);
 	}
-
-	/**
-	 * Renders this component to the page.
-	 *
-	 * @return the JSX for this component
-	 */
 
 	render() {
 		return (
@@ -78,19 +59,17 @@ export class TournamentList extends React.Component {
 	}
 }
 
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
 /**
- * Refreshes the Session variables responsible for storing which tournaments
- * are currently selected. This is done to reflect changes in list filtering.
+ * Refreshes the Session variables responsible for storing which tournaments are currently selected. This is done to
+ * reflect changes in list filtering.
  *
- * @param tournaments - the original list of tournaments before filtering
+ * @param tournaments the original list of tournaments before filtering
  */
 
 const refreshTournamentIds = (tournaments) => {
 	if (tournaments) {
 		let freshIds = [];
-		const staleIds = Session.get('multiselectedTournamentIds');
+		const staleIds = Session.get("multiselectedTournamentIds");
 
 		tournaments.forEach((tournament) => {
 			if (staleIds.includes(tournament._id)) {
@@ -99,17 +78,17 @@ const refreshTournamentIds = (tournaments) => {
 		});
 
 		if (freshIds.length === 1) {
-			Session.set('selectedTournamentId', freshIds[0]);
+			Session.set("selectedTournamentId", freshIds[0]);
 		}
-		Session.set('multiselectedTournamentIds', freshIds);
+		Session.set("multiselectedTournamentIds", freshIds);
 
 		if (tournaments.length === 0) {
-			Session.set('selectedTournamentId', undefined);
+			Session.set("selectedTournamentId", undefined);
 		} else if (tournaments.length === 1) {
-			Session.set('selectedTournamentId', tournaments[0]._id);
+			Session.set("selectedTournamentId", tournaments[0]._id);
 		} else {
-			if (tournaments.filter((tournament) => tournament._id === Session.get('selectedTournamentId')).length === 0) {
-				Session.set('selectedTournamentId', undefined);
+			if (tournaments.filter((tournament) => tournament._id === Session.get("selectedTournamentId")).length === 0) {
+				Session.set("selectedTournamentId", undefined);
 			}
 		}
 	}
@@ -118,9 +97,9 @@ const refreshTournamentIds = (tournaments) => {
 /**
  * Determines if two tournaments are logically equivalent.
  *
- * @param prevTournament - the previous tournament
- * @param nextTournament - the next tournament
- * @return true if the tournaments are logically equivalent; false otherwise
+ * @param prevTournament the previous tournament
+ * @param nextTournament the next tournament
+ * @returns true if the tournaments are logically equivalent; false otherwise
  */
 
 const isEquivalent = (prevTournament, nextTournament) => {
@@ -142,21 +121,25 @@ const isEquivalent = (prevTournament, nextTournament) => {
 	return true;
 };
 
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/**
+ * Property types for this component.
+ */
 
 TournamentList.propTypes = {
 	tournaments: PropTypes.array.isRequired
 };
 
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/**
+ * Containerizes this component.
+ */
 
 export default createContainer(() => {
-	Meteor.subscribe('tournaments');
+	Meteor.subscribe("tournaments");
 
-	const selectedTournamentId = Session.get('selectedTournamentId');
-	const multiselectedTournamentIds = Session.get('multiselectedTournamentIds');
-	const showPublished = Session.get('showPublishedFilter');
-	const showUnpublished = Session.get('showUnpublishedFilter');
+	const selectedTournamentId = Session.get("selectedTournamentId");
+	const multiselectedTournamentIds = Session.get("multiselectedTournamentIds");
+	const showPublished = Session.get("showPublishedFilter");
+	const showUnpublished = Session.get("showUnpublishedFilter");
 
 	// conditionally query the tournaments collection based on the filter
 	// selections made by the user.

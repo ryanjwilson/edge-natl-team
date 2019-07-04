@@ -1,17 +1,21 @@
-import React from 'react';
-import { Meteor } from 'meteor/meteor';
-import { PropTypes } from 'prop-types';
-import { createContainer } from 'meteor/react-meteor-data';
+import { Meteor } from "meteor/meteor";
+import React from "react";
+import { createContainer } from "meteor/react-meteor-data";
+import { PropTypes } from "prop-types";
 
-import Header from '../Header';
-import Footer from '../Footer';
+import Header from "../Header";
+import Footer from "../Footer";
+
+/**
+ * A component for users to login to the application.
+ */
 
 export class Login extends React.Component {
 	constructor(props) {
 		super(props);
 
 		this.state = {
-			error: ''
+			error: ""
 		};
 
 		this.onSubmit = this.onSubmit.bind(this);
@@ -25,9 +29,9 @@ export class Login extends React.Component {
 
 		this.props.loginWithPassword({ username }, password, (err) => {
 			if (err) {
-				this.setState({ error: 'Oops! We didn\'t recognize your username and/or password.' });
+				this.setState({ error: "Oops! We didn\"t recognize your username and/or password." });
 			} else {
-				this.setState({ error: '' });
+				this.setState({ error: "" });
 			}
 		});
 	}
@@ -60,9 +64,17 @@ export class Login extends React.Component {
 	}
 }
 
+/**
+ * Property types for this component.
+ */
+
 Login.propTypes = {
 	loginWithPassword: PropTypes.func.isRequired
 };
+
+/**
+ * Containerizes this component.
+ */
 
 export default createContainer(() => {
 	return {

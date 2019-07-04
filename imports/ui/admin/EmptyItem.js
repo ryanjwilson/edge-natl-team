@@ -1,20 +1,12 @@
-import React from 'react';
-import { createContainer } from 'meteor/react-meteor-data';
-import { PropTypes } from 'prop-types';
+import React from "react";
+import { createContainer } from "meteor/react-meteor-data";
+import { PropTypes } from "prop-types";
 
 /**
- * An EmptyItem component represents a placeholder for an empty list item
- * (i.e., TournamentList, WrestlerList, TeamList).
+ * A placeholder item for an empty list (i.e., TournamentList, WrestlerList, TeamList).
  */
 
 export class EmptyItem extends React.Component {
-
-	/**
-	 * Initializes an EmptyItem component.
-	 *
-	 * @param props - the properties with which this component is initialized
-	 */
-
 	constructor(props) {
 		super(props);
 
@@ -23,23 +15,11 @@ export class EmptyItem extends React.Component {
 		};
 	}
 
-	/**
-	 * Updates the component state when new properties are received.
-	 *
-	 * @param nextProps - the new properties with which to update the state
-	 */
-
 	componentWillReceiveProps(nextProps) {
 		if (this.props.label !== nextProps.label) {
 			this.setState({ label: nextProps.label });
 		}
 	}
-
-	/**
-	 * Renders this component to the page.
-	 *
-	 * @return the JSX for this component
-	 */
 
 	render() {
 		return (
@@ -48,13 +28,17 @@ export class EmptyItem extends React.Component {
 	}
 }
 
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/**
+ * Property types for this component.
+ */
 
 EmptyItem.propTypes = {
 	label: PropTypes.string.isRequired
 };
 
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/**
+ * Containerizes this component.
+ */
 
 export default createContainer(() => {
 	return {

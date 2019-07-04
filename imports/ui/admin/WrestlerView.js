@@ -1,10 +1,14 @@
-import React from 'react';
-import { Accounts } from 'meteor/accounts-base';
+import React from "react";
+import { Accounts } from "meteor/accounts-base";
 
-import Header from '../Header';
-import Footer from '../Footer';
-import WrestlerEditor from './WrestlerEditor';
-import WrestlerList from './WrestlerList';
+import Header from "../Header";
+import Footer from "../Footer";
+import WrestlerEditor from "./WrestlerEditor";
+import WrestlerList from "./WrestlerList";
+
+/**
+ * A component that represents all Wrestler-related components, which includes the WrestlerList (of Wrestlers) and WrestlerEditor.
+ */
 
 export default WrestlerView = () => {
 	return (

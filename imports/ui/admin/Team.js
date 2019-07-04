@@ -1,20 +1,13 @@
-import React from 'react';
-import { createContainer } from 'meteor/react-meteor-data';
-import { PropTypes } from 'prop-types';
-import { Session } from 'meteor/session';
+import React from "react";
+import { createContainer } from "meteor/react-meteor-data";
+import { PropTypes } from "prop-types";
+import { Session } from "meteor/session";
 
 /**
- * A Team component represents a single item in the TeamList.
+ * A component that represents a single Team in the TeamList.
  */
 
 export class Team extends React.Component {
-
-	/**
-	 * Initializes a Team component.
-	 *
-	 * @param props - the properties with which this component is initialized
-	 */
-
 	constructor(props) {
 		super(props);
 
@@ -29,38 +22,22 @@ export class Team extends React.Component {
 				}
 			},
 			roster: props.team.roster,
-			roles: ['Starter', 'Split', 'Alternate'],
-			statuses: ['Open', 'Pending', 'Confirmed'],
+			roles: ["Starter", "Split", "Alternate"],
+			statuses: ["Open", "Pending", "Confirmed"],
 			published: props.team.published,
-			css: props.team.selected || props.team.multiselected ? 'item item--selected' : 'item'
+			css: props.team.selected || props.team.multiselected ? "item item--selected" : "item"
 		};
-
-		// bind field listeners to this context. remaining listeners are bound
-		// manually, as they take additional parameters.
 
 		this.onTeamSelect = this.onTeamSelect.bind(this);
 	}
 
-	/**
-	 * Updates the component state when new properties are received.
-	 *
-	 * @param nextProps - the new properties with which to update the state
-	 */
-
 	componentWillReceiveProps(nextProps) {
-		this.setState({ css: nextProps.team.selected || nextProps.team.multiselected ? 'item item--selected' : 'item', ...nextProps.team });
+		this.setState({ css: nextProps.team.selected || nextProps.team.multiselected ? "item item--selected" : "item", ...nextProps.team });
 	}
 
-	/**
-	 * Generates the list of selected teams, and pushes these changes to
-	 * their respective Session variables.
-	 *
-	 * @param e - the change event
-	 */
-
 	onTeamSelect(e) {
-		let ids = Session.get('multiselectedTeamIds');
-		const selectedTeamId = Session.get('selectedTeamId');
+		let ids = Session.get("multiselectedTeamIds");
+		const selectedTeamId = Session.get("selectedTeamId");
 
 		if (selectedTeamId && !ids.includes(selectedTeamId)) {
 			ids.push(selectedTeamId);
@@ -72,31 +49,25 @@ export class Team extends React.Component {
 			}
 
 			if (ids.length === 1) {
-				Session.set('selectedTeamId', this.state._id);
+				Session.set("selectedTeamId", this.state._id);
 			} else {
-				Session.set('selectedTeamId', undefined);
+				Session.set("selectedTeamId", undefined);
 			}
 		} else {
 			ids = [];
 			ids.push(this.state._id);
 
-			Session.set('selectedTeamId', this.state._id);
+			Session.set("selectedTeamId", this.state._id);
 		}
-		Session.set('multiselectedTeamIds', ids);
+		Session.set("multiselectedTeamIds", ids);
 	}
-
-	/**
-	 * Renders this component to the page.
-	 *
-	 * @return the JSX for this component
-	 */
 
 	render() {
 		return (
 			<div id="team" className={this.state.css} onClick={this.onTeamSelect}>
 				<div className="item__text">
-					<h5 className="item__title">{this.state.name || 'Untitled Team'}</h5>
-					<p className="item__subtitle">{this.state.tournament.name || 'Tournament'} &middot; {this.state.tournament.division.name || 'Division'}</p>
+					<h5 className="item__title">{this.state.name || "Untitled Team"}</h5>
+					<p className="item__subtitle">{this.state.tournament.name || "Tournament"} &middot; {this.state.tournament.division.name || "Division"}</p>
 				</div>
 				{this.state.published ? <div className="item__status-icon"><img src="/images/published-icon.svg" /></div> : undefined}
 			</div>
@@ -104,13 +75,17 @@ export class Team extends React.Component {
 	}
 }
 
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/**
+ * Property types for this component.
+ */
 
 Team.propTypes = {
 	team: PropTypes.object.isRequired
 };
 
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/**
+ * Containerizes this component.
+ */
 
 export default createContainer(() => {
 	return {

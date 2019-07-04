@@ -1,26 +1,19 @@
-import React from 'react';
-import { createContainer } from 'meteor/react-meteor-data';
-import { Meteor } from 'meteor/meteor';
-import { PropTypes } from 'prop-types';
-import { Session } from 'meteor/session';
+import { Meteor } from "meteor/meteor";
+import React from "react";
+import { createContainer } from "meteor/react-meteor-data";
+import { PropTypes } from "prop-types";
+import { Session } from "meteor/session";
 
-import EmptyItem from './EmptyItem';
-import Team from './Team';
-import TeamListHeader from './TeamListHeader';
-import { Teams } from '../../api/teams';
+import EmptyItem from "./EmptyItem";
+import Team from "./Team";
+import TeamListHeader from "./TeamListHeader";
+import { Teams } from "../../api/teams";
 
 /**
- * A TournamentList component renders a list of Tournament components.
+ * A component that renders a list of Team components.
  */
 
 export class TeamList extends React.Component {
-
-	/**
-	 * Initializes a TournamentList component.
-	 *
-	 * @param props - the properties with which this component is initialized
-	 */
-
 	constructor(props) {
 		super(props);
 
@@ -30,12 +23,6 @@ export class TeamList extends React.Component {
 
 		refreshTeamIds(props.teams);
 	}
-
-	/**
-	 * Updates the component state when new properties are received.
-	 *
-	 * @param nextProps - the new properties with which to update the state
-	 */
 
 	componentWillReceiveProps(nextProps) {
 		if (this.props.teams.length !== nextProps.teams.length) {
@@ -51,12 +38,6 @@ export class TeamList extends React.Component {
 
 		refreshTeamIds(nextProps.teams);
 	}
-
-	/**
-	 * Renders this component to the page.
-	 *
-	 * @return the JSX for this component
-	 */
 
 	render() {
 		return (
@@ -78,19 +59,17 @@ export class TeamList extends React.Component {
 	}
 }
 
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
 /**
- * Refreshes the Session variables responsible for storing which tournaments
- * are currently selected. This is done to reflect changes in list filtering.
+ * Refreshes the session variables responsible for storing which tournaments are currently selected. This is done to
+ * reflect changes in list filtering.
  *
- * @param teams - the original list of tournaments before filtering
+ * @param teams the original list of tournaments before filtering
  */
 
 const refreshTeamIds = (teams) => {
 	if (teams) {
 		let freshIds = [];
-		const staleIds = Session.get('multiselectedTeamIds');
+		const staleIds = Session.get("multiselectedTeamIds");
 
 		teams.forEach((team) => {
 			if (staleIds.includes(team._id)) {
@@ -99,17 +78,17 @@ const refreshTeamIds = (teams) => {
 		});
 
 		if (freshIds.length === 1) {
-			Session.set('selectedTeamId', freshIds[0]);
+			Session.set("selectedTeamId", freshIds[0]);
 		}
-		Session.set('multiselectedTeamIds', freshIds);
+		Session.set("multiselectedTeamIds", freshIds);
 
 		if (teams.length === 0) {
-			Session.set('selectedTeamId', undefined);
+			Session.set("selectedTeamId", undefined);
 		} else if (teams.length === 1) {
-			Session.set('selectedTeamId', teams[0]._id);
+			Session.set("selectedTeamId", teams[0]._id);
 		} else {
-			if (teams.filter((team) => team._id === Session.get('selectedTeamId')).length === 0) {
-				Session.set('selectedTeamId', undefined);
+			if (teams.filter((team) => team._id === Session.get("selectedTeamId")).length === 0) {
+				Session.set("selectedTeamId", undefined);
 			}
 		}
 	}
@@ -118,9 +97,9 @@ const refreshTeamIds = (teams) => {
 /**
  * Determines if two tournaments are logically equivalent.
  *
- * @param prevTeam - the previous tournament
- * @param nextTeam - the next tournament
- * @return true if the tournaments are logically equivalent; false otherwise
+ * @param prevTeam the previous tournament
+ * @param nextTeam the next tournament
+ * @returns true if the tournaments are logically equivalent; false otherwise
  */
 
 const isEquivalent = (prevTeam, nextTeam) => {
@@ -142,19 +121,23 @@ const isEquivalent = (prevTeam, nextTeam) => {
 	return true;
 };
 
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/**
+ * Property types for this component.
+ */
 
 TeamList.propTypes = {
 	teams: PropTypes.array.isRequired
 };
 
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/**
+ * Containerizes this component.
+ */
 
 export default createContainer(() => {
-	Meteor.subscribe('teams');
+	Meteor.subscribe("teams");
 
-	const selectedTeamId = Session.get('selectedTeamId');
-	const multiselectedTeamIds = Session.get('multiselectedTeamIds');
+	const selectedTeamId = Session.get("selectedTeamId");
+	const multiselectedTeamIds = Session.get("multiselectedTeamIds");
 
 	// conditionally query the tournaments collection based on the filter
 	// selections made by the user.
