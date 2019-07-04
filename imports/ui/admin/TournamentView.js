@@ -14,42 +14,42 @@ import TournamentList from './TournamentList';
 
 export default class TournamentView extends React.Component {
 
-  /**
-   * Initializes an EmptyItem component.
-   *
-   * @param props - the properties with which this component is initialized
-   */
+	/**
+	 * Initializes an EmptyItem component.
+	 *
+	 * @param props - the properties with which this component is initialized
+	 */
 
-  constructor(props) {
-    super(props);
+	constructor(props) {
+		super(props);
 
-    this.state = {
-      title: 'Tournaments'
-    };
-  }
+		this.state = {
+			title: 'Tournaments'
+		};
+	}
 
-  /**
-   * Renders this component to the page.
-   *
-   * @return the JSX for this component
-   */
+	/**
+	 * Renders this component to the page.
+	 *
+	 * @return the JSX for this component
+	 */
 
-  render() {
-    return (
-      <div>
-        <Header/>
+	render() {
+		return (
+			<div>
+				<Header />
 
-        <div className="private-page-content">
-          <div className="private-page-content__sidebar">
-            <TournamentList/>
-          </div>
-          <div className="private-page-content__main">
-            <TournamentEditor/>
-          </div>
-        </div>
+				<div className="private-page-content">
+					<div className="private-page-content__sidebar">
+						<TournamentList />
+					</div>
+					<div className="private-page-content__main">
+						<TournamentEditor />
+					</div>
+				</div>
 
-        <Footer/>
-      </div>
-    );
-  }
+				<Footer />
+			</div>
+		);
+	}
 }

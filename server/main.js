@@ -10,7 +10,7 @@ import '../imports/startup/simple-schema-config.js';
 ////////////////// SERVER APPLICATION EXECUTION STARTS HERE ////////////////////////////////////////////////////////////////////////////////
 
 Meteor.startup(() => {
-  if (Meteor.users.find().count() === 0) {
-    Accounts.createUser({ username: 'admin', password: 'admin'});
-  }
+	if (Meteor.users.find().count() === 0) {
+		Accounts.createUser({ username: 'admin', password: 'admin' });
+	}
 });

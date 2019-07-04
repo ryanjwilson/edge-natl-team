@@ -11,101 +11,101 @@ import { Session } from 'meteor/session';
 
 export class TournamentListFilters extends React.Component {
 
-  /**
-   * Initializes an EmptyItem component.
-   *
-   * @param props - the properties with which this component is initialized
-   */
+	/**
+	 * Initializes an EmptyItem component.
+	 *
+	 * @param props - the properties with which this component is initialized
+	 */
 
-  constructor(props) {
-    super(props);
+	constructor(props) {
+		super(props);
 
-    this.state = {
-      showPublished: true,
-      showUnpublished: true
-    };
+		this.state = {
+			showPublished: true,
+			showUnpublished: true
+		};
 
-    // bind field listeners to this context. remaining listeners are bound
-    // manually, as they take additional parameters.
+		// bind field listeners to this context. remaining listeners are bound
+		// manually, as they take additional parameters.
 
-    this.togglePublished = this.togglePublished.bind(this);
-    this.toggleUnpublished = this.toggleUnpublished.bind(this);
-  }
+		this.togglePublished = this.togglePublished.bind(this);
+		this.toggleUnpublished = this.toggleUnpublished.bind(this);
+	}
 
-  /**
-   * Updates the component state when new properties are received.
-   *
-   * @param nextProps - the new properties with which to update the state
-   */
+	/**
+	 * Updates the component state when new properties are received.
+	 *
+	 * @param nextProps - the new properties with which to update the state
+	 */
 
-  componentWillReceiveProps(nextProps) {
-    if (this.props.showPublished !== nextProps.showPublished) this.setState({ showPublished: nextProps.showPublished });
-    if (this.props.showUnpublished !== nextProps.showUnpublished) this.setState({ showUnpublished: nextProps.showUnpublished });
-  }
+	componentWillReceiveProps(nextProps) {
+		if (this.props.showPublished !== nextProps.showPublished) this.setState({ showPublished: nextProps.showPublished });
+		if (this.props.showUnpublished !== nextProps.showUnpublished) this.setState({ showUnpublished: nextProps.showUnpublished });
+	}
 
-  /**
-   * Toggles the visibility of published Tournaments in the TournamentList.
-   *
-   * @param e - the change event
-   */
+	/**
+	 * Toggles the visibility of published Tournaments in the TournamentList.
+	 *
+	 * @param e - the change event
+	 */
 
-  togglePublished(e) {
-    const showPublished = e.target.checked;
+	togglePublished(e) {
+		const showPublished = e.target.checked;
 
-    Session.set('showPublishedFilter', showPublished);
-    this.setState({ showPublished });
-  }
+		Session.set('showPublishedFilter', showPublished);
+		this.setState({ showPublished });
+	}
 
-  /**
-   * Toggles the visibility of unpublished Tournaments in the TournamentList.
-   *
-   * @param e - the change event
-   */
+	/**
+	 * Toggles the visibility of unpublished Tournaments in the TournamentList.
+	 *
+	 * @param e - the change event
+	 */
 
-  toggleUnpublished(e) {
-    const showUnpublished = e.target.checked;
+	toggleUnpublished(e) {
+		const showUnpublished = e.target.checked;
 
-    Session.set('showUnpublishedFilter', showUnpublished);
-    this.setState({ showUnpublished });
-  }
+		Session.set('showUnpublishedFilter', showUnpublished);
+		this.setState({ showUnpublished });
+	}
 
-  /**
-   * Renders this component to the page.
-   *
-   * @return the JSX for this component
-   */
+	/**
+	 * Renders this component to the page.
+	 *
+	 * @return the JSX for this component
+	 */
 
-  render() {
-    return (
-      <div className="checkbox__filter-group">
-        <label className="checkbox">
-          <input className="checkbox__box" type="checkbox" checked={this.state.showPublished} onChange={this.togglePublished}/>
-          Shown
-        </label>
-        <label className="checkbox">
-          <input className="checkbox__box" type="checkbox" checked={this.state.showUnpublished} onChange={this.toggleUnpublished}/>
-          Hidden
-        </label>
-      </div>
-    );
-  }
+	render() {
+		return (
+			<div className="checkbox__filter-group">
+				<label className="checkbox">
+					<input className="checkbox__box" type="checkbox" checked={this.state.showPublished} onChange={this.togglePublished} />
+					Shown
+				</label>
+				<label className="checkbox">
+					<input className="checkbox__box" type="checkbox" checked={this.state.showUnpublished} onChange={this.toggleUnpublished} />
+					Hidden
+				</label>
+			</div>
+		);
+	}
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 TournamentListFilters.propTypes = {
-  showPublished: PropTypes.bool,
-  showUnpublished: PropTypes.bool
+	showPublished: PropTypes.bool,
+	showUnpublished: PropTypes.bool
 };
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 export default createContainer(() => {
-  const showPublished = Session.get('showPublishedFilter');
-  const showUnpublished = Session.get('showUnpublishedFilter');
+	const showPublished = Session.get('showPublishedFilter');
+	const showUnpublished = Session.get('showUnpublishedFilter');
 
-  return {
-    showPublished,
-    showUnpublished
-  };
+	return {
+		showPublished,
+		showUnpublished
+	};
 }, TournamentListFilters);

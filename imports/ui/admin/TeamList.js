@@ -15,67 +15,67 @@ import { Teams } from '../../api/teams';
 
 export class TeamList extends React.Component {
 
-  /**
-   * Initializes a TournamentList component.
-   *
-   * @param props - the properties with which this component is initialized
-   */
+	/**
+	 * Initializes a TournamentList component.
+	 *
+	 * @param props - the properties with which this component is initialized
+	 */
 
-  constructor(props) {
-    super(props);
+	constructor(props) {
+		super(props);
 
-    this.state = {
-      teams: props.teams
-    };
+		this.state = {
+			teams: props.teams
+		};
 
-    refreshTeamIds(props.teams);
-  }
+		refreshTeamIds(props.teams);
+	}
 
-  /**
-   * Updates the component state when new properties are received.
-   *
-   * @param nextProps - the new properties with which to update the state
-   */
+	/**
+	 * Updates the component state when new properties are received.
+	 *
+	 * @param nextProps - the new properties with which to update the state
+	 */
 
-  componentWillReceiveProps(nextProps) {
-    if (this.props.teams.length !== nextProps.teams.length) {
-      this.setState({ teams: nextProps.teams });
-    } else {
-      this.props.teams.some((team, index) => {
-        if (!isEquivalent(team, nextProps.teams[index])) {
-          this.setState({ teams: nextProps.teams });
-          return true;
-        }
-      });
-    }
+	componentWillReceiveProps(nextProps) {
+		if (this.props.teams.length !== nextProps.teams.length) {
+			this.setState({ teams: nextProps.teams });
+		} else {
+			this.props.teams.some((team, index) => {
+				if (!isEquivalent(team, nextProps.teams[index])) {
+					this.setState({ teams: nextProps.teams });
+					return true;
+				}
+			});
+		}
 
-    refreshTeamIds(nextProps.teams);
-  }
+		refreshTeamIds(nextProps.teams);
+	}
 
-  /**
-   * Renders this component to the page.
-   *
-   * @return the JSX for this component
-   */
+	/**
+	 * Renders this component to the page.
+	 *
+	 * @return the JSX for this component
+	 */
 
-  render() {
-    return (
-      <div className="container container__item-list">
-        <div className="container__header container__item-list-header">
-          <h5 className="container__title">Teams</h5>
-        </div>
+	render() {
+		return (
+			<div className="container container__item-list">
+				<div className="container__header container__item-list-header">
+					<h5 className="container__title">Teams</h5>
+				</div>
 
-        <div className="item-list">
-          <TeamListHeader/>
+				<div className="item-list">
+					<TeamListHeader />
 
-          {this.state.teams.length === 0 ? <EmptyItem label="Teams"/> : undefined}
-          {this.state.teams.map((team) => {
-            return <Team key={team._id} team={team}/>;
-          })}
-        </div>
-      </div>
-    );
-  }
+					{this.state.teams.length === 0 ? <EmptyItem label="Teams" /> : undefined}
+					{this.state.teams.map((team) => {
+						return <Team key={team._id} team={team} />;
+					})}
+				</div>
+			</div>
+		);
+	}
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -88,31 +88,31 @@ export class TeamList extends React.Component {
  */
 
 const refreshTeamIds = (teams) => {
-  if (teams) {
-    let freshIds = [];
-    const staleIds = Session.get('multiselectedTeamIds');
+	if (teams) {
+		let freshIds = [];
+		const staleIds = Session.get('multiselectedTeamIds');
 
-    teams.forEach((team) => {
-      if (staleIds.includes(team._id)) {
-        freshIds.push(team._id);
-      }
-    });
+		teams.forEach((team) => {
+			if (staleIds.includes(team._id)) {
+				freshIds.push(team._id);
+			}
+		});
 
-    if (freshIds.length === 1) {
-      Session.set('selectedTeamId', freshIds[0]);
-    }
-    Session.set('multiselectedTeamIds', freshIds);
+		if (freshIds.length === 1) {
+			Session.set('selectedTeamId', freshIds[0]);
+		}
+		Session.set('multiselectedTeamIds', freshIds);
 
-    if (teams.length === 0) {
-      Session.set('selectedTeamId', undefined);
-    } else if (teams.length === 1) {
-      Session.set('selectedTeamId', teams[0]._id);
-    } else {
-      if (teams.filter((team) => team._id === Session.get('selectedTeamId')).length === 0) {
-        Session.set('selectedTeamId', undefined);
-      }
-    }
-  }
+		if (teams.length === 0) {
+			Session.set('selectedTeamId', undefined);
+		} else if (teams.length === 1) {
+			Session.set('selectedTeamId', teams[0]._id);
+		} else {
+			if (teams.filter((team) => team._id === Session.get('selectedTeamId')).length === 0) {
+				Session.set('selectedTeamId', undefined);
+			}
+		}
+	}
 };
 
 /**
@@ -124,50 +124,50 @@ const refreshTeamIds = (teams) => {
  */
 
 const isEquivalent = (prevTeam, nextTeam) => {
-  const prevProps = Object.getOwnPropertyNames(prevTeam);
-  const nextProps = Object.getOwnPropertyNames(nextTeam);
+	const prevProps = Object.getOwnPropertyNames(prevTeam);
+	const nextProps = Object.getOwnPropertyNames(nextTeam);
 
-  if (prevProps.length !== nextProps.length) {
-    return false;
-  }
+	if (prevProps.length !== nextProps.length) {
+		return false;
+	}
 
-  for (let i = 0; i < prevProps.length; i++) {
-    const propName = prevProps[i];
+	for (let i = 0; i < prevProps.length; i++) {
+		const propName = prevProps[i];
 
-    if (prevTeam[propName] !== nextTeam[propName]) {
-      return false;
-    }
-  }
+		if (prevTeam[propName] !== nextTeam[propName]) {
+			return false;
+		}
+	}
 
-  return true;
+	return true;
 };
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 TeamList.propTypes = {
-  teams: PropTypes.array.isRequired
+	teams: PropTypes.array.isRequired
 };
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 export default createContainer(() => {
-  Meteor.subscribe('teams');
+	Meteor.subscribe('teams');
 
-  const selectedTeamId = Session.get('selectedTeamId');
-  const multiselectedTeamIds = Session.get('multiselectedTeamIds');
+	const selectedTeamId = Session.get('selectedTeamId');
+	const multiselectedTeamIds = Session.get('multiselectedTeamIds');
 
-  // conditionally query the tournaments collection based on the filter
-  // selections made by the user.
+	// conditionally query the tournaments collection based on the filter
+	// selections made by the user.
 
-  return {
-    teams: Teams.find({}, {
-      sort: { order: 1 }
-    }).fetch().map((team) => {   // show all tournaments
-      return {
-        ...team,
-        selected: team._id === selectedTeamId,
-        multiselected: multiselectedTeamIds.includes(team._id)
-      };
-    })
-  };
+	return {
+		teams: Teams.find({}, {
+			sort: { order: 1 }
+		}).fetch().map((team) => {   // show all tournaments
+			return {
+				...team,
+				selected: team._id === selectedTeamId,
+				multiselected: multiselectedTeamIds.includes(team._id)
+			};
+		})
+	};
 }, TeamList);

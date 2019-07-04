@@ -7,60 +7,60 @@ import { Roster } from './Roster';
 import { RosterTabBar } from './RosterTabBar';
 
 export class RosterList extends React.Component {
-  constructor(props) {
-    super(props);
+	constructor(props) {
+		super(props);
 
-    this.state = {
-      teams: props.teams,
-      tournamentId: props.tournamentId,
-      selectedTab: 0
-    }
-  }
+		this.state = {
+			teams: props.teams,
+			tournamentId: props.tournamentId,
+			selectedTab: 0
+		}
+	}
 
-  componentWillReceiveProps(nextProps) {
-    if (this.props.teams.length !== nextProps.teams.length) {
-      this.setState({ teams: nextProps.teams });
-    } else {
-      this.props.teams.some((team, index) => {
-        if (team._id !== nextProps.teams[index]._id) {
-          this.setState({ teams: nextProps.teams });
+	componentWillReceiveProps(nextProps) {
+		if (this.props.teams.length !== nextProps.teams.length) {
+			this.setState({ teams: nextProps.teams });
+		} else {
+			this.props.teams.some((team, index) => {
+				if (team._id !== nextProps.teams[index]._id) {
+					this.setState({ teams: nextProps.teams });
 
-          return true;
-        }
-      });
-    }
-  }
+					return true;
+				}
+			});
+		}
+	}
 
-  showRoster(selectedTab) {
-    this.setState({ selectedTab });
-  }
+	showRoster(selectedTab) {
+		this.setState({ selectedTab });
+	}
 
-  render() {
-    return (
-      <div className="event__roster-list">
-        {this.state.teams.length === 0 ? <p className="empty-item">There are no Rosters to display.</p> : undefined}
-        <RosterTabBar tabs={this.state.teams} callbackFromParent={this.showRoster.bind(this)}/>
+	render() {
+		return (
+			<div className="event__roster-list">
+				{this.state.teams.length === 0 ? <p className="empty-item">There are no Rosters to display.</p> : undefined}
+				<RosterTabBar tabs={this.state.teams} callbackFromParent={this.showRoster.bind(this)} />
 
-        {this.state.teams.map((team, index, teams) => {
-          return (
-            this.state.selectedTab === index ? <Roster key={index} team={team} isLastRoster={index === teams.length - 1}/> : undefined
-          );
-        })}
-      </div>
-    );
-  }
+				{this.state.teams.map((team, index, teams) => {
+					return (
+						this.state.selectedTab === index ? <Roster key={index} team={team} isLastRoster={index === teams.length - 1} /> : undefined
+					);
+				})}
+			</div>
+		);
+	}
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 RosterList.propTypes = {
-  teams: PropTypes.array.isRequired
+	teams: PropTypes.array.isRequired
 };
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 export default createContainer(() => {
-  return {
+	return {
 
-  };
+	};
 }, RosterList);

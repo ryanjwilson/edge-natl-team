@@ -4,58 +4,58 @@ import { Link } from 'react-router';
 import { PropTypes } from 'prop-types';
 
 export class IconLink extends React.Component {
-  constructor(props) {
-    super(props);
+	constructor(props) {
+		super(props);
 
-    this.state = {
-      action: props.action,
-      destination: props.destination,
-      src: props.src,
-      hover: props.hover,
-      isHovering: props.isHovering
-    };
+		this.state = {
+			action: props.action,
+			destination: props.destination,
+			src: props.src,
+			hover: props.hover,
+			isHovering: props.isHovering
+		};
 
-    this.onHover = this.onHover.bind(this);
-  }
+		this.onHover = this.onHover.bind(this);
+	}
 
-  componentWillReceiveProps(nextProps) {
-    if (this.props.src !== nextProps.src) this.setState({ src: nextProps.src });
-    if (this.props.hover !== nextProps.hover) this.setState({ hover: nextProps.hover });
-  }
+	componentWillReceiveProps(nextProps) {
+		if (this.props.src !== nextProps.src) this.setState({ src: nextProps.src });
+		if (this.props.hover !== nextProps.hover) this.setState({ hover: nextProps.hover });
+	}
 
-  onHover(e) {
-    this.setState({ isHovering: !this.state.isHovering });
-  }
+	onHover(e) {
+		this.setState({ isHovering: !this.state.isHovering });
+	}
 
-  /**
-   * Renders this component to the page.
-   *
-   * @return the JSX for this component
-   */
+	/**
+	 * Renders this component to the page.
+	 *
+	 * @return the JSX for this component
+	 */
 
-  render() {
-    return (
-      <Link to={this.state.destination} className="header__admin-icon-group" onClick={this.state.action}>
-        <img src={this.state.isHovering ? this.state.hover : this.state.src} onMouseOver={this.onHover} onMouseOut={this.onHover}/>
-      </Link>
-    );
-  }
+	render() {
+		return (
+			<Link to={this.state.destination} className="header__admin-icon-group" onClick={this.state.action}>
+				<img src={this.state.isHovering ? this.state.hover : this.state.src} onMouseOver={this.onHover} onMouseOut={this.onHover} />
+			</Link>
+		);
+	}
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 IconLink.propTypes = {
-  action: PropTypes.func,
-  destination: PropTypes.string,
-  src: PropTypes.string.isRequired,
-  hover: PropTypes.string.isRequired,
-  isHovering: PropTypes.bool.isRequired
+	action: PropTypes.func,
+	destination: PropTypes.string,
+	src: PropTypes.string.isRequired,
+	hover: PropTypes.string.isRequired,
+	isHovering: PropTypes.bool.isRequired
 };
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 export default createContainer(() => {
-  return {
-    isHovering: false
-  };
+	return {
+		isHovering: false
+	};
 }, IconLink);

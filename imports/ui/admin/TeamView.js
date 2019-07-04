@@ -14,42 +14,42 @@ import TeamList from './TeamList';
 
 export default class TeamView extends React.Component {
 
-  /**
-   * Initializes an EmptyItem component.
-   *
-   * @param props - the properties with which this component is initialized
-   */
+	/**
+	 * Initializes an EmptyItem component.
+	 *
+	 * @param props - the properties with which this component is initialized
+	 */
 
-  constructor(props) {
-    super(props);
+	constructor(props) {
+		super(props);
 
-    this.state = {
-      title: 'Teams'
-    };
-  }
+		this.state = {
+			title: 'Teams'
+		};
+	}
 
-  /**
-   * Renders this component to the page.
-   *
-   * @return the JSX for this component
-   */
+	/**
+	 * Renders this component to the page.
+	 *
+	 * @return the JSX for this component
+	 */
 
-  render() {
-    return (
-      <div>
-        <Header/>
+	render() {
+		return (
+			<div>
+				<Header />
 
-        <div className="private-page-content">
-          <div className="private-page-content__sidebar">
-            <TeamList/>
-          </div>
-          <div className="private-page-content__main">
-            <TeamEditor/>
-          </div>
-        </div>
+				<div className="private-page-content">
+					<div className="private-page-content__sidebar">
+						<TeamList />
+					</div>
+					<div className="private-page-content__main">
+						<TeamEditor />
+					</div>
+				</div>
 
-        <Footer/>
-      </div>
-    );
-  }
+				<Footer />
+			</div>
+		);
+	}
 }

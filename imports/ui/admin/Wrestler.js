@@ -4,66 +4,66 @@ import { Session } from 'meteor/session';
 import { createContainer } from 'meteor/react-meteor-data';
 
 export const Wrestler = (props) => {
-  const convertGrade = (grade) => {
-    if (grade) {
-      switch (grade.toUpperCase()) {
-        case 'K': return 'Kindergarten';
-        case '1': return '1st grade';
-        case '2': return '2nd grade';
-        case '3': return '3rd grade';
-        case '4': case '5': case '6': case '7': case '8': case '9': case '10': case '11': case '12': return grade + 'th grade';
-        default: return null;
-      }
-    }
+	const convertGrade = (grade) => {
+		if (grade) {
+			switch (grade.toUpperCase()) {
+				case 'K': return 'Kindergarten';
+				case '1': return '1st grade';
+				case '2': return '2nd grade';
+				case '3': return '3rd grade';
+				case '4': case '5': case '6': case '7': case '8': case '9': case '10': case '11': case '12': return grade + 'th grade';
+				default: return null;
+			}
+		}
 
-    return null;
-  };
+		return null;
+	};
 
-  const onWrestlerSelect = (e) => {
-    let ids = props.Session.get('multiselectedWrestlerIds');
+	const onWrestlerSelect = (e) => {
+		let ids = props.Session.get('multiselectedWrestlerIds');
 
-    if (e.metaKey) {
-      if (!ids.includes(props.wrestler._id)) {
-        ids.push(props.wrestler._id);             // add to multiselect list
-      }
+		if (e.metaKey) {
+			if (!ids.includes(props.wrestler._id)) {
+				ids.push(props.wrestler._id);             // add to multiselect list
+			}
 
-      if (ids.length === 1) {
-        props.Session.set('selectedWrestlerId', props.wrestler._id)
-      } else {
-        props.Session.set('selectedWrestlerId', undefined);
-      }
-    } else {
-      ids = [];                           // clear multiselect list
-      ids.push(props.wrestler._id);       // add newly selected to list
+			if (ids.length === 1) {
+				props.Session.set('selectedWrestlerId', props.wrestler._id)
+			} else {
+				props.Session.set('selectedWrestlerId', undefined);
+			}
+		} else {
+			ids = [];                           // clear multiselect list
+			ids.push(props.wrestler._id);       // add newly selected to list
 
-      props.Session.set('selectedWrestlerId', props.wrestler._id)
-    }
+			props.Session.set('selectedWrestlerId', props.wrestler._id)
+		}
 
-    props.Session.set('multiselectedWrestlerIds', ids);
-  };
+		props.Session.set('multiselectedWrestlerIds', ids);
+	};
 
-  const className = props.wrestler.selected || props.wrestler.multiselected ? 'item item--selected' : 'item';
-  const subtitlePrimary = props.wrestler.weight ? props.wrestler.weight + ' lbs.' : 'Weight';
-  const subtitleSecondary = convertGrade(props.wrestler.grade);
+	const className = props.wrestler.selected || props.wrestler.multiselected ? 'item item--selected' : 'item';
+	const subtitlePrimary = props.wrestler.weight ? props.wrestler.weight + ' lbs.' : 'Weight';
+	const subtitleSecondary = convertGrade(props.wrestler.grade);
 
-  return (
-    <div id="wrestler" className={className} onClick={onWrestlerSelect}>
-      <div className="item__text">
-        <h5 className="item__title">{props.wrestler.name || 'Unknown Wrestler'}</h5>
-        <p className="item__subtitle">{subtitlePrimary} &middot; {subtitleSecondary || 'Grade'}</p>
-      </div>
-    </div>
-  );
+	return (
+		<div id="wrestler" className={className} onClick={onWrestlerSelect}>
+			<div className="item__text">
+				<h5 className="item__title">{props.wrestler.name || 'Unknown Wrestler'}</h5>
+				<p className="item__subtitle">{subtitlePrimary} &middot; {subtitleSecondary || 'Grade'}</p>
+			</div>
+		</div>
+	);
 };
 
 Wrestler.propTypes = {
-  wrestler: PropTypes.object.isRequired,
-  Session: PropTypes.object.isRequired
+	wrestler: PropTypes.object.isRequired,
+	Session: PropTypes.object.isRequired
 };
 
 export default createContainer(() => {
-  return {
-    Session,
-    isSidebarOpen: Session.get('isSidebarOpen')
-  };
+	return {
+		Session,
+		isSidebarOpen: Session.get('isSidebarOpen')
+	};
 }, Wrestler);

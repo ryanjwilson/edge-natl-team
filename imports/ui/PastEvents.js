@@ -5,19 +5,19 @@ import Header from './Header';
 import EventPictuers from './EventPictures';
 
 export default class PastEvents extends React.Component {
-  render() {
-    return (
-      <div>
-        <Header/>
+	render() {
+		return (
+			<div>
+				<Header />
 
-        <div className="public-page-content">
-          <div className="public-page-content__past-events">
-            <EventPictuers/>
-          </div>
-        </div>
+				<div className="public-page-content">
+					<div className="public-page-content__past-events">
+						<EventPictuers />
+					</div>
+				</div>
 
-        <Footer/>
-      </div>
-    );
-  }
+				<Footer />
+			</div>
+		);
+	}
 }

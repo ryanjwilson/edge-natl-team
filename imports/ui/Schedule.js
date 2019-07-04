@@ -6,20 +6,20 @@ import Footer from './Footer';
 import EventList from './EventList';
 
 export default Schedule = () => {
-  return (
-    <div>
-      <Header/>
+	return (
+		<div>
+			<Header />
 
-      <div className="public-page-content">
-        <div className="public-page-content__tournaments">
-          <EventList/>
-        </div>
-        <div className="public-page-content__application">
-          <Application/>
-        </div>
-      </div>
+			<div className="public-page-content">
+				<div className="public-page-content__tournaments">
+					<EventList />
+				</div>
+				<div className="public-page-content__application">
+					<Application />
+				</div>
+			</div>
 
-      <Footer/>
-    </div>
-  );
+			<Footer />
+		</div>
+	);
 };
