@@ -5,6 +5,7 @@ import { Session } from "meteor/session";
 import Contact from "../ui/Contact";
 import FAQs from "../ui/FAQs";
 import Login from "../ui/admin/Login";
+import MessageView from "../ui/admin/MessageView";
 import NotFound from "../ui/NotFound";
 import PastEvents from "../ui/PastEvents";
 import Schedule from "../ui/Schedule";
@@ -66,6 +67,7 @@ const onChangeGlobal = (prevState, nextState) => {
 			case "tournaments": Session.set("multiselectedTournamentIds", []); break;
 			case "wrestlers": Session.set("multiselectedWrestlerIds", []); break;
 			case "teams": Session.set("multiselectedTeamIds", []); break;
+			case "messages": Session.set("multiselectedMessageIds", []); break;
 		}
 	}
 
@@ -103,6 +105,16 @@ const onEnterTeam = (nextState) => {
 };
 
 /**
+ * Sets the selected Message when the user navigates to the list of Messages.
+ * 
+ * @param {Object} nextState the destination state of the user
+ */
+
+const onEnterMessage = (nextState) => {
+	Session.set("selectedMessageId", nextState.params.messageId);
+};
+
+/**
  * Clears the session variable upon exit.
  */
 
@@ -127,6 +139,14 @@ const onLeaveTeam = () => {
 };
 
 /**
+ * Clears the session variable upon exit.
+ */
+
+const onLeaveMessage = () => {
+	Session.set("selectedMessageId", undefined);
+};
+
+/**
  * Configures the available application routes, as well as their behaviors.
  */
 
@@ -145,6 +165,8 @@ export const routes = (
 			<Route path="/wrestlers/:wrestlerId" component={WrestlerView} privacy="authenticated" onEnter={onEnterWrestler} onLeave={onLeaveWrestler} />
 			<Route path="/teams" component={TeamView} privacy="authenticated" />
 			<Route path="/teams/:teamId" component={TeamView} privacy="authenticated" onEnter={onEnterTeam} onLeave={onLeaveTeam} />
+			<Route path="/messages" component={MessageView} privacy="authenticated" />
+			<Route path="/messages/:messageId" component={MessageView} privacy="authenticated" onEtner={onEnterMessage} onLeave={onLeaveMessage} />
 			<Route path="*" component={NotFound} />
 		</Route>
 	</Router>
