@@ -95,11 +95,11 @@ Meteor.startup(() => {
 	Session.set("selectedTournamentId", undefined);
 	Session.set("selectedWrestlerId", undefined);
 	Session.set("selectedTeamId", undefined);
-	//Session.set("selectedMessageId", undefined);
+	Session.set("selectedMessageId", undefined);
 	Session.set("multiselectedTournamentIds", []);
 	Session.set("multiselectedWrestlerIds", []);
 	Session.set("multiselectedTeamIds", []);
-	//Session.set("multiselectedMessageIds", []);
+	Session.set("multiselectedMessageIds", []);
 
 	/*
 	 * Clear (or provide default values for) session variables that govern list filtering.
@@ -114,6 +114,8 @@ Meteor.startup(() => {
 	Session.set("selectedTeamDivisionFilter", undefined);               // team view, division selected from dropdown menu
 	Session.set("selectedTeamTournamentModalFilter", undefined);        // team view, tournament selected from the modal dropdown menu
 	Session.set("selectedTeamDivisionNidakFilter", undefined);          // team view, division selected from the modal dropdown menu
+	Session.set("showAnsweredFilter", true);							// message view: messages that have been answered
+	Session.set("showUnansweredFilter", true);							// message view: messages that haven't yet been answered
 
 	/**
 	 * @todo add this to wrestler view, before team view?
