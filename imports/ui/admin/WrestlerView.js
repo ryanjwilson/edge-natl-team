@@ -6,24 +6,34 @@ import WrestlerEditor from "./WrestlerEditor";
 import WrestlerList from "./WrestlerList";
 
 /**
- * A component that represents all Wrestler-related components, which includes the WrestlerList (of Wrestlers) and WrestlerEditor.
+ * A component that represents all Wrestler-related components, which includes the WrestlerList and WrestlerEditor.
  */
 
-export default WrestlerView = () => {
-	return (
-		<div>
-			<Header />
+export default class WrestlerView extends React.Component {
+	constructor(props) {
+		super(props);
 
-			<div className="private-page-content">
-				<div className="private-page-content__sidebar">
-					<WrestlerList />
+		this.state = {
+			title: "Wrestlers"
+		};
+	}
+
+	render() {
+		return (
+			<div>
+				<Header />
+
+				<div className="private-page-content">
+					<div className="private-page-content__sidebar">
+						<WrestlerList />
+					</div>
+					<div className="private-page-content__main">
+						<WrestlerEditor />
+					</div>
 				</div>
-				<div className="private-page-content__main">
-					<WrestlerEditor />
-				</div>
+
+				<Footer />
 			</div>
-
-			<Footer />
-		</div>
-	);
-};
+		);
+	}
+}
