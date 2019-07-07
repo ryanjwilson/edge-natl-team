@@ -3,7 +3,11 @@ import { createContainer } from "meteor/react-meteor-data";
 import { PropTypes } from "prop-types";
 
 /**
- * A placeholder item for an empty list (i.e., TournamentList, WrestlerList, TeamList).
+ * A placeholder component for an empty list.
+ * 		- MessageList
+ * 		- TeamList
+ * 		- TournamentList
+ * 		- WrestlerList
  */
 
 export class EmptyItem extends React.Component {
