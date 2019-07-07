@@ -90,9 +90,11 @@ MessageEditor.propTypes = {
  */
 
 export default createContainer(() => {
+	const selectedMessageId = Session.get("selectedMessageId");
+
 	return {
 		message: Messages.findOne(selectedMessageId),
-		selectedMessageId: Session.get("selectedMessageId"),
+		selectedMessageId,
 		browserHistory
 	};
 }, MessageEditor);

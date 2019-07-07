@@ -250,9 +250,11 @@ TournamentEditor.propTypes = {
  */
 
 export default createContainer(() => {
+	const selectedTournamentId = Session.get("selectedTournamentId");
+
 	return {
 		tournament: Tournaments.findOne(selectedTournamentId),
-		selectedTournamentId: Session.get("selectedTournamentId"),
+		selectedTournamentId,
 		browserHistory
 	};
 }, TournamentEditor);

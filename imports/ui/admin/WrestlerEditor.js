@@ -337,9 +337,11 @@ WrestlerEditor.propTypes = {
  */
 
 export default createContainer(() => {
+	const selectedWrestlerId = Session.get("selectedWrestlerId");
+
 	return {
 		wrestler: Wrestlers.findOne(selectedWrestlerId),
-		selectedWrestlerId: Session.get("selectedWrestlerId"),
+		selectedWrestlerId,
 		browserHistory
 	};
 }, WrestlerEditor);

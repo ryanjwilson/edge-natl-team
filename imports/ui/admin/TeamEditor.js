@@ -172,9 +172,11 @@ TeamEditor.propTypes = {
  */
 
 export default createContainer(() => {
+	const selectedTeamId = Session.get("selectedTeamId");
+
 	return {
 		team: Teams.findOne(selectedTeamId),
-		selectedTeamId: Session.get("selectedTeamId"),
+		selectedTeamId,
 		browserHistory
 	};
 }, TeamEditor);
