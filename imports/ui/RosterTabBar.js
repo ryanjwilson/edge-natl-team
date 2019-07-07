@@ -57,6 +57,7 @@ export class RosterTabBar extends React.Component {
  */
 
 RosterTabBar.propTypes = {
+	isSidebarOpen: PropTypes.bool,
 	tabs: PropTypes.array.isRequired,
 	selectedTab: PropTypes.number
 };
