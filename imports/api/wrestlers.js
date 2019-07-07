@@ -21,7 +21,7 @@ Meteor.methods({
 	/**
 	 * Inserts a new Wrestler into the Collection.
 	 *
-	 * @return the unqiue identifier of the inserted document
+	 * @returns the unqiue identifier of the inserted document
 	 */
 
 	"wrestlers.insert"() {

@@ -20,22 +20,46 @@ Meteor.methods({
 	/**
 	 * Inserts a new Message into the Collection.
 	 *
-	 * @param {string} messageId the message identifier
-	 * @returns {string} the unqiue identifier of the inserted document
+	 * @returns the unqiue identifier of the inserted document
 	 */
 
-	"messages.insert"(messageId) {
+	"messages.insert"() {
 		if (!this.userId) {
 			throw new Meteor.Error("not-authorized");
 		}
 
 		return Messages.insert({
-            sender: "",
-            email: "",
-            phone: "",
-            body: "",
-			responded: false,
-			userId: this.userId,
+			sender: "",
+			email: "",
+			phone: "",
+			body: "",
+			answered: false,
+			updatedAt: moment().valueOf()
+		});
+	},
+
+	/**
+	 * Inserts a new Message into the Collection.
+	 *
+	 * @param values the values submitted through the contact form
+	 * @returns the unqiue identifier of the inserted document
+	 */
+
+	"messages.submit"(values) {
+		new SimpleSchema({
+			sender: { type: String },
+            email: { type: String },
+            phone: { type: String },
+            body: { type: String },
+            answered: { type: Boolean, required: true },
+		}, { requiredByDefault: false }).validate({ ...values });
+
+		return Messages.insert({
+			sender: values.sender,
+			email: values.email,
+			phone: values.phone,
+			body: values.body,
+			answered: false,
 			updatedAt: moment().valueOf()
 		});
 	},
@@ -55,7 +79,7 @@ Meteor.methods({
 			_id: { type: String, min: 1 }
 		}).validate({ _id });
 
-		Messages.remove({ _id, userId: this.userId });
+		Messages.remove({ _id });
 	},
 
 	/**
@@ -76,10 +100,10 @@ Meteor.methods({
             email: { type: String },
             phone: { type: String },
             body: { type: String },
-            responded: { type: Boolean, required: true },
+            answered: { type: Boolean, required: true },
 		}, { requiredByDefault: false }).validate({ _id, ...updates });
 
-		Messages.update({ _id, userId: this.userId }, {
+		Messages.update({ _id }, {
 			$set: { updatedAt: moment().valueOf(), ...updates }
 		});
 	}
