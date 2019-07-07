@@ -11,64 +11,114 @@ import { Wrestlers } from "../../api/wrestlers";
 
 /**
  * A component that renders a list of Wrestlers.
- * 
- * @param {Object} props the properties passed into this component
  */
 
-export const WrestlerList = (props) => {
-	if (props.wrestlers) {
-		const staleIds = Session.get("multiselectedWrestlerIds");   // current ids in multiselect list
+export class WrestlerList extends React.Component {
+	constructor(props) {
+		super(props);
 
-		// after filter wrestlers, we need to refresh the list of multiselected wrestlers.
-		// this prevents users from accidentally deleting a wrestler that was previously selected,
-		// but is no longer visible (i.e., filtered out);
+		this.state = {
+			wrestlers: props.wrestlers
+		};
 
+		refreshWrestlerIds(props.wrestlers);
+	}
+
+	componentWillReceiveProps(nextProps) {
+		if (this.props.wrestlers.length !== nextProps.wrestlers.length) {
+			this.setState({ wrestlers: nextProps.wrestlers });
+		} else {
+			this.props.wrestlers.some((wrestler, index) => {
+				if (!isEquivalent(wrestler, nextProps.wrestlers[index])) {
+					this.setState({ wrestlers: nextProps.wrestlers });
+					return true;
+				}
+			});
+		}
+
+		refreshWrestlerIds(nextProps.wreslters);
+	}
+
+	render() {
+		return (
+			<div className="container container__item-list">
+				<div className="container__header container__item-list-header">
+					<h5 className="container__title">Wrestlers</h5>
+				</div>
+	
+				<div className="item-list">
+					<WrestlerListHeader />
+	
+					{this.state.wrestlers.length === 0 ? <EmptyItem label="Wrestlers" /> : undefined}
+					{this.state.wrestlers.map((wrestler) => {
+						return <Wrestler key={wrestler._id} wrestler={wrestler} />;
+					})}
+				</div>
+			</div>
+		);
+	}
+}
+
+/**
+ * Refreshes the Session variables responsible for storing which wrestlers are currently selected. This is done to
+ * reflect changes in list filtering.
+ *
+ * @param wrestlers the original list of wrestlers before filtering
+ */
+
+const refreshWrestlerIds = (wrestlers) => {
+	if (wrestlers) {
 		let freshIds = [];
-		props.wrestlers.forEach((wrestler) => {
+		const staleIds = Session.get("multiselectedWrestlerIds");
+
+		wrestlers.forEach((wrestler) => {
 			if (staleIds.includes(wrestler._id)) {
 				freshIds.push(wrestler._id);
 			}
 		});
-
-		// reset the selected wrestler(s).
 
 		if (freshIds.length === 1) {
 			Session.set("selectedWrestlerId", freshIds[0]);
 		}
 		Session.set("multiselectedWrestlerIds", freshIds);
 
-		// automatically updated the selected wrestler
-		//		undefined if the wrestler list is empty
-		//		the first and only wrestler in the list
-		//		whichever wrestler is marked as selected
-
-		if (props.wrestlers.length === 0) {
+		if (wrestlers.length === 0) {
 			Session.set("selectedWrestlerId", undefined);
-		} else if (props.wrestlers.length === 1) {
-			Session.set("selectedWrestlerId", props.wrestlers[0]._id);
+		} else if (wrestlers.length === 1) {
+			Session.set("selectedWrestlerId", wrestlers[0]._id);
 		} else {
-			if (props.wrestlers.filter((wrestler) => wrestler._id === Session.get("selectedWrestlerId")).length === 0) {
+			if (wrestlers.filter((wrestler) => wrestler._id === Session.get("selectedWrestlerId")).length === 0) {
 				Session.set("selectedWrestlerId", undefined);
 			}
 		}
 	}
+};
 
-	return (
-		<div className="container container__item-list">
-			<div className="container__header container__item-list-header">
-				<h5 className="container__title">Wrestlers</h5>
-			</div>
+/**
+ * Determines if two wrestlers are logically equivalent.
+ *
+ * @param prevWrestler the previous wrestler
+ * @param nextWrestler the next wrestler
+ * @returns true if the wrestlers are logically equivalent; false otherwise
+ */
 
-			<div className="item-list">
-				<WrestlerListHeader />
+const isEquivalent = (prevWrestler, nextWrestler) => {
+	const prevProps = Object.getOwnPropertyNames(prevWrestler);
+	const nextProps = Object.getOwnPropertyNames(nextWrestler);
 
-				{props.wrestlers.length === 0 ? <EmptyItem label="Wrestlers" /> : undefined}
-				{props.wrestlers.map((wrestler) => {
-					return <Wrestler key={wrestler._id} wrestler={wrestler} />;
-				})}
-			</div>
-		</div>
-	);
+	if (prevProps.length !== nextProps.length) {
+		return false;
+	}
+
+	for (let i = 0; i < prevProps.length; i++) {
+		const propName = prevProps[i];
+
+		if (prevWrestler[propName] !== nextWrestler[propName]) {
+			return false;
+		}
+	}
+
+	return true;
 };
 
 /**
@@ -91,6 +141,9 @@ export default createContainer(() => {
 	const selectedTournamentFilter = Session.get("selectedTournamentFilter");
 	const selectedDivisionFilter = Session.get("selectedDivisionFilter");
 	const selectedWeightClassFilter = Session.get("selectedWeightClassFilter");
+
+	// conditionally query the wrestlers collection based on the filter
+	// selections made by the user.
 
 	if (selectedTournamentFilter && selectedDivisionFilter && selectedWeightClassFilter) {
 		return {
