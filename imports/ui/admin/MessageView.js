@@ -6,7 +6,7 @@ import MessageEditor from "./MessageEditor";
 import MessageList from "./MessageList";
 
 /**
- * A component that represents all Message-related components, which includes the MessageList (of Messages) and MessageEditor.
+ * A component that represents all Message-related components, which includes the MessageList and MessageEditor.
  */
 
 export default class MessageView extends React.Component {

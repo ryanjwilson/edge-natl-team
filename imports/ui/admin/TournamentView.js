@@ -6,7 +6,7 @@ import TournamentEditor from "./TournamentEditor";
 import TournamentList from "./TournamentList";
 
 /**
- * A component that represents all Tournament-related components, which includes the TournamentList (of Tournaments) and TournamentEditor.
+ * A component that represents all Tournament-related components, which includes the TournamentList and TournamentEditor.
  */
 
 export default class TournamentView extends React.Component {

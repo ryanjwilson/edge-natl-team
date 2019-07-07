@@ -6,7 +6,7 @@ import TeamEditor from "./TeamEditor";
 import TeamList from "./TeamList";
 
 /**
- * A component that represents all Team-related components, which includes the TeamList (of Teams) and TeamEditor.
+ * A component that represents all Team-related components, which includes the TeamList and TeamEditor.
  */
 
 export default class TeamView extends React.Component {
