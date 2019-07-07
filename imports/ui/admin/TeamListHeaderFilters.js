@@ -66,14 +66,14 @@ export class TeamListHeaderFilters extends React.Component {
 		const divisions = getDivisions(this.state.tournaments, selectedTournament);
 
 		this.setState({ divisions, selectedTournament, selectedDivision: "", selectedWeightClass: "" });
-		this.props.Session.set("selectedTeamTournamentModalFilter", selectedTournament);
+		Session.set("selectedTeamTournamentModalFilter", selectedTournament);
 	}
 
 	onDivisionSelect(e) {
 		const selectedDivision = (e.target.value.length > 0 ? e.target.value : undefined);
 
 		this.setState({ selectedDivision });
-		this.props.Session.set("selectedTeamDivisionModalFilter", selectedDivision);
+		Session.set("selectedTeamDivisionModalFilter", selectedDivision);
 	}
 
 	render() {
@@ -153,7 +153,6 @@ TeamListHeaderFilters.propTypes = {
 	divisions: PropTypes.array.isRequired,
 	selectedTournament: PropTypes.string,
 	selectedDivision: PropTypes.string,
-	Session: PropTypes.object.isRequired
 };
 
 /**
@@ -165,14 +164,11 @@ export default createContainer(() => {
 
 	const tournaments = getTournaments();
 	const divisions = getDivisions(tournaments, undefined);
-	const selectedTournament = Session.get("selectedTeamTournamentModalFilter");
-	const selectedDivision = Session.get("selectedTeamDivisionModalFilter");
 
 	return {
 		tournaments,
 		divisions,
-		selectedTournament,
-		selectedDivision,
-		Session
+		selectedTournament: Session.get("selectedTeamTournamentModalFilter"),
+		selectedDivision: Session.get("selectedTeamDivisionModalFilter")
 	};
 }, TeamListHeaderFilters);
