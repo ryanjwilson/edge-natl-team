@@ -107,7 +107,7 @@ export class TournamentListHeader extends React.Component {
 const showInvalidSelectionAlert = (action, color, css) => {
 	swal({
 		titleText: "No Tournament Selected",
-		html: "<div class=\"swal-modal-text\">You'll need to select at least one Tournament to \" + action + \".</div>",
+		html: "<div class=\"swal-modal-text\">You'll need to select at least one Tournament to " + action + ".</div>",
 		type: "info",
 		confirmButtonColor: color,
 		confirmButtonClass: css,
@@ -129,7 +129,7 @@ const showInvalidSelectionAlert = (action, color, css) => {
 const showConfirmationAlert = (action, tournamentIds, text, css, color, published) => {
 	swal({
 		titleText: "Are you sure?",
-		html: "<div class=\"swal-modal-text\">You're about to \" + action + \" \" + tournamentIds.length + (tournamentIds.length > 1 ? \" Tournaments.\" : \" Tournament.\") + \"</div>",
+		html: "<div class=\"swal-modal-text\">You're about to " + action + " " + tournamentIds.length + (tournamentIds.length > 1 ? " Tournaments." : " Tournament.") + "</div>",
 		type: "warning",
 		showCancelButton: true,
 		cancelButtonClass: "modal-button button--cancel",
@@ -156,7 +156,7 @@ const showConfirmationAlert = (action, tournamentIds, text, css, color, publishe
 const showDeletionAlert = (tournamentIds) => {
 	swal({
 		titleText: "Are you sure?",
-		html: "<div class=\"swal-modal-text\">You're about to delete \" + tournamentIds.length + (tournamentIds.length > 1 ? \" Tournaments.\" : \" Tournament.\") + \"</div>",
+		html: "<div class=\"swal-modal-text\">You're about to delete " + tournamentIds.length + (tournamentIds.length > 1 ? " Tournaments." : " Tournament.") + "</div>",
 		type: "warning",
 		showCancelButton: true,
 		cancelButtonClass: "modal-button button--cancel",

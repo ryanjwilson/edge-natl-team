@@ -46,7 +46,7 @@ export class WrestlerListHeader extends React.Component {
 		} else {
 			swal({
 				titleText: "Are you sure?",
-				html: "<div class=\"swal-modal-text\">You're about to delete \" + wrestlerIds.length + (wrestlerIds.length > 1 ? \" Wrestlers.\" : \" Wrestler.\") + \"</div>",
+				html: "<div class=\"swal-modal-text\">You're about to delete " + wrestlerIds.length + (wrestlerIds.length > 1 ? " Wrestlers." : " Wrestler.") + "</div>",
 				type: "warning",
 				showCancelButton: true,
 				cancelButtonClass: "modal-button button--cancel",

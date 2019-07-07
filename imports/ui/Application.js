@@ -339,7 +339,7 @@ export class Application extends React.Component {
 				if (result) {
 					this.onShowConfirmationModal();
 				} else if (error) {
-
+					// show error dialog
 				}
 			});
 		} else {
