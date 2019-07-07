@@ -4,7 +4,7 @@ import { PropTypes } from "prop-types";
 import { Session } from "meteor/session";
 
 /**
- * A component that provides filters that allow the user to customize the Tournaments that appear in the TournamentList.
+ * A component that provides filters allowing the user to customize the Messages that appear in the MessageList.
  */
 
 export class MessageListFilters extends React.Component {
@@ -69,11 +69,8 @@ MessageListFilters.propTypes = {
  */
 
 export default createContainer(() => {
-	const showAnswered = Session.get("showAnsweredFilter");
-	const showUnanswered = Session.get("showUnansweredFilter");
-
 	return {
-		showAnswered,
-		showUnanswered
+		showAnswered: Session.get("showAnsweredFilter"),
+		showUnanswered: Session.get("showUnansweredFilter")
 	};
 }, MessageListFilters);

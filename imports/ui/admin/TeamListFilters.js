@@ -7,7 +7,7 @@ import { Session } from "meteor/session";
 import { Tournaments } from "../../api/tournaments";
 
 /**
- * A component that represnts filter options for a TeamList.
+ * A component that provides filters allowing the user to customize the Teams that appear in the TeamList.
  */
 
 export class TeamListFilters extends React.Component {
@@ -66,14 +66,14 @@ export class TeamListFilters extends React.Component {
 		const divisions = getDivisions(this.state.tournaments, selectedTournament);
 
 		this.setState({ divisions, selectedTournament, selectedDivision: "", selectedWeightClass: "" });
-		this.props.Session.set("selectedTeamTournamentFilter", selectedTournament);
+		Session.set("selectedTeamTournamentFilter", selectedTournament);
 	}
 
 	onDivisionSelect(e) {
 		const selectedDivision = (e.target.value.length > 0 ? e.target.value : undefined);
 
 		this.setState({ selectedDivision });
-		this.props.Session.set("selectedTeamDivisionFilter", selectedDivision);
+		Session.set("selectedTeamDivisionFilter", selectedDivision);
 	}
 
 	render() {
@@ -104,7 +104,7 @@ export class TeamListFilters extends React.Component {
 
 /**
  * Retrieves a list of published tournaments.
- * 
+ *
  * @returns a list of tournaments
  */
 
@@ -116,7 +116,7 @@ const getTournaments = () => {
 
 /**
  * Retrieves a list of divisions for a specific tournament.
- * 
+ *
  * @param {Array} tournaments a list of tournaments
  * @param {string} selectedTournament the unique identifier of the selected tournament
  * @returns a list of divisions
@@ -152,8 +152,7 @@ TeamListFilters.propTypes = {
 	tournaments: PropTypes.array.isRequired,
 	divisions: PropTypes.array.isRequired,
 	selectedTournament: PropTypes.string,
-	selectedDivision: PropTypes.string,
-	Session: PropTypes.object.isRequired
+	selectedDivision: PropTypes.string
 };
 
 /**
@@ -165,14 +164,11 @@ export default createContainer(() => {
 
 	const tournaments = getTournaments();
 	const divisions = getDivisions(tournaments, undefined);
-	const selectedTournament = Session.get("selectedTeamTournamentFilter");
-	const selectedDivision = Session.get("selectedTeamDivisionFilter");
 
 	return {
 		tournaments,
 		divisions,
-		selectedTournament,
-		selectedDivision,
-		Session
+		selectedTournament: Session.get("selectedTeamTournamentFilter"),
+		selectedDivision: Session.get("selectedTeamDivisionFilter")
 	};
 }, TeamListFilters);

@@ -7,7 +7,7 @@ import { Session } from "meteor/session";
 import { Tournaments } from "../../api/tournaments";
 
 /**
- * A component that provides filters that allow the user to customize the Wrestlers that appear in the WrestlerList.
+ * A component that provides filters allowing the user to customize the Wrestlers that appear in the WrestlerList.
  */
 
 export class WrestlerListFilters extends React.Component {
@@ -86,7 +86,7 @@ export class WrestlerListFilters extends React.Component {
 		const weightClasses = getWeightClasses(this.state.tournaments, selectedTournament, undefined);
 
 		this.setState({ divisions, weightClasses, selectedTournament, selectedDivision: "", selectedWeightClass: "" });
-		this.props.Session.set("selectedTournamentFilter", selectedTournament);
+		Session.set("selectedTournamentFilter", selectedTournament);
 	}
 
 	onDivisionSelect(e) {
@@ -94,14 +94,14 @@ export class WrestlerListFilters extends React.Component {
 		const weightClasses = getWeightClasses(this.state.tournaments, this.state.selectedTournament, selectedDivision);
 
 		this.setState({ weightClasses, selectedDivision, selectedWeightClass: "" });
-		this.props.Session.set("selectedDivisionFilter", selectedDivision);
+		Session.set("selectedDivisionFilter", selectedDivision);
 	}
 
 	onWeightClassSelect(e) {
 		const selectedWeightClass = (e.target.value.length > 0 ? e.target.value : undefined);
 
 		this.setState({ selectedWeightClass });
-		this.props.Session.set("selectedWeightClassFilter", selectedWeightClass);
+		Session.set("selectedWeightClassFilter", selectedWeightClass);
 	}
 
 	render() {
@@ -141,7 +141,7 @@ export class WrestlerListFilters extends React.Component {
 
 /**
  * Retrieves a list of published tournaments.
- * 
+ *
  * @returns a list of tournaments
  */
 
@@ -153,7 +153,7 @@ const getTournaments = () => {
 
 /**
  * Retrieves a list of divisions for a specific tournament.
- * 
+ *
  * @param {Array} tournaments a list of tournaments
  * @param {string} selectedTournament the unique identifier of the selected tournament
  * @returns a list of divisions
@@ -183,7 +183,7 @@ const getDivisions = (tournaments, selectedTournament) => {
 
 /**
  * Retrieves a list of weight classes for the specified tournament and division.
- * 
+ *
  * @param {Array} tournaments a list of tournaments
  * @param {string} selectedTournament the unique identifier of the selected tournament
  * @param {string} selectedDivision the name of the selected division
@@ -216,7 +216,7 @@ const getWeightClasses = (tournaments, selectedTournament, selectedDivision) => 
 
 /**
  * Determines whether a specific weight class is unique.
- * 
+ *
  * @param {number} value the weight class
  * @param {number} index the index of the weight class
  * @param {Array} self the list of weight classes
@@ -229,7 +229,7 @@ const isUnique = (value, index, self) => {
 
 /**
  * Compares two values for the purpose of sorting.
- * 
+ *
  * @param {*} a the first value
  * @param {*} b the second value
  * @returns an integer value that is used to determine the sorted order
@@ -249,8 +249,7 @@ WrestlerListFilters.propTypes = {
 	weightClasses: PropTypes.array.isRequired,
 	selectedTournament: PropTypes.string,
 	selectedDivision: PropTypes.string,
-	selectedWeightClass: PropTypes.string,
-	Session: PropTypes.object.isRequired
+	selectedWeightClass: PropTypes.string
 };
 
 /**
@@ -263,17 +262,13 @@ export default createContainer(() => {
 	const tournaments = getTournaments();
 	const divisions = getDivisions(tournaments, undefined);
 	const weightClasses = getWeightClasses(tournaments, undefined, undefined);
-	const selectedTournament = Session.get("selectedTournamentFilter");
-	const selectedDivision = Session.get("selectedDivisionFilter");
-	const selectedWeightClass = Session.get("selectedWeightClassFilter");
 
 	return {
 		tournaments,
 		divisions,
 		weightClasses,
-		selectedTournament,
-		selectedDivision,
-		selectedWeightClass,
-		Session
+		selectedTournament: Session.get("selectedTournamentFilter"),
+		selectedDivision: Session.get("selectedDivisionFilter"),
+		selectedWeightClass: Session.get("selectedWeightClassFilter")
 	};
 }, WrestlerListFilters);
