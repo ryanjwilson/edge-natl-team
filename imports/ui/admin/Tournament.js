@@ -4,7 +4,7 @@ import { PropTypes } from "prop-types";
 import { Session } from "meteor/session";
 
 /**
- * A component that represents a single item in the TournamentList.
+ * A component that represents a single Tournament in the TournamentList.
  */
 
 export class Tournament extends React.Component {
