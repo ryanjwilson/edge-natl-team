@@ -2,6 +2,10 @@ import React from "react";
 import { createContainer } from "meteor/react-meteor-data";
 import { Link } from "react-router";
 
+/**
+ * A component that renderes team rules and expectations.
+ */
+
 export class Rules extends React.Component {
 	constructor(props) {
 		super(props);
