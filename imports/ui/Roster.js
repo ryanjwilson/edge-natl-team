@@ -74,7 +74,8 @@ export class Roster extends React.Component {
 
 Roster.propTypes = {
 	team: PropTypes.object,
-	isLastRoster: PropTypes.bool.isRequired
+	isLastRoster: PropTypes.bool.isRequired,
+	isSidebarOpen: PropTypes.bool
 };
 
 /**
