@@ -24,12 +24,12 @@ export class Login extends React.Component {
 	onSubmit(e) {
 		e.preventDefault();
 
-		let username = this.refs.username.value.trim();
-		let password = this.refs.password.value.trim();
+		const username = this.refs.username.value.trim();
+		const password = this.refs.password.value.trim();
 
-		this.props.loginWithPassword({ username }, password, (err) => {
-			if (err) {
-				this.setState({ error: "Oops! We didn\"t recognize your username and/or password." });
+		Meteor.loginWithPassword({ username }, password, (error) => {
+			if (error) {
+				this.setState({ error: "Oops! We didn't recognize your username and/or password." });
 			} else {
 				this.setState({ error: "" });
 			}
@@ -65,19 +65,11 @@ export class Login extends React.Component {
 }
 
 /**
- * Property types for this component.
- */
-
-Login.propTypes = {
-	loginWithPassword: PropTypes.func.isRequired
-};
-
-/**
  * Containerizes this component.
  */
 
 export default createContainer(() => {
 	return {
-		loginWithPassword: Meteor.loginWithPassword
+		
 	};
 }, Login);
