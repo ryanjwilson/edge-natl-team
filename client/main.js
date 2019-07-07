@@ -26,6 +26,7 @@ Tracker.autorun(() => {
 	const selectedTournamentId = Session.get("selectedTournamentId");
 	const selectedWrestlerId = Session.get("selectedWrestlerId");
 	const selectedTeamId = Session.get("selectedTeamId");
+	const selectedMessageId = Session.get("selectedMessageId");
 
 	Session.set("isNavigationOpen", false);       // prevents admin sidebar panel animation on browser refresh
 	Session.set("isMenuOpen", false);             // prevents admin menu animation on browser refresh
@@ -40,6 +41,8 @@ Tracker.autorun(() => {
 		browserHistory.replace(`/wrestlers/${selectedWrestlerId}`);
 	} else if (selectedTeamId) {
 		browserHistory.replace(`/teams/${selectedTeamId}`);
+	} else if (selectedMessageId) {
+		browserHistory.replace(`/messages/${selectedMessageId}`);
 	} else {
 		if (this.location.pathname.includes("/tournaments")) {
 			browserHistory.replace("/tournaments");
