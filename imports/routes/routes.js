@@ -166,7 +166,7 @@ export const routes = (
 			<Route path="/teams" component={TeamView} privacy="authenticated" />
 			<Route path="/teams/:teamId" component={TeamView} privacy="authenticated" onEnter={onEnterTeam} onLeave={onLeaveTeam} />
 			<Route path="/messages" component={MessageView} privacy="authenticated" />
-			<Route path="/messages/:messageId" component={MessageView} privacy="authenticated" onEtner={onEnterMessage} onLeave={onLeaveMessage} />
+			<Route path="/messages/:messageId" component={MessageView} privacy="authenticated" onEnter={onEnterMessage} onLeave={onLeaveMessage} />
 			<Route path="*" component={NotFound} />
 		</Route>
 	</Router>
