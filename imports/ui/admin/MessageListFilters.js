@@ -1,13 +1,10 @@
-import { Meteor } from "meteor/meteor";
 import React from "react";
 import { createContainer } from "meteor/react-meteor-data";
 import { PropTypes } from "prop-types";
 import { Session } from "meteor/session";
 
-import { Messages } from "../../api/messages";
-
 /**
- * A component that represnts filter options for a MessageList.
+ * A component that provides filters that allow the user to customize the Tournaments that appear in the TournamentList.
  */
 
 export class MessageListFilters extends React.Component {
@@ -15,8 +12,8 @@ export class MessageListFilters extends React.Component {
 		super(props);
 
 		this.state = {
-            showPublished: true,
-			showUnpublished: true
+			showAnswered: true,
+			showUnanswered: true
 		};
 
 		this.toggleAnswered = this.toggleAnswered.bind(this);
@@ -57,18 +54,6 @@ export class MessageListFilters extends React.Component {
 		);
 	}
 }
-
-/**
- * Retrieves a list of answered messages.
- * 
- * @returns a list of messages
- */
-
-const getMessages = () => {
-	return Messages.find({ answered: true }).fetch().map((message) => {
-		return { ...message };
-	});
-};
 
 /**
  * Property types for this component.

@@ -2,7 +2,7 @@ import React from "react";
 
 import Footer from "../Footer";
 import Header from "../Header";
-import TeamEditor from "./TeamEditor";
+import MessageEditor from "./MessageEditor";
 import MessageList from "./MessageList";
 
 /**
@@ -28,7 +28,7 @@ export default class MessageView extends React.Component {
 						<MessageList />
 					</div>
 					<div className="private-page-content__main">
-						<TeamEditor />
+						<MessageEditor />
 					</div>
 				</div>
 

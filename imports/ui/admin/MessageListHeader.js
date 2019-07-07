@@ -2,7 +2,6 @@ import { Meteor } from "meteor/meteor";
 import React from "react";
 import { browserHistory } from "react-router";
 import { createContainer } from "meteor/react-meteor-data";
-import Modal from "react-modal";
 import { PropTypes } from "prop-types";
 import { Session } from "meteor/session";
 import swal from "sweetalert2";
@@ -10,19 +9,45 @@ import swal from "sweetalert2";
 import MessageListFilters from "./MessageListFilters";
 
 /**
- * A component that represents a fixture above the MessageList. It contains buttons deleting one or more Message, as
- * well as the MessageListFilters.
+ * A component that represents a fixture above the TournamentList. It contains buttons for adding, showing, hiding, and
+ * deleting one or more Tournaments, as well as the TournamentListFilters.
  */
 
 export class MessageListHeader extends React.Component {
 	constructor(props) {
 		super(props);
 
-		this.state = {
-			isAddModalOpen: false
-		};
-
+		this.onMarkAnswered = this.onMarkAnswered.bind(this);
+		this.onMarkUnanswered = this.onMarkUnanswered.bind(this);
 		this.onDeleteMessages = this.onDeleteMessages.bind(this);
+	}
+
+	onMarkAnswered() {
+		let messageIds = Session.get("multiselectedMessageIds");
+
+		if (messageIds.length === 0 && Session.get("selectedMessageId")) {
+			messageIds.push(Session.get("selectedMessageId"));
+		}
+
+		if (messageIds.length === 0) {
+			showInvalidSelectionAlert("answered", "#5a5a5a", "modal-button button--unpublish");
+		} else {
+			showAnsweredDialog("answered", messageIds, "Mark as Answered", "modal-button button--publish", "#2e8b57", true)
+		}
+	}
+
+	onMarkUnanswered() {
+		let messageIds = Session.get("multiselectedMessageIds");
+
+		if (messageIds.length === 0 && Session.get("selectedMessageId")) {
+			messageIds.push(Session.get("selectedMessageId"));
+		}
+
+		if (messageIds.length === 0) {
+			showInvalidSelectionAlert("unanswered", "#5a5a5a", "modal-button button--unpublish");
+		} else {
+			showAnsweredDialog("unanswered", messageIds, "Mark as Unanswered", "modal-button button--unpublish", "#5a5a5a", false)
+		}
 	}
 
 	onDeleteMessages() {
@@ -33,7 +58,7 @@ export class MessageListHeader extends React.Component {
 		}
 
 		if (messageIds.length === 0) {
-			showInvalidSelectionAlert("unpublish", "#e64942", "modal-button button--unpublish");
+			showInvalidSelectionAlert("delete", "#e64942", "modal-button button--unpublish");
 		} else {
 			showDeletionAlert(messageIds);
 		}
@@ -42,15 +67,19 @@ export class MessageListHeader extends React.Component {
 	render() {
 		return (
 			<div className="item-list__header">
-				<button className="button--remove" onClick={this.onDeleteMessages}>Delete Message</button>
-                <MessageListFilters />
+				<div className="multiselect-group three">
+					<button className="button button--publish" onClick={this.onMarkAnswered}>Answered</button>
+					<button className="button button--unpublish" onClick={this.onMarkUnanswered}>Unanswered</button>
+					<button className="button button--delete" onClick={this.onDeleteMessages}>Delete</button>
+				</div>
+				<MessageListFilters />
 			</div>
 		);
 	}
 }
 
 /**
- * Shows an alert dialog informing the user that they haven"t selected any Messages from the MessageList.
+ * Shows an alert dialog informing the user that they haven"t selected any Tournaments from the TournamentList.
  *
  * @param action the action the user is attemping to perform
  * @param color the button color associated with the attempted action
@@ -60,7 +89,7 @@ export class MessageListHeader extends React.Component {
 const showInvalidSelectionAlert = (action, color, css) => {
 	swal({
 		titleText: "No Message Selected",
-		html: "<div class=\"swal-modal-text\">You'll need to select at least one Message to \" + action + \".</div>",
+		html: "<div class=\"swal-modal-text\">You'll need to select at least one Message to mark as " + action + ".</div>",
 		type: "info",
 		confirmButtonColor: color,
 		confirmButtonClass: css,
@@ -69,15 +98,47 @@ const showInvalidSelectionAlert = (action, color, css) => {
 };
 
 /**
- * Shows a confirmation dialog warning the user that they are about to delete one or more Message from the MessageList.
+ * Shows a confirmation dialog warning the user that they are about to show or hide one or more Tournaments to the public schedule.
  *
- * @param messageIds the messages the user is going to delete
+ * @param action the action the user is attemping to perform
+ * @param messageIds the messages the user is going to mark as answered or unanswered
+ * @param text the button text associated with the attempted action
+ * @param css the css associated with the attempted action
+ * @param color the button color associated with the attempted action
+ * @param anwered true for answered actions; false for unanswered actions
+ */
+
+const showAnsweredDialog = (action, messageIds, text, css, color, answered) => {
+	swal({
+		titleText: "Are you sure?",
+		html: "<div class=\"swal-modal-text\">You're about to mark " + messageIds.length + (messageIds.length > 1 ? " Messages" : " Message") + " as " + action + ".</div>",
+		type: "warning",
+		showCancelButton: true,
+		cancelButtonClass: "modal-button button--cancel",
+		confirmButtonText: text,
+		confirmButtonClass: css,
+		confirmButtonColor: color,
+		reverseButtons: true,
+		customClass: "swal-modal"
+	}).then((response) => {
+		if (response && response.value) {
+			messageIds.forEach((messageId) => {
+				Meteor.call("messages.update", messageId, { answered });
+			});
+		}
+	});
+};
+
+/**
+ * Shows a confirmation dialog warning the user that they are about to delete or hide one or more Tournaments from the TournamentList.
+ *
+ * @param messageIds the tournaments the user is going to delete
  */
 
 const showDeletionAlert = (messageIds) => {
 	swal({
 		titleText: "Are you sure?",
-		html: "<div class=\"swal-modal-text\">You're about to delete \" + messageIds.length + (messageIds.length > 1 ? \" Messages.\" : \" Message.\") + \"</div>",
+		html: "<div class=\"swal-modal-text\">You're about to delete " + messageIds.length + (messageIds.length > 1 ? " Messages" : " Message") + ".</div>",
 		type: "warning",
 		showCancelButton: true,
 		cancelButtonClass: "modal-button button--cancel",
@@ -101,8 +162,8 @@ const showDeletionAlert = (messageIds) => {
  */
 
 MessageListHeader.propTypes = {
-	meteorCall: PropTypes.func.isRequired,
-	Session: PropTypes.object.isRequired
+	meteorCall: PropTypes.func,
+	Session: PropTypes.object
 };
 
 /**
@@ -111,8 +172,6 @@ MessageListHeader.propTypes = {
 
 export default createContainer(() => {
 	return {
-		browserHistory,
-		meteorCall: Meteor.call,
-		Session
+
 	};
 }, MessageListHeader);

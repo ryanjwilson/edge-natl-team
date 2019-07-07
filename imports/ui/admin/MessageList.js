@@ -10,7 +10,7 @@ import MessageListHeader from "./MessageListHeader";
 import { Messages } from "../../api/messages";
 
 /**
- * A component that renders a list of Message components.
+ * A component that renders a list of Messages.
  */
 
 export class MessageList extends React.Component {
@@ -60,7 +60,7 @@ export class MessageList extends React.Component {
 }
 
 /**
- * Refreshes the session variables responsible for storing which messages are currently selected. This is done to
+ * Refreshes the Session variables responsible for storing which messages are currently selected. This is done to
  * reflect changes in list filtering.
  *
  * @param messages the original list of messages before filtering
@@ -97,14 +97,14 @@ const refreshMessageIds = (messages) => {
 /**
  * Determines if two messages are logically equivalent.
  *
- * @param prevMsg the previous message
- * @param nextMsg the next message
- * @returns true if the messages are logically equivalent; false otherwise
+ * @param prevMessage the previous message
+ * @param nextMessage the next message
+ * @returns true if the message are logically equivalent; false otherwise
  */
 
-const isEquivalent = (prevMsg, nextMsg) => {
-	const prevProps = Object.getOwnPropertyNames(prevMsg);
-	const nextProps = Object.getOwnPropertyNames(nextMsg);
+const isEquivalent = (prevMessage, nextMessage) => {
+	const prevProps = Object.getOwnPropertyNames(prevMessage);
+	const nextProps = Object.getOwnPropertyNames(nextMessage);
 
 	if (prevProps.length !== nextProps.length) {
 		return false;
@@ -113,7 +113,7 @@ const isEquivalent = (prevMsg, nextMsg) => {
 	for (let i = 0; i < prevProps.length; i++) {
 		const propName = prevProps[i];
 
-		if (prevMsg[propName] !== nextMsg[propName]) {
+		if (prevMessage[propName] !== nextMessage[propName]) {
 			return false;
 		}
 	}
@@ -138,19 +138,41 @@ export default createContainer(() => {
 
 	const selectedMessageId = Session.get("selectedMessageId");
 	const multiselectedMessageIds = Session.get("multiselectedMessageIds");
+	const showAnswered = Session.get("showAnsweredFilter");
+	const showUnanswered = Session.get("showUnansweredFilter");
 
-	// conditionally query the messages collection based on the filter
+	// conditionally query the tournaments collection based on the filter
 	// selections made by the user.
 
-	return {
-		messages: Messages.find({}, {
-			sort: { order: 1 }
-		}).fetch().map((message) => {   // show all messages
-			return {
-				...message,
-				selected: message._id === selectedMessageId,
-				multiselected: multiselectedMessageIds.includes(message._id)
-			};
-		})
-	};
+	if (showAnswered && showUnanswered) {
+		return {
+			messages: Messages.find({}, {
+				sort: { order: 1 }
+			}).fetch().map((message) => {   // show all messages
+				return {
+					...message,
+					selected: message._id === selectedMessageId,
+					multiselected: multiselectedMessageIds.includes(message._id)
+				};
+			})
+		};
+	} else if (showAnswered || showUnanswered) {
+		return {
+			messages: Messages.find({
+				published: showAnswered
+			}, {
+					sort: { order: 1 }
+				}).fetch().map((message) => {    // show only published or unpublished tournaments
+					return {
+						...message,
+						selected: message._id === selectedMessageId,
+						multiselected: multiselectedMessageIds.includes(message._id)
+					};
+				})
+		};
+	} else {
+		return {
+			messages: []
+		};
+	}
 }, MessageList);

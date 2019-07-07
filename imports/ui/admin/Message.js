@@ -4,7 +4,7 @@ import { PropTypes } from "prop-types";
 import { Session } from "meteor/session";
 
 /**
- * A component that represents a single Message in the Message.
+ * A component that represents a single Message in the MessageList.
  */
 
 export class Message extends React.Component {
@@ -12,12 +12,7 @@ export class Message extends React.Component {
 		super(props);
 
 		this.state = {
-            _id: props.message._id,
-			sender: props.message.sender,
-            email: props.message.email,
-            phone: props.message.phone,
-            body: props.message.body,
-			responded: props.message.responded,
+			message: props.message,
 			css: props.message.selected || props.message.multiselected ? "item item--selected" : "item"
 		};
 
@@ -25,7 +20,13 @@ export class Message extends React.Component {
 	}
 
 	componentWillReceiveProps(nextProps) {
-		this.setState({ css: nextProps.message.selected || nextProps.message.multiselected ? "item item--selected" : "item", ...nextProps.message });
+		if (this.props.message._id !== nextProps.message._id) this.setState({ message: nextProps.message });
+
+		if (this.props.message.selected !== nextProps.message.selected || this.props.message.multiselected !== nextProps.message.multiselected) {
+			this.setState({ css: nextProps.message.selected || nextProps.message.multiselected ? "item item--selected" : "item" });
+		}
+
+		this.setState({ message: nextProps.message });
 	}
 
 	onMessageSelect(e) {
@@ -37,20 +38,20 @@ export class Message extends React.Component {
 		}
 
 		if (e.metaKey) {
-			if (!ids.includes(this.state._id)) {
-				ids.push(this.state._id);
+			if (!ids.includes(this.state.message._id)) {
+				ids.push(this.state.message._id);
 			}
 
 			if (ids.length === 1) {
-				Session.set("selectedMessageId", this.state._id);
+				Session.set("selectedMessageId", this.state.message._id);
 			} else {
 				Session.set("selectedMessageId", undefined);
 			}
 		} else {
 			ids = [];
-			ids.push(this.state._id);
+			ids.push(this.state.message._id);
 
-			Session.set("selectedMessageId", this.state._id);
+			Session.set("selectedMessageId", this.state.message._id);
 		}
 		Session.set("multiselectedMessageIds", ids);
 	}
@@ -59,10 +60,10 @@ export class Message extends React.Component {
 		return (
 			<div id="message" className={this.state.css} onClick={this.onMessageSelect}>
 				<div className="item__text">
-					<h5 className="item__title">{this.state.sender || "Unknown Sender"}</h5>
-					<p className="item__subtitle">{this.state.body || "Message"}</p>
+					<h5 className="item__title">{this.state.message.sender || "Unknown Sender"}</h5>
+					<p className="item__subtitle">{this.state.message.body || "Message"}</p>
 				</div>
-				{this.state.responded ? <div className="item__status-icon"><img src="/images/published-icon.svg" /></div> : undefined}
+				{this.state.message.answered ? <div className="item__status-icon"><img src="/images/published-icon.svg" /></div> : undefined}
 			</div>
 		);
 	}
