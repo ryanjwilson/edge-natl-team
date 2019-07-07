@@ -140,7 +140,8 @@ export class Event extends React.Component {
 
 Event.propTypes = {
 	event: PropTypes.object.isRequired,
-	isLastEvent: PropTypes.bool.isRequired
+	isLastEvent: PropTypes.bool.isRequired,
+	isSidebarOpen: PropTypes.bool
 };
 
 /**
