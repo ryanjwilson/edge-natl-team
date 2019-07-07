@@ -8,7 +8,7 @@ import { Session } from "meteor/session";
 import { Teams } from "../../api/teams";
 
 /**
- * A component provides fields to enter tournament details to be later displayed on the public Schedule.
+ * A component that represents an editor to enter, modify, or a view Team information.
  */
 
 export class TeamEditor extends React.Component {
@@ -49,14 +49,14 @@ export class TeamEditor extends React.Component {
 		const name = e.target.value;
 
 		this.setState({ name });
-		this.props.call("teams.update", this.props.team._id, { name });
+		Meteor.call("teams.update", this.props.team._id, { name });
 	}
 
 	onOrderChange(e) {
 		const order = Number(e.target.value);
 
 		this.setState({ order });
-		this.props.call("teams.update", this.props.team._id, { order });
+		Meteor.call("teams.update", this.props.team._id, { order });
 	}
 
 	onWrestlerChange(weight, e) {
@@ -65,7 +65,7 @@ export class TeamEditor extends React.Component {
 		roster[index].wrestler = e.target.value;
 
 		this.setState({ roster });
-		this.props.call("teams.update", this.props.team._id, { roster });
+		Meteor.call("teams.update", this.props.team._id, { roster });
 	}
 
 	onRoleSelection(weight, e) {
@@ -76,7 +76,7 @@ export class TeamEditor extends React.Component {
 		roster[index].role = e.target.value;
 
 		this.setState({ roster });
-		this.props.call("teams.update", this.props.team._id, { roster });
+		Meteor.call("teams.update", this.props.team._id, { roster });
 	}
 
 	onStatusSelection(weight, e) {
@@ -87,7 +87,7 @@ export class TeamEditor extends React.Component {
 		roster[index].status = e.target.value;
 
 		this.setState({ roster });
-		this.props.call("teams.update", this.props.team._id, { roster });
+		Meteor.call("teams.update", this.props.team._id, { roster });
 	}
 
 	render() {
@@ -164,7 +164,6 @@ export class TeamEditor extends React.Component {
 TeamEditor.propTypes = {
 	team: PropTypes.object,
 	selectedTeamId: PropTypes.string,
-	call: PropTypes.func.isRequired,
 	browserHistory: PropTypes.object.isRequired
 };
 
@@ -173,12 +172,9 @@ TeamEditor.propTypes = {
  */
 
 export default createContainer(() => {
-	const selectedTeamId = Session.get("selectedTeamId");
-
 	return {
-		selectedTeamId,
 		team: Teams.findOne(selectedTeamId),
-		call: Meteor.call,
+		selectedTeamId: Session.get("selectedTeamId"),
 		browserHistory
 	};
 }, TeamEditor);

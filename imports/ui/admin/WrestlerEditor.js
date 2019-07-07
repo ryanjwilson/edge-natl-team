@@ -8,7 +8,7 @@ import { Session } from "meteor/session";
 import { Wrestlers } from "../../api/wrestlers";
 
 /**
- * A component that represents an editor to enter a Wrestler"s information.
+ * A component that represents an editor to enter, modify, or a view Wrestler information.
  */
 
 export class WrestlerEditor extends React.Component {
@@ -65,7 +65,7 @@ export class WrestlerEditor extends React.Component {
 
 		parents.push({ name: "", valid: false });
 		this.setState({ parents });
-		this.props.call("wrestlers.update", this.props.wrestler._id, { parents });
+		Meteor.call("wrestlers.update", this.props.wrestler._id, { parents });
 	}
 
 	onDeleteParent(index) {
@@ -73,7 +73,7 @@ export class WrestlerEditor extends React.Component {
 
 		parents.splice(index, 1);
 		this.setState({ parents });
-		this.props.call("wrestlers.update", this.props.wrestler._id, { parents });
+		Meteor.call("wrestlers.update", this.props.wrestler._id, { parents });
 	}
 
 	onAddEmail() {
@@ -81,7 +81,7 @@ export class WrestlerEditor extends React.Component {
 
 		emails.push({ text: "", valid: false });
 		this.setState({ emails });
-		this.props.call("wrestlers.update", this.props.wrestler._id, { emails });
+		Meteor.call("wrestlers.update", this.props.wrestler._id, { emails });
 	}
 
 	onDeleteEmail(index) {
@@ -89,7 +89,7 @@ export class WrestlerEditor extends React.Component {
 
 		emails.splice(index, 1);
 		this.setState({ emails });
-		this.props.call("wrestlers.update", this.props.wrestler._id, { emails });
+		Meteor.call("wrestlers.update", this.props.wrestler._id, { emails });
 	}
 
 	onAddPhone() {
@@ -97,7 +97,7 @@ export class WrestlerEditor extends React.Component {
 
 		phones.push({ number: "", valid: false });
 		this.setState({ phones });
-		this.props.call("wrestlers.update", this.props.wrestler._id, { phones });
+		Meteor.call("wrestlers.update", this.props.wrestler._id, { phones });
 	}
 
 	onDeletePhone(index) {
@@ -105,7 +105,7 @@ export class WrestlerEditor extends React.Component {
 
 		phones.splice(index, 1);
 		this.setState({ phones });
-		this.props.call("wrestlers.update", this.props.wrestler._id, { phones });
+		Meteor.call("wrestlers.update", this.props.wrestler._id, { phones });
 	}
 
 	onApplicationSelect(e) {
@@ -122,28 +122,28 @@ export class WrestlerEditor extends React.Component {
 		const name = e.target.value;
 
 		this.setState({ name });
-		this.props.call("wrestlers.update", this.props.wrestler._id, { name });
+		Meteor.call("wrestlers.update", this.props.wrestler._id, { name });
 	}
 
 	onDobChange(e) {
 		const dob = e.target.value;
 
 		this.setState({ dob });
-		this.props.call("wrestlers.update", this.props.wrestler._id, { dob });
+		Meteor.call("wrestlers.update", this.props.wrestler._id, { dob });
 	}
 
 	onGradeChange(e) {
 		const grade = e.target.value;
 
 		this.setState({ grade });
-		this.props.call("wrestlers.update", this.props.wrestler._id, { grade });
+		Meteor.call("wrestlers.update", this.props.wrestler._id, { grade });
 	}
 
 	onWeightChange(e) {
 		const weight = e.target.value;
 
 		this.setState({ weight });
-		this.props.call("wrestlers.update", this.props.wrestler._id, { weight });
+		Meteor.call("wrestlers.update", this.props.wrestler._id, { weight });
 	}
 
 	onParentChange(index, e) {
@@ -151,7 +151,7 @@ export class WrestlerEditor extends React.Component {
 
 		parents[index] = { name: e.target.value, valid: true };
 		this.setState({ parents });
-		this.props.call("wrestlers.update", this.props.wrestler._id, { parents });
+		Meteor.call("wrestlers.update", this.props.wrestler._id, { parents });
 	}
 
 	onEmailChange(index, e) {
@@ -159,7 +159,7 @@ export class WrestlerEditor extends React.Component {
 
 		emails[index] = { text: e.target.value, valid: true };
 		this.setState({ emails });
-		this.props.call("wrestlers.update", this.props.wrestler._id, { emails });
+		Meteor.call("wrestlers.update", this.props.wrestler._id, { emails });
 	}
 
 	onPhoneChange(index, e) {
@@ -167,7 +167,7 @@ export class WrestlerEditor extends React.Component {
 
 		phones[index] = { number: e.target.value, valid: true };
 		this.setState({ phones });
-		this.props.call("wrestlers.update", this.props.wrestler._id, { phones });
+		Meteor.call("wrestlers.update", this.props.wrestler._id, { phones });
 	}
 
 	onToggleEditApplication() {
@@ -329,7 +329,6 @@ export class WrestlerEditor extends React.Component {
 WrestlerEditor.propTypes = {
 	wrestler: PropTypes.object,
 	selectedWrestlerId: PropTypes.string,
-	call: PropTypes.func.isRequired,
 	browserHistory: PropTypes.object.isRequired
 };
 
@@ -338,12 +337,9 @@ WrestlerEditor.propTypes = {
  */
 
 export default createContainer(() => {
-	const selectedWrestlerId = Session.get("selectedWrestlerId");
-
 	return {
-		selectedWrestlerId,
 		wrestler: Wrestlers.findOne(selectedWrestlerId),
-		call: Meteor.call,
+		selectedWrestlerId: Session.get("selectedWrestlerId"),
 		browserHistory
 	};
 }, WrestlerEditor);

@@ -8,7 +8,7 @@ import { Session } from "meteor/session";
 import { Tournaments } from "../../api/tournaments";
 
 /**
- * A component that provides fields to enter tournament details to be later displayed on the public Schedule.
+ * A component that represents an editor to enter, modify, or a view Tournament information.
  */
 
 export class TournamentEditor extends React.Component {
@@ -55,8 +55,6 @@ export class TournamentEditor extends React.Component {
 		const currTournamentId = this.props.tournament ? this.props.tournament._id : undefined;
 		const prevTournamentId = prevProps.tournament ? prevProps.tournament._id : undefined;
 
-		// update state unless the current and previous tournaments are the same
-
 		if (currTournamentId && currTournamentId !== prevTournamentId) {
 			this.setState({ ...this.props.tournament });
 		}
@@ -72,7 +70,7 @@ export class TournamentEditor extends React.Component {
 			teams: 1
 		});
 		this.setState({ divisions });
-		this.props.call("tournaments.update", this.props.tournament._id, { divisions });
+		Meteor.call("tournaments.update", this.props.tournament._id, { divisions });
 	}
 
 	onDeleteDivision(index) {
@@ -80,56 +78,56 @@ export class TournamentEditor extends React.Component {
 
 		divisions.splice(index, 1);
 		this.setState({ divisions });
-		this.props.call("tournaments.update", this.props.tournament._id, { divisions });
+		Meteor.call("tournaments.update", this.props.tournament._id, { divisions });
 	}
 
 	onNameChange(e) {
 		const name = e.target.value;
 
 		this.setState({ name });
-		this.props.call("tournaments.update", this.props.tournament._id, { name });
+		Meteor.call("tournaments.update", this.props.tournament._id, { name });
 	}
 
 	onLocationChange(e) {
 		const location = e.target.value;
 
 		this.setState({ location });
-		this.props.call("tournaments.update", this.props.tournament._id, { location });
+		Meteor.call("tournaments.update", this.props.tournament._id, { location });
 	}
 
 	onStartDateChange(e) {
 		const startDate = e.target.value;
 
 		this.setState({ startDate });
-		this.props.call("tournaments.update", this.props.tournament._id, { startDate });
+		Meteor.call("tournaments.update", this.props.tournament._id, { startDate });
 	}
 
 	onEndDateChange(e) {
 		const endDate = e.target.value;
 
 		this.setState({ endDate });
-		this.props.call("tournaments.update", this.props.tournament._id, { endDate });
+		Meteor.call("tournaments.update", this.props.tournament._id, { endDate });
 	}
 
 	onWeighinsChange(e) {
 		const weighins = e.target.value;
 
 		this.setState({ weighins });
-		this.props.call("tournaments.update", this.props.tournament._id, { weighins });
+		Meteor.call("tournaments.update", this.props.tournament._id, { weighins });
 	}
 
 	onAlternateWeighinsChange(e) {
 		const alternateWeighins = e.target.value;
 
 		this.setState({ alternateWeighins });
-		this.props.call("tournaments.update", this.props.tournament._id, { alternateWeighins });
+		Meteor.call("tournaments.update", this.props.tournament._id, { alternateWeighins });
 	}
 
 	onOrderChange(e) {
 		const order = Number(e.target.value);
 
 		this.setState({ order });
-		this.props.call("tournaments.update", this.props.tournament._id, { order });
+		Meteor.call("tournaments.update", this.props.tournament._id, { order });
 	}
 
 	onDivisionChange(index, e) {
@@ -137,7 +135,7 @@ export class TournamentEditor extends React.Component {
 
 		divisions[index].name = e.target.value;
 		this.setState({ divisions });
-		this.props.call("tournaments.update", this.props.tournament._id, { divisions });
+		Meteor.call("tournaments.update", this.props.tournament._id, { divisions });
 	}
 
 	onWeightClassesChange(index, e) {
@@ -146,7 +144,7 @@ export class TournamentEditor extends React.Component {
 
 		divisions[index].weightClasses = weightClasses;
 		this.setState({ divisions });
-		this.props.call("tournaments.update", this.props.tournament._id, { divisions });
+		Meteor.call("tournaments.update", this.props.tournament._id, { divisions });
 	}
 
 	onAllowanceChange(index, e) {
@@ -155,7 +153,7 @@ export class TournamentEditor extends React.Component {
 
 		divisions[index].allowance = allowance;
 		this.setState({ divisions });
-		this.props.call("tournaments.update", this.props.tournament._id, { divisions });
+		Meteor.call("tournaments.update", this.props.tournament._id, { divisions });
 	}
 
 	onTeamsChange(index, e) {
@@ -164,7 +162,7 @@ export class TournamentEditor extends React.Component {
 
 		divisions[index].teams = teams;
 		this.setState({ divisions });
-		this.props.call("tournaments.update", this.props.tournament._id, { divisions });
+		Meteor.call("tournaments.update", this.props.tournament._id, { divisions });
 	}
 
 	render() {
@@ -244,7 +242,6 @@ export class TournamentEditor extends React.Component {
 TournamentEditor.propTypes = {
 	tournament: PropTypes.object,
 	selectedTournamentId: PropTypes.string,
-	call: PropTypes.func.isRequired,
 	browserHistory: PropTypes.object.isRequired
 };
 
@@ -253,12 +250,9 @@ TournamentEditor.propTypes = {
  */
 
 export default createContainer(() => {
-	const selectedTournamentId = Session.get("selectedTournamentId");
-
 	return {
-		selectedTournamentId,
 		tournament: Tournaments.findOne(selectedTournamentId),
-		call: Meteor.call,
+		selectedTournamentId: Session.get("selectedTournamentId"),
 		browserHistory
 	};
 }, TournamentEditor);

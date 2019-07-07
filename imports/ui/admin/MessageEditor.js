@@ -8,7 +8,7 @@ import { Session } from "meteor/session";
 import { Messages } from "../../api/messages";
 
 /**
- * A component that provides fields to enter tournament details to be later displayed on the public Schedule.
+ * A component that represents an editor to enter, modify, or a view Message information.
  */
 
 export class MessageEditor extends React.Component {
@@ -80,9 +80,8 @@ export class MessageEditor extends React.Component {
  */
 
 MessageEditor.propTypes = {
-	tournament: PropTypes.object,
-	selectedTournamentId: PropTypes.string,
-	call: PropTypes.func.isRequired,
+	message: PropTypes.object,
+	selectedMessageId: PropTypes.string,
 	browserHistory: PropTypes.object.isRequired
 };
 
@@ -91,12 +90,9 @@ MessageEditor.propTypes = {
  */
 
 export default createContainer(() => {
-	const selectedMessageId = Session.get("selectedMessageId");
-
 	return {
-		selectedMessageId,
 		message: Messages.findOne(selectedMessageId),
-		call: Meteor.call,
+		selectedMessageId: Session.get("selectedMessageId"),
 		browserHistory
 	};
 }, MessageEditor);
