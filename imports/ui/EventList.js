@@ -99,10 +99,10 @@ export default createContainer(() => {
 	const tournaments = Tournaments.find({
 		published: true
 	}, {
-			sort: { order: 1 }
-		}).fetch().map((tournament) => {
-			return { ...tournament };
-		});
+		sort: { order: 1 }
+	}).fetch().map((tournament) => {
+		return { ...tournament };
+	});
 
 	const teams = Teams.find({}, {
 		sort: { order: 1 }
