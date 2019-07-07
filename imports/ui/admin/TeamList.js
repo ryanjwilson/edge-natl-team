@@ -10,7 +10,7 @@ import TeamListHeader from "./TeamListHeader";
 import { Teams } from "../../api/teams";
 
 /**
- * A component that renders a list of Team components.
+ * A component that renders a list of Teams.
  */
 
 export class TeamList extends React.Component {
@@ -139,13 +139,13 @@ export default createContainer(() => {
 	const selectedTeamId = Session.get("selectedTeamId");
 	const multiselectedTeamIds = Session.get("multiselectedTeamIds");
 
-	// conditionally query the tournaments collection based on the filter
+	// conditionally query the teams collection based on the filter
 	// selections made by the user.
 
 	return {
 		teams: Teams.find({}, {
 			sort: { order: 1 }
-		}).fetch().map((team) => {   // show all tournaments
+		}).fetch().map((team) => {
 			return {
 				...team,
 				selected: team._id === selectedTeamId,

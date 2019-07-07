@@ -141,14 +141,14 @@ export default createContainer(() => {
 	const showAnswered = Session.get("showAnsweredFilter");
 	const showUnanswered = Session.get("showUnansweredFilter");
 
-	// conditionally query the tournaments collection based on the filter
+	// conditionally query the messages collection based on the filter
 	// selections made by the user.
 
 	if (showAnswered && showUnanswered) {
 		return {
 			messages: Messages.find({}, {
 				sort: { order: 1 }
-			}).fetch().map((message) => {   // show all messages
+			}).fetch().map((message) => {
 				return {
 					...message,
 					selected: message._id === selectedMessageId,
@@ -162,7 +162,7 @@ export default createContainer(() => {
 				published: showAnswered
 			}, {
 					sort: { order: 1 }
-				}).fetch().map((message) => {    // show only published or unpublished tournaments
+				}).fetch().map((message) => {
 					return {
 						...message,
 						selected: message._id === selectedMessageId,

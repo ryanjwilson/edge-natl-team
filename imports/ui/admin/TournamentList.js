@@ -148,7 +148,7 @@ export default createContainer(() => {
 		return {
 			tournaments: Tournaments.find({}, {
 				sort: { order: 1 }
-			}).fetch().map((tournament) => {   // show all tournaments
+			}).fetch().map((tournament) => {
 				return {
 					...tournament,
 					selected: tournament._id === selectedTournamentId,
@@ -162,7 +162,7 @@ export default createContainer(() => {
 				published: showPublished
 			}, {
 					sort: { order: 1 }
-				}).fetch().map((tournament) => {    // show only published or unpublished tournaments
+				}).fetch().map((tournament) => {
 					return {
 						...tournament,
 						selected: tournament._id === selectedTournamentId,
