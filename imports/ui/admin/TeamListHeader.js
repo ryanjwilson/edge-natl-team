@@ -11,7 +11,7 @@ import TeamListFilters from "./TeamListFilters";
 import TeamListHeaderFilters from "./TeamListHeaderFilters";
 
 /**
- * A component that represents a fixture above the TeamList. It contains buttons for adding, showing, hiding, and
+ * A component that represents a fixture above the TeamList. It contains buttons for adding, showing, hiding, or
  * deleting one or more Teams, as well as the TeamListFilters.
  */
 
@@ -205,22 +205,11 @@ const showDeletionAlert = (teamIds) => {
 };
 
 /**
- * Property types for this component.
- */
-
-TeamListHeader.propTypes = {
-	meteorCall: PropTypes.func.isRequired,
-	Session: PropTypes.object.isRequired
-};
-
-/**
  * Containerizes this component.
  */
 
 export default createContainer(() => {
 	return {
-		browserHistory,
-		meteorCall: Meteor.call,
-		Session
+
 	};
 }, TeamListHeader);

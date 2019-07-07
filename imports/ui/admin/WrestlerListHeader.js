@@ -9,8 +9,8 @@ import swal from "sweetalert2";
 import WrestlerListFilters from "./WrestlerListFilters";
 
 /**
- * A component that represents a fixture above the WrestlerList. It contains buttons for adding, showing, hiding, and
- * deleting one or more Wrestlers, as well as the WrestlerListFilters.
+ * A component that represents a fixture above the WrestlerList. It contains buttons for adding, merging, or deleting
+ * one or more Wrestlers, as well as the WrestlerListFilters.
  */
 
 export class WrestlerListHeader extends React.Component {
@@ -22,17 +22,17 @@ export class WrestlerListHeader extends React.Component {
 	}
 
 	onAddWrestler() {
-		this.props.Session.set("multiselectedWrestlerIds", []);      // clear multiselect list
+		Session.set("multiselectedWrestlerIds", []);      // clear multiselect list
 
-		this.props.meteorCall("wrestlers.insert", (err, res) => {
+		Meteor.call("wrestlers.insert", (err, res) => {
 			if (res) {
-				this.props.Session.set("selectedWrestlerId", res);
+				Session.set("selectedWrestlerId", res);
 			}
 		});
 	}
 
 	onDeleteWrestlers() {
-		const wrestlerIds = this.props.Session.get("multiselectedWrestlerIds");
+		const wrestlerIds = Session.get("multiselectedWrestlerIds");
 
 		if (wrestlerIds.length === 0) {
 			swal({
@@ -58,10 +58,10 @@ export class WrestlerListHeader extends React.Component {
 			}).then((response) => {
 				if (response && response.value) {
 					wrestlerIds.forEach((wrestlerId) => {
-						this.props.meteorCall("wrestlers.remove", wrestlerId);
+						Meteor.call("wrestlers.remove", wrestlerId);
 					});
 
-					this.props.browserHistory.push("/wrestlers");
+					browserHistory.push("/wrestlers");
 				}
 			});
 		}
@@ -82,22 +82,11 @@ export class WrestlerListHeader extends React.Component {
 }
 
 /**
- * Property types for this component.
- */
-
-WrestlerListHeader.propTypes = {
-	meteorCall: PropTypes.func.isRequired,
-	Session: PropTypes.object.isRequired
-};
-
-/**
  * Containerizes this component.
  */
 
 export default createContainer(() => {
 	return {
-		browserHistory,
-		meteorCall: Meteor.call,
-		Session
+
 	};
 }, WrestlerListHeader);

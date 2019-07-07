@@ -9,8 +9,8 @@ import swal from "sweetalert2";
 import MessageListFilters from "./MessageListFilters";
 
 /**
- * A component that represents a fixture above the TournamentList. It contains buttons for adding, showing, hiding, and
- * deleting one or more Tournaments, as well as the TournamentListFilters.
+ * A component that represents a fixture above the MessageList. It contains buttons for answering, unanswering, or
+ * deleting one or more Messages, as well as the MessageListFilters.
  */
 
 export class MessageListHeader extends React.Component {
@@ -155,15 +155,6 @@ const showDeletionAlert = (messageIds) => {
 			browserHistory.push("/messages");
 		}
 	});
-};
-
-/**
- * Property types for this component.
- */
-
-MessageListHeader.propTypes = {
-	meteorCall: PropTypes.func,
-	Session: PropTypes.object
 };
 
 /**

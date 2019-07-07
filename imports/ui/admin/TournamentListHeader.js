@@ -9,7 +9,7 @@ import swal from "sweetalert2";
 import TournamentListFilters from "./TournamentListFilters";
 
 /**
- * A component that represents a fixture above the TournamentList. It contains buttons for adding, showing, hiding, and
+ * A component that represents a fixture above the TournamentList. It contains buttons for adding, showing, hiding, or
  * deleting one or more Tournaments, as well as the TournamentListFilters.
  */
 
@@ -173,15 +173,6 @@ const showDeletionAlert = (tournamentIds) => {
 			browserHistory.push("/tournaments");
 		}
 	});
-};
-
-/**
- * Property types for this component.
- */
-
-TournamentListHeader.propTypes = {
-	meteorCall: PropTypes.func,
-	Session: PropTypes.object
 };
 
 /**
