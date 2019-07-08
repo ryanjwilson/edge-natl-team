@@ -482,3 +482,36 @@
 .container__item-list-header {
 	padding-left: $default-space;
 }
+
+/// NOT FOUND //////////////////////////////////////////////////////////////////
+
+.container__not-found {
+	align-items: center;
+	display: flex;
+	justify-content: space-around;
+	flex-direction: column;
+
+	-webkit-overflow-scrolling: touch; // TODO - are there any other mobile-specific styles?
+
+	@include mobile {
+		height: auto;
+		overflow-y: visible;
+	}
+}
+
+.container__error-title {
+	color: $edge-red;
+	font-family: "Montserrat", sans-serif;
+	font-size: 2.4rem;
+	font-weight: bold;
+	line-height: 5rem;
+	text-align: left !important;
+}
+
+.container__error-subtitle {
+	color: $edge-red;
+	font-family: "Montserrat", sans-serif;
+	font-size: 2.1rem;
+	line-height: 5rem;
+	margin-top: -3rem;
+}
