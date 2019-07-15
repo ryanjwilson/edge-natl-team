@@ -132,7 +132,7 @@ export class TeamListHeader extends React.Component {
  */
 
 const showInvalidSelectionAlert = (action, color, css) => {
-	swal({
+	swal.fire({
 		titleText: "No Team Selected",
 		html: "<div class=\"swal-modal-text\">You'll need to select at least one Team to " + action + ".</div>",
 		type: "info",
@@ -155,7 +155,7 @@ const showInvalidSelectionAlert = (action, color, css) => {
  */
 
 const showConfirmationAlert = (action, teamIds, text, css, color, published) => {
-	swal({
+	swal.fire({
 		titleText: "Are you sure?",
 		html: "<div class=\"swal-modal-text\">You're about to " + action + " " + teamIds.length + (teamIds.length > 1 ? " Teams." : " Team.") + "</div>",
 		type: "warning",
@@ -183,7 +183,7 @@ const showConfirmationAlert = (action, teamIds, text, css, color, published) => 
  */
 
 const showDeletionAlert = (teamIds) => {
-	swal({
+	swal.fire({
 		titleText: "Are you sure?",
 		html: "<div class=\"swal-modal-text\">You're about to delete " + teamIds.length + (teamIds.length > 1 ? " Teams." : " Team.") + "</div>",
 		type: "warning",

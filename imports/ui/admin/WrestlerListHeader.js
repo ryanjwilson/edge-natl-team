@@ -35,7 +35,7 @@ export class WrestlerListHeader extends React.Component {
 		const wrestlerIds = Session.get("multiselectedWrestlerIds");
 
 		if (wrestlerIds.length === 0) {
-			swal({
+			swal.fire({
 				titleText: "No Wrestler Selected",
 				html: "<div class=\"swal-modal-text\">You'll need to select at least one Wrestler to delete.</div>",
 				type: "info",
@@ -44,7 +44,7 @@ export class WrestlerListHeader extends React.Component {
 				customClass: "swal-modal"
 			});
 		} else {
-			swal({
+			swal.fire({
 				titleText: "Are you sure?",
 				html: "<div class=\"swal-modal-text\">You're about to delete " + wrestlerIds.length + (wrestlerIds.length > 1 ? " Wrestlers." : " Wrestler.") + "</div>",
 				type: "warning",

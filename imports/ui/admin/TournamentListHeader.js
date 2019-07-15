@@ -105,7 +105,7 @@ export class TournamentListHeader extends React.Component {
  */
 
 const showInvalidSelectionAlert = (action, color, css) => {
-	swal({
+	swal.fire({
 		titleText: "No Tournament Selected",
 		html: "<div class=\"swal-modal-text\">You'll need to select at least one Tournament to " + action + ".</div>",
 		type: "info",
@@ -127,7 +127,7 @@ const showInvalidSelectionAlert = (action, color, css) => {
  */
 
 const showConfirmationAlert = (action, tournamentIds, text, css, color, published) => {
-	swal({
+	swal.fire({
 		titleText: "Are you sure?",
 		html: "<div class=\"swal-modal-text\">You're about to " + action + " " + tournamentIds.length + (tournamentIds.length > 1 ? " Tournaments." : " Tournament.") + "</div>",
 		type: "warning",
@@ -154,7 +154,7 @@ const showConfirmationAlert = (action, tournamentIds, text, css, color, publishe
  */
 
 const showDeletionAlert = (tournamentIds) => {
-	swal({
+	swal.fire({
 		titleText: "Are you sure?",
 		html: "<div class=\"swal-modal-text\">You're about to delete " + tournamentIds.length + (tournamentIds.length > 1 ? " Tournaments." : " Tournament.") + "</div>",
 		type: "warning",

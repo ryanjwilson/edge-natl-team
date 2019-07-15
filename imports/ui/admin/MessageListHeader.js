@@ -87,7 +87,7 @@ export class MessageListHeader extends React.Component {
  */
 
 const showInvalidSelectionAlert = (action, color, css) => {
-	swal({
+	swal.fire({
 		titleText: "No Message Selected",
 		html: "<div class=\"swal-modal-text\">You'll need to select at least one Message to mark as " + action + ".</div>",
 		type: "info",
@@ -109,7 +109,7 @@ const showInvalidSelectionAlert = (action, color, css) => {
  */
 
 const showAnsweredDialog = (action, messageIds, text, css, color, answered) => {
-	swal({
+	swal.fire({
 		titleText: "Are you sure?",
 		html: "<div class=\"swal-modal-text\">You're about to mark " + messageIds.length + (messageIds.length > 1 ? " Messages" : " Message") + " as " + action + ".</div>",
 		type: "warning",
@@ -136,7 +136,7 @@ const showAnsweredDialog = (action, messageIds, text, css, color, answered) => {
  */
 
 const showDeletionAlert = (messageIds) => {
-	swal({
+	swal.fire({
 		titleText: "Are you sure?",
 		html: "<div class=\"swal-modal-text\">You're about to delete " + messageIds.length + (messageIds.length > 1 ? " Messages" : " Message") + ".</div>",
 		type: "warning",
