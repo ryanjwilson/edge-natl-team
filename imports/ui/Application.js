@@ -451,7 +451,7 @@ export class Application extends React.Component {
 						<input id="dob-field" name="dob" type="date" pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}" value={this.state.dob} placeholder="Date of Birth" onChange={this.onDobChange} />
 					</label>
 					<label>
-						<p>Grade (for 2019-2020)</p>
+						<p>Grade (for 2020-2021)</p>
 						<select id="grade-field" name="grade" value={this.state.grade} onChange={this.onGradeChange}>
 							<option value="">--Select Grade--</option>
 							<option value="0">Kindergarten</option>
