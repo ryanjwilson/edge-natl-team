@@ -14,86 +14,125 @@ import TournamentListFilters from "./TournamentListFilters";
  */
 
 export class TournamentListHeader extends React.Component {
-	constructor(props) {
-		super(props);
+  constructor(props) {
+    super(props);
 
-		this.state = {
+    this.state = {};
 
-		};
+    this.onAddTournament = this.onAddTournament.bind(this);
+    this.onShowTournaments = this.onShowTournaments.bind(this);
+    this.onHideTournaments = this.onHideTournaments.bind(this);
+    this.onDeleteTournaments = this.onDeleteTournaments.bind(this);
+  }
 
-		this.onAddTournament = this.onAddTournament.bind(this);
-		this.onShowTournaments = this.onShowTournaments.bind(this);
-		this.onHideTournaments = this.onHideTournaments.bind(this);
-		this.onDeleteTournaments = this.onDeleteTournaments.bind(this);
-	}
+  componentWillReceiveProps(nextProps) {}
 
-	componentWillReceiveProps(nextProps) {
+  onAddTournament() {
+    Session.set("multiselectedTournamentIds", []); // clear any previously multiselected tournaments
 
-	}
+    Meteor.call("tournaments.insert", (err, res) => {
+      if (res) Session.set("selectedTournamentId", res);
+    });
+  }
 
-	onAddTournament() {
-		Session.set("multiselectedTournamentIds", []);    // clear any previously multiselected tournaments
+  onShowTournaments() {
+    let tournamentIds = Session.get("multiselectedTournamentIds");
 
-		Meteor.call("tournaments.insert", (err, res) => {
-			if (res) Session.set("selectedTournamentId", res);
-		});
-	}
+    if (tournamentIds.length === 0 && Session.get("selectedTournamentId")) {
+      tournamentIds.push(Session.get("selectedTournamentId"));
+    }
 
-	onShowTournaments() {
-		let tournamentIds = Session.get("multiselectedTournamentIds");
+    if (tournamentIds.length === 0) {
+      showInvalidSelectionAlert(
+        "publish",
+        "#2e8b57",
+        "modal-button button--publish"
+      );
+    } else {
+      showConfirmationAlert(
+        "publish",
+        tournamentIds,
+        "Show",
+        "modal-button button--publish",
+        "#2e8b57",
+        true
+      );
+    }
+  }
 
-		if (tournamentIds.length === 0 && Session.get("selectedTournamentId")) {
-			tournamentIds.push(Session.get("selectedTournamentId"));
-		}
+  onHideTournaments() {
+    let tournamentIds = Session.get("multiselectedTournamentIds");
 
-		if (tournamentIds.length === 0) {
-			showInvalidSelectionAlert("publish", "#2e8b57", "modal-button button--publish");
-		} else {
-			showConfirmationAlert("publish", tournamentIds, "Show", "modal-button button--publish", "#2e8b57", true)
-		}
-	}
+    if (tournamentIds.length === 0 && Session.get("selectedTournamentId")) {
+      tournamentIds.push(Session.get("selectedTournamentId"));
+    }
 
-	onHideTournaments() {
-		let tournamentIds = Session.get("multiselectedTournamentIds");
+    if (tournamentIds.length === 0) {
+      showInvalidSelectionAlert(
+        "unpublish",
+        "#5a5a5a",
+        "modal-button button--unpublish"
+      );
+    } else {
+      showConfirmationAlert(
+        "unpublish",
+        tournamentIds,
+        "Hide",
+        "modal-button button--unpublish",
+        "#5a5a5a",
+        false
+      );
+    }
+  }
 
-		if (tournamentIds.length === 0 && Session.get("selectedTournamentId")) {
-			tournamentIds.push(Session.get("selectedTournamentId"));
-		}
+  onDeleteTournaments() {
+    let tournamentIds = Session.get("multiselectedTournamentIds");
 
-		if (tournamentIds.length === 0) {
-			showInvalidSelectionAlert("unpublish", "#5a5a5a", "modal-button button--unpublish");
-		} else {
-			showConfirmationAlert("unpublish", tournamentIds, "Hide", "modal-button button--unpublish", "#5a5a5a", false)
-		}
-	}
+    if (tournamentIds.length === 0 && Session.get("selectedTournamentId")) {
+      tournamentIds.push(Session.get("selectedTournamentId"));
+    }
 
-	onDeleteTournaments() {
-		let tournamentIds = Session.get("multiselectedTournamentIds");
+    if (tournamentIds.length === 0) {
+      showInvalidSelectionAlert(
+        "unpublish",
+        "#e64942",
+        "modal-button button--unpublish"
+      );
+    } else {
+      showDeletionAlert(tournamentIds);
+    }
+  }
 
-		if (tournamentIds.length === 0 && Session.get("selectedTournamentId")) {
-			tournamentIds.push(Session.get("selectedTournamentId"));
-		}
-
-		if (tournamentIds.length === 0) {
-			showInvalidSelectionAlert("unpublish", "#e64942", "modal-button button--unpublish");
-		} else {
-			showDeletionAlert(tournamentIds);
-		}
-	}
-
-	render() {
-		return (
-			<div className="item-list__header">
-				<button className="button--add" onClick={this.onAddTournament}>Add Tournament</button>
-				<div className="multiselect-group three">
-					<button className="button button--publish" onClick={this.onShowTournaments}>Show</button>
-					<button className="button button--unpublish" onClick={this.onHideTournaments}>Hide</button>
-					<button className="button button--delete" onClick={this.onDeleteTournaments}>Delete</button>
-				</div>
-				<TournamentListFilters />
-			</div>
-		);
-	}
+  render() {
+    return (
+      <div className="item-list__header">
+        <button className="button--add" onClick={this.onAddTournament}>
+          Add Tournament
+        </button>
+        <div className="multiselect-group three">
+          <button
+            className="button button--publish"
+            onClick={this.onShowTournaments}
+          >
+            Show
+          </button>
+          <button
+            className="button button--unpublish"
+            onClick={this.onHideTournaments}
+          >
+            Hide
+          </button>
+          <button
+            className="button button--delete"
+            onClick={this.onDeleteTournaments}
+          >
+            Delete
+          </button>
+        </div>
+        <TournamentListFilters />
+      </div>
+    );
+  }
 }
 
 /**
@@ -105,14 +144,17 @@ export class TournamentListHeader extends React.Component {
  */
 
 const showInvalidSelectionAlert = (action, color, css) => {
-	swal.fire({
-		titleText: "No Tournament Selected",
-		html: "<div class=\"swal-modal-text\">You'll need to select at least one Tournament to " + action + ".</div>",
-		type: "info",
-		confirmButtonColor: color,
-		confirmButtonClass: css,
-		customClass: "swal-modal"
-	});
+  swal.fire({
+    titleText: "No Tournament Selected",
+    html:
+      '<div class="swal-modal-text">You\'ll need to select at least one Tournament to ' +
+      action +
+      ".</div>",
+    type: "info",
+    confirmButtonColor: color,
+    confirmButtonClass: css,
+    customClass: "swal-modal",
+  });
 };
 
 /**
@@ -126,25 +168,40 @@ const showInvalidSelectionAlert = (action, color, css) => {
  * @param published true for publish actions; false for unpublish actions
  */
 
-const showConfirmationAlert = (action, tournamentIds, text, css, color, published) => {
-	swal.fire({
-		titleText: "Are you sure?",
-		html: "<div class=\"swal-modal-text\">You're about to " + action + " " + tournamentIds.length + (tournamentIds.length > 1 ? " Tournaments." : " Tournament.") + "</div>",
-		type: "warning",
-		showCancelButton: true,
-		cancelButtonClass: "modal-button button--cancel",
-		confirmButtonText: text,
-		confirmButtonClass: css,
-		confirmButtonColor: color,
-		reverseButtons: true,
-		customClass: "swal-modal"
-	}).then((response) => {
-		if (response && response.value) {
-			tournamentIds.forEach((tournamentId) => {
-				Meteor.call("tournaments.update", tournamentId, { published });
-			});
-		}
-	});
+const showConfirmationAlert = (
+  action,
+  tournamentIds,
+  text,
+  css,
+  color,
+  published
+) => {
+  swal
+    .fire({
+      titleText: "Are you sure?",
+      html:
+        '<div class="swal-modal-text">You\'re about to ' +
+        action +
+        " " +
+        tournamentIds.length +
+        (tournamentIds.length > 1 ? " Tournaments." : " Tournament.") +
+        "</div>",
+      type: "warning",
+      showCancelButton: true,
+      cancelButtonClass: "modal-button button--cancel",
+      confirmButtonText: text,
+      confirmButtonClass: css,
+      confirmButtonColor: color,
+      reverseButtons: true,
+      customClass: "swal-modal",
+    })
+    .then((response) => {
+      if (response && response.value) {
+        tournamentIds.forEach((tournamentId) => {
+          Meteor.call("tournaments.update", tournamentId, { published });
+        });
+      }
+    });
 };
 
 /**
@@ -154,25 +211,31 @@ const showConfirmationAlert = (action, tournamentIds, text, css, color, publishe
  */
 
 const showDeletionAlert = (tournamentIds) => {
-	swal.fire({
-		titleText: "Are you sure?",
-		html: "<div class=\"swal-modal-text\">You're about to delete " + tournamentIds.length + (tournamentIds.length > 1 ? " Tournaments." : " Tournament.") + "</div>",
-		type: "warning",
-		showCancelButton: true,
-		cancelButtonClass: "modal-button button--cancel",
-		confirmButtonText: "Delete",
-		confirmButtonClass: "modal-button button--delete",
-		confirmButtonColor: "#e64942",
-		reverseButtons: true,
-		customClass: "swal-modal"
-	}).then((response) => {
-		if (response && response.value) {
-			tournamentIds.forEach((tournamentId) => {
-				Meteor.call("tournaments.remove", tournamentId);
-			});
-			browserHistory.push("/tournaments");
-		}
-	});
+  swal
+    .fire({
+      titleText: "Are you sure?",
+      html:
+        '<div class="swal-modal-text">You\'re about to delete ' +
+        tournamentIds.length +
+        (tournamentIds.length > 1 ? " Tournaments." : " Tournament.") +
+        "</div>",
+      type: "warning",
+      showCancelButton: true,
+      cancelButtonClass: "modal-button button--cancel",
+      confirmButtonText: "Delete",
+      confirmButtonClass: "modal-button button--delete",
+      confirmButtonColor: "#e64942",
+      reverseButtons: true,
+      customClass: "swal-modal",
+    })
+    .then((response) => {
+      if (response && response.value) {
+        tournamentIds.forEach((tournamentId) => {
+          Meteor.call("tournaments.remove", tournamentId);
+        });
+        browserHistory.push("/tournaments");
+      }
+    });
 };
 
 /**
@@ -180,7 +243,5 @@ const showDeletionAlert = (tournamentIds) => {
  */
 
 export default createContainer(() => {
-	return {
-
-	};
+  return {};
 }, TournamentListHeader);

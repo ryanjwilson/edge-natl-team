@@ -6,10 +6,10 @@
  */
 
 .item-list {
-	overflow-y: scroll;
-	width: 100%;
+  overflow-y: scroll;
+  width: 100%;
 
-	-webkit-overflow-scrolling: touch; // TODO - are there any other mobile-specific styles?
+  -webkit-overflow-scrolling: touch; // TODO - are there any other mobile-specific styles?
 }
 
 /*
@@ -20,9 +20,9 @@
  */
 
 .item-list__header {
-	display: flex;
-	flex-direction: column;
-	padding: $default-space;
+  display: flex;
+  flex-direction: column;
+  padding: $default-space;
 }
 
 /*
@@ -33,13 +33,13 @@
  */
 
 .item {
-	border-left: $item-border-width solid transparent;
-	cursor: pointer;
-	display: flex;
-	flex-direction: row;
-	justify-content: space-between;
-	padding: $default-space;
-	transition: background-color 0.3s ease, border-left 0.3s ease;
+  border-left: $item-border-width solid transparent;
+  cursor: pointer;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: $default-space;
+  transition: background-color 0.3s ease, border-left 0.3s ease;
 }
 
 /*
@@ -47,8 +47,8 @@
  */
 
 .item:hover {
-	background-color: $light-gray;
-	border-left: $item-border-width solid $edge-gold;
+  background-color: $light-gray;
+  border-left: $item-border-width solid $edge-gold;
 }
 
 /*
@@ -57,8 +57,8 @@
 
 .item--selected,
 .item--selected:hover {
-	background-color: $light-gray;
-	border-left: $item-border-width solid $edge-red;
+  background-color: $light-gray;
+  border-left: $item-border-width solid $edge-red;
 }
 
 // .item--published, .item--published:hover {
@@ -75,9 +75,9 @@
  */
 
 .item__title {
-	font-weight: normal;
-	font-size: $base-font-size;
-	margin-bottom: 0.4rem;
+  font-weight: normal;
+  font-size: $base-font-size;
+  margin-bottom: 0.4rem;
 }
 
 /*
@@ -85,7 +85,7 @@
  */
 
 .item--selected .item__title {
-	font-weight: bold;
+  font-weight: bold;
 }
 
 /*
@@ -93,8 +93,8 @@
  */
 
 .item__subtitle {
-	color: $dark-gray;
-	margin: 0;
+  color: $dark-gray;
+  margin: 0;
 }
 
 /*
@@ -102,8 +102,8 @@
  */
 
 .item__status-icon {
-	display: flex;
-	align-items: center;
+  display: flex;
+  align-items: center;
 }
 
 /*
@@ -111,8 +111,8 @@
  */
 
 .item__status-icon img {
-	height: 2rem;
-	width: 2rem;
+  height: 2rem;
+  width: 2rem;
 }
 
 /*
@@ -120,7 +120,7 @@
  */
 
 .empty-item {
-	font-style: italic;
-	padding: $default-space;
-	text-align: center;
+  font-style: italic;
+  padding: $default-space;
+  text-align: center;
 }
