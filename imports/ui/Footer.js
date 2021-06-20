@@ -47,7 +47,7 @@ export class Footer extends React.Component {
       <div className="footer">
         <div className="footer__content">
           <div>
-            Copyright &copy; 2020{" "}
+            Copyright &copy; 2021{" "}
             <a
               className="footer__link"
               href="https://www.edgewrestling.com"
