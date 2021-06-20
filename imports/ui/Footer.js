@@ -83,7 +83,7 @@ export class Footer extends React.Component {
                 onMouseOut={this.onMouseOut}
               />
             </a>
-            <a href="https://www.instagram.com/edge_whippany/" target="_blank">
+            <a href="https://www.instagram.com/edge_wrestling/" target="_blank">
               <img
                 src={
                   this.state.hover[2]
